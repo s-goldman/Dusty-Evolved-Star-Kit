@@ -8,8 +8,6 @@ from functools import partial
 from astropy.units import astrophys
 from astropy.table import Table,Column
 from matplotlib import rc
-# import pyphot
-# from pyphot import Filter
 from scipy import interpolate
 from tqdm import tqdm
 
@@ -27,8 +25,6 @@ assumed_rgd = 200.0000
 # set variables
 targets = []
 target_names = []
-array_36 = []
-array_45 = []
 
 # solar constant = 1379 W
 # distance to sun in kpd 4.8483E-9
@@ -60,15 +56,9 @@ def get_models(dir):
         models.extend([dd+'/'+ll for ll in files]) # single within files
     return sorted(models)
 
-
 def get_dusty(file):
     xv, yv = np.loadtxt(file, usecols=[0,1],unpack=True)
     return np.array(xv), np.array(yv)
-
-def get_unattenuated_dusty(file):
-    xv, yv = np.loadtxt(file, usecols=[0,5],unpack=True)
-    return np.array(xv), np.array(yv)
-
 
 def get_supp_data(file):
     supp_array = Table(np.genfromtxt(file,delimiter=',', names=True))
@@ -203,16 +193,12 @@ for counter,target in enumerate(targets):
     print()
     print()
 
-    #np.savetxt('results'+target+'.txt',[ map(str,r) for r in sorted(results)],'%s')
-    
-
     #gets data for plotting
     f = lambda dd: np.vstack([dd[0],dd[1]*trials[trial_index]])
     x_model,y_model = f(get_dusty(model_names[model_index]))
-    x_unattenuated,y_unattenuated = f(get_unattenuated_dusty(model_names[model_index]))
     x_data,y_data = get_data(target)
     
-
+    #test
     #gets supplementary spectra
     bonus_spec=[]
     if os.path.exists('./supp_data/'):
