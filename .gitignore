@@ -55,6 +55,8 @@ distribute-*.tar.gz
 .project
 .pydevproject
 .settings
+desk/python_scripts/batch_dusty.py
+desk/python_scripts/rename_dusty.py
 
 # Mac OSX
 .DS_Store
