@@ -40,7 +40,7 @@ All of the important script files can be found in "/dusty-evolved-star-kit/pytho
 
 Just add the csv data files you want to fit to the *put_target_data_here* directory and run sed_fitting.py.
 
-<img src="dusty-evolved-star-kit/output_seds.png"  width="400" height="500">
+<img src="desk/output_seds.png"  width="400" height="500">
 
 Under development
 -----------------
