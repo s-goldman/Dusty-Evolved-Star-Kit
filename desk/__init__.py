@@ -4,6 +4,7 @@
 # should keep this content at the top.
 # ----------------------------------------------------------------------------
 from ._astropy_init import *
+from python_scripts import *
 # ----------------------------------------------------------------------------
 
 # Enforce Python version check during package import.
