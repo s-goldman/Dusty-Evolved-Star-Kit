@@ -1,0 +1,3 @@
+target_name,data_file,norm,index,grid_name,teff,tinner,number,odep,mdot,vexp
+04509-6922.csv,../put_target_data_here/04509-6922.csv,1.010900900900901e-12,5532,warm_silicates,3700,1400,33,0.745,7.82e-06,18.8
+05003-6712.csv,../put_target_data_here/05003-6712.csv,1.100900900900901e-13,545,warm_silicates,2800,1200,46,1.69,1.24e-05,12.9
