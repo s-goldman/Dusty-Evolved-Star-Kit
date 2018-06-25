@@ -10,6 +10,9 @@ In Development!
 
 <img src="docs/dust.jpg"  width="170" height="100">
 
+INSTALLING the DESK
+===================
+
 SED-fitting python scripts for fitting data from evolved stars (photometry or spectra) with DUSTY models. Package contains scripts for:
 1. Running DUSTY in a multiprocessing batch mode
 2. Converting the output from DUSTY to two fits files
@@ -35,8 +38,8 @@ Several grids are in the models directory (change using the model_grid variable)
 
 This will create two fits files containing all spectra (*directoryname*_models.fits), and all outputs (*directoryname*_outputs.fits).
 
-USING DESK
-==========
+USING the DESK
+==============
 
 All of the important script files can be found in "/dusty-evolved-star-kit/python_scripts"
 
