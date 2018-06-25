@@ -6,12 +6,12 @@ Dusty-Evolved-Star-Kit
 [![Coverage Status](https://coveralls.io/repos/github/s-goldman/Dusty-Evolved-Star-Kit/badge.svg?branch=master)](https://coveralls.io/github/s-goldman/Dusty-Evolved-Star-Kit?branch=master)
 [![arXiv paper](https://img.shields.io/badge/arXiv-1610.05761-orange.svg?style=flat)](https://arxiv.org/abs/1610.05761)
 
-In Development!
+Under Development!
 
 <img src="docs/dust.jpg"  width="170" height="100">
 
 INSTALLING the DESK
-===================
+-------------------
 
 SED-fitting python scripts for fitting data from evolved stars (photometry or spectra) with DUSTY models. Package contains scripts for:
 1. Running DUSTY in a multiprocessing batch mode
@@ -39,7 +39,7 @@ Several grids are in the models directory (change using the model_grid variable)
 This will create two fits files containing all spectra (*directoryname*_models.fits), and all outputs (*directoryname*_outputs.fits).
 
 USING the DESK
-==============
+--------------
 
 All of the important script files can be found in "/dusty-evolved-star-kit/python_scripts"
 
@@ -47,8 +47,6 @@ Just add the csv data files you want to fit to the *put_target_data_here* direct
 
 <img src="desk/output_seds.png"  width="400" height="500">
 
-Under development
------------------
 
 License
 -------
