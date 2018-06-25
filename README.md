@@ -10,7 +10,7 @@ Under Development!
 
 <img src="docs/dust.jpg"  width="170" height="100">
 
-SED-fitting python scripts for fitting data from evolved stars (photometry or spectra) with DUSTY models. Package contains scripts for:
+SED-fitting python scripts for fitting data from evolved stars (photometry or spectra) with [DUSTY](https://github.com/ivezic/dusty) 1-D radiative transfer models. Package contains scripts for:
 1. Running DUSTY in a multiprocessing batch mode
 2. Converting the output from DUSTY to two fits files
 3. Least square fitting of the models to data
@@ -60,5 +60,5 @@ Just add the csv data files you want to fit to the *put_target_data_here* direct
 License
 -------
 
-This project is Copyright (c) Dr. Steven Goldman and licensed under
+This project is Copyright (c) [Dr. Steven Goldman](http://www.stsci.edu/~sgoldman/) and licensed under
 the terms of the BSD 3-Clause license.
