@@ -36,17 +36,23 @@ Several grids are in the models directory (change using the model_grid variable)
 This will create two fits files containing all spectra (*directoryname*_models.fits), and all outputs (*directoryname*_outputs.fits).
 
 
-INSTALLING the DESK
+Installing the DESK
 -------------------
 
 The package is pip installable, just type `pip install desk` in any terminal. You can also clone the github repository using `git clone https://github.com/s-goldman/Dusty-Evolved-Star-Kit.git`. 
 
-USING the DESK
---------------
+
+Creating a model grid with DUSTY
+--------------------------------
+
+
+
+Fitting with the DESK
+----------------------
 
 All of the important script files can be found in "/dusty-evolved-star-kit/python_scripts"
 
-Just add the csv data files you want to fit to the *put_target_data_here* directory and run sed_fitting.py.
+Just add the csv data files you want to fit to the *put_target_data_here* directory, select your options (shown above) within the sed_fitting.py script, and then run sed_fitting.py in python.
 
 <img src="desk/output_seds.png"  width="400" height="500">
 
