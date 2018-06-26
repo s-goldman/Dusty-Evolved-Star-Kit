@@ -39,7 +39,7 @@ This will create two fits files containing all spectra (*directoryname*_models.f
 Installing the DESK
 -------------------
 
-The package is pip installable, just type `pip install desk -t <destination directory>` in any terminal. You can also clone the github repository using `git clone https://github.com/s-goldman/Dusty-Evolved-Star-Kit.git`. 
+The package is pip installable, just type `pip install desk` in any terminal. You can also clone the github repository using `git clone https://github.com/s-goldman/Dusty-Evolved-Star-Kit.git`. 
 
 
 Creating a model grid with DUSTY
