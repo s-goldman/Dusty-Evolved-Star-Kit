@@ -28,6 +28,7 @@
 import datetime
 import os
 import sys
+from recommonmark.parser import CommonMarkParser
 
 try:
     from sphinx_astropy.conf.v1 import *  # noqa
@@ -198,8 +199,6 @@ github_issues_url = 'https://github.com/{0}/issues/'.format(setup_cfg['github_pr
 #     dtype, target = line.split(None, 1)
 #     target = target.strip()
 #     nitpick_ignore.append((dtype, six.u(target)))
-
-from recommonmark.parser import CommonMarkParser
 
 source_parsers = {
     '.md': CommonMarkParser,
