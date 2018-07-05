@@ -35,6 +35,11 @@ Several grids are in the models directory (change using the model_grid variable)
 
 This will create two fits files containing all spectra (*directoryname*_models.fits), and all outputs (*directoryname*_outputs.fits).
 
+Documentation
+-------------
+
+The documentation can be found on [readthedocs](http://dusty-evolved-star-kit.readthedocs.io/en/latest/)
+
 
 Installing the DESK
 -------------------
