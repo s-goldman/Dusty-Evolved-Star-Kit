@@ -9,6 +9,5 @@ dependencies:
     - matplotlib
     - numpy
     - sphinx-astropy
-    - recommonmark
 #   - pip:
 #       - dependency_from_pip
