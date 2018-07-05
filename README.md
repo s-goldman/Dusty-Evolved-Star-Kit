@@ -61,6 +61,11 @@ Just add the csv data files you want to fit to the *put_target_data_here* direct
 
 <img src="desk/output_seds.png"  width="400" height="500">
 
+Citing
+------
+
+The method used is similar to that of [Goldman et al. 2017](http://adsabs.harvard.edu/abs/2016arXiv161005761G).
+
 
 License
 -------
