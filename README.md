@@ -66,6 +66,10 @@ Citing
 
 The method used is similar to that of [Goldman et al. 2017](http://adsabs.harvard.edu/abs/2016arXiv161005761G).
 
+Acknowledgements
+----------------
+
+I would like to thank Sundar Srinivasan for helping to vastly improve the fitting technique, Ben Sargent for sharing his wisdom of dust optical constants, and Nate Miles and Matthew Bourque for their help with the interpolation of the model grids. 
 
 License
 -------
