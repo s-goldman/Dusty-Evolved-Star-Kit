@@ -38,7 +38,7 @@ This will create two fits files containing all spectra (*directoryname*_models.f
 Documentation
 -------------
 
-The documentation can be found on [readthedocs](http://dusty-evolved-star-kit.readthedocs.io/en/latest/)
+The documentation will soon be found on [readthedocs](http://dusty-evolved-star-kit.readthedocs.io/en/latest/)
 
 
 Installing the DESK
@@ -49,7 +49,7 @@ The package is pip installable, just type `pip install desk` in any terminal. Yo
 
 Creating a model grid with DUSTY
 --------------------------------
-
+In development
 
 
 Fitting with the DESK
