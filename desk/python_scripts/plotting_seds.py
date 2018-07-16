@@ -30,7 +30,7 @@ plt.rcParams['text.latex.unicode'] = True
 
 input_file = Table.read('../fitting_plotting_outputs.csv')
 grid_dusty = Table.read('../models/'+str(input_file['grid_name'][0])+'_models.fits')
-grid_outputs = Table.read('../models/'+str(input_file['grid_name'][0])+'_outputs.fits')
+grid_outputs = Table.read('../models/'+str(input_file['grid_name'][0])+'_outputs.csv')
 
 
 def get_data(filename):

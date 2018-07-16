@@ -27,9 +27,9 @@ fitting_results.csv and fitting_plotting_output.csv (for plotting the results).
 # OPTIONS
 distance_in_kpc = 50
 assumed_gas_to_dust_ratio = 400.0000
-model_grid = 'warm_silicates'  # other choices include aringerOkmh, astronomical,
+model_grid = 'Oss-Orich-aringer'  # other choices include aringerOkmh, astronomical,
 wavelength_min = 6.3  # range of data that you want to fit
-wavelength_max = 13.9  
+wavelength_max = 13.9
 
 min_norm = 1e-14
 max_norm = 1e-10
@@ -62,7 +62,7 @@ for item in os.listdir('../put_target_data_here/'):
 # targets = ['visir_spectra/IRAS-17030-3053_flux_calibrated.csv']  # comment out for all sources
 
 grid_dusty = Table.read('../models/'+model_grid+'_models.fits')
-grid_outputs = Table.read('../models/'+model_grid+'_outputs.fits')
+grid_outputs = Table.read('../models/'+model_grid+'_outputs.csv')
 
 
 def get_data(filename):
@@ -139,14 +139,13 @@ for counter, target in enumerate(targets):
     # printed output
     print()
     print()
-    print(('    Target: '+target_name))
-    print()
-    print()
-    print(("Luminosity\t\t"+str(round(luminosity))))
-    print(("Optical depth\t\t"+str(grid_outputs[model_index]['odep'])))
-    print(("Expansion velocity (scaled)\t"+str(round(scaled_vexp, 2))))
-    print(("Mass loss (scaled)\t\t"+str("%.2E" % float(scaled_mdot))))
-
+    print(('             Target: '+target_name))
+    print('-------------------------------------------------')
+    print(("Luminosity\t\t\t|\t"+str(round(luminosity))))
+    print(("Optical depth\t\t\t|\t"+str(grid_outputs[model_index]['odep'])))
+    print(("Expansion velocity (scaled)\t|\t"+str(round(scaled_vexp, 2))))
+    print(("Mass loss (scaled)\t\t|\t"+str("%.2E" % float(scaled_mdot))))
+    print('-------------------------------------------------')
 # saves results csv file
 file_a = Table(np.array(latex_array), names=(
     'source', 'L', 'vexp_predicted', 'teff', 'tinner', 'odep', 'mdot'), dtype=(
@@ -159,8 +158,8 @@ file_b.add_column(Column(follow_up_index, name='index'), index=0)
 file_b.add_column(Column(follow_up_normilazation, name='norm'), index=0)
 file_b.add_column(Column(targets, name='data_file'), index=0)
 file_b.add_column(Column(follow_up_names, name='target_name'), index=0)
-file_b.remove_columns(('c', 'd', 'e','f','g','h','i'))
 file_b.write('../fitting_plotting_outputs.csv', format='csv', overwrite=True)
 
 end = time.time()
-print('Time:'+str((end - start)/60)+'minutes')
+print()
+print('Time: '+str("%.2f" % float((end - start)/60))+' minutes')
