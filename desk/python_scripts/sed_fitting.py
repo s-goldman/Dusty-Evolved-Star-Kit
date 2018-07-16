@@ -27,7 +27,7 @@ fitting_results.csv and fitting_plotting_output.csv (for plotting the results).
 # OPTIONS
 distance_in_kpc = 50
 assumed_gas_to_dust_ratio = 400.0000
-model_grid = 'Oss-Orich-aringer'  # other choices include aringerOkmh, astronomical,
+model_grid = 'Oss-Orich-bb'  # other choices include aringerOkmh, astronomical,
 wavelength_min = 6.3  # range of data that you want to fit
 wavelength_max = 13.9
 

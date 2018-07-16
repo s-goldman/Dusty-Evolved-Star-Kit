@@ -1,3 +1,3 @@
 target_name,data_file,norm,index,grid_name,teff,tinner,number,odep,mdot,vexp
-04509-6922.csv,../put_target_data_here/04509-6922.csv,6.105405405405406e-13,1830,Oss-Orich-aringer,3400,600,31,0.657,6.95e-06,8.08
-05003-6712.csv,../put_target_data_here/05003-6712.csv,1.100900900900901e-13,1925,Oss-Orich-aringer,3400,800,26,0.48,4.13e-06,11.2
+04509-6922.csv,../put_target_data_here/04509-6922.csv,1.010900900900901e-12,1627,Oss-Orich-bb,3400,1000,28,0.545,7.08e-06,16.3
+05003-6712.csv,../put_target_data_here/05003-6712.csv,1.100900900900901e-13,946,Oss-Orich-bb,3000,1200,47,1.8,1.17e-05,14.9
