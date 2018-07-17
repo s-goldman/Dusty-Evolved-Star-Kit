@@ -6,9 +6,8 @@ Dusty-Evolved-Star-Kit<img align="left" width="100" height="100" src="docs/the_d
 [![Coverage Status](https://coveralls.io/repos/github/s-goldman/Dusty-Evolved-Star-Kit/badge.svg?branch=master)](https://coveralls.io/github/s-goldman/Dusty-Evolved-Star-Kit?branch=master)
 [![arXiv paper](https://img.shields.io/badge/arXiv-1610.05761-orange.svg?style=flat)](https://arxiv.org/abs/1610.05761)
 
-Under Development!
 
-SED-fitting python scripts for fitting data from evolved stars (photometry or spectra) with [DUSTY](https://github.com/ivezic/dusty) 1-D radiative transfer models. Package contains scripts for:
+SED-fitting python scripts for fitting data from evolved stars (photometry or spectra) with [DUSTY](https://github.com/ivezic/dusty) 1-D radiative transfer models. Package currently in development contains scripts for:
 1. Running DUSTY in a multiprocessing batch mode
 2. Converting the output from DUSTY to two fits files
 3. Least square fitting of the models to data
