@@ -42,7 +42,7 @@ The documentation will soon be found on [readthedocs](http://dusty-evolved-star-
 Installing the DESK
 -------------------
 
-The package is pip installable, just type `pip install desk` in any terminal. You can also clone the github repository using `git clone https://github.com/s-goldman/Dusty-Evolved-Star-Kit.git`. 
+The package is pip installable, just type `pip install desk` in a terminal. You can also clone the github repository using `git clone https://github.com/s-goldman/Dusty-Evolved-Star-Kit.git`. 
 
 
 Creating a model grid with DUSTY
@@ -62,7 +62,7 @@ Just add the csv data files you want to fit to the *put_target_data_here* direct
 Attribution
 -----------
 
-The method used is similar to that of [Goldman et al. 2017](http://adsabs.harvard.edu/abs/2016arXiv161005761G).
+The method used is similar to that of [Goldman et al. (2017)](http://adsabs.harvard.edu/abs/2016arXiv161005761G); a more in-depth publication is in prep.
 
 Acknowledgements
 ----------------
