@@ -106,6 +106,7 @@ package_info = get_package_info()
 # Add the project-global data
 package_info['package_data'].setdefault(PACKAGENAME, [])
 package_info['package_data'][PACKAGENAME].append('models/*')
+package_info['package_data'][PACKAGENAME].append('put_target_data_here/*')
 
 # Define entry points for command-line scripts
 entry_points = {'console_scripts': []}
