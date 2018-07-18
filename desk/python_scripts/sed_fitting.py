@@ -107,18 +107,18 @@ def interpolate_data(model_x_intp, spectra):
 # for each target, fit spectra with given models (.fits file)
 for counter, target in enumerate(targets):
     stat_values = []
-    raw_data = get_data(target)
-    model_x = grid_dusty[0][0][:]
-    resampled_data = interpolate_data(model_x, raw_data)
+    raw_data = get_data(target)  # gets target data
+    model_x = grid_dusty[0][0][:]  # gets model wavelengths
+    resampled_data = interpolate_data(model_x, raw_data)  # interpolates data to model wavelengths
     for model in np.array(grid_dusty):
-        trimmed_model = trim(resampled_data, model)
+        trimmed_model = trim(resampled_data, model)  # gets fluxes for corresponding wavelengths of data and models
         stat_values.append(fit_norm(resampled_data))
     stat_array = np.vstack(stat_values)
     argmin = np.argmin(stat_array)
     model_index = argmin // stat_array.shape[1]
     trial_index = argmin % stat_array.shape[1]
 
-    # calculated luminosity and scales outputs
+    # calculates luminosity and scales outputs
     luminosity = int(np.power(10.0, distance_norm - math.log10(trials[trial_index]) * -1))
     scaled_vexp = float(grid_outputs[model_index]['vexp']) * (luminosity / 10000) ** 0.25
     scaled_mdot = grid_outputs[model_index]['mdot'] * ((luminosity / 10000) ** 0.75) * (
@@ -146,6 +146,7 @@ for counter, target in enumerate(targets):
     print(("Expansion velocity (scaled)\t|\t"+str(round(scaled_vexp, 2))))
     print(("Mass loss (scaled)\t\t|\t"+str("%.2E" % float(scaled_mdot))))
     print('-------------------------------------------------')
+
 # saves results csv file
 file_a = Table(np.array(latex_array), names=(
     'source', 'L', 'vexp_predicted', 'teff', 'tinner', 'odep', 'mdot'), dtype=(
