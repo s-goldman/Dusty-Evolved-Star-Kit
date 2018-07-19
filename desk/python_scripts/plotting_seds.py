@@ -7,6 +7,7 @@ import numpy as np
 import astropy.units as u
 import matplotlib.pyplot as plt
 from glob import glob
+from astropy.io import ascii
 from fnmatch import fnmatch
 from multiprocessing import cpu_count, Pool
 from functools import partial
@@ -34,7 +35,8 @@ grid_outputs = Table.read('../models/'+str(input_file['grid_name'][0])+'_outputs
 
 
 def get_data(filename):
-    table = Table.read(filename)
+    table = ascii.read(filename, delimiter=',')
+    table.sort(table.colnames[0])
     x = np.array(table.columns[0])
     y = np.array(table.columns[1])
     y = y * u.Jy
@@ -55,7 +57,7 @@ else:
 
 for counter, target in enumerate(input_file):
     # gets data for plotting
-    target_name = (target['target_name']).replace('.csv', '')
+    target_name = (target['target_name']).replace('.csv', '').replace('_', ' ')
     x_data, y_data = get_data(target['data_file'])
     x_model, y_model = grid_dusty[target['index']]
     y_model = y_model * input_file[counter]['norm']
@@ -68,19 +70,19 @@ for counter, target in enumerate(input_file):
 
     # plotting
     if len(input_file) == 1:
-        ax1.set_xlim(0.21, 1.79)
-        ax1.set_ylim(-14.2, -10.51)
+        ax1.set_xlim(-0.99, 2.49)
+        ax1.set_ylim(-17.2, -10.51)
         ax1.plot(x_model, y_model, c='k', linewidth=0.7, linestyle='--', zorder=2)
-        ax1.plot(x_data, y_data, c='blue')
+        ax1.scatter(x_data, y_data, c='blue')
         ax1.annotate(target_name.replace('-', r'\textendash'), (0.8, 0.8), xycoords='axes fraction', fontsize=14)
         ax1.get_xaxis().set_tick_params(which='both', direction='in', labelsize=15)
         ax1.get_yaxis().set_tick_params(which='both', direction='in', labelsize=15)
     else:
-        axs[counter].set_xlim(0.21, 1.79)
-        axs[counter].set_ylim(-14.2, -10.51)
+        axs[counter].set_xlim(-0.99, 2.49)
+        axs[counter].set_ylim(-15.2, -11.51)
         axs[counter].plot(x_model, y_model, c='k', linewidth=0.7, linestyle='--', zorder=2)
-        axs[counter].plot(x_data, y_data, c='blue')
-        axs[counter].annotate(target_name.replace('-', r'\textendash'), (0.8, 0.8), xycoords='axes fraction', fontsize=14)
+        axs[counter].scatter(x_data, y_data, c='blue')
+        axs[counter].annotate(target_name.replace('-', r'\textendash'), (0.7, 0.8), xycoords='axes fraction', fontsize=14)
         axs[counter].get_xaxis().set_tick_params(which='both', direction='in', labelsize=15)
         axs[counter].get_yaxis().set_tick_params(which='both', direction='in', labelsize=15)
         axs[counter].set_xlabel('log $\lambda$ ($\mu m$)', labelpad=10)

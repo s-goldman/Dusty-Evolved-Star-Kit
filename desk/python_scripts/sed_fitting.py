@@ -7,6 +7,7 @@ import numpy as np
 import astropy.units as u
 import matplotlib.pyplot as plt
 from fnmatch import fnmatch
+from astropy.io import ascii
 from functools import partial
 from astropy.table import Table, Column
 from matplotlib import rc
@@ -28,12 +29,12 @@ fitting_results.csv and fitting_plotting_output.csv (for plotting the results).
 distance_in_kpc = 50
 assumed_gas_to_dust_ratio = 400.0000
 model_grid = 'Oss-Orich-bb'  # other choices include aringerOkmh, astronomical,
-wavelength_min = 6.3  # range of data that you want to fit
-wavelength_max = 13.9
+wavelength_min = 0.01  # range of data that you want to fit
+wavelength_max = 25
 
-min_norm = 1e-14
+min_norm = 1e-17
 max_norm = 1e-10
-ntrials = 1000
+ntrials = 2000
 
 # set variables
 targets = []
@@ -66,7 +67,8 @@ grid_outputs = Table.read('../models/'+model_grid+'_outputs.csv')
 
 
 def get_data(filename):
-    table = Table.read(filename)
+    table = ascii.read(filename, delimiter=',')
+    table.sort(table.colnames[0])
     x = np.array(table.columns[0])
     y = np.array(table.columns[1])
     index = np.where((x > wavelength_min) & (x < wavelength_max))
@@ -75,6 +77,16 @@ def get_data(filename):
     y = y * u.Jy
     y = y.to(u.W/(u.m * u.m), equivalencies=u.spectral_density(x * u.um))
     return x, np.array(y)
+
+
+def find_closest(target_wave, model_wave):
+    idx = np.searchsorted(model_wave[0], target_wave[0])
+    idx = np.clip(idx, 1, len(model_wave[0])-1)
+    left = model_wave[0][idx-1]
+    right = model_wave[0][idx]
+    idx -= target_wave[0] - left < right - target_wave[0]
+    closest_data_flux = model_wave[1][idx]
+    return closest_data_flux
 
 
 def least2(data, model_l2):
@@ -87,21 +99,12 @@ def trim(data, model_trim):
     return np.vstack([model_trim[0][indexes], model_trim[1][indexes]])
 
 
-def fit_norm(data):
+def fit_norm(data, model):
     stats = []
     for t in trials:
-        stat = least2(data[1], trimmed_model[1]*t)
+        stat = least2(data[1], model*t)
         stats.append(stat)
     return stats
-
-
-def interpolate_data(model_x_intp, spectra):
-    data_wavelength = spectra[0]
-    data_flux = spectra[1]
-    f = interpolate.interp1d(data_wavelength, data_flux)
-    indexes = np.where(np.logical_and(model_x_intp >= np.min(data_wavelength), model_x_intp <= np.max(data_wavelength)))
-    resampled_data_flux = f(model_x_intp[indexes])
-    return model_x_intp[indexes], resampled_data_flux
 
 
 # for each target, fit spectra with given models (.fits file)
@@ -109,10 +112,10 @@ for counter, target in enumerate(targets):
     stat_values = []
     raw_data = get_data(target)  # gets target data
     model_x = grid_dusty[0][0][:]  # gets model wavelengths
-    resampled_data = interpolate_data(model_x, raw_data)  # interpolates data to model wavelengths
     for model in np.array(grid_dusty):
-        trimmed_model = trim(resampled_data, model)  # gets fluxes for corresponding wavelengths of data and models
-        stat_values.append(fit_norm(resampled_data))
+        trimmed_model = trim(raw_data, model)  # gets fluxes for corresponding wavelengths of data and models
+        matched_model = find_closest(raw_data, trimmed_model)
+        stat_values.append(fit_norm(raw_data, matched_model))
     stat_array = np.vstack(stat_values)
     argmin = np.argmin(stat_array)
     model_index = argmin // stat_array.shape[1]
