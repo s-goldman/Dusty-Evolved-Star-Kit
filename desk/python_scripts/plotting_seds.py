@@ -45,7 +45,7 @@ def get_data(filename):
 
 # plotting stuff
 if len(input_file) == 1:
-    fig, ax1 = plt.subplots(1, 1, sharex=True, sharey=True, figsize=(8, 10))
+    fig, ax1 = plt.subplots(1, 1, sharex=True, sharey=True, figsize=(8, 5))
 elif len(input_file) == 2:
     fig, axs = plt.subplots(2, 1, sharex=True, sharey=True, figsize=(8, 10))
 elif len(input_file) == 3:
@@ -71,12 +71,14 @@ for counter, target in enumerate(input_file):
     # plotting
     if len(input_file) == 1:
         ax1.set_xlim(-0.99, 2.49)
-        ax1.set_ylim(-17.2, -10.51)
+        ax1.set_ylim(-17.2, -11.51)
         ax1.plot(x_model, y_model, c='k', linewidth=0.7, linestyle='--', zorder=2)
         ax1.scatter(x_data, y_data, c='blue')
         ax1.annotate(target_name.replace('-', r'\textendash'), (0.8, 0.8), xycoords='axes fraction', fontsize=14)
         ax1.get_xaxis().set_tick_params(which='both', direction='in', labelsize=15)
         ax1.get_yaxis().set_tick_params(which='both', direction='in', labelsize=15)
+        ax1.set_xlabel('log $\lambda$ ($\mu m$)', labelpad=10)
+        ax1.set_ylabel("log $\lambda$ F$_{\lambda}$ "+"(W m$^{-2}$)", labelpad=10)
     else:
         axs[counter].set_xlim(-0.99, 2.49)
         axs[counter].set_ylim(-15.2, -11.51)
