@@ -12,6 +12,8 @@ from functools import partial
 from astropy.table import Table, Column
 from matplotlib import rc
 from scipy import interpolate
+from plotting_seds import create_fig
+from tqdm import tqdm
 '''
 Steve Goldman
 Space Telescope Science Institute
@@ -27,8 +29,8 @@ fitting_results.csv and fitting_plotting_output.csv (for plotting the results).
 
 # OPTIONS
 distance_in_kpc = 50
-assumed_gas_to_dust_ratio = 400.0000
-model_grid = 'Oss-Orich-bb'  # other choices include Oss-Orich-bb, Zubko-Crich-aringer, etx.
+assumed_gas_to_dust_ratio = 400
+model_grid = 'Crystalline-20-bb'  # other choices include Oss-Orich-bb, Zubko-Crich-aringer, etx.
 wavelength_min = 0.01  # range of data that you want to fit
 wavelength_max = 25
 
@@ -48,7 +50,7 @@ start = time.time()
 
 # normalization calculation
 # solar constant = 1379 W
-# distance to sun in kpd 4.8483E-9
+# distance to sun in kpc 4.8483E-9
 distance_norm = math.log10(((int(distance_in_kpc)/4.8482E-9)**2)/1379)
 
 # normalization range
@@ -60,7 +62,7 @@ for item in os.listdir('../put_target_data_here/'):
         targets.append('../put_target_data_here/'+item)
 
 # example source
-# targets = ['visir_spectra/IRAS-17030-3053_flux_calibrated.csv']  # comment out for all sources
+targets = ['../put_target_data_here/IRAS_04509-6922.csv']  # comment out for all sources
 
 grid_dusty = Table.read('../models/'+model_grid+'_models.fits')
 grid_outputs = Table.read('../models/'+model_grid+'_outputs.csv')
@@ -99,10 +101,10 @@ def trim(data, model_trim):
     return np.vstack([model_trim[0][indexes], model_trim[1][indexes]])
 
 
-def fit_norm(data, model):
+def fit_norm(data, norm_model):
     stats = []
     for t in trials:
-        stat = least2(data[1], model*t)
+        stat = least2(data[1], norm_model*t)
         stats.append(stat)
     return stats
 
@@ -142,7 +144,7 @@ for counter, target in enumerate(targets):
     # printed output
     print()
     print()
-    print(('             Target: '+target_name))
+    print(('             Target: '+target_name+'        '+str(counter+1)+'/'+str(len(targets))))
     print('-------------------------------------------------')
     print(("Luminosity\t\t\t|\t"+str(round(luminosity))))
     print(("Optical depth\t\t\t|\t"+str(grid_outputs[model_index]['odep'])))
@@ -163,6 +165,10 @@ file_b.add_column(Column(follow_up_normilazation, name='norm'), index=0)
 file_b.add_column(Column(targets, name='data_file'), index=0)
 file_b.add_column(Column(follow_up_names, name='target_name'), index=0)
 file_b.write('../fitting_plotting_outputs.csv', format='csv', overwrite=True)
+
+
+print('\nCreating figure')
+create_fig()  # runs plotting script
 
 end = time.time()
 print()
