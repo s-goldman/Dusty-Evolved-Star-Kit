@@ -62,7 +62,7 @@ for item in os.listdir('../put_target_data_here/'):
         targets.append('../put_target_data_here/'+item)
 
 # example source
-targets = ['../put_target_data_here/IRAS_04509-6922.csv']  # comment out for all sources
+# targets = ['../put_target_data_here/IRAS_04509-6922.csv']  # comment out for all sources
 
 grid_dusty = Table.read('../models/'+model_grid+'_models.fits')
 grid_outputs = Table.read('../models/'+model_grid+'_outputs.csv')
