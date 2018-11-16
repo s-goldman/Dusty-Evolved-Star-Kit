@@ -1,6 +1,7 @@
 import os
 import math
 import subprocess
+import config
 import pdb
 import shutil
 import numpy as np
@@ -39,8 +40,13 @@ def create_fig():
         table.sort(table.colnames[0])
         x = np.array(table.columns[0])
         y = np.array(table.columns[1])
-        y = y * u.Jy
-        y = y.to(u.W/(u.m * u.m), equivalencies=u.spectral_density(x * u.um))
+        if config.ouput['output_unit'] == 'Wm^-2':
+            y = y * u.Jy
+            y = y.to(u.W/(u.m * u.m), equivalencies=u.spectral_density(x * u.um))
+        elif config.ouput['output_unit'] == 'Jy':
+            pass
+        else:
+            raise ValueError("Unit in config.py not 'Wm^-2' or 'Jy'")
         return x, np.array(y)
 
     # plotting stuff
@@ -61,6 +67,16 @@ def create_fig():
         x_model, y_model = grid_dusty[target['index']]
         x_model = x_model[np.where(y_model != 0)]
         y_model = y_model[np.where(y_model != 0)] * input_file[counter]['norm']
+        if config.ouput['output_unit'] == 'Wm^-2':
+            axislabel="log $\lambda$ F$_{\lambda}$ (W m$^{-2}$)"
+        elif config.ouput['output_unit'] == 'Jy':
+            y_model = y_model * u.W/(u.m * u.m)
+            y_model = y_model/((x_model*u.um).to(u.Hz, equivalencies=u.spectral()))
+            y_model = y_model.to(u.Jy).value
+            axislabel = "log F$_{\lambda}$ (Jy)"
+        else:
+            raise ValueError("Unit in config.py not 'Wm^-2' or 'Jy'")
+
 
         # logscale
         x_model = np.log10(x_model)
@@ -81,7 +97,7 @@ def create_fig():
             ax1.set_ylabel("log $\lambda$ F$_{\lambda}$ "+"(W m$^{-2}$)", labelpad=10)
         else:
             axs[counter].set_xlim(-0.99, 2.49)
-            axs[counter].set_ylim(-15.2, -11.51)
+            axs[counter].set_ylim(np.median(y_model)-2, np.median(y_model)+2)
             axs[counter].plot(x_model, y_model, c='k', linewidth=0.7, linestyle='--', zorder=2)
             axs[counter].scatter(x_data, y_data, c='blue')
             axs[counter].annotate(target_name.replace('-', r'\textendash'), (0.7, 0.8), xycoords='axes fraction',
@@ -89,7 +105,7 @@ def create_fig():
             axs[counter].get_xaxis().set_tick_params(which='both', direction='in', labelsize=15)
             axs[counter].get_yaxis().set_tick_params(which='both', direction='in', labelsize=15)
             axs[counter].set_xlabel('log $\lambda$ ($\mu m$)', labelpad=10)
-            axs[counter].set_ylabel("log $\lambda$ F$_{\lambda}$ "+"(W m$^{-2}$)", labelpad=10)
+            axs[counter].set_ylabel(axislabel, labelpad=10)
 
     plt.subplots_adjust(wspace=0, hspace=0)
     # fig.text(0.5, 0.1, 'log $\lambda$ ($\mu m$)', ha='center', fontsize=16)
