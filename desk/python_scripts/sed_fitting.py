@@ -1,6 +1,7 @@
 import os
 import time
 import math
+import config
 import subprocess
 import pdb
 import numpy as np
@@ -27,17 +28,6 @@ squares value for each grid in the model and the data. The DUSTY outputs are the
 fitting_results.csv and fitting_plotting_output.csv (for plotting the results). 
 '''
 
-# OPTIONS
-distance_in_kpc = 50
-assumed_gas_to_dust_ratio = 400
-model_grid = 'Crystalline-20-bb'  # other choices include Oss-Orich-bb, Zubko-Crich-aringer, etx.
-wavelength_min = 0.01  # range of data that you want to fit
-wavelength_max = 25
-
-min_norm = 1e-16
-max_norm = 1e-12
-ntrials = 2000
-
 # set variables
 targets = []
 latex_array = []
@@ -51,10 +41,10 @@ start = time.time()
 # normalization calculation
 # solar constant = 1379 W
 # distance to sun in kpc 4.8483E-9
-distance_norm = math.log10(((int(distance_in_kpc)/4.8482E-9)**2)/1379)
+distance_norm = math.log10(((int(config.target['distance_in_kpc'])/4.8482E-9)**2)/1379)
 
 # normalization range
-trials = np.linspace(min_norm, max_norm, ntrials)
+trials = np.linspace(config.fitting['min_norm'], config.fitting['max_norm'], config.fitting['ntrials'])
 
 # for multiple sources
 for item in os.listdir('../put_target_data_here/'):
@@ -64,8 +54,8 @@ for item in os.listdir('../put_target_data_here/'):
 # example source
 # targets = ['../put_target_data_here/IRAS_04509-6922.csv']  # comment out for all sources
 
-grid_dusty = Table.read('../models/'+model_grid+'_models.fits')
-grid_outputs = Table.read('../models/'+model_grid+'_outputs.csv')
+grid_dusty = Table.read('../models/'+config.fitting['model_grid']+'_models.fits')
+grid_outputs = Table.read('../models/'+config.fitting['model_grid']+'_outputs.csv')
 
 
 def get_data(filename):
@@ -73,7 +63,7 @@ def get_data(filename):
     table.sort(table.colnames[0])
     x = np.array(table.columns[0])
     y = np.array(table.columns[1])
-    index = np.where((x > wavelength_min) & (x < wavelength_max))
+    index = np.where((x > config.fitting['wavelength_min']) & (x < config.fitting['wavelength_max']))
     x = x[index]
     y = y[index]
     y = y * u.Jy
@@ -127,7 +117,7 @@ for counter, target in enumerate(targets):
     luminosity = int(np.power(10.0, distance_norm - math.log10(trials[trial_index]) * -1))
     scaled_vexp = float(grid_outputs[model_index]['vexp']) * (luminosity / 10000) ** 0.25
     scaled_mdot = grid_outputs[model_index]['mdot'] * ((luminosity / 10000) ** 0.75) * (
-            assumed_gas_to_dust_ratio / 200) ** 0.5
+            config.target['assumed_gas_to_dust_ratio'] / 200) ** 0.5
 
     # creates output file
     target_name = (target.split('/')[-1][:15]).replace('IRAS-', 'IRAS ')
