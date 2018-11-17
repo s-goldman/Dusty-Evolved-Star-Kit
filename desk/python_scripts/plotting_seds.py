@@ -15,6 +15,7 @@ from functools import partial
 from astropy.table import Table, Column
 from matplotlib import rc
 from scipy import interpolate
+
 '''
 Steve Goldman
 Space Telescope Science Institute
@@ -26,6 +27,9 @@ This script is for plotting the outputs of the sed_fitting script.
 
 
 def create_fig():
+    """
+    :return: Runs plotting script
+    """
     rc('text', usetex=True)
     plt.rcParams['font.family'] = 'serif'
     plt.rcParams['mathtext.fontset'] = 'dejavuserif'
@@ -33,17 +37,21 @@ def create_fig():
     plt.rcParams['text.latex.unicode'] = True
 
     input_file = Table.read('../fitting_plotting_outputs.csv')
-    grid_dusty = Table.read('../models/'+str(input_file['grid_name'][0])+'_models.fits')
+    grid_dusty = Table.read('../models/' + str(input_file['grid_name'][0]) + '_models.fits')
 
     def get_data(filename):
+        """
+        :param filename: filename of input data. Should be csv with Column 0: wavelength in um and Col 1: flux in Jy
+        :return: two arrays of wavelength (x) and flux (y) in unit specified in config.py
+        """
         table = ascii.read(filename, delimiter=',')
         table.sort(table.colnames[0])
         x = np.array(table.columns[0])
         y = np.array(table.columns[1])
-        if config.ouput['output_unit'] == 'Wm^-2':
+        if config.output['output_unit'] == 'Wm^-2':
             y = y * u.Jy
-            y = y.to(u.W/(u.m * u.m), equivalencies=u.spectral_density(x * u.um))
-        elif config.ouput['output_unit'] == 'Jy':
+            y = y.to(u.W / (u.m * u.m), equivalencies=u.spectral_density(x * u.um))
+        elif config.output['output_unit'] == 'Jy':
             pass
         else:
             raise ValueError("Unit in config.py not 'Wm^-2' or 'Jy'")
@@ -57,7 +65,7 @@ def create_fig():
     elif len(input_file) == 3:
         fig, axs = plt.subplots(3, 1, sharex=True, sharey=True, figsize=(8, 10))
     else:
-        fig, axs = plt.subplots(math.ceil(len(input_file)/3), 3, sharex=True, sharey=True, figsize=(8, 10))
+        fig, axs = plt.subplots(math.ceil(len(input_file) / 3), 3, sharex=True, sharey=True, figsize=(8, 10))
         axs = axs.ravel()
 
     for counter, target in enumerate(input_file):
@@ -67,16 +75,15 @@ def create_fig():
         x_model, y_model = grid_dusty[target['index']]
         x_model = x_model[np.where(y_model != 0)]
         y_model = y_model[np.where(y_model != 0)] * input_file[counter]['norm']
-        if config.ouput['output_unit'] == 'Wm^-2':
-            axislabel="log $\lambda$ F$_{\lambda}$ (W m$^{-2}$)"
-        elif config.ouput['output_unit'] == 'Jy':
-            y_model = y_model * u.W/(u.m * u.m)
-            y_model = y_model/((x_model*u.um).to(u.Hz, equivalencies=u.spectral()))
+        if config.output['output_unit'] == 'Wm^-2':
+            axislabel = "log $\lambda$ F$_{\lambda}$ (W m$^{-2}$)"
+        elif config.output['output_unit'] == 'Jy':
+            y_model = y_model * u.W / (u.m * u.m)
+            y_model = y_model / ((x_model * u.um).to(u.Hz, equivalencies=u.spectral()))
             y_model = y_model.to(u.Jy).value
             axislabel = "log F$_{\lambda}$ (Jy)"
         else:
             raise ValueError("Unit in config.py not 'Wm^-2' or 'Jy'")
-
 
         # logscale
         x_model = np.log10(x_model)
@@ -94,10 +101,10 @@ def create_fig():
             ax1.get_xaxis().set_tick_params(which='both', direction='in', labelsize=15)
             ax1.get_yaxis().set_tick_params(which='both', direction='in', labelsize=15)
             ax1.set_xlabel('log $\lambda$ ($\mu m$)', labelpad=10)
-            ax1.set_ylabel("log $\lambda$ F$_{\lambda}$ "+"(W m$^{-2}$)", labelpad=10)
+            ax1.set_ylabel("log $\lambda$ F$_{\lambda}$ " + "(W m$^{-2}$)", labelpad=10)
         else:
             axs[counter].set_xlim(-0.99, 2.49)
-            axs[counter].set_ylim(np.median(y_model)-2, np.median(y_model)+2)
+            axs[counter].set_ylim(np.median(y_model) - 2, np.median(y_model) + 2)
             axs[counter].plot(x_model, y_model, c='k', linewidth=0.7, linestyle='--', zorder=2)
             axs[counter].scatter(x_data, y_data, c='blue')
             axs[counter].annotate(target_name.replace('-', r'\textendash'), (0.7, 0.8), xycoords='axes fraction',
