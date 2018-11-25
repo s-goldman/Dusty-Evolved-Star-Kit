@@ -13,10 +13,12 @@ from fnmatch import fnmatch
 from astropy.io import ascii
 from functools import partial
 from scipy import interpolate
+from get_padova import get_model
 from multiprocessing import Process
 from plotting_seds import create_fig
 from multiprocessing import Pool, cpu_count
 from astropy.table import Table, Column
+from remove_old_files import remove
 '''
 Steve Goldman
 Space Telescope Science Institute
@@ -57,6 +59,22 @@ for item in os.listdir('../put_target_data_here/'):
 
 # example source
 # targets = ['../put_target_data_here/IRAS_04509-6922.csv']  # comment out for all sources
+
+#remove old file
+remove()
+
+# check if padova
+if config.fitting['model_grid'] == 'J1000' or config.fitting['model_grid'] == 'H11':
+    if not os.path.isfile('../models/'+config.fitting['model_grid']+'_models.fits'):
+        print('Models not in directory')
+        user_proceed = input('Download model [y]/n? (may take 30 minutes): ')
+        if user_proceed == 'y' or user_proceed == '':
+            get_model(config.fitting['model_grid'])
+        else:
+            raise ValueError('Choose another model (in config.py file)')
+    else:
+        print('You already have the models!')
+        print('Great job')
 
 grid_dusty = Table.read('../models/' + config.fitting['model_grid'] + '_models.fits')
 grid_outputs = Table.read('../models/' + config.fitting['model_grid'] + '_outputs.csv')
@@ -108,7 +126,7 @@ def trim(data, model_trim):
     """
     :param data: input data in tuple of x and y arrays
     :param model_trim: input model
-    :return: trims model to wavelength range of data
+    :return: trims motimedel to wavelength range of data
     """
     indexes = np.where(np.logical_and(model_trim[0] >= np.min(data[0]), model_trim[0] <= np.max(data[0])))
     return np.vstack([model_trim[0][indexes], model_trim[1][indexes]])
@@ -132,7 +150,7 @@ def sed_fitting(target):
     global targets
     stat_values = []
     raw_data = get_data(target)  # gets target data
-    model_x = grid_dusty[0][0][:]  # gets model wavelengths
+    # model_x = grid_dusty[0][0][:]  # gets model wavelengths
     for model in np.array(grid_dusty):
         trimmed_model = trim(raw_data, model)  # gets fluxes for corresponding wavelengths of data and models
         matched_model = find_closest(raw_data, trimmed_model)
@@ -175,8 +193,9 @@ def sed_fitting(target):
 # with Pool(processes=number_of_cores_to_use) as pool:
 #         pool.map(sed_fitting, targets)
 
-for counter, target in tqdm(enumerate(targets)):
-    sed_fitting(target)
+
+for counter, target_string in tqdm(enumerate(targets)):
+    sed_fitting(target_string)
 
 
 # saves results csv file
@@ -192,6 +211,9 @@ file_b.add_column(Column(follow_up_normilazation, name='norm'), index=0)
 file_b.add_column(Column(targets, name='data_file'), index=0)
 file_b.add_column(Column(follow_up_names, name='target_name'), index=0)
 file_b.write('../fitting_plotting_outputs.csv', format='csv', overwrite=True)
+
+#remove old file
+remove()
 
 print('\nCreating figure')
 create_fig()  # runs plotting script
