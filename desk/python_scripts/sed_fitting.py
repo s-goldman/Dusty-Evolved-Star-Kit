@@ -4,6 +4,7 @@ import time
 import math
 import config
 import subprocess
+import remove_old_files
 import numpy as np
 import astropy.units as u
 import matplotlib.pyplot as plt
@@ -18,7 +19,7 @@ from multiprocessing import Process
 from plotting_seds import create_fig
 from multiprocessing import Pool, cpu_count
 from astropy.table import Table, Column
-from remove_old_files import remove
+
 '''
 Steve Goldman
 Space Telescope Science Institute
@@ -61,20 +62,20 @@ for item in os.listdir('../put_target_data_here/'):
 # targets = ['../put_target_data_here/IRAS_04509-6922.csv']  # comment out for all sources
 
 #remove old file
-remove()
+remove_old_files.remove()
 
 # check if padova
-if config.fitting['model_grid'] == 'J1000' or config.fitting['model_grid'] == 'H11':
-    if not os.path.isfile('../models/'+config.fitting['model_grid']+'_models.fits'):
-        print('Models not in directory')
-        user_proceed = input('Download model [y]/n? (may take 30 minutes): ')
-        if user_proceed == 'y' or user_proceed == '':
-            get_model(config.fitting['model_grid'])
-        else:
-            raise ValueError('Choose another model (in config.py file)')
+
+if not os.path.isfile('../models/'+config.fitting['model_grid']+'_models.fits'):
+    print('Models not in directory')
+    user_proceed = input('Download model [y]/n? (may take 30 minutes): ')
+    if user_proceed == 'y' or user_proceed == '':
+        get_model(config.fitting['model_grid'])
     else:
-        print('You already have the models!')
-        print('Great job')
+        raise ValueError('Choose another model (in config.py file)')
+else:
+    print('You already have the models!')
+    print('Great job')
 
 grid_dusty = Table.read('../models/' + config.fitting['model_grid'] + '_models.fits')
 grid_outputs = Table.read('../models/' + config.fitting['model_grid'] + '_outputs.csv')
@@ -193,7 +194,6 @@ def sed_fitting(target):
 # with Pool(processes=number_of_cores_to_use) as pool:
 #         pool.map(sed_fitting, targets)
 
-
 for counter, target_string in tqdm(enumerate(targets)):
     sed_fitting(target_string)
 
@@ -213,7 +213,7 @@ file_b.add_column(Column(follow_up_names, name='target_name'), index=0)
 file_b.write('../fitting_plotting_outputs.csv', format='csv', overwrite=True)
 
 #remove old file
-remove()
+remove_old_files.remove()
 
 print('\nCreating figure')
 create_fig()  # runs plotting script

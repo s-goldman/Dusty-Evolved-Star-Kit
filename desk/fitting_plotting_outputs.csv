@@ -1,4 +1,4 @@
-target_name,data_file,norm,index,grid_name,teff,tinner,M,vexp,mdot,odep
-IRAS_04407-7000,../put_target_data_here/IRAS_04407-7000.csv,6.663665332666333e-13,6745,J1000,2600.0,1220.0,3.0,4.0,1.995e-06,0.0461
-IRAS_04509-6922,../put_target_data_here/IRAS_04509-6922.csv,3.232292646323162e-13,10595,J1000,2700.0,1045.0,3.0,4.44,7.943e-06,0.4395
-MSX_LMC_807.csv,../put_target_data_here/MSX_LMC_807.csv,2.4069624812406204e-13,41016,J1000,3500.0,1174.0,3.0,4.0,1.259e-06,0.2261
+target_name,data_file,norm,index,grid_name,teff,tinner,number,odep,c,d,e,f,g,h,mdot,vexp,i
+IRAS_04407-7000,../put_target_data_here/IRAS_04407-7000.csv,9.849939969984993e-13,335,Crystalline-20-bb,2600,800,36,0.9,18200.0,409000000000000.0,11.9,3.05,18.0,0.0,1.08e-05,9.87,1.75
+IRAS_04509-6922,../put_target_data_here/IRAS_04509-6922.csv,7.80412156078039e-13,334,Crystalline-20-bb,2600,800,35,0.845,18600.0,406000000000000.0,11.8,3.03,18.0,0.0,1.03e-05,10.1,1.76
+MSX_LMC_807.csv,../put_target_data_here/MSX_LMC_807.csv,2.7420965482741374e-13,962,Crystalline-20-bb,3000,1200,63,4.9,55300.0,235000000000000.0,9.12,1.75,19.0,0.0,2.71e-05,10.0,1.29
