@@ -19,19 +19,11 @@ Steve Goldman
 Space Telescope Science Institute
 May 17, 2018
 sgoldman@stsci.edu
-
-This script is for plotting the outputs of the sed_fitting script.
 '''
 
 def csv(input_csv):
-	if input_csv.split(.)[-1] == 'csv':
+	if input_csv.split('.')[-1] == 'csv':
 		a = Table.read(input_csv)
 	else:
 		raise ValueError('Not a csv file!')
-	return a
-
-
-def csv(directory_name):
-	for file in 
-	a = Table.read(input_csv)
 	return a

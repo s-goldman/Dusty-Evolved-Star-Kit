@@ -13,8 +13,8 @@ target = dict(
     input_unit='Jy'
 )
 fitting = dict(
-    # model_grid='Crystalline-20-bb',
-    model_grid='J1000',
+    model_grid='Crystalline-20-bb',
+    # model_grid='Oss-Orich-bb',
     wavelength_min=0.01,
     wavelength_max=25,
     min_norm=1e-16,
