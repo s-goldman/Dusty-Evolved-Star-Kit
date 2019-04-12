@@ -120,7 +120,7 @@ def find_closest(target_wave, model_wave):
 
 
 def least2(data, model_l2):
-    return np.square(model_l2 - data).sum()
+    return np.nansum(np.square(model_l2 - data))
 
 
 def trim(data, model_trim):
