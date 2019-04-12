@@ -13,7 +13,7 @@ target = dict(
     input_unit='Jy'
 )
 fitting = dict(
-    model_grid='Crystalline-20-bb',
+    model_grid='Zubko-Crich-aringer_outputs',
     # model_grid='Oss-Orich-bb',
     wavelength_min=0.01,
     wavelength_max=25,
@@ -24,8 +24,8 @@ fitting = dict(
 output = dict(
     printed_output='True',
 
-    output_unit='Wm^-2',
-    # output_unit = 'Jy',
+    # output_unit='Wm^-2',
+    output_unit='Jy',
 
-    single_or_mulitple_figures='single'
+    figures_single_multiple_or_none='multiple'
 )

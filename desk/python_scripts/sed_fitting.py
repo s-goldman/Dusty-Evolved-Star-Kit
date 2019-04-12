@@ -3,6 +3,7 @@ import pdb
 import time
 import math
 import config
+import importlib
 import subprocess
 import remove_old_files
 import numpy as np
@@ -16,9 +17,11 @@ from functools import partial
 from scipy import interpolate
 from get_padova import get_model
 from multiprocessing import Process
-from plotting_seds import create_fig
+from plotting_seds import create_fig, create_multiple_figs
 from multiprocessing import Pool, cpu_count
 from astropy.table import Table, Column
+
+importlib.reload(config)
 
 '''
 Steve Goldman
@@ -61,12 +64,12 @@ for item in os.listdir('../put_target_data_here/'):
 # example source
 # targets = ['../put_target_data_here/IRAS_04509-6922.csv']  # comment out for all sources
 
-#remove old file
+# remove old file
 remove_old_files.remove()
 
 # check if padova
 
-if not os.path.isfile('../models/'+config.fitting['model_grid']+'_models.fits'):
+if not os.path.isfile('../models/' + config.fitting['model_grid'] + '_models.fits'):
     print('Models not in directory')
     user_proceed = input('Download model [y]/n? (may take 30 minutes): ')
     if user_proceed == 'y' or user_proceed == '':
@@ -120,7 +123,7 @@ def find_closest(target_wave, model_wave):
 
 
 def least2(data, model_l2):
-    return np.square(model_l2 - data).sum()
+    return np.nansum(np.square(model_l2 - data))
 
 
 def trim(data, model_trim):
@@ -191,12 +194,12 @@ def sed_fitting(target):
         print('-------------------------------------------------')
     return latex_array, follow_up_normilazation, follow_up_names, follow_up_index, follow_up_array
 
+
 # with Pool(processes=number_of_cores_to_use) as pool:
 #         pool.map(sed_fitting, targets)
 
 for counter, target_string in tqdm(enumerate(targets)):
     sed_fitting(target_string)
-
 
 # saves results csv file
 file_a = Table(np.array(latex_array), names=(
@@ -212,11 +215,19 @@ file_b.add_column(Column(targets, name='data_file'), index=0)
 file_b.add_column(Column(follow_up_names, name='target_name'), index=0)
 file_b.write('../fitting_plotting_outputs.csv', format='csv', overwrite=True)
 
-#remove old file
+# remove old file
 remove_old_files.remove()
 
-print('\nCreating figure')
-create_fig()  # runs plotting script
+if config.output['figures_single_multiple_or_none'] == 'single':
+    print('\nCreating figure')
+    create_fig()  # runs plotting script
+elif config.output['figures_single_multiple_or_none'] == 'multiple':
+    print('\nCreating figures')
+    create_multiple_figs()  # runs plotting script
+else:
+    print('No figure created. To automatically generate a figure or multiple figures change the ' +
+        '"figures_single_multiple_or_none" variable in the config.py script to "single" or "multiple".')
+
 end = time.time()
 print()
-print('Time: ' + str("%.2f" % float((end - start) / 60)) + ' minutes')
+print('\n' + 'Time: ' + str("%.2f" % float((end - start) / 60)) + ' minutes')
