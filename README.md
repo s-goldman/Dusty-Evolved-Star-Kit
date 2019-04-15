@@ -26,7 +26,7 @@ The package is currently in development and all contributions are welcomed. For 
 
 **Available model grids**:
 Several grids are in the models directory (change using the model_grid variable in the config.py file), but you can also create your own model grid or download the state-of-the-art dust growth models by Nanni et al. (2019).
-*Update (15 Apr 2019): Starkey site currently down: Nanni et al. (2019) models currently unavailable*
+_Update (15 Apr 2019): Starkey site currently down: Nanni et al. (2019) models currently unavailable_
 
 
 1. Run dusty
