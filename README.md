@@ -28,6 +28,7 @@ Several grids are **already available** and are located in the _models_ director
 
 _Update (15 Apr 2019): Starkey site currently down: Nanni et al. (2019) models currently unavailable_
 
+To create your own [DUSTY](https://github.com/ivezic/dusty) grid:
 1. Run dusty
 2. Put all outputs (spectra files .s* and output files *.out) into a directory of the same name (see example grid directories)
 3. Run the dusty_to_grid.py script
