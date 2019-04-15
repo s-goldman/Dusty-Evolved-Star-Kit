@@ -26,7 +26,9 @@ The package is currently in development and all contributions are welcomed. For 
 
 **Options**: Available model grids:
 Several grids are in the models directory (change using the model_grid variable in the config.py file), but you can also create your own model grid or download the state-of-the-art dust growth models by Nanni et al. (2019).
-<span style="color:red">some *Update: Starkey site currently down: Nanni et al. (2019) models currently unavailable* text</span>
+```diff
+- Update: Starkey site currently down: Nanni et al. (2019) models currently unavailable
+```
 
 1. Run dusty
 2. Put all outputs (spectra files .s* and output files *.out) into a directory of the same name (see example grid directories)
