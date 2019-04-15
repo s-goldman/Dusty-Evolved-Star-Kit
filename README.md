@@ -28,7 +28,6 @@ The package is currently in development and all contributions are welcomed. For 
 Several grids are in the models directory (change using the model_grid variable in the config.py file), but you can also create your own model grid or download the state-of-the-art dust growth models by Nanni et al. (2019).
 _Update (15 Apr 2019): Starkey site currently down: Nanni et al. (2019) models currently unavailable_
 
-
 1. Run dusty
 2. Put all outputs (spectra files .s* and output files *.out) into a directory of the same name (see example grid directories)
 3. Run the dusty_to_grid.py script
@@ -38,19 +37,13 @@ This will create two fits files containing all spectra (*directoryname*_models.f
 Documentation
 -------------
 
-The documentation will soon be found on [readthedocs](http://dusty-evolved-star-kit.readthedocs.io/en/latest/)
+The documentation will soon be found on [readthedocs](http://dusty-evolved-star-kit.readthedocs.io/en/latest/).
 
 
 Installing the DESK
 -------------------
 
-To use, clone the github repository using `git clone https://github.com/s-goldman/Dusty-Evolved-Star-Kit.git`.
-
-
-Creating a model grid with DUSTY
---------------------------------
-Run DUSTY and then run the dusty_to_grid script in the same directory.
-
+Clone the github repository using `git clone https://github.com/s-goldman/Dusty-Evolved-Star-Kit.git`.
 
 Fitting with the DESK
 ----------------------
