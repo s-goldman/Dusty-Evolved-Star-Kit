@@ -12,9 +12,14 @@ target = dict(
     assumed_gas_to_dust_ratio=400,
     input_unit='Jy'
 )
+
+# model options
+# Built-in options: Zubko-Crich-aringer, Oss-Orich-bb, Oss-Orich-aringer, Crystalline-20-bb, corundum-20-bb
+# Padova options: J400, J1000, H11, R12, R13
+
 fitting = dict(
     model_grid='Zubko-Crich-aringer_outputs',
-    # model_grid='Oss-Orich-bb',
+    # model_grid='Oss-Orich-aringer',
     wavelength_min=0.01,
     wavelength_max=25,
     min_norm=1e-16,

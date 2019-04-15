@@ -3,17 +3,16 @@ Dusty-Evolved-Star-Kit<img align="left" width="100" height="100" src="docs/the_d
 =========================================================================================
 [![Documentation Status](https://readthedocs.org/projects/dusty-evolved-star-kit/badge/?version=latest)](https://dusty-evolved-star-kit.readthedocs.io/en/latest/?badge=latest)
 [![Build Status](https://travis-ci.org/s-goldman/Dusty-Evolved-Star-Kit.svg?branch=master)](https://travis-ci.org/s-goldman/Dusty-Evolved-Star-Kit)
-[![Coverage Status](https://coveralls.io/repos/github/s-goldman/Dusty-Evolved-Star-Kit/badge.svg?branch=master)](https://coveralls.io/github/s-goldman/Dusty-Evolved-Star-Kit?branch=master)
 [![arXiv paper](https://img.shields.io/badge/arXiv-1610.05761-orange.svg?style=flat)](https://arxiv.org/abs/1610.05761)
 
 
 SED-fitting python scripts for fitting data from evolved stars (photometry or spectra) with [DUSTY](https://github.com/ivezic/dusty) 1-D radiative transfer models. Package (currently in development) contains scripts for:
 1. Running DUSTY in a multiprocessing batch mode
-2. Converting the output from DUSTY to two fits files
+2. Converting the output files from DUSTY to two fits files
 3. Least square fitting of the models to data
 4. Plotting the results
 
-**Input**: csv with first column wavelength in um and second column flux in Jy (File can have other columns).
+**Input**: csv with first column wavelength in um and second column flux in Jy or W m2 (File can have other columns).
 
 **Output**: Results file with best fit model, as well as a results file with specifics for plotting the output. 
 
@@ -41,12 +40,12 @@ The documentation will soon be found on [readthedocs](http://dusty-evolved-star-
 Installing the DESK
 -------------------
 
-The package is pip installable, just type `pip install desk` in a terminal. You can also clone the github repository using `git clone https://github.com/s-goldman/Dusty-Evolved-Star-Kit.git`. 
+To use, clone the github repository using `git clone https://github.com/s-goldman/Dusty-Evolved-Star-Kit.git`.
 
 
 Creating a model grid with DUSTY
 --------------------------------
-In development
+Run DUSTY and then run the dusty_togrid script in the same directory.
 
 
 Fitting with the DESK
@@ -54,7 +53,7 @@ Fitting with the DESK
 
 All of the important script files can be found in "/dusty-evolved-star-kit/python_scripts"
 
-Just add the csv data files you want to fit to the *put_target_data_here* directory, select your options (shown above) within the sed_fitting.py script, and then run sed_fitting.py in python.
+Just add the csv data files you want to fit to the *put_target_data_here* directory, select your options (shown above) within the config.py script, and then run sed_fitting.py in python.
 
 <img src="desk/output_seds.png"  width="400" height="500">
 
