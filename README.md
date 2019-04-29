@@ -53,7 +53,7 @@ All of the important script files can be found in "/dusty-evolved-star-kit/pytho
 
 Just add the csv data files you want to fit to the *put_target_data_here* directory, select your options (shown above) within the config.py script, and then run sed_fitting.py in python.
 
-<img src="desk/output_seds.png"  width="400" height="500">
+<img src="docs/example.png"  width="400" height="500">
 
 Attribution
 -----------
