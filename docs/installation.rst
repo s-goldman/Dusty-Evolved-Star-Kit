@@ -12,7 +12,7 @@ To install Dusty-Evolved-Star-Kit, run this command in your terminal:
 
 .. code-block:: console
 
-    $ pip install dusty_evolved_star_kit
+    $ pip install desk
 
 This is the preferred method to install Dusty-Evolved-Star-Kit, as it will always install the most recent stable release.
 
