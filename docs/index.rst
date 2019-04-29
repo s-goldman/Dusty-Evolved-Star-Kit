@@ -1,4 +1,4 @@
-Welcome to Dusty-Evolved-Star-Kit's documentation!
+The Dusty-Evolved-Star-Kit
 ======================================
 
 .. toctree::
