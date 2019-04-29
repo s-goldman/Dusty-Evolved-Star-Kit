@@ -13,3 +13,5 @@ Simple SED fitter for evolved stars
           traditional practice, do *not* edit this page, but instead place
           all documentation for the package inside ``desk/``.
           You can follow this practice or choose your own layout.
+
+.. automodapi:: python_scripts/sed_fitting.find_closest
