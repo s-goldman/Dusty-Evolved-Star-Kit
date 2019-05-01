@@ -58,7 +58,7 @@ Just add the csv data files you want to fit to the *put_target_data_here* direct
 Attribution
 -----------
 
-The method used is similar to that of [Goldman et al. 2017](http://adsabs.harvard.edu/abs/2016arXiv161005761G); a more in-depth publication is in prep.
+The method used is similar to that of [Goldman et al. 2017](https://ui.adsabs.harvard.edu/abs/2017MNRAS.465..403G/abstract); a more in-depth publication is in prep.
 
 License
 -------
