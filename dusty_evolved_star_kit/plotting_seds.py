@@ -1,7 +1,6 @@
 import os
 import math
 import subprocess
-import config
 import pdb
 import shutil
 import numpy as np
@@ -13,6 +12,7 @@ from fnmatch import fnmatch
 from multiprocessing import cpu_count, Pool
 from functools import partial
 from astropy.table import Table, Column
+from desk.python_scripts import config
 from matplotlib import rc
 from scipy import interpolate
 
@@ -36,8 +36,8 @@ def create_fig():
     plt.rcParams['text.usetex'] = True
     plt.rcParams['text.latex.unicode'] = True
 
-    input_file = Table.read('../fitting_plotting_outputs.csv')
-    grid_dusty = Table.read('../models/' + str(input_file['grid_name'][0]) + '_models.fits')
+    input_file = Table.read('desk/fitting_plotting_outputs.csv')
+    grid_dusty = Table.read('desk/models/' + str(input_file['grid_name'][0]) + '_models.fits')
 
     def get_data(filename):
         """
@@ -46,6 +46,7 @@ def create_fig():
         """
         table = ascii.read(filename, delimiter=',')
         table.sort(table.colnames[0])
+        table = table[70:]
         x = np.array(table.columns[0])
         y = np.array(table.columns[1])
         if config.output['output_unit'] == 'Wm^-2':
@@ -91,13 +92,16 @@ def create_fig():
         x_data = np.log10(x_data)
         y_data = np.log10(y_data)
 
+        # out = Table((x_model,y_model), names=('wave', 'lamflam'))
+        # out.write('crystalline_fit.csv', format='csv')
+        # pdb.set_trace()
         # plotting
         if len(input_file) == 1:
-            ax1.set_xlim(-0.99, 2.49)
-            ax1.set_ylim(-15.2, -11.51)
-            ax1.plot(x_model, y_model, c='k', linewidth=0.7, linestyle='--', zorder=2)
-            ax1.scatter(x_data, y_data, c='blue')
-            ax1.annotate(target_name.replace('-', r'\textendash'), (0.1, 0.85), xycoords='axes fraction', fontsize=14)
+            ax1.set_xlim(0.3, 2.4)
+            ax1.set_ylim(-14.7, -10.51)
+            ax1.plot(x_data, y_data, c='blue', label='data')
+            ax1.plot(x_model, y_model, c='k', linewidth=0.5, linestyle='--', zorder=2, label='model')
+            ax1.annotate(target_name.replace('-', r'\textendash'), (0.07, 0.85), xycoords='axes fraction', fontsize=14)
             ax1.get_xaxis().set_tick_params(which='both', direction='in', labelsize=15)
             ax1.get_yaxis().set_tick_params(which='both', direction='in', labelsize=15)
             ax1.set_xlabel('log $\lambda$ ($\mu m$)', labelpad=10)
@@ -105,7 +109,7 @@ def create_fig():
         else:
             axs[counter].set_xlim(-0.99, 2.49)
             axs[counter].set_ylim(np.median(y_model) - 2, np.median(y_model) + 2)
-            axs[counter].plot(x_model, y_model, c='k', linewidth=0.7, linestyle='--', zorder=2)
+            axs[counter].plot(x_model, y_model, c='k', linewidth=0.4, linestyle='--', zorder=2)
             axs[counter].scatter(x_data, y_data, c='blue')
             axs[counter].annotate(target_name.replace('-', r'\textendash'), (0.7, 0.8), xycoords='axes fraction',
                                   fontsize=14)
@@ -114,70 +118,63 @@ def create_fig():
             axs[counter].set_xlabel('log $\lambda$ ($\mu m$)', labelpad=10)
             axs[counter].set_ylabel(axislabel, labelpad=10)
 
+
+        #plots supplementary phot
+        phot = Table.read('desk/python_scripts/phot_IRAS_17545-3056.csv', names = ('wave','lamflam'))
+        err = Table.read('desk/python_scripts/err_IRAS_17545-3056.csv', names = ('wave','lamflam'))
+        
+        phot['lamflam'] = phot['lamflam'] * u.Jy
+        phot['lamflam'] = phot['lamflam'].to(u.W / (u.m * u.m), equivalencies=u.spectral_density(phot['wave'] * u.um))
+        err['lamflam'] = err['lamflam'] * u.Jy
+        err['lamflam'] = err['lamflam'].to(u.W/(u.m * u.m),equivalencies=u.spectral_density(err['wave'] * u.um))
+        err['lamflam'][err['lamflam'] == 0] = np.nan
+
+        ax1.scatter(np.log10(phot['wave']),np.log10(phot['lamflam']),facecolor='white',s=20,edgecolor='k',linewidth=0.5,zorder=1, label=None)
+        yerror=np.log10(phot['lamflam'])*err['lamflam']/phot['lamflam']
+        ax1.errorbar(np.log10(phot['wave']),np.log10(phot['lamflam']), yerr = yerror,color='0.3', ls='none',linewidth=0.2,zorder=1, label=None)
+        
+        # #plot ossenkopf model
+        # oss = Table.read('desk/python_scripts/ossenkopf_fit.csv', format='csv')
+        # ax1.plot(oss['wave'], oss['lamflam'], c='blue', linewidth=0.7, linestyle='--', zorder=2, label='ossenkopf')
+
+        # #plot crystalline model
+        # cry = Table.read('desk/python_scripts/crystalline_fit.csv', format='csv')
+        # # ax1.plot(cry['wave'], cry['lamflam'], c='green', linewidth=0.7, linestyle='--', zorder=20, label='cry')
+        # plt.legend()
+
+
+        # pdb.set_trace()
     plt.subplots_adjust(wspace=0, hspace=0)
-    fig.savefig('../output_seds.png', dpi=500, bbox_inches='tight')
+    fig.savefig('desk/maybe_variability.png', dpi=200, bbox_inches='tight')
 
-def create_multiple_figs():
-    """
-    :return: Runs plotting script
-    """
-    rc('text', usetex=True)
-    plt.rcParams['font.family'] = 'serif'
-    plt.rcParams['mathtext.fontset'] = 'dejavuserif'
-    plt.rcParams['text.usetex'] = True
-    plt.rcParams['text.latex.unicode'] = True
 
-    input_file = Table.read('../fitting_plotting_outputs.csv')
-    grid_dusty = Table.read('../models/' + str(input_file['grid_name'][0]) + '_models.fits')
 
-    def get_data(filename):
-        """
-        :param filename: filename of input data. Should be csv with Column 0: wavelength in um and Col 1: flux in Jy
-        :return: two arrays of wavelength (x) and flux (y) in unit specified in config.py
-        """
-        table = ascii.read(filename, delimiter=',')
-        table.sort(table.colnames[0])
-        x = np.array(table.columns[0])
-        y = np.array(table.columns[1])
-        if config.output['output_unit'] == 'Wm^-2':
-            y = y * u.Jy
-            y = y.to(u.W / (u.m * u.m), equivalencies=u.spectral_density(x * u.um))
-        elif config.output['output_unit'] == 'Jy':
-            pass
-        else:
-            raise ValueError("Unit in config.py not 'Wm^-2' or 'Jy'")
-        return x, np.array(y)
 
-    for counter, target in enumerate(input_file):
-        # gets data for plotting
-        fig, ax1 = plt.subplots(1, 1, sharex=True, sharey=True, figsize=(8, 5))
-        target_name = (target['target_name']).replace('.csv', '').replace('_', ' ')
-        x_data, y_data = get_data(target['data_file'])
-        x_model, y_model = grid_dusty[target['index']]
-        x_model = x_model[np.where(y_model != 0)]
-        y_model = y_model[np.where(y_model != 0)] * input_file[counter]['norm']
-        if config.output['output_unit'] == 'Wm^-2':
-            axislabel = "log $\lambda$ F$_{\lambda}$ (W m$^{-2}$)"
-        elif config.output['output_unit'] == 'Jy':
-            y_model = y_model * u.W / (u.m * u.m)
-            y_model = y_model / ((x_model * u.um).to(u.Hz, equivalencies=u.spectral()))
-            y_model = y_model.to(u.Jy).value
-            axislabel = "log F$_{\lambda}$ (Jy)"
-        else:
-            raise ValueError("Unit in config.py not 'Wm^-2' or 'Jy'")
 
-        # logscale
-        x_model = np.log10(x_model)
-        y_model = np.log10(y_model)
-        x_data = np.log10(x_data)
-        y_data = np.log10(y_data)
-        ax1.set_xlim(-0.99, 2.49)
-        ax1.set_ylim(-15.2, -11.51)
-        ax1.plot(x_model, y_model, c='k', linewidth=0.7, linestyle='--', zorder=2)
-        ax1.scatter(x_data, y_data, c='blue')
-        ax1.annotate(target_name.replace('-', r'\textendash'), (0.1, 0.85), xycoords='axes fraction', fontsize=14)
-        ax1.get_xaxis().set_tick_params(which='both', direction='in', labelsize=15)
-        ax1.get_yaxis().set_tick_params(which='both', direction='in', labelsize=15)
-        ax1.set_xlabel('log $\lambda$ ($\mu m$)', labelpad=10)
-        ax1.set_ylabel("log $\lambda$ F$_{\lambda}$ " + "(W m$^{-2}$)", labelpad=10)
-        fig.savefig('../output_sed_'+target_name+'.png', dpi=500, bbox_inches='tight')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
