@@ -47,10 +47,11 @@ setup(
     keywords='Dusty_Evolved_Star_Kit',
     name='desk',
     packages=find_packages(include=['desk']),
+    package_data={'project': ['models/*', 'put_target_data_here']},
     setup_requires=setup_requirements,
     test_suite='tests',
     tests_require=test_requirements,
     url='https://github.com/s-goldman/Dusty_Evolved_Star_Kit',
-    version='1.3.3',
+    version='1.3.8',
     zip_safe=False,
 )
