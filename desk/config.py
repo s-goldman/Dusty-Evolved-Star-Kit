@@ -8,8 +8,8 @@ This script is for plotting the outputs of the sed_fitting script.
 '''
 
 target = dict(
-    distance_in_kpc=8,
-    assumed_gas_to_dust_ratio=200,
+    distance_in_kpc=50,
+    assumed_gas_to_dust_ratio=400,
     input_unit='Jy'
 )
 
@@ -18,7 +18,7 @@ target = dict(
 # Padova options: J400, J1000, H11, R12, R13
 
 fitting = dict(
-    model_grid='fifth-iron',
+    model_grid='Zubko-Crich-aringer',
     # model_grid='Oss-Orich-aringer',
     wavelength_min=0.01,
     wavelength_max=25,
