@@ -12,7 +12,7 @@ from fnmatch import fnmatch
 from multiprocessing import cpu_count, Pool
 from functools import partial
 from astropy.table import Table, Column
-from desk.python_scripts import config
+from desk import config
 from matplotlib import rc
 from scipy import interpolate
 
@@ -36,8 +36,8 @@ def create_fig():
     plt.rcParams['text.usetex'] = True
     plt.rcParams['text.latex.unicode'] = True
 
-    input_file = Table.read('desk/fitting_plotting_outputs.csv')
-    grid_dusty = Table.read('desk/models/' + str(input_file['grid_name'][0]) + '_models.fits')
+    input_file = Table.read('fitting_plotting_outputs.csv')
+    grid_dusty = Table.read('models/' + str(input_file['grid_name'][0]) + '_models.fits')
 
     def get_data(filename):
         """
@@ -118,34 +118,9 @@ def create_fig():
             axs[counter].set_xlabel('log $\lambda$ ($\mu m$)', labelpad=10)
             axs[counter].set_ylabel(axislabel, labelpad=10)
 
-
-        #plots supplementary phot
-        phot = Table.read('desk/python_scripts/phot_IRAS_17545-3056.csv', names = ('wave','lamflam'))
-        err = Table.read('desk/python_scripts/err_IRAS_17545-3056.csv', names = ('wave','lamflam'))
-        
-        phot['lamflam'] = phot['lamflam'] * u.Jy
-        phot['lamflam'] = phot['lamflam'].to(u.W / (u.m * u.m), equivalencies=u.spectral_density(phot['wave'] * u.um))
-        err['lamflam'] = err['lamflam'] * u.Jy
-        err['lamflam'] = err['lamflam'].to(u.W/(u.m * u.m),equivalencies=u.spectral_density(err['wave'] * u.um))
-        err['lamflam'][err['lamflam'] == 0] = np.nan
-
-        ax1.scatter(np.log10(phot['wave']),np.log10(phot['lamflam']),facecolor='white',s=20,edgecolor='k',linewidth=0.5,zorder=1, label=None)
-        yerror=np.log10(phot['lamflam'])*err['lamflam']/phot['lamflam']
-        ax1.errorbar(np.log10(phot['wave']),np.log10(phot['lamflam']), yerr = yerror,color='0.3', ls='none',linewidth=0.2,zorder=1, label=None)
-        
-        # #plot ossenkopf model
-        # oss = Table.read('desk/python_scripts/ossenkopf_fit.csv', format='csv')
-        # ax1.plot(oss['wave'], oss['lamflam'], c='blue', linewidth=0.7, linestyle='--', zorder=2, label='ossenkopf')
-
-        # #plot crystalline model
-        # cry = Table.read('desk/python_scripts/crystalline_fit.csv', format='csv')
-        # # ax1.plot(cry['wave'], cry['lamflam'], c='green', linewidth=0.7, linestyle='--', zorder=20, label='cry')
-        # plt.legend()
-
-
         # pdb.set_trace()
     plt.subplots_adjust(wspace=0, hspace=0)
-    fig.savefig('desk/maybe_variability.png', dpi=200, bbox_inches='tight')
+    fig.savefig('output_sed.png', dpi=200, bbox_inches='tight')
 
 
 

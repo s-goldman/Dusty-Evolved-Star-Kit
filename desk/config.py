@@ -18,7 +18,7 @@ target = dict(
 # Padova options: J400, J1000, H11, R12, R13
 
 fitting = dict(
-    model_grid='one-fifth-carbon',
+    model_grid='fifth-iron',
     # model_grid='Oss-Orich-aringer',
     wavelength_min=0.01,
     wavelength_max=25,
