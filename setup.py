@@ -46,7 +46,7 @@ setup(
     include_package_data=True,
     keywords='dusty_evolved_star_kit',
     name='dusty_evolved_star_kit',
-    packages=find_packages(include=['dusty_evolved_star_kit']),
+    packages=find_packages(include=['dusty_evolved_star_kit.desk']),
     setup_requires=setup_requirements,
     test_suite='tests',
     tests_require=test_requirements,
