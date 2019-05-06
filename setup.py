@@ -37,7 +37,7 @@ setup(
     entry_points={
         'console_scripts': [
             # 'dusty_evolved_star_kit=dusty_evolved_star_kit.cli:main',
-            'fit_sed=desk.sed_fitting:main'
+            'fit_sed=desk.sed_fit:main'
         ],
     },
     install_requires=requirements,
@@ -45,12 +45,12 @@ setup(
     long_description=readme + '\n\n' + history,
     include_package_data=True,
     keywords='Dusty_Evolved_Star_Kit',
-    name='Dusty_Evolved_Star_Kit',
+    name='desk',
     packages=find_packages(include=['desk']),
     setup_requires=setup_requirements,
     test_suite='tests',
     tests_require=test_requirements,
     url='https://github.com/s-goldman/Dusty_Evolved_Star_Kit',
-    version='1.3.2',
+    version='1.3.3',
     zip_safe=False,
 )
