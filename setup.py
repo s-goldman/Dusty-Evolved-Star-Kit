@@ -37,20 +37,21 @@ setup(
     entry_points={
         'console_scripts': [
             # 'dusty_evolved_star_kit=dusty_evolved_star_kit.cli:main',
-            'fit_sed=dusty_evolved_star_kit.desk.sed_fitting:main',
+            'fit_sed=desk.sed_fit:main'
         ],
     },
     install_requires=requirements,
     license="BSD license",
     long_description=readme + '\n\n' + history,
     include_package_data=True,
-    keywords='dusty_evolved_star_kit',
-    name='dusty_evolved_star_kit',
-    packages=find_packages(include=['dusty_evolved_star_kit.desk']),
+    keywords='Dusty_Evolved_Star_Kit',
+    name='desk',
+    packages=find_packages(include=['desk']),
+    package_data={'project': ['models/*', 'put_target_data_here']},
     setup_requires=setup_requirements,
     test_suite='tests',
     tests_require=test_requirements,
-    url='https://github.com/s-goldman/dusty_evolved_star_kit',
-    version='1.3.1',
+    url='https://github.com/s-goldman/Dusty_Evolved_Star_Kit',
+    version='1.3.8',
     zip_safe=False,
 )
