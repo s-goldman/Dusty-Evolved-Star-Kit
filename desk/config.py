@@ -18,12 +18,12 @@ target = dict(
 # Padova options: J400, J1000, H11, R12, R13
 
 fitting = dict(
-    model_grid='Zubko-Crich-aringer',
-    # model_grid='Oss-Orich-aringer',
+    # model_grid='Zubko-Crich-aringer',
+    model_grid='Oss-Orich-bb',
     wavelength_min=0.01,
     wavelength_max=25,
-    min_norm=1e-16,
-    max_norm=1e-12,
+    min_norm=1e-14,
+    max_norm=1e-10,
     ntrials=2000
 )
 output = dict(
@@ -32,5 +32,5 @@ output = dict(
     # output_unit='Wm^-2',
     output_unit='Jy',
 
-    figures_single_multiple_or_none='multiple'
+    figures_single_multiple_or_none='single'
 )

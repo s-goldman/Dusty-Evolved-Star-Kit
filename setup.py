@@ -36,7 +36,8 @@ setup(
     description="The DESK is an SED-fitting python scripts for fitting data from evolved stars",
     entry_points={
         'console_scripts': [
-            'dusty_evolved_star_kit=dusty_evolved_star_kit.cli:main',
+            # 'dusty_evolved_star_kit=dusty_evolved_star_kit.cli:main',
+            'fit_sed=dusty_evolved_star_kit.desk.sed_fitting:main',
         ],
     },
     install_requires=requirements,
