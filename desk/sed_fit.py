@@ -16,7 +16,7 @@ from functools import partial
 from scipy import interpolate
 from multiprocessing import Process
 from desk import config, remove_old_files, plotting_seds, get_padova
-from .plotting_seds import create_fig
+from desk.plotting_seds import create_fig
 from multiprocessing import Pool, cpu_count
 from astropy.table import Table, Column
 
@@ -35,6 +35,7 @@ squares value for each grid in the model and the data. The DUSTY outputs are the
 fitting_results.csv and fitting_plotting_output.csv (for plotting the results). An example plotting script has also
 been provided.
 '''
+
 
 def get_data(filename):
     """
@@ -110,7 +111,6 @@ def sed_fitting(target):
     model_index = argmin // stat_array.shape[1]
     trial_index = argmin % stat_array.shape[1]
 
-
     # appends data for plotting later
     follow_up_array.append(np.array(grid_outputs[model_index]))
     target_name = (target.split('/')[-1][:15]).replace('IRAS-', 'IRAS ')
@@ -118,13 +118,12 @@ def sed_fitting(target):
     follow_up_index.append(model_index)
     follow_up_normilazation.append(trials[trial_index])
 
-
-    if fnmatch(config.fitting['model_grid'],'grams*'):
+    if fnmatch(config.fitting['model_grid'], 'grams*'):
         print(Table(grid_outputs[model_index]))
         latex_array.append(grid_outputs[model_index])
 
-    else:    
-    # calculates luminosity and scales outputs
+    else:
+        # calculates luminosity and scales outputs
         luminosity = int(np.power(10.0, distance_norm - math.log10(trials[trial_index]) * -1))
         scaled_vexp = float(grid_outputs[model_index]['vexp']) * (luminosity / 10000) ** 0.25
         scaled_mdot = grid_outputs[model_index]['mdot'] * ((luminosity / 10000) ** 0.75) * (
@@ -148,9 +147,9 @@ def sed_fitting(target):
             print('-------------------------------------------------')
         return latex_array, follow_up_normilazation, follow_up_names, follow_up_index, follow_up_array
 
-
     # with Pool(processes=number_of_cores_to_use) as pool:
     #         pool.map(sed_fitting, targets)
+
 
 def main():
     # set variables
@@ -171,9 +170,7 @@ def main():
     follow_up_normilazation = []
     targets = []
     latex_array = []
-    target_names = []
     start = time.time()
-    number_of_cores_to_use = cpu_count() - 1
 
     # normalization calculation
     # solar constant = 1379 W
@@ -214,16 +211,16 @@ def main():
     else:
         raise ValueError("Model grid input error: mismatch in model spectra and model output")
 
-        #SED FITTING
+        # SED FITTING
     # pdb.set_trace()
     for counter, target_string in tqdm(enumerate(targets)):
         sed_fitting(target_string)
 
     # saves results csv file
-    if fnmatch(config.fitting['model_grid'],'grams*'):
+    if fnmatch(config.fitting['model_grid'], 'grams*'):
         print(Table(grid_outputs[model_index]))
 
-    else:   
+    else:
         file_a = Table(np.array(latex_array), names=(
             'source', 'L', 'vexp_predicted', 'teff', 'tinner', 'odep', 'mdot'), dtype=(
             'S16', 'int32', 'f8', 'int32', 'int32', 'f8', 'f8'))
@@ -245,7 +242,7 @@ def main():
         create_fig()  # runs plotting script
     else:
         print('No figure created. To automatically generate a figure or multiple figures change the ' +
-            '"figures_single_multiple_or_none" variable in the config.py script to "single" or "multiple".')
+              '"figures_single_multiple_or_none" variable in the config.py script to "single" or "multiple".')
 
     end = time.time()
     print()
@@ -254,31 +251,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

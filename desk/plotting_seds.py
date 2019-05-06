@@ -46,7 +46,6 @@ def create_fig():
         """
         table = ascii.read(filename, delimiter=',')
         table.sort(table.colnames[0])
-        table = table[70:]
         x = np.array(table.columns[0])
         y = np.array(table.columns[1])
         if config.output['output_unit'] == 'Wm^-2':
@@ -97,8 +96,8 @@ def create_fig():
         # pdb.set_trace()
         # plotting
         if len(input_file) == 1:
-            ax1.set_xlim(0.3, 2.4)
-            ax1.set_ylim(-14.7, -10.51)
+            ax1.set_xlim(-0.99, 2.49)
+            ax1.set_ylim(-15.2, -11.51)
             ax1.plot(x_data, y_data, c='blue', label='data')
             ax1.plot(x_model, y_model, c='k', linewidth=0.5, linestyle='--', zorder=2, label='model')
             ax1.annotate(target_name.replace('-', r'\textendash'), (0.07, 0.85), xycoords='axes fraction', fontsize=14)
@@ -118,38 +117,15 @@ def create_fig():
             axs[counter].set_xlabel('log $\lambda$ ($\mu m$)', labelpad=10)
             axs[counter].set_ylabel(axislabel, labelpad=10)
 
+        # #plot ossenkopf model
+        # oss = Table.read('desk/python_scripts/ossenkopf_fit.csv', format='csv')
+        # ax1.plot(oss['wave'], oss['lamflam'], c='blue', linewidth=0.7, linestyle='--', zorder=2, label='ossenkopf')
+
+        # #plot crystalline model
+        # cry = Table.read('desk/python_scripts/crystalline_fit.csv', format='csv')
+        # # ax1.plot(cry['wave'], cry['lamflam'], c='green', linewidth=0.7, linestyle='--', zorder=20, label='cry')
+        # plt.legend()
+
         # pdb.set_trace()
     plt.subplots_adjust(wspace=0, hspace=0)
     fig.savefig('output_sed.png', dpi=200, bbox_inches='tight')
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
