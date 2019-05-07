@@ -36,8 +36,10 @@ def create_fig():
     plt.rcParams['text.usetex'] = True
     plt.rcParams['text.latex.unicode'] = True
 
+    full_path = str(__file__.replace('plotting_seds.py',''))
+
     input_file = Table.read('fitting_plotting_outputs.csv')
-    grid_dusty = Table.read('models/' + str(input_file['grid_name'][0]) + '_models.fits')
+    grid_dusty = Table.read(full_path+'models/' + str(input_file['grid_name'][0]) + '_models.fits')
 
     def get_data(filename):
         """
@@ -116,15 +118,6 @@ def create_fig():
             axs[counter].get_yaxis().set_tick_params(which='both', direction='in', labelsize=15)
             axs[counter].set_xlabel('log $\lambda$ ($\mu m$)', labelpad=10)
             axs[counter].set_ylabel(axislabel, labelpad=10)
-
-        # #plot ossenkopf model
-        # oss = Table.read('desk/python_scripts/ossenkopf_fit.csv', format='csv')
-        # ax1.plot(oss['wave'], oss['lamflam'], c='blue', linewidth=0.7, linestyle='--', zorder=2, label='ossenkopf')
-
-        # #plot crystalline model
-        # cry = Table.read('desk/python_scripts/crystalline_fit.csv', format='csv')
-        # # ax1.plot(cry['wave'], cry['lamflam'], c='green', linewidth=0.7, linestyle='--', zorder=20, label='cry')
-        # plt.legend()
 
         # pdb.set_trace()
     plt.subplots_adjust(wspace=0, hspace=0)
