@@ -225,7 +225,7 @@ def main():
         file_a = Table(np.array(latex_array), names=(
             'source', 'L', 'vexp_predicted', 'teff', 'tinner', 'odep', 'mdot'), dtype=(
             'S16', 'int32', 'f8', 'int32', 'int32', 'f8', 'f8'))
-        file_a.write('../fitting_results.csv', format='csv', overwrite=True)
+        file_a.write('fitting_results.csv', format='csv', overwrite=True)
 
     # saves plotting file
     file_b = Table(np.array(follow_up_array))

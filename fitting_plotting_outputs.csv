@@ -1,4 +1,4 @@
 target_name,data_file,norm,index,grid_name,teff,tinner,number,odep,mdot,vexp
-IRAS_04407-7000,desk/put_target_data_here/IRAS_04407-7000.csv,2.1108404202101054e-12,1814,Oss-Orich-bb,3400,600,15,0.241,2.86e-06,18.2
-IRAS_04509-6922,desk/put_target_data_here/IRAS_04509-6922.csv,8.603401700850425e-13,731,Oss-Orich-bb,2800,800,32,0.7,6.42e-06,15.9
-MSX_LMC_807.csv,desk/put_target_data_here/MSX_LMC_807.csv,2.601000500250125e-13,1359,Oss-Orich-bb,3200,1200,60,4.06,2.32e-05,9.99
+IRAS_04407-7000,/Users/sgoldman/Desktop/absolute_imports/desk/put_target_data_here/IRAS_04407-7000.csv,2.1108404202101054e-12,1814,Oss-Orich-bb,3400,600,15,0.241,2.86e-06,18.2
+IRAS_04509-6922,/Users/sgoldman/Desktop/absolute_imports/desk/put_target_data_here/IRAS_04509-6922.csv,8.603401700850425e-13,731,Oss-Orich-bb,2800,800,32,0.7,6.42e-06,15.9
+MSX_LMC_807.csv,/Users/sgoldman/Desktop/absolute_imports/desk/put_target_data_here/MSX_LMC_807.csv,2.601000500250125e-13,1359,Oss-Orich-bb,3200,1200,60,4.06,2.32e-05,9.99
