@@ -37,7 +37,7 @@ setup(
     entry_points={
         'console_scripts': [
             # 'dusty_evolved_star_kit=dusty_evolved_star_kit.cli:main',
-            'fit_sed = desk.sed_fit'
+            'fit_sed = desk.sed_fit.main'
         ],
     },
     install_requires=requirements,
@@ -52,6 +52,6 @@ setup(
     test_suite='tests',
     tests_require=test_requirements,
     url='https://github.com/s-goldman/Dusty_Evolved_Star_Kit',
-    version='1.4.1',
+    version='1.4.2',
     zip_safe=False,
 )
