@@ -11,7 +11,7 @@ The package is currently in development and all contributions are welcomed. For 
 
 **Input**: A csv with the first column as wavelength in um and second column as flux in Jy or W m2 (File can have other columns).
 
-**Output**: Results file specifying the best fit model parameters, as well as a results file with specifics for plotting the output.
+**Output**: Results file specifying the best fit model parameters, as well as a results file with specifics for plotting the output and an optional figure.
 
 **Options**: In the sed_fitting.py you can specify:
  * model grid
@@ -21,7 +21,7 @@ The package is currently in development and all contributions are welcomed. For 
  * binning of the normalization range
 
 **Available model grids**:
-Several grids are **already available** and are located in the _models_ directory (change using the model_grid variable in the config.py file). You can also specify the state-of-the-art dust growth models by Nanni et al. (2019) which are automatically downloaded and used when selected. New news will include the [GRAMS model grid](https://2dust.stsci.edu/grams_models.cgi) based on the 2DUST code and the [DARWIN models](https://arxiv.org/abs/1904.10943).
+Several grids are **already available** and are located in the _models_ directory (change using the model_grid variable in the config.py file). You can also specify the state-of-the-art dust growth models by Nanni et al. (2019) which are automatically downloaded and used when selected. New grids will include the 2D [GRAMS model grid](https://2dust.stsci.edu/grams_models.cgi) based on the 2DUST code and 3D [DARWIN models](https://arxiv.org/abs/1904.10943).
 
 _Update (15 Apr 2019): Starkey site currently down: Nanni et al. (2019) models currently unavailable_
 
@@ -36,7 +36,7 @@ The documentation will soon be found on [readthedocs](http://dusty-evolved-star-
 Install Using Python
 -------------------
 
-Install the package with the command `pip install desk` and then import the module with `import desk`. To run the main module run `desk.sed_fitting.main(['name_of_target_1_data.csv'])` or `desk.sed_fitting.main(['name_of_target_1_data.csv', 'name_of_target_2_data.csv'])` for multiple sources. This will fit the seds using the grid and options specified in config.py or the config.xxxx dictionary. Two results files and an output sed figure are automatically created. To create the figure you can also run `desk.plotting_seds.create_fig()`.
+Install the package with the command `pip install desk` and then import the module with `import desk`. To run the main module run `desk.sed_fitting.main(['name_of_target_1_data.csv'])` or `desk.sed_fitting.main(['name_of_target_1_data.csv', 'name_of_target_2_data.csv'])` for multiple sources. This will fit the SEDs using the grid and options specified in config.py file or the config.xxxx dictionary. Two results files and an optional output_sed.png figure are automatically created. To create the figure you can also run `desk.plotting_seds.create_fig()`.
 
 Command line Use
 ----------------------
