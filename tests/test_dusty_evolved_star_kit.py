@@ -7,7 +7,7 @@
 import unittest
 from click.testing import CliRunner
 
-import desk
+from .. import desk
 # from dusty_evolved_star_kit import cli
 
 
