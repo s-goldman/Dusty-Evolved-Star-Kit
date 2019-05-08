@@ -8,5 +8,4 @@ recursive-exclude * __pycache__
 recursive-exclude * *.py[co]
 recursive-include desk/put_target_data_here *
 recursive-include desk/models *
-
 recursive-include docs *.rst conf.py Makefile make.bat *.jpg *.png *.gif

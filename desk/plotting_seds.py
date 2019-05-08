@@ -36,10 +36,10 @@ def create_fig():
     plt.rcParams['text.usetex'] = True
     plt.rcParams['text.latex.unicode'] = True
 
-    full_path = str(__file__.replace('plotting_seds.py',''))
+    full_path = str(__file__.replace('plotting_seds.py', ''))
 
     input_file = Table.read('fitting_plotting_outputs.csv')
-    grid_dusty = Table.read(full_path+'models/' + str(input_file['grid_name'][0]) + '_models.fits')
+    grid_dusty = Table.read(full_path + 'models/' + str(input_file['grid_name'][0]) + '_models.fits')
 
     def get_data(filename):
         """
