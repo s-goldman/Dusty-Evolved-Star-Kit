@@ -98,7 +98,6 @@ def fit_norm(data, norm_model):
 
 # for each target, fit spectra with given models (.fits file)
 def sed_fitting(target):
-    global targets
     stat_values = []
     raw_data = get_data(target)  # gets target data
     # model_x = grid_dusty[0][0][:]  # gets model wavelengths
@@ -172,7 +171,7 @@ def main():
     targets = []
     latex_array = []
     start = time.time()
-    full_path = str(__file__.replace('sed_fit.py',''))
+    full_path = str(__file__.replace('sed_fit.py', ''))
     # normalization calculation
     # solar constant = 1379 W
     # distance to sun in kpc 4.8483E-9
@@ -182,9 +181,9 @@ def main():
     trials = np.linspace(config.fitting['min_norm'], config.fitting['max_norm'], config.fitting['ntrials'])
 
     # for multiple sources
-    for item in os.listdir(full_path+'put_target_data_here/'):
+    for item in os.listdir(full_path + 'put_target_data_here/'):
         if fnmatch(item, "*csv"):
-            targets.append(full_path+'put_target_data_here/' + item)
+            targets.append(full_path + 'put_target_data_here/' + item)
     # example source
     # targets = ['../put_target_data_here/IRAS_04509-6922.csv']  # comment out for all sources
 
@@ -192,7 +191,7 @@ def main():
     remove_old_files.remove()
 
     # check if padova
-    if not os.path.isfile(full_path+'models/' + config.fitting['model_grid'] + '_models.fits'):
+    if not os.path.isfile(full_path + 'models/' + config.fitting['model_grid'] + '_models.fits'):
         print('Models not in directory')
         user_proceed = input('Download model [y]/n? (may take 30 minutes): ')
         if user_proceed == 'y' or user_proceed == '':
@@ -203,8 +202,8 @@ def main():
         print('You already have the models!')
         print('Great job')
 
-    grid_dusty = Table.read(full_path+'models/' + config.fitting['model_grid'] + '_models.fits')
-    grid_outputs = Table.read(full_path+'models/' + config.fitting['model_grid'] + '_outputs.csv')
+    grid_dusty = Table.read(full_path + 'models/' + config.fitting['model_grid'] + '_models.fits')
+    grid_outputs = Table.read(full_path + 'models/' + config.fitting['model_grid'] + '_outputs.csv')
 
     # Model grid check
     if len(grid_dusty) == len(grid_outputs):

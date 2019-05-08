@@ -13,9 +13,9 @@ with open('HISTORY.rst') as history_file:
 
 requirements = ['Click>=6.0', ]
 
-setup_requirements = [ ]
+setup_requirements = []
 
-test_requirements = [ ]
+test_requirements = []
 
 setup(
     author="Steven R. Goldman",
@@ -34,12 +34,7 @@ setup(
         'Programming Language :: Python :: 3.7',
     ],
     description="The DESK is an SED-fitting python scripts for fitting data from evolved stars",
-    entry_points={
-        'console_scripts': [
-            # 'dusty_evolved_star_kit=dusty_evolved_star_kit.cli:main',
-            'fit_sed = desk.sed_fit:main'
-        ],
-    },
+    entry_points={'console_scripts': ['fit_sed = desk.sed_fit:main']},
     install_requires=requirements,
     license="BSD license",
     long_description=readme + '\n\n' + history,
@@ -52,6 +47,6 @@ setup(
     test_suite='tests',
     tests_require=test_requirements,
     url='https://github.com/s-goldman/Dusty_Evolved_Star_Kit',
-    version='1.4.3',
+    version='1.4.4',
     zip_safe=False,
 )
