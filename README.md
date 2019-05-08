@@ -41,17 +41,19 @@ Documentation
 The documentation will soon be found on [readthedocs](http://dusty-evolved-star-kit.readthedocs.io/en/latest/).
 
 
-Installing the DESK
+Install Using Python
 -------------------
 
-Clone the github repository using `git clone https://github.com/s-goldman/Dusty-Evolved-Star-Kit.git`.
+Install the package with the command `pip install desk` and then import the module with `import desk`. To run the main module run `desk.sed_fitting.main(['name_of_target_1_data.csv'])` or `desk.sed_fitting.main(['name_of_target_1_data.csv', 'name_of_target_1_data.csv'])` for multiple sources. This will fit the seds using the grid and options specified in config.py or the config.xxxx dictionary. Two results files and an output sed figure are automatically created. To create the figure you can also run `desk.plotting_seds.create_fig()`.
 
-Fitting with the DESK
+Command line Use
 ----------------------
 
-All of the important script files can be found in "/dusty-evolved-star-kit/python_scripts"
+To download use git clone `https://github.com/s-goldman/Dusty-Evolved-Star-Kit.git`
 
-Just add the csv data files you want to fit to the *put_target_data_here* directory, select your options (shown above) within the config.py script, and then run sed_fitting.py in python.
+All of the important script files can be found in the `desk` subdirectory.
+
+Just add the csv data files you want to fit to the *put_target_data_here* directory, select your options (shown above) within the config.py script, and then `run python sed_fitting.py`.
 
 <img src="docs/example.png"  width="400" height="500">
 
