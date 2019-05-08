@@ -37,7 +37,7 @@ def create_fig():
     plt.rcParams['text.latex.unicode'] = True
 
     full_path = str(__file__.replace('plotting_seds.py', ''))
-
+    # pdb.set_trace()
     input_file = Table.read('fitting_plotting_outputs.csv')
     grid_dusty = Table.read(full_path + 'models/' + str(input_file['grid_name'][0]) + '_models.fits')
 
@@ -99,8 +99,8 @@ def create_fig():
         # plotting
         if len(input_file) == 1:
             ax1.set_xlim(-0.99, 2.49)
-            ax1.set_ylim(-15.2, -11.51)
-            ax1.plot(x_data, y_data, c='blue', label='data')
+            ax1.set_ylim(np.median(y_model) - 2, np.median(y_model) + 2)
+            ax1.scatter(x_data, y_data, c='blue', label='data')
             ax1.plot(x_model, y_model, c='k', linewidth=0.5, linestyle='--', zorder=2, label='model')
             ax1.annotate(target_name.replace('-', r'\textendash'), (0.07, 0.85), xycoords='axes fraction', fontsize=14)
             ax1.get_xaxis().set_tick_params(which='both', direction='in', labelsize=15)
