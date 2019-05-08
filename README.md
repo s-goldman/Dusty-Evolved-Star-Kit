@@ -24,16 +24,11 @@ The package is currently in development and all contributions are welcomed. For 
  * binning of the normalization range
 
 **Available model grids**:
-Several grids are **already available** and are located in the _models_ directory (change using the model_grid variable in the config.py file), but you can also create your own model grid or download the state-of-the-art dust growth models by Nanni et al. (2019).
+Several grids are **already available** and are located in the _models_ directory (change using the model_grid variable in the config.py file). You can also specify the state-of-the-art dust growth models by Nanni et al. (2019) which are automatically downloaded and used when selected. New news will include the [GRAMS model grid](https://2dust.stsci.edu/grams_models.cgi) based on the 2DUST code and the [DARWIN models](https://arxiv.org/abs/1904.10943).
 
 _Update (15 Apr 2019): Starkey site currently down: Nanni et al. (2019) models currently unavailable_
 
-To create your own [DUSTY](https://github.com/ivezic/dusty) grid:
-1. Run dusty
-2. Put all outputs (spectra files .s* and output files *.out) into a directory of the same name (see example grid directories)
-3. Run the dusty_to_grid.py script
-
-This will create two fits files containing all spectra (*directoryname*_models.fits), and all outputs (*directoryname*_outputs.fits).
+A module for creating your own [DUSTY](https://github.com/ivezic/dusty) grid is under development, but for now please email me ([Dr. Steven Goldman](http://www.stsci.edu/~sgoldman/)) directly for grid requests or for help with the pacakge. 
 
 Documentation
 -------------
