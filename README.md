@@ -44,7 +44,7 @@ The documentation will soon be found on [readthedocs](http://dusty-evolved-star-
 Install Using Python
 -------------------
 
-Install the package with the command `pip install desk` and then import the module with `import desk`. To run the main module run `desk.sed_fitting.main(['name_of_target_1_data.csv'])` or `desk.sed_fitting.main(['name_of_target_1_data.csv', 'name_of_target_1_data.csv'])` for multiple sources. This will fit the seds using the grid and options specified in config.py or the config.xxxx dictionary. Two results files and an output sed figure are automatically created. To create the figure you can also run `desk.plotting_seds.create_fig()`.
+Install the package with the command `pip install desk` and then import the module with `import desk`. To run the main module run `desk.sed_fitting.main(['name_of_target_1_data.csv'])` or `desk.sed_fitting.main(['name_of_target_1_data.csv', 'name_of_target_2_data.csv'])` for multiple sources. This will fit the seds using the grid and options specified in config.py or the config.xxxx dictionary. Two results files and an output sed figure are automatically created. To create the figure you can also run `desk.plotting_seds.create_fig()`.
 
 Command line Use
 ----------------------
