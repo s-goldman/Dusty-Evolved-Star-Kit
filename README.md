@@ -41,11 +41,11 @@ Install the package with the command `pip install desk` and then import the modu
 Command line Use
 ----------------------
 
-To download use git clone `https://github.com/s-goldman/Dusty-Evolved-Star-Kit.git`
+To download on the main Git page or use the command `git clone https://github.com/s-goldman/Dusty-Evolved-Star-Kit.git`
 
-All of the important script files can be found in the `desk` subdirectory.
+All of the important script files (.py files) can be found in the `desk` subdirectory.
 
-Just add the csv data files you want to fit to the *put_target_data_here* directory, select your options (shown above) within the config.py script, and then `run python sed_fitting.py`.
+Just add your csv data files you want to fit to the *put_target_data_here* directory, select your options (shown above) within the config.py script, and then use the command `python sed_fitting.py`.
 
 <img src="docs/example.png"  width="400" height="500">
 
