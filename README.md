@@ -7,10 +7,7 @@ Dusty-Evolved-Star-Kit<img align="left" width="100" height="100" src="docs/the_d
 
 
 The DESK is an SED-fitting python scripts for fitting data from evolved stars (photometry or spectra) with [DUSTY](https://github.com/ivezic/dusty) 1-D radiative transfer models.
-The package is currently in development and all contributions are welcomed. For current progress, see the Issues tab at the top of the page. The DESK currently contains scripts for:
-1. Converting the output files from DUSTY to two fits files
-2. Least square fitting of the models to data
-3. Plotting the results
+The package is currently in development and all contributions are welcomed. For current progress, see the Issues tab at the top of the page.
 
 **Input**: A csv with the first column as wavelength in um and second column as flux in Jy or W m2 (File can have other columns).
 
