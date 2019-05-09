@@ -5,9 +5,9 @@ include README.rst
 
 recursive-exclude * __pycache__
 recursive-exclude * *.py[co]
-recursive-exclude * desk/output_sed.png
-recursive-exclude * desk/fitting*
-recursive-exclude * desk/output_sed.png
+recursive-exclude desk output_sed.png
+recursive-exclude desk fitting*
+recursive-exclude desk output_sed.png
 
 recursive-include tests *
 recursive-include desk/put_target_data_here *
