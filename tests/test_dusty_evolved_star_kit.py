@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-"""Tests for `dusty_evolved_star_kit` package."""
+# """Tests for `dusty_evolved_star_kit` package."""
 
 
 # import unittest
