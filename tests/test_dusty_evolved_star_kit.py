@@ -4,8 +4,8 @@
 """Tests for `dusty_evolved_star_kit` package."""
 
 
-import unittest
-from click.testing import CliRunner
+# import unittest
+# from click.testing import CliRunner
 
 # import desk
 # # from dusty_evolved_star_kit import cli
