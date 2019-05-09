@@ -11,11 +11,11 @@ with open('README.rst') as readme_file:
 with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
-requirements = ['Click>=6.0', ]
+requirements = ['Click>=6.0', 'tqdm', 'scipy']
 
 setup_requirements = []
 
-test_requirements = []
+test_requirements = ['scipy']
 
 setup(
     author="Steven R. Goldman",
@@ -47,6 +47,6 @@ setup(
     test_suite='tests',
     tests_require=test_requirements,
     url='https://github.com/s-goldman/Dusty_Evolved_Star_Kit',
-    version='1.4.4',
+    version='1.4.5',
     zip_safe=False,
 )

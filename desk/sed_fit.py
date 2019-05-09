@@ -37,6 +37,16 @@ been provided.
 '''
 
 
+def get_targets():
+    global targets
+    targets = []
+    full_path = str(__file__.replace('sed_fit.py', ''))
+    # for multiple sources
+    for item in os.listdir(full_path + 'put_target_data_here/'):
+        if fnmatch(item, "*csv"):
+            targets.append(full_path + 'put_target_data_here/' + item)
+    return targets
+
 def get_data(filename):
     """
     :param filename: filename of input data. Should be csv with Column 0: wavelength in um and Col 1: flux in Jy
@@ -150,9 +160,8 @@ def sed_fitting(target):
     #         pool.map(sed_fitting, targets)
 
 
-def main():
+def main(arg_input=get_targets()):
     # set variables
-    global targets
     global trials
     global counter
     global grid_dusty
@@ -164,28 +173,22 @@ def main():
     global follow_up_index
     global follow_up_names
     global follow_up_normilazation
+    global full_path
     follow_up_array = []
     follow_up_names = []
     follow_up_index = []
     follow_up_normilazation = []
-    targets = []
     latex_array = []
     start = time.time()
-    full_path = str(__file__.replace('sed_fit.py', ''))
     # normalization calculation
     # solar constant = 1379 W
     # distance to sun in kpc 4.8483E-9
     distance_norm = math.log10(((int(config.target['distance_in_kpc']) / 4.8482E-9) ** 2) / 1379)
 
+    full_path = str(__file__.replace('sed_fit.py', ''))
+
     # normalization range
     trials = np.linspace(config.fitting['min_norm'], config.fitting['max_norm'], config.fitting['ntrials'])
-
-    # for multiple sources
-    for item in os.listdir(full_path + 'put_target_data_here/'):
-        if fnmatch(item, "*csv"):
-            targets.append(full_path + 'put_target_data_here/' + item)
-    # example source
-    # targets = ['../put_target_data_here/IRAS_04509-6922.csv']  # comment out for all sources
 
     # remove old file
     remove_old_files.remove()
@@ -211,9 +214,9 @@ def main():
     else:
         raise ValueError("Model grid input error: mismatch in model spectra and model output")
 
-        # SED FITTING
+    # SED FITTING
     # pdb.set_trace()
-    for counter, target_string in tqdm(enumerate(targets)):
+    for counter, target_string in tqdm(enumerate(arg_input)):
         sed_fitting(target_string)
 
     # saves results csv file
@@ -230,7 +233,7 @@ def main():
     file_b = Table(np.array(follow_up_array))
     file_b.add_column(Column(follow_up_index, name='index'), index=0)
     file_b.add_column(Column(follow_up_normilazation, name='norm'), index=0)
-    file_b.add_column(Column(targets, name='data_file'), index=0)
+    file_b.add_column(Column(arg_input, name='data_file'), index=0)
     file_b.add_column(Column(follow_up_names, name='target_name'), index=0)
     file_b.write('fitting_plotting_outputs.csv', format='csv', overwrite=True)
 
