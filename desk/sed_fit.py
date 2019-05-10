@@ -52,6 +52,7 @@ def get_data(filename):
     :param filename: filename of input data. Should be csv with Column 0: wavelength in um and Col 1: flux in Jy
     :return: two arrays of wavelength (x) and flux (y) in unit specified in config.py
     """
+    global log_average_flux_wm2
     table = ascii.read(filename, delimiter=',')
     table.sort(table.colnames[0])
     x = np.array(table.columns[0])
@@ -61,6 +62,7 @@ def get_data(filename):
     y = y[index]
     y = y * u.Jy
     y = y.to(u.W / (u.m * u.m), equivalencies=u.spectral_density(x * u.um))
+    log_average_flux_wm2 = np.log10(np.median(y).value)
     return x, np.array(y)
 
 
@@ -99,7 +101,12 @@ def fit_norm(data, norm_model):
     :param norm_model: closest wavelength values to data in 1-D array (from trim)
     :return: trimmed model in 2 column np.array
     """
+    global trials
     stats = []
+    # normalization range
+    # trials = np.linspace(config.fitting['min_norm'], config.fitting['max_norm'], config.fitting['ntrials'])
+    trials = np.logspace(log_average_flux_wm2-2, log_average_flux_wm2+2, 1000)
+    # pdb.set_trace()
     for t in trials:
         stat = least2(data[1], norm_model * t)
         stats.append(stat)
@@ -160,9 +167,8 @@ def sed_fitting(target):
     #         pool.map(sed_fitting, targets)
 
 
-def main(arg_input=get_targets()):
+def main(arg_input=get_targets(), dist=config.target['distance_in_kpc']):
     # set variables
-    global trials
     global counter
     global grid_dusty
     global grid_outputs
@@ -183,12 +189,9 @@ def main(arg_input=get_targets()):
     # normalization calculation
     # solar constant = 1379 W
     # distance to sun in kpc 4.8483E-9
-    distance_norm = math.log10(((int(config.target['distance_in_kpc']) / 4.8482E-9) ** 2) / 1379)
+    distance_norm = math.log10(((int(dist) / 4.8482E-9) ** 2) / 1379)
 
     full_path = str(__file__.replace('sed_fit.py', ''))
-
-    # normalization range
-    trials = np.linspace(config.fitting['min_norm'], config.fitting['max_norm'], config.fitting['ntrials'])
 
     # remove old file
     remove_old_files.remove()

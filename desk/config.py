@@ -9,7 +9,7 @@ This script is for plotting the outputs of the sed_fitting script.
 
 target = dict(
     distance_in_kpc=50,
-    assumed_gas_to_dust_ratio=400,
+    assumed_gas_to_dust_ratio=200,
     input_unit='Jy'
 )
 
@@ -20,11 +20,8 @@ target = dict(
 fitting = dict(
     # model_grid='Zubko-Crich-aringer',
     model_grid='Oss-Orich-bb',
-    wavelength_min=0.01,
-    wavelength_max=25,
-    min_norm=1e-14,
-    max_norm=1e-10,
-    ntrials=2000
+    wavelength_min=0.00001,
+    wavelength_max=100,
 )
 output = dict(
     printed_output='True',
