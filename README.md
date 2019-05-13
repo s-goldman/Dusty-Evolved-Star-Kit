@@ -1,6 +1,7 @@
 
 Dusty-Evolved-Star-Kit<img align="left" width="100" height="100" src="docs/the_desk.png">
 =========================================================================================
+[![Documentation Status](https://img.shields.io/badge/pypi-DESK-blue.svg)](https://pypi.org/project/desk/)
 [![Documentation Status](https://readthedocs.org/projects/dusty-evolved-star-kit/badge/?version=latest)](https://dusty-evolved-star-kit.readthedocs.io/en/latest/?badge=latest)
 [![Build Status](https://travis-ci.org/s-goldman/Dusty-Evolved-Star-Kit.svg?branch=master)](https://travis-ci.org/s-goldman/Dusty-Evolved-Star-Kit)
 [![arXiv paper](https://img.shields.io/badge/arXiv-1610.05761-blue.svg)](https://arxiv.org/abs/1610.05761)
