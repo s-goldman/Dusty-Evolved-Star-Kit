@@ -15,7 +15,7 @@ requirements = ['Click>=6.0', 'tqdm', 'scipy']
 
 setup_requirements = []
 
-test_requirements = ['scipy', 'tqdm']
+test_requirements = ['scipy']
 
 setup(
     author="Steven R. Goldman",
