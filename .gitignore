@@ -58,3 +58,9 @@ distribute-*.tar.gz
 
 # Mac OSX
 .DS_Store
+
+# mine
+fitting_results.csv
+fitting_plotting_outputs.csv
+outpuut_sed.png
+parameter*.png
