@@ -6,7 +6,13 @@ that this package is distinct from the /cextern directory of the source code
 distribution, as that directory only contains C extension code.
 """
 
-from ._astropy_init import *
+# -*- coding: utf-8 -*-
+
+"""Top-level package for Dusty-Evolved-Star-Kit."""
+
+__author__ = """Steven R. Goldman"""
+__email__ = 'sgoldman@stsci.edu'
+__version__ = '1.3.1'
 
 import desk.sed_fit
 import desk.plotting_seds
