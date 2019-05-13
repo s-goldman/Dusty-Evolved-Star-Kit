@@ -57,7 +57,7 @@ env:
 
     matrix:
         # Make sure that egg_info works without dependencies
-        - PYTHON_VERSION=2.7 SETUP_CMD='egg_info'
+#        - PYTHON_VERSION=2.7 SETUP_CMD='egg_info'
         - PYTHON_VERSION=3.5 SETUP_CMD='egg_info'
         - PYTHON_VERSION=3.6 SETUP_CMD='egg_info'
 
@@ -73,8 +73,8 @@ matrix:
           env: SETUP_CMD='test'
 
         # Do a coverage test.
-        - os: linux
-          env: SETUP_CMD='test --coverage'
+#        - os: linux
+#          env: SETUP_CMD='test --coverage'
 
         # Check for sphinx doc build warnings - we do this first because it
         # may run for a long time
