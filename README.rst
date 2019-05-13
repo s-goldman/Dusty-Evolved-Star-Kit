@@ -3,7 +3,7 @@ Dusty-Evolved-Star-Kit
 ======================
 
 
-.. image:: https://img.shields.io/pypi/v/dusty_evolved_star_kit.svg
+.. image:: https://img.shields.io/pypi/v/desk.svg
         :target: https://pypi.python.org/pypi/desk
 
 .. image:: https://img.shields.io/travis/s-goldman/dusty_evolved_star_kit.svg
