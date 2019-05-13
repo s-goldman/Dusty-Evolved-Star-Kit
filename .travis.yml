@@ -141,6 +141,9 @@ install:
     # section if they are needed before setting up conda) to install any
     # other dependencies.
 
+notifications:
+    email: false
+
 script:
    - $MAIN_CMD $SETUP_CMD
 
@@ -148,6 +151,3 @@ after_success:
     # If coveralls.io is set up for this package, uncomment the line below.
     # The coveragerc file may be customized as needed for your package.
     - if [[ $SETUP_CMD == *coverage* ]]; then coveralls --rcfile='desk/tests/coveragerc'; fi
-
-notifications:
-  email: false
