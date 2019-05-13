@@ -1,11 +1,11 @@
 
 Dusty-Evolved-Star-Kit<img align="left" width="100" height="100" src="docs/the_desk.png">
 =========================================================================================
-[![Documentation Status](https://img.shields.io/badge/pypi-DESK-blue.svg)](https://pypi.org/project/desk/)
+[![pypi](https://img.shields.io/badge/pypi-DESK-blue.svg)](https://pypi.org/project/desk/)
 [![Documentation Status](https://readthedocs.org/projects/dusty-evolved-star-kit/badge/?version=latest)](https://dusty-evolved-star-kit.readthedocs.io/en/latest/?badge=latest)
 [![Build Status](https://travis-ci.org/s-goldman/Dusty-Evolved-Star-Kit.svg?branch=master)](https://travis-ci.org/s-goldman/Dusty-Evolved-Star-Kit)
 [![arXiv paper](https://img.shields.io/badge/arXiv-1610.05761-blue.svg)](https://arxiv.org/abs/1610.05761)
-
+[![Steve Goldman](https://img.shields.io/badge/STScI-Steve%20Goldman-blue.svg)](http://www.stsci.edu/~sgoldman/)
 
 The DESK is an SED-fitting python scripts for fitting data from evolved stars (photometry or spectra) with [DUSTY](https://github.com/ivezic/dusty) 1-D radiative transfer models.
 The package is currently in development and all contributions are welcomed. For current progress, see the Issues tab at the top of the page.
