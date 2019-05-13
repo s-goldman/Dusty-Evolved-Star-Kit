@@ -15,7 +15,8 @@ from astropy.io import ascii
 from functools import partial
 from scipy import interpolate
 from multiprocessing import Process
-from desk import config, remove_old_files, plotting_seds, get_padova
+from desk import config, remove_old_files, plotting_seds, get_padova, parameter_ranges
+from desk.parameter_ranges import create_par
 from desk.plotting_seds import create_fig
 from multiprocessing import Pool, cpu_count
 from astropy.table import Table, Column
@@ -179,7 +180,6 @@ def main(arg_input=get_targets(), dist=config.target['distance_in_kpc']):
     global follow_up_index
     global follow_up_names
     global follow_up_normilazation
-    global full_path
     follow_up_array = []
     follow_up_names = []
     follow_up_index = []
@@ -249,6 +249,10 @@ def main(arg_input=get_targets(), dist=config.target['distance_in_kpc']):
     else:
         print('No figure created. To automatically generate a figure or multiple figures change the ' +
               '"figures_single_multiple_or_none" variable in the config.py script to "single" or "multiple".')
+
+    if not fnmatch("parameter_ranges_"+config.fitting['model_grid']+".png", '*'):
+        print('Creating parameter range figure')
+        create_par()
 
     end = time.time()
     print()

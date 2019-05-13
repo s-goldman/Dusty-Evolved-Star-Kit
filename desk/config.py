@@ -16,6 +16,7 @@ target = dict(
 # model options
 # Built-in options: Zubko-Crich-aringer, Oss-Orich-bb, Oss-Orich-aringer, Crystalline-20-bb, corundum-20-bb
 # Padova options: J400, J1000, H11, R12, R13
+# Grams options:
 
 fitting = dict(
     # model_grid='Zubko-Crich-aringer',

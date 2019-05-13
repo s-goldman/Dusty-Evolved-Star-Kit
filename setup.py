@@ -47,6 +47,6 @@ setup(
     test_suite='tests',
     tests_require=test_requirements,
     url='https://github.com/s-goldman/Dusty_Evolved_Star_Kit',
-    version='1.4.5',
+    version='1.4.7',
     zip_safe=False,
 )
