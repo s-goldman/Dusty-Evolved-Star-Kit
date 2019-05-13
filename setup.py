@@ -13,9 +13,9 @@ with open('HISTORY.rst') as history_file:
 
 requirements = ['Click>=6.0', 'tqdm', 'scipy']
 
-setup_requirements = []
+setup_requirements = ['numpy']
 
-test_requirements = ['scipy', 'numpy']
+test_requirements = ['scipy']
 
 setup(
     author="Steven R. Goldman",
