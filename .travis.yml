@@ -38,7 +38,7 @@ env:
         
         # List other runtime dependencies for the package that are available as
         # conda packages here.
-        - CONDA_DEPENDENCIES=''
+        - CONDA_DEPENDENCIES='tqdm'
         
         # List other runtime dependencies for the package that are available as
         # pip packages here.
