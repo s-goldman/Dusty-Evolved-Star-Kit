@@ -6,6 +6,8 @@ that this package is distinct from the /cextern directory of the source code
 distribution, as that directory only contains C extension code.
 """
 
+from ._astropy_init import *
+
 import desk.sed_fit
 import desk.plotting_seds
 import desk.config
