@@ -39,6 +39,5 @@ def create_par():
         axs[counter].set_yticklabels([])
         axs[counter].set_yticks([])
         counter += 1
-    pdb.set_trace()
     plt.subplots_adjust(wspace=0, hspace=0.5)
     fig.savefig('parameter_range_' + model + '.png', dpi=200, bbox_inches='tight')
