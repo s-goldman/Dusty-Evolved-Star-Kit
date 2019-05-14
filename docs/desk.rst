@@ -1,14 +1,6 @@
 desk package
 ============
 
-Subpackages
------------
-
-.. toctree::
-
-    desk.models
-    desk.put_target_data_here
-
 Submodules
 ----------
 

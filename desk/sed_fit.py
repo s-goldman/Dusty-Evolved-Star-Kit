@@ -3,6 +3,7 @@ import os
 import pdb
 import time
 import math
+import click
 import importlib
 import subprocess
 import numpy as np
@@ -167,7 +168,7 @@ def sed_fitting(target):
     # with Pool(processes=number_of_cores_to_use) as pool:
     #         pool.map(sed_fitting, targets)
 
-
+@click.command()
 def main(arg_input=get_targets(), dist=config.target['distance_in_kpc']):
     # set variables
     global counter
