@@ -21,7 +21,7 @@ def create_par():
     par = Table.read(full_path + '/models/' + model + '_outputs.csv')
 
     for i in par.colnames:
-        if par[i].dtype.str == '<U12':
+        if fnmatch(par[i].dtype.str, '<U*'):
             par.remove_column(i)
 
     fig, axs = plt.subplots(math.ceil(len(par.colnames)), 1, figsize=(8, 10))
@@ -33,7 +33,7 @@ def create_par():
         par_min = np.min(par[col])
         par_max = np.max(par[col])
         axs[counter].scatter(par[col], [0] * len(par), marker='|', alpha=0.3, c='royalblue')
-        axs[counter].set_xlim(par_min - ((par_max - par_min) * 0.1), par_max * 1.1)
+        axs[counter].set_xlim(par_min - ((par_max - par_min) * 0.1), par_max + (par_max - par_min) * 0.1)
         # print(str(par_min) + ' : ' + str(par_max))
         axs[counter].set_ylabel(col)
         axs[counter].set_yticklabels([])
