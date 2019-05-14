@@ -48,6 +48,7 @@ def get_targets():
             targets.append(full_path + 'put_target_data_here/' + item)
     return targets
 
+
 def get_data(filename):
     """
     :param filename: filename of input data. Should be csv with Column 0: wavelength in um and Col 1: flux in Jy
@@ -106,7 +107,7 @@ def fit_norm(data, norm_model):
     stats = []
     # normalization range
     # trials = np.linspace(config.fitting['min_norm'], config.fitting['max_norm'], config.fitting['ntrials'])
-    trials = np.logspace(log_average_flux_wm2-2, log_average_flux_wm2+2, 1000)
+    trials = np.logspace(log_average_flux_wm2 - 2, log_average_flux_wm2 + 2, 1000)
     # pdb.set_trace()
     for t in trials:
         stat = least2(data[1], norm_model * t)
@@ -250,7 +251,7 @@ def main(arg_input=get_targets(), dist=config.target['distance_in_kpc']):
         print('No figure created. To automatically generate a figure or multiple figures change the ' +
               '"figures_single_multiple_or_none" variable in the config.py script to "single" or "multiple".')
 
-    if not fnmatch("parameter_ranges_"+config.fitting['model_grid']+".png", '*'):
+    if not fnmatch("parameter_ranges_" + config.fitting['model_grid'] + ".png", '*'):
         print('Creating parameter range figure')
         create_par()
 
