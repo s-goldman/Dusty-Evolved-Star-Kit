@@ -40,4 +40,4 @@ def create_par():
         axs[counter].set_yticks([])
         counter += 1
     plt.subplots_adjust(wspace=0, hspace=0.5)
-    fig.savefig('parameter_range_' + model + '.png', dpi=200, bbox_inches='tight')
+    fig.savefig('parameter_ranges_' + model + '.png', dpi=200, bbox_inches='tight')

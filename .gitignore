@@ -62,5 +62,5 @@ distribute-*.tar.gz
 # mine
 fitting_results.csv
 fitting_plotting_outputs.csv
-outpuut_sed.png
+output_sed.png
 parameter*.png
