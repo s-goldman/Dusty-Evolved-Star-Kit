@@ -1,0 +1,273 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>desk.get_padova &mdash; Dusty-Evolved-Star-Kit 1.3.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Dusty-Evolved-Star-Kit
+          
+
+          
+            
+            <img src="../../_static/the_desk.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.3.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../readme.html">Dusty-Evolved-Star-Kit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">desk</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../history.html">History</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Dusty-Evolved-Star-Kit</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>desk.get_padova</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for desk.get_padova</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">urllib</span>
+<span class="kn">import</span> <span class="nn">tarfile</span>
+<span class="kn">import</span> <span class="nn">shutil</span>
+<span class="kn">import</span> <span class="nn">pdb</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">tqdm</span> <span class="k">import</span> <span class="n">tqdm</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">astropy.table</span> <span class="k">import</span> <span class="n">vstack</span><span class="p">,</span> <span class="n">Table</span><span class="p">,</span> <span class="n">Column</span>
+
+
+<div class="viewcode-block" id="get_model"><a class="viewcode-back" href="../../desk.html#desk.get_padova.get_model">[docs]</a><span class="k">def</span> <span class="nf">get_model</span><span class="p">(</span><span class="n">model_grid_name</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">model_grid_name</span> <span class="o">==</span> <span class="s1">&#39;J400&#39;</span><span class="p">:</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;http://starkey.astro.unipd.it/documents/10184/1932584/SMC_tables_J400.dat/f0107070-99b4-4f5a-b46c-f443f8b9e04f&#39;</span>
+        <span class="n">url_tar</span> <span class="o">=</span> <span class="s1">&#39;http://starkey.astro.unipd.it/documents/10184/1932584/J400.tar.gz/c1b50228-5c39-477d-8b83-b83a2f91c717&#39;</span>
+
+    <span class="k">elif</span> <span class="n">model_grid_name</span> <span class="o">==</span> <span class="s1">&#39;J1000&#39;</span><span class="p">:</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;http://starkey.astro.unipd.it/documents/10184/1932584/SMC_tables_J1000.dat/a84fed3a-46b4-4f74-a236-88e32225a6bc&#39;</span>
+        <span class="n">url_tar</span> <span class="o">=</span> <span class="s1">&#39;http://starkey.astro.unipd.it/documents/10184/1932584/J1000.tar.gz/46e1d848-3913-4052-a903-7ab64f17117c&#39;</span>
+
+    <span class="k">elif</span> <span class="n">model_grid_name</span> <span class="o">==</span> <span class="s1">&#39;H11&#39;</span><span class="p">:</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;http://starkey.astro.unipd.it/documents/10184/1932584/SMC_tables_H11.dat/07c719d1-8b6c-4274-8e33-a6a79ec3d26c&quot;</span>
+        <span class="n">url_tar</span> <span class="o">=</span> <span class="s1">&#39;http://starkey.astro.unipd.it/documents/10184/1932584/H11.tar.gz/190bff99-74ef-472d-832e-74864e5799ba&#39;</span>
+
+    <span class="k">elif</span> <span class="n">model_grid_name</span> <span class="o">==</span> <span class="s1">&#39;R12&#39;</span><span class="p">:</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;http://starkey.astro.unipd.it/documents/10184/1932584/SMC_tables_R12.dat/ba7b6583-47f9-43f6-bbcf-def477dbf699&quot;</span>
+        <span class="n">url_tar</span> <span class="o">=</span> <span class="s1">&#39;http://starkey.astro.unipd.it/documents/10184/1932584/R12.tar.gz/2fb77bf0-79d7-4867-b908-c55d67b0b6f6&#39;</span>
+
+    <span class="k">elif</span> <span class="n">model_grid_name</span> <span class="o">==</span> <span class="s1">&#39;R13&#39;</span><span class="p">:</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;http://starkey.astro.unipd.it/documents/10184/1932584/SMC_tables_R13.dat/9a394ad3-25c3-43bf-847d-436760b80df8&quot;</span>
+        <span class="n">url_tar</span> <span class="o">=</span> <span class="s1">&#39;http://starkey.astro.unipd.it/documents/10184/1932584/R13.tar.gz/3732a57e-15b3-47a3-8869-bd01ef43d090&#39;</span>
+
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="s1">&#39;Model name not an option. </span><span class="se">\n</span><span class="s1"> Built-in options: Zubko-Crich-aringer, Oss-Orich-bb, Oss-Orich-aringer, Crystalline-20-bb, corundum-20-bb </span><span class="se">\n</span><span class="s1"> Padova options: J400, J1000, H11, R12, R13&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Download files</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Downloading&quot;</span><span class="p">)</span>
+    <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">urlretrieve</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="s1">&#39;model.dat&#39;</span><span class="p">)</span>
+    <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">urlretrieve</span><span class="p">(</span><span class="n">url_tar</span><span class="p">,</span> <span class="s1">&#39;model_directory.tar.gz&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Download Complete!&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Extract Tar file</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Extracting&quot;</span><span class="p">)</span>
+    <span class="n">tar</span> <span class="o">=</span> <span class="n">tarfile</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;model_directory.tar.gz&#39;</span><span class="p">,</span> <span class="s2">&quot;r:gz&quot;</span><span class="p">)</span>
+    <span class="n">tar</span><span class="o">.</span><span class="n">extractall</span><span class="p">()</span>
+    <span class="n">tar</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+    <span class="c1"># Compile spectra into fits file</span>
+    <span class="n">output_files</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">model_grid_name</span><span class="p">)</span>
+    <span class="n">dusty_spectra</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Compiling spectra into single fits file&#39;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">output_files</span><span class="p">):</span>
+        <span class="n">new_row</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">model_grid_name</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">item</span><span class="p">,</span> <span class="n">skiprows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">usecols</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">unpack</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">dusty_spectra</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_row</span><span class="p">)</span>
+    <span class="n">dusty_spectra_output</span> <span class="o">=</span> <span class="n">Table</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">dusty_spectra</span><span class="p">))</span>
+    <span class="n">dusty_spectra_output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;../models/&#39;</span> <span class="o">+</span> <span class="n">model_grid_name</span> <span class="o">+</span> <span class="s1">&#39;_models.fits&#39;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;fits&#39;</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1"># reorder parameter file</span>
+    <span class="n">p_file</span> <span class="o">=</span> <span class="n">Table</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s1">&#39;model.dat&#39;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;csv&#39;</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
+    <span class="n">p_file</span><span class="o">.</span><span class="n">rename_column</span><span class="p">(</span><span class="s1">&#39;#dmdt&#39;</span><span class="p">,</span> <span class="s1">&#39;mdot&#39;</span><span class="p">)</span>
+    <span class="n">p_file</span><span class="o">.</span><span class="n">rename_column</span><span class="p">(</span><span class="s1">&#39;Tinn&#39;</span><span class="p">,</span> <span class="s1">&#39;tinner&#39;</span><span class="p">)</span>
+    <span class="n">p_file</span><span class="o">.</span><span class="n">rename_column</span><span class="p">(</span><span class="s1">&#39;Teff&#39;</span><span class="p">,</span> <span class="s1">&#39;teff&#39;</span><span class="p">)</span>
+    <span class="n">p_file</span><span class="o">.</span><span class="n">rename_column</span><span class="p">(</span><span class="s1">&#39;tau10&#39;</span><span class="p">,</span> <span class="s1">&#39;odep&#39;</span><span class="p">)</span>
+    <span class="n">grid_name</span> <span class="o">=</span> <span class="n">Column</span><span class="p">([</span><span class="n">model_grid_name</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">p_file</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;grid_name&#39;</span><span class="p">)</span>
+    <span class="n">output_array</span> <span class="o">=</span> <span class="n">Table</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">grid_name</span><span class="p">,</span> <span class="n">p_file</span><span class="p">[</span><span class="s1">&#39;teff&#39;</span><span class="p">],</span> <span class="n">p_file</span><span class="p">[</span><span class="s1">&#39;tinner&#39;</span><span class="p">],</span> <span class="n">p_file</span><span class="p">[</span><span class="s1">&#39;M&#39;</span><span class="p">],</span> <span class="n">p_file</span><span class="p">[</span><span class="s1">&#39;vexp&#39;</span><span class="p">],</span> <span class="n">p_file</span><span class="p">[</span><span class="s1">&#39;mdot&#39;</span><span class="p">],</span> <span class="n">p_file</span><span class="p">[</span><span class="s1">&#39;odep&#39;</span><span class="p">]])</span>
+    <span class="n">output_array</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;../models/&#39;</span> <span class="o">+</span> <span class="n">model_grid_name</span> <span class="o">+</span> <span class="s1">&#39;_outputs.csv&#39;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;csv&#39;</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
+
+    <span class="c1"># remove temporary files</span>
+    <span class="c1"># os.remove(&#39;model.dat&#39;)</span>
+    <span class="c1"># os.remove(&#39;model_directory.tar.gz&#39;)</span>
+    <span class="c1"># shutil.rmtree(model_grid_name)</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Steven R. Goldman
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
