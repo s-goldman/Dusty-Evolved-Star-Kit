@@ -20,10 +20,10 @@
 #
 import os
 import sys
+
 sys.path.insert(0, os.path.abspath('..'))
 
 import desk
-
 
 # -- General configuration ---------------------------------------------
 
@@ -79,7 +79,6 @@ pygments_style = 'sphinx'
 # If true, `todo` and `todoList` produce output, else they produce nothing.
 todo_include_todos = False
 
-
 # -- Options for HTML output -------------------------------------------
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
@@ -102,12 +101,10 @@ html_logo = 'the_desk.png'
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
 
-
 # -- Options for HTMLHelp output ---------------------------------------
 
 # Output file base name for HTML help builder.
 htmlhelp_basename = 'dusty_evolved_star_kitdoc'
-
 
 # -- Options for LaTeX output ------------------------------------------
 
@@ -138,7 +135,6 @@ latex_documents = [
      u'Steven R. Goldman', 'manual'),
 ]
 
-
 # -- Options for manual page output ------------------------------------
 
 # One entry per manual page. List of tuples
@@ -148,7 +144,6 @@ man_pages = [
      u'Dusty-Evolved-Star-Kit Documentation',
      [author], 1)
 ]
-
 
 # -- Options for Texinfo output ----------------------------------------
 
@@ -163,6 +158,3 @@ texinfo_documents = [
      'One line description of project.',
      'Miscellaneous'),
 ]
-
-
-
