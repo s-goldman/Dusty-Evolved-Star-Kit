@@ -251,13 +251,13 @@ def main(arg_input=get_targets(), dist=config.target['distance_in_kpc']):
         print('No figure created. To automatically generate a figure or multiple figures change the ' +
               '"figures_single_multiple_or_none" variable in the config.py script to "single" or "multiple".')
 
-    if not fnmatch("parameter_ranges_" + config.fitting['model_grid'] + ".png", '*'):
+    if not os.path.isfile("parameter_ranges_" + config.fitting['model_grid'] + ".png"):
         print('Creating parameter range figure')
         create_par()
 
     end = time.time()
     print()
-    print('\n' + 'Time: ' + str("%.2f" % float((end - start) / 60)) + ' minutes')
+    print('Time: ' + str("%.2f" % float((end - start) / 60)) + ' minutes')
 
 
 if __name__ == '__main__':
