@@ -17,9 +17,9 @@ The package is currently in development and all contributions are welcomed. For 
 **Options**: In the sed_fitting.py you can specify:
  * model grid
  * distance (in kpc)
+ * gas-to-dust ratio
  * the wavelength range to fit
- * normalizations range for fitting
- * binning of the normalization range
+ * output units (Jy or W m2)
 
 **Available model grids**:
 Several grids are **already available** and are located in the _models_ directory (change using the model_grid variable in the config.py file). You can also specify the state-of-the-art dust growth models by Nanni et al. (2019) which are automatically downloaded and used when selected. New grids will include the 2D [GRAMS model grid](https://2dust.stsci.edu/grams_models.cgi) based on the 2DUST code and 3D [DARWIN models](https://arxiv.org/abs/1904.10943).
@@ -37,18 +37,18 @@ The documentation will soon be found on [readthedocs](http://dusty-evolved-star-
 Install Using Python
 -------------------
 
-Install the package with the command `pip install desk` and then import the module with `import desk`. To run the main module run `desk.sed_fitting.main(['name_of_target_1_data.csv'])` or `desk.sed_fitting.main(['name_of_target_1_data.csv', 'name_of_target_2_data.csv'])` for multiple sources. This will fit the SEDs using the grid and options specified in config.py file or the config.xxxx dictionary. Two results files and an optional output_sed.png figure are automatically created. To create the figure you can also run `desk.plotting_seds.create_fig()`.
+Install the package with the command `pip install desk` and then import the module with `import desk`. To run the main module run `desk.sed_fitting.main(['name_of_target_1_data.csv'])` or `desk.sed_fitting.main(['name_of_target_1_data.csv', 'name_of_target_2_data.csv'])` for multiple sources. This will fit the SEDs using the grid and options specified in config.py file or the config.xxxx dictionary. Two results files, a figure of the parameter range, and an optional output_sed.png figure are automatically created. To create the figure you can also run `desk.plotting_seds.create_fig()`.
 
 Command line Use
 ----------------------
+Download on the main Git page (green box at the top of the screen) or use the command `git clone https://github.com/s-goldman/Dusty-Evolved-Star-Kit.git`
 
-To download on the main Git page or use the command `git clone https://github.com/s-goldman/Dusty-Evolved-Star-Kit.git`
+All of the important command line files (.py files) can be found in the `desk` subdirectory.
 
-All of the important script files (.py files) can be found in the `desk` subdirectory.
-
-Just add your csv data files you want to fit to the *put_target_data_here* directory, select your options (shown above) within the config.py script, and then use the command `python sed_fitting.py`.
+Just add the csv data files you want to fit to the *put_target_data_here* directory, select your options (shown above) within the config.py script, and then use the command `python sed_fitting.py`.
 
 <img src="docs/example.png"  width="400" height="500">
+This is an example of the output_sed.png file, where three massive oxygen-rich AGB stars from the LMC have been fit.
 
 Attribution
 -----------
