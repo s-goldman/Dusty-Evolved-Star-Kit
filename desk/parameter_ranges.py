@@ -23,8 +23,20 @@ def create_par():
     for i in par.colnames:
         if fnmatch(par[i].dtype.str, '<U*'):
             par.remove_column(i)
+        else:
+            par.rename_column(i, i.replace('_', ' '))
 
-    fig, axs = plt.subplots(math.ceil(len(par.colnames)), 1, figsize=(8, 10))
+
+    if len(par.colnames) > 18:
+        par = par[par.colnames[:17]]
+
+    if len(par.colnames) < 8:
+        fig, axs = plt.subplots(math.ceil(len(par.colnames)), 1, figsize=(8, 10))
+        plt.subplots_adjust(wspace=0, hspace=0.5)
+    else:
+        fig, axs = plt.subplots(math.ceil(len(par.colnames)), 1, figsize=(5, 10))
+        plt.subplots_adjust(wspace=0, hspace=1)
+
     axs = axs.ravel()
 
     axs[0].set_title('Model grid: ' + model, size=20)
@@ -39,5 +51,7 @@ def create_par():
         axs[counter].set_yticklabels([])
         axs[counter].set_yticks([])
         counter += 1
-    plt.subplots_adjust(wspace=0, hspace=0.5)
     fig.savefig('parameter_ranges_' + model + '.png', dpi=200, bbox_inches='tight')
+
+if __name__ == '__main__':
+    create_par()
