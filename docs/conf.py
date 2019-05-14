@@ -48,7 +48,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'desk'
+project = u'Dusty-Evolved-Star-Kit'
 copyright = u"2019, Steven R. Goldman"
 author = u"Steven R. Goldman"
 
