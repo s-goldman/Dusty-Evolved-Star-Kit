@@ -156,7 +156,7 @@ def sed_fitting(target):
         if config.output['printed_output'] == 'True':
             print()
             print()
-            print(('             Target: ' + target_name + '        ' + str(counter + 1) + '/' + str(len(targets))))
+            print(('             Target: ' + target_name + '        ' + str(counter + 1) + '/' + str(number_of_sources)))
             print('-------------------------------------------------')
             print(("Luminosity\t\t\t|\t" + str(round(luminosity))))
             print(("Optical depth\t\t\t|\t" + str(grid_outputs[model_index]['odep'])))
@@ -172,6 +172,7 @@ def sed_fitting(target):
 def main(arg_input=get_targets(), dist=config.target['distance_in_kpc']):
     # set variables
     global counter
+    global number_of_sources
     global grid_dusty
     global grid_outputs
     global distance_norm
@@ -219,7 +220,7 @@ def main(arg_input=get_targets(), dist=config.target['distance_in_kpc']):
         raise ValueError("Model grid input error: mismatch in model spectra and model output")
 
     # SED FITTING
-    # pdb.set_trace()
+    number_of_sources = len(arg_input)
     for counter, target_string in tqdm(enumerate(arg_input)):
         sed_fitting(target_string)
 
