@@ -20,15 +20,28 @@ target = dict(
 
 fitting = dict(
     # model_grid='H11-LMC',
-    model_grid='Oss-Orich-aringer',
+    model_grid='Crystalline-20-bb',
     wavelength_min=0.00001,
     wavelength_max=100,
 )
 output = dict(
     printed_output='True',
 
-    # output_unit='Wm^-2',
-    output_unit='Jy',
+    output_unit='Wm^-2',
+    # output_unit='Jy',
 
     create_figure='yes'
 )
+grids = ['Crystalline-20-bb',
+         'H11-LMC',
+         'Oss-Orich-aringer',
+         'Oss-Orich-bb',
+         'Zubko-Crich-aringer',
+         'Zubko-Crich-bb',
+         'arnold-palmer',
+         'big-grain',
+         'corundum-20-bb',
+         'fifth-iron',
+         'half-iron',
+         'one-fifth-carbon'
+         ]

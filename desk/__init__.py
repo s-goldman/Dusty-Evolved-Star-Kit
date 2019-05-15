@@ -17,6 +17,6 @@ __version__ = '1.4.7'
 import desk.sed_fit
 import desk.plotting_seds
 import desk.config
-import desk.get_padova
+import desk.get_remote_models
 import desk.remove_old_files
 import desk.parameter_ranges
