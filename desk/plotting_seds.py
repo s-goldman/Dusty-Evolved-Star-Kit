@@ -1,20 +1,12 @@
-import os
 import math
-import subprocess
 import pdb
-import shutil
 import numpy as np
 import astropy.units as u
 import matplotlib.pyplot as plt
-from glob import glob
 from astropy.io import ascii
-from fnmatch import fnmatch
-from multiprocessing import cpu_count, Pool
-from functools import partial
-from astropy.table import Table, Column
+from astropy.table import Table
 from desk import config
 from matplotlib import rc
-from scipy import interpolate
 
 '''
 Steve Goldman

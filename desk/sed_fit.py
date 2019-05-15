@@ -5,18 +5,15 @@ import csv
 import time
 import math
 import importlib
-import subprocess
 import numpy as np
 import astropy.units as u
 import matplotlib.pyplot as plt
-from tqdm import tqdm
 from matplotlib import rc
 from fnmatch import fnmatch
 from astropy.io import ascii
-from functools import partial
 from scipy import interpolate
 from multiprocessing import Process, Value, cpu_count
-from desk import config, remove_old_files, plotting_seds, get_padova, parameter_ranges
+from desk import config, remove_old_files, plotting_seds, get_remote_models, parameter_ranges
 from desk.parameter_ranges import create_par
 from desk.plotting_seds import create_fig
 from multiprocessing import Pool, cpu_count
@@ -128,9 +125,6 @@ def sed_fitting(target):
     argmin = np.argmin(stat_array)
     model_index = argmin // stat_array.shape[1]
     trial_index = argmin % stat_array.shape[1]
-
-    # appends data for plotting later
-    follow_up_array.append(np.array(grid_outputs[model_index]))
     target_name = (target.split('/')[-1][:15]).replace('IRAS-', 'IRAS ')
 
     if fnmatch(config.fitting['model_grid'], 'grams*'):
@@ -178,6 +172,12 @@ def sed_fitting(target):
 
 
 def main(arg_input=get_targets(), dist=config.target['distance_in_kpc'], grid=config.fitting['model_grid']):
+    """
+    :param arg_input: Name of target in array of strings (or one string)
+    :param dist: distance to source(s) in kiloparsecs
+    :param grid: Name of model grid
+    :return:
+    """
     # set variables
     global model_grid
     global counter
@@ -185,14 +185,6 @@ def main(arg_input=get_targets(), dist=config.target['distance_in_kpc'], grid=co
     global grid_outputs
     global distance_norm
     global full_path
-    global follow_up_array
-    global follow_up_index
-    global follow_up_names
-    global follow_up_normilazation
-    follow_up_array = []
-    follow_up_names = []
-    follow_up_index = []
-    follow_up_normilazation = []
     start = time.time()
     counter = Value('i', 0)
     # normalization calculation
@@ -200,9 +192,6 @@ def main(arg_input=get_targets(), dist=config.target['distance_in_kpc'], grid=co
     # distance to sun in kpc 4.8483E-9
     distance_norm = math.log10(((int(dist) / 4.8482E-9) ** 2) / 1379)
     full_path = str(__file__.replace('sed_fit.py', ''))
-
-    # remove old file
-    # remove_old_files.remove()
 
     # User input for models
     if grid == 'carbon':
@@ -220,11 +209,20 @@ def main(arg_input=get_targets(), dist=config.target['distance_in_kpc'], grid=co
     if os.path.isfile(csv_file) and os.path.isfile(fits_file):
         print('You already have the models!')
         print('Great job')
-        grid_dusty = Table.read(fits_file)
-        grid_outputs = Table.read(csv_file)
+
     else:
         # raise ValueError('Model grid does not exist. Please try another')
-        user_proceed = input('Models not found locally, download the models [y]/n? (may take up to 30 minutes): ')
+        user_proceed = input('Models not found locally, download the models [y]/n?: ')
+        if user_proceed == 'y' or user_proceed == '':
+            get_remote_models.get_models(grid)
+        elif user_proceed == 'n':
+            raise ValueError('Please make another model selection')
+        elif user_proceed != 'y' and user_proceed != 'n':
+            raise ValueError('Invalid selection')
+
+    # gets models
+    grid_dusty = Table.read(fits_file)
+    grid_outputs = Table.read(csv_file)
 
     # Model grid equal lengths check
     if len(grid_dusty) == len(grid_outputs):
@@ -240,10 +238,7 @@ def main(arg_input=get_targets(), dist=config.target['distance_in_kpc'], grid=co
         f.write('target_name,data_file,norm,index,grid_name,teff,tinner,number,odep\n')
         f.close()
 
-    # SED FITTING
-    # for counter, target_string in tqdm(enumerate(arg_input)):
-    #     sed_fitting(target_string, model_grid)
-    # pdb.set_trace()
+    # SED FITTING ###############################
     with Pool(processes=cpu_count() - 1) as pool:
         pool.map(sed_fitting, [target_string for target_string in arg_input])
 
@@ -251,8 +246,9 @@ def main(arg_input=get_targets(), dist=config.target['distance_in_kpc'], grid=co
     if fnmatch(config.fitting['model_grid'], 'grams*'):
         print(Table(grid_outputs[model_index]))
 
+    # creating figures
     if config.output['create_figure'] == 'yes':
-        print('\n. . . Creating figure . . .')
+        print('\n. . . Creating SED figure . . .')
         create_fig()  # runs plotting script
     else:
         print('No figure created. To automatically generate a figure change the ' +
