@@ -21,10 +21,22 @@ def create_par():
     par = Table.read(full_path + '/models/' + model + '_outputs.csv')
 
     for i in par.colnames:
-        if par[i].dtype.str == '<U12':
+        if fnmatch(par[i].dtype.str, '<U*'):
             par.remove_column(i)
+        else:
+            par.rename_column(i, i.replace('_', ' '))
 
-    fig, axs = plt.subplots(math.ceil(len(par.colnames)), 1, figsize=(8, 10))
+
+    if len(par.colnames) > 18:
+        par = par[par.colnames[:17]]
+
+    if len(par.colnames) < 8:
+        fig, axs = plt.subplots(math.ceil(len(par.colnames)), 1, figsize=(8, 10))
+        plt.subplots_adjust(wspace=0, hspace=0.5)
+    else:
+        fig, axs = plt.subplots(math.ceil(len(par.colnames)), 1, figsize=(5, 10))
+        plt.subplots_adjust(wspace=0, hspace=1)
+
     axs = axs.ravel()
 
     axs[0].set_title('Model grid: ' + model, size=20)
@@ -33,11 +45,13 @@ def create_par():
         par_min = np.min(par[col])
         par_max = np.max(par[col])
         axs[counter].scatter(par[col], [0] * len(par), marker='|', alpha=0.3, c='royalblue')
-        axs[counter].set_xlim(par_min - ((par_max - par_min) * 0.1), par_max * 1.1)
+        axs[counter].set_xlim(par_min - ((par_max - par_min) * 0.1), par_max + (par_max - par_min) * 0.1)
         # print(str(par_min) + ' : ' + str(par_max))
         axs[counter].set_ylabel(col)
         axs[counter].set_yticklabels([])
         axs[counter].set_yticks([])
         counter += 1
-    plt.subplots_adjust(wspace=0, hspace=0.5)
     fig.savefig('parameter_ranges_' + model + '.png', dpi=200, bbox_inches='tight')
+
+if __name__ == '__main__':
+    create_par()
