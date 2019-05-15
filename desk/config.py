@@ -19,8 +19,8 @@ target = dict(
 # Grams options:
 
 fitting = dict(
-    # model_grid='Zubko-Crich-aringer',
-    model_grid='Oss-Orich-bb',
+    # model_grid='H11-LMC',
+    model_grid='Oss-Orich-aringer',
     wavelength_min=0.00001,
     wavelength_max=100,
 )
@@ -30,5 +30,5 @@ output = dict(
     # output_unit='Wm^-2',
     output_unit='Jy',
 
-    figures_single_multiple_or_none='single'
+    create_figure='yes'
 )
