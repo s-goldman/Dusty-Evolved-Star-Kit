@@ -41,7 +41,7 @@ Install the package with the command `pip install desk` and then import the modu
 
 `desk.sed_fitting.main(['target.csv'], 50, 'H11-LMC_models')`
 
-Two results files, a figure of the parameter range, and an optional output_sed.png figure are automatically created. To create the figure you can also run `desk.plotting_seds.create_fig()`.
+You can also select just 'oxygen' or 'carbon' to use the default models. Two results files, a figure of the parameter range, and an optional output_sed.png figure are automatically created. To create the figure you can also run `desk.plotting_seds.create_fig()`.
 
 Command line Use
 ----------------------
