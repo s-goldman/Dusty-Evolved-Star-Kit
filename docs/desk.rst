@@ -4,14 +4,6 @@ desk package
 Submodules
 ----------
 
-desk.cli module
----------------
-
-.. automodule:: desk.cli
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
 desk.config module
 ------------------
 
@@ -20,10 +12,10 @@ desk.config module
     :undoc-members:
     :show-inheritance:
 
-desk.get\_padova module
------------------------
+desk.get\_remote\_models module
+-------------------------------
 
-.. automodule:: desk.get_padova
+.. automodule:: desk.get_remote_models
     :members:
     :undoc-members:
     :show-inheritance:
@@ -40,14 +32,6 @@ desk.plotting\_seds module
 --------------------------
 
 .. automodule:: desk.plotting_seds
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-desk.remove\_old\_files module
-------------------------------
-
-.. automodule:: desk.remove_old_files
     :members:
     :undoc-members:
     :show-inheritance:
