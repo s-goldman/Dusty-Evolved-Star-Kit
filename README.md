@@ -50,6 +50,37 @@ Just add the csv data files you want to fit to the *put_target_data_here* direct
 <img src="docs/example.png"  width="400" height="500">
 This is an example of the output_sed.png file, where three massive oxygen-rich AGB stars from the LMC have been fit.
 
+Oxygen-Rich Model Grids
+-------------------
+Oss-Orich-aringer: Uses warm silicates from [Ossenkopf et al. 1992](https://ui.adsabs.harvard.edu/abs/1992A%26A...261..567O/abstract) and photospheric models from [Aringer et al. 2016](https://ui.adsabs.harvard.edu/abs/2016MNRAS.457.3611A/abstract). Provides ranges in effective temperature (2600-3400 K: 200 K interval) inner dust temperature (600-1200K: 200 K interval) and optical depth (0.1 - 50: 100 spaced logarithmicly). Standard [MRN](https://ui.adsabs.harvard.edu/abs/1977ApJ...217..425M/abstract) grain size distribution from 0.005 - 0.25 microns.
+
+Oss-Orich-bb: Same as Oss-Orich-aringer but using a black body instead of the photospheric models.
+
+Crystalline-20-bb: Same as Oss-Orich-bb but using 20% crystalline silicate grains from [Jaeger et al. 1994](https://ui.adsabs.harvard.edu/abs/1994A%26A...292..641J/abstract).
+
+corundum-20-bb: Same as Oss-Orich-bb but using 20% corundum grains from [Begemann et al. 1997](https://ui.adsabs.harvard.edu/abs/1997ApJ...476..199B/abstract).
+
+big-grains: Same as Oss-Orich-aringer but using a high maximum dust grain size of 0.35.
+
+fifth-iron: Same as Oss-Orich-aringer but with 20% iron grains from [Henning et al. 1995](https://ui.adsabs.harvard.edu/abs/1995A%26AS..112..143H/abstract)
+
+half-iron,
+
+one-fifth-carbon,
+
+arnold-palmer
+
+Carbon-Rich Model Grids
+-------------------
+Zubko-Crich-aringer,
+
+Zubko-Crich-bb,
+
+H11-LMC,
+
+arnold-palmer
+
+
 Attribution
 -----------
 
