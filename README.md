@@ -37,15 +37,19 @@ The documentation will soon be found on [readthedocs](http://dusty-evolved-star-
 Install Using Python
 -------------------
 
-Install the package with the command `pip install desk` and then import the module with `import desk`. To run the main module run `desk.sed_fitting.main(['name_of_target_1_data.csv'])` or `desk.sed_fitting.main(['name_of_target_1_data.csv', 'name_of_target_2_data.csv'])` for multiple sources. This will fit the SEDs using the grid and options specified in config.py file or the config.xxxx dictionary. Two results files, a figure of the parameter range, and an optional output_sed.png figure are automatically created. To create the figure you can also run `desk.plotting_seds.create_fig()`.
+Install the package with the command `pip install desk` and then import the module with `import desk`. To run the main module, run `desk.sed_fitting.main(['name_of_target_1_data.csv'])` or `desk.sed_fitting.main(['name_of_target_1_data.csv', 'name_of_target_2_data.csv'])` for multiple sources (**Note the bracketss**). This will fit the SEDs using the grid and options specified in config.py file or the config dictionary. Additional arguments exist to specify the distance to your targets and the model grid to use: arg_input=*targets*, dist=*distance in kpc*, grid=*name of model grid*. For example:
+
+`desk.sed_fitting.main(['target.csv'], 50, 'H11-LMC_models')`
+
+Two results files, a figure of the parameter range, and an optional output_sed.png figure are automatically created. To create the figure you can also run `desk.plotting_seds.create_fig()`.
 
 Command line Use
 ----------------------
-Download on the main Git page (green box at the top of the screen) or use the command `git clone https://github.com/s-goldman/Dusty-Evolved-Star-Kit.git`
+Download on the main Git page (green box at the top of the screen), use `curl  -OL https://github.com/s-goldman/dusty_evolved_star_kit/tarball/master`, or use the command `git clone https://github.com/s-goldman/Dusty-Evolved-Star-Kit.git`
 
 All of the important command line files (.py files) can be found in the `desk` subdirectory.
 
-Just add the csv data files you want to fit to the *put_target_data_here* directory, select your options (shown above) within the config.py script, and then use the command `python sed_fitting.py`.
+Just add the csv data files you want to fit to the *put_target_data_here* directory, select your options (shown above) within the config.py script, make sure you are the desk directory, and then use the command `python sed_fitting.py`.
 
 <img src="docs/example.png"  width="400" height="500">
 This is an example of the output_sed.png file, where three massive oxygen-rich AGB stars from the LMC have been fit.
