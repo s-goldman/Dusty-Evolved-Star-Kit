@@ -13,7 +13,7 @@ from fnmatch import fnmatch
 from astropy.io import ascii
 from scipy import interpolate
 from multiprocessing import Process, Value, cpu_count
-from desk import config, remove_old_files, plotting_seds, get_remote_models, parameter_ranges
+from desk import config, plotting_seds, get_remote_models, parameter_ranges
 from desk.parameter_ranges import create_par
 from desk.plotting_seds import create_fig
 from multiprocessing import Pool, cpu_count
