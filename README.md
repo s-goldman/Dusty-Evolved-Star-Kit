@@ -81,7 +81,7 @@ Zubko-Crich-aringer (*N*=2,000): Same as Oss-Orich-aringer but with amorphous ca
 
 Zubko-Crich-bb (*N*=2,000): Same as Zubko-Crich-aringer but using black bodies instead of the photospheric models.
 
-H11-LMC (*N*=90,899): A carbon rich grid for the LMC metallicity (1/2 solar) from [Nanni et al. 2018](https://ui.adsabs.harvard.edu/abs/2018MNRAS.473.5492N/abstract) that implements a dust growth model. 
+H11-LMC (*N*=90,899): A carbon-rich grid for the LMC metallicity (1/2 solar) from [Nanni et al. 2018](https://ui.adsabs.harvard.edu/abs/2018MNRAS.473.5492N/abstract) that implements a dust growth model.
 
 arnold-palmer (*N*=2,000): Same as Oss-Orich-aringer but with 50% amorphous carbon grains from [Zubko et al. 1996](https://ui.adsabs.harvard.edu/abs/1996MNRAS.282.1321Z/abstract)
 
