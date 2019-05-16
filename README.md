@@ -54,31 +54,32 @@ Oxygen-Rich Model Grids
 -------------------
 Oss-Orich-aringer: Uses warm silicates from [Ossenkopf et al. 1992](https://ui.adsabs.harvard.edu/abs/1992A%26A...261..567O/abstract) and photospheric models from [Aringer et al. 2016](https://ui.adsabs.harvard.edu/abs/2016MNRAS.457.3611A/abstract). Provides ranges in effective temperature (2600-3400 K: 200 K interval) inner dust temperature (600-1200K: 200 K interval) and optical depth (0.1 - 50: 100 spaced logarithmicly). Standard [MRN](https://ui.adsabs.harvard.edu/abs/1977ApJ...217..425M/abstract) grain size distribution from 0.005 - 0.25 microns.
 
-Oss-Orich-bb: Same as Oss-Orich-aringer but using a black body instead of the photospheric models.
+Oss-Orich-bb: Same as Oss-Orich-aringer but using black bodies instead of the photospheric models.
 
 Crystalline-20-bb: Same as Oss-Orich-bb but using 20% crystalline silicate grains from [Jaeger et al. 1994](https://ui.adsabs.harvard.edu/abs/1994A%26A...292..641J/abstract).
 
 corundum-20-bb: Same as Oss-Orich-bb but using 20% corundum grains from [Begemann et al. 1997](https://ui.adsabs.harvard.edu/abs/1997ApJ...476..199B/abstract).
 
-big-grains: Same as Oss-Orich-aringer but using a high maximum dust grain size of 0.35.
+big-grains: Same as Oss-Orich-aringer but using a higher maximum dust grain size of 0.35.
 
-fifth-iron: Same as Oss-Orich-aringer but with 20% iron grains from [Henning et al. 1995](https://ui.adsabs.harvard.edu/abs/1995A%26AS..112..143H/abstract)
+fifth-iron: Same as Oss-Orich-aringer but with 20% iron grains from [Henning et al. 1995](https://ui.adsabs.harvard.edu/abs/1995A%26AS..112..143H/abstract), and an effective temperature of 3400 K.
 
-half-iron,
+half-iron: Same as Oss-Orich-aringer but with 50% iron grains from [Henning et al. 1995](https://ui.adsabs.harvard.edu/abs/1995A%26AS..112..143H/abstract), and an effective temperature of 3400 K.
 
-one-fifth-carbon,
+one-fifth-carbon: Same as Oss-Orich-aringer but with 20% amorphous carbon grains from [Zubko et al. 1996](https://ui.adsabs.harvard.edu/abs/1996MNRAS.282.1321Z/abstract), and an effective temperature of 3400 K.
 
-arnold-palmer
+arnold-palmer: Same as Oss-Orich-aringer but with 50% amorphous carbon grains from [Zubko et al. 1996](https://ui.adsabs.harvard.edu/abs/1996MNRAS.282.1321Z/abstract)
+
 
 Carbon-Rich Model Grids
 -------------------
-Zubko-Crich-aringer,
+Zubko-Crich-aringer: Same as Oss-Orich-aringer but with amorphous carbon grains from [Zubko et al. 1996](https://ui.adsabs.harvard.edu/abs/1996MNRAS.282.1321Z/abstract).
 
-Zubko-Crich-bb,
+Zubko-Crich-bb: Same as Zubko-Crich-aringer but using black bodies instead of the photospheric models.
 
-H11-LMC,
+H11-LMC: A carbon rich grid for the LMC metallicity (1/2 solar) from [Nanni et al. 2018](https://ui.adsabs.harvard.edu/abs/2018MNRAS.473.5492N/abstract) that implements a dust growth model. 
 
-arnold-palmer
+arnold-palmer: Same as Oss-Orich-aringer but with 50% amorphous carbon grains from [Zubko et al. 1996](https://ui.adsabs.harvard.edu/abs/1996MNRAS.282.1321Z/abstract)
 
 
 Attribution
