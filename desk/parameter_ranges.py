@@ -15,10 +15,10 @@ plt.rcParams['mathtext.fontset'] = 'dejavuserif'
 
 def create_par():
     counter = 0
-    model = config.fitting['model_grid']
+    input_file = Table.read('fitting_plotting_outputs.csv')
+    model = input_file['grid_name'][0]
     full_path = str(__file__.replace('parameter_ranges.py', ''))
-
-    par = Table.read(full_path + '/models/' + model + '_outputs.csv')
+    par = Table.read(full_path + 'models/' + model + '_outputs.csv')
 
     for i in par.colnames:
         if fnmatch(par[i].dtype.str, '<U*'):
