@@ -195,7 +195,7 @@ def main(arg_input=get_targets(), dist=config.target['distance_in_kpc'], grid=co
 
     # User input for models
     if grid == 'carbon':
-        model_grid = 'Zubko-Crich-aringer'
+        model_grid = 'Zubko-Crich-bb'
     elif grid == 'oxygen':
         model_grid = 'Oss-Orich-bb'
     else:
