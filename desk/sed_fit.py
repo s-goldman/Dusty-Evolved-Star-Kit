@@ -190,7 +190,7 @@ def main(arg_input=get_targets(), dist=config.target['distance_in_kpc'], grid=co
     # normalization calculation
     # solar constant = 1379 W
     # distance to sun in kpc 4.8483E-9
-    distance_norm = math.log10(((int(dist) / 4.8482E-9) ** 2) / 1379)
+    distance_norm = math.log10(((float(dist) / 4.8482E-9) ** 2) / 1379)
     full_path = str(__file__.replace('sed_fit.py', ''))
 
     # User input for models
