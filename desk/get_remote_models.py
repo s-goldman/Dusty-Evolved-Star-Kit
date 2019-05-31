@@ -27,7 +27,10 @@ def get_models(model_grid_name):
 
     full_path = str(__file__.replace('get_remote_models.py', ''))
     grids = ['Crystalline-20-bb',
+                  'H11-SMC',
                   'H11-LMC',
+                  'J1000-SMC',
+                  'J1000-LMC',
                   'Oss-Orich-aringer',
                   'Oss-Orich-bb',
                   'Zubko-Crich-aringer',
@@ -40,7 +43,10 @@ def get_models(model_grid_name):
                   'one-fifth-carbon'
                   ]
     grid_csv_link = ['https://stsci.box.com/shared/static/jxtabj6h5zi7a8ggb0mbtag3v6b4b9i7.csv',
+                  'https://stsci.box.com/shared/static/z0hnvo0hz0qxcwlcvbmf01avdjlhewah.csv',
                   'https://stsci.box.com/shared/static/j7f01dwbsbluq4htdwlsx3v0jknye883.csv',
+                  'https://stsci.box.com/shared/static/o6dp1cyj86jw2ifuuco983kgb2uf16sf.csv',
+                  'https://stsci.box.com/shared/static/fuhrcgo4vh4m7ca121p1f0vuss4vszcz.csv',
                   'https://stsci.box.com/shared/static/he92pt1yov18x6ska5f4f4q94gal6tr5.csv',
                   'https://stsci.box.com/shared/static/pnljezbu8c7rcyorb27yh6hylk5wy2fs.csv',
                   'https://stsci.box.com/shared/static/x9fg8lacbbiye591tz723ilcqgcomyjh.csv',
@@ -53,7 +59,10 @@ def get_models(model_grid_name):
                   'https://stsci.box.com/shared/static/8j73qttzj10eu5sct0ds0835uxbxu3s8.csv'
                   ]
     grid_fits_link = ['https://stsci.box.com/shared/static/1suiv6nqbc7yoqutli2q9q98ste31o1y.fits',
+                  'https://stsci.box.com/shared/static/bq384o6m1xm41bkx7s8oloohqkd87hy8.fits',
                   'https://stsci.box.com/shared/static/faekj3usdme9go3lmynga3uk0oln8v3k.fits',
+                  'https://stsci.box.com/shared/static/w0e3f1a0r886u17vjosk8lvqrnvnw6ce.fits',
+                  'https://stsci.box.com/shared/static/e0nvigaed722a67043rvmqhjzkonttp4.fits',
                   'https://stsci.box.com/shared/static/60sns7ua91ixuz4rddul2ufrmc0pu5yo.fits',
                   'https://stsci.box.com/shared/static/hr113z7lgvggyybh9eygi6nj69gu1gzv.fits',
                   'https://stsci.box.com/shared/static/hvgfnug5xxcepcz083cnrizsukgddttw.fits',

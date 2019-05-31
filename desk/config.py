@@ -19,8 +19,7 @@ target = dict(
 # Grams options:
 
 fitting = dict(
-    # model_grid='H11-LMC',
-    model_grid='Crystalline-20-bb',
+    model_grid='Zubko-Crich-bb',
     wavelength_min=0.00001,
     wavelength_max=100,
 )
@@ -34,6 +33,9 @@ output = dict(
 )
 grids = ['Crystalline-20-bb',
          'H11-LMC',
+         'H11-SMC',
+         'J1000-LMC',
+         'J1000-SMC',
          'Oss-Orich-aringer',
          'Oss-Orich-bb',
          'Zubko-Crich-aringer',

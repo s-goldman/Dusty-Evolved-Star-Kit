@@ -45,7 +45,12 @@ def create_par():
         par_min = np.min(par[col])
         par_max = np.max(par[col])
         axs[counter].scatter(par[col], [0] * len(par), marker='|', alpha=0.3, c='royalblue')
-        axs[counter].set_xlim(par_min - ((par_max - par_min) * 0.1), par_max + (par_max - par_min) * 0.1)
+        range_min = par_min - ((par_max - par_min) * 0.1)
+        range_max = par_max + (par_max - par_min) * 0.1
+        if range_min != range_max:
+            axs[counter].set_xlim(range_min, range_max)
+        else:
+            axs[counter].set_xlim(range_min*0.6, range_min*1.4)
         # print(str(par_min) + ' : ' + str(par_max))
         axs[counter].set_ylabel(col)
         axs[counter].set_yticklabels([])

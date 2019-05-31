@@ -105,7 +105,7 @@ def fit_norm(data, norm_model):
     stats = []
     # normalization range
     # trials = np.linspace(config.fitting['min_norm'], config.fitting['max_norm'], config.fitting['ntrials'])
-    trials = np.logspace(log_average_flux_wm2 - 2, log_average_flux_wm2 + 2, 1000)
+    trials = np.logspace(log_average_flux_wm2 - 2, log_average_flux_wm2 + 2, 10)
     for t in trials:
         stat = least2(data[1], norm_model * t)
         stats.append(stat)
@@ -145,14 +145,13 @@ def sed_fitting(target):
         latex_array = [target_name, luminosity, np.round(scaled_vexp, 1),
                        teff, tinner, odep, "%.3E" % float(scaled_mdot)]
 
-        plotting_array = [target_name, target, trials[trial_index], model_index, model_grid, teff, tinner,
-                          grid_outputs[model_index]['number'], odep]
+        plotting_array = [target_name, target, trials[trial_index], model_index, model_grid, teff, tinner, odep]
 
         # printed output
         if config.output['printed_output'] == 'True':
             print()
             print()
-            print(('             Target: ' + target_name + '        ' + str(counter.value + 1) + '/' + str(len(targets))))
+            print(('             Target: ' + target_name + '        ' + str(counter.value + 1) + '/' + str(number_of_targets)))
             print('-------------------------------------------------')
             print(("Luminosity\t\t\t|\t" + str(round(luminosity))))
             print(("Optical depth\t\t\t|\t" + str(grid_outputs[model_index]['odep'])))
@@ -185,6 +184,7 @@ def main(arg_input=get_targets(), dist=config.target['distance_in_kpc'], grid=co
     global grid_outputs
     global distance_norm
     global full_path
+    global number_of_targets
     start = time.time()
     counter = Value('i', 0)
     # normalization calculation
@@ -200,6 +200,9 @@ def main(arg_input=get_targets(), dist=config.target['distance_in_kpc'], grid=co
         model_grid = 'Oss-Orich-bb'
     else:
         model_grid = grid
+
+    #number of targets
+    number_of_targets = len(arg_input)
 
     # file names to look for
     csv_file = full_path + 'models/' + model_grid + '_outputs.csv'
@@ -235,7 +238,7 @@ def main(arg_input=get_targets(), dist=config.target['distance_in_kpc'], grid=co
         f.write('source,L,vexp_predicted,teff,tinner,odep,mdot\n')
         f.close()
     with open('fitting_plotting_outputs.csv', 'w') as f:
-        f.write('target_name,data_file,norm,index,grid_name,teff,tinner,number,odep\n')
+        f.write('target_name,data_file,norm,index,grid_name,teff,tinner,odep\n')
         f.close()
 
     # SED FITTING ###############################
@@ -248,14 +251,14 @@ def main(arg_input=get_targets(), dist=config.target['distance_in_kpc'], grid=co
 
     # creating figures
     if config.output['create_figure'] == 'yes':
-        print('\n. . . Creating SED figure . . .')
+        print('\n. . . Creating SED figure . . . . . . . . . . . .')
         create_fig()  # runs plotting script
     else:
         print('No figure created. To automatically generate a figure change the ' +
               '"create_figure" variable in the config.py script to "yes".')
 
     if not os.path.isfile("parameter_ranges_" + config.fitting['model_grid'] + ".png"):
-        print('. . . Creating parameter range figure . . .')
+        print('. . . Creating parameter range figure . . . . . .')
         create_par()
 
     end = time.time()
