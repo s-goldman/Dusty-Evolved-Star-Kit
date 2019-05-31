@@ -39,7 +39,7 @@ Install Using Python
 
 Install the package with the command `pip install desk` and then import the module with `import desk`. To run the main module, run `desk.sed_fitting.main(['name_of_target_1_data.csv'])` or `desk.sed_fitting.main(['name_of_target_1_data.csv', 'name_of_target_2_data.csv'])` for multiple sources (**Note the bracketss**). This will fit the SEDs using the grid and options specified in config.py file or the config dictionary. Additional arguments exist to specify the distance to your targets and the model grid to use: arg_input=*targets*, dist=*distance in kpc*, grid=*name of model grid*. For example:
 
-`desk.sed_fitting.main(['target.csv'], 50, 'H11-LMC_models')`
+`desk.sed_fitting.main(['target.csv'], 50, 'H11-LMC')`
 
 You can also select just 'oxygen' or 'carbon' to use the default models. Two results files, a figure of the parameter range, and an optional output_sed.png figure are automatically created. To create the figure you can also run `desk.plotting_seds.create_fig()`.
 
