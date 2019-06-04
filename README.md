@@ -72,7 +72,7 @@ half-iron (*N*=500): Same as Oss-Orich-aringer but with 50% iron grains from [He
 
 one-fifth-carbon (*N*=500): Same as Oss-Orich-aringer but with 20% amorphous carbon grains from [Zubko et al. 1996](https://ui.adsabs.harvard.edu/abs/1996MNRAS.282.1321Z/abstract), and an effective temperature of 3400 K.
 
-arnold-palmer (*N*=2,000): Same as Oss-Orich-aringer but with 50% amorphous carbon grains from [Zubko et al. 1996](https://ui.adsabs.harvard.edu/abs/1996MNRAS.282.1321Z/abstract)
+arnold-palmer (*N*=2,000): Same as Oss-Orich-aringer but with 50% amorphous carbon grains from [Zubko et al. 1996](https://ui.adsabs.harvard.edu/abs/1996MNRAS.282.1321Z/abstract).
 
 
 Carbon-Rich Model Grids
@@ -81,9 +81,20 @@ Zubko-Crich-aringer (*N*=2,000): Same as Oss-Orich-aringer but with amorphous ca
 
 Zubko-Crich-bb (*N*=2,000): Same as Zubko-Crich-aringer but using black bodies instead of the photospheric models.
 
-H11-LMC (*N*=90,899): A carbon-rich grid for the LMC metallicity (1/2 solar) from [Nanni et al. 2018](https://ui.adsabs.harvard.edu/abs/2018MNRAS.473.5492N/abstract) that implements a dust growth model.
+arnold-palmer (*N*=2,000): Same as Oss-Orich-aringer but with 50% amorphous carbon grains from [Zubko et al. 1996](https://ui.adsabs.harvard.edu/abs/1996MNRAS.282.1321Z/abstract).
 
-arnold-palmer (*N*=2,000): Same as Oss-Orich-aringer but with 50% amorphous carbon grains from [Zubko et al. 1996](https://ui.adsabs.harvard.edu/abs/1996MNRAS.282.1321Z/abstract)
+
+
+Dust Growth Model Grids from from [Nanni et al. (2018)](https://ui.adsabs.harvard.edu/abs/2018MNRAS.473.5492N/abstract)
+-------------------
+
+H11-LMC (*N*=90,899): A carbon-rich grid for the LMC metallicity (1/2 solar) using optical constants from [Hanner et al. (1988)](https://ui.adsabs.harvard.edu/abs/1988ioch.rept.....H/abstract).
+
+H11-SMC (*N*=91,058): A carbon-rich grid for the SMC metallicity (1/5 solar) using optical constants from [Hanner et al. (1988)](https://ui.adsabs.harvard.edu/abs/1988ioch.rept.....H/abstract).
+
+J1000-LMC (*N*=85,392): A carbon-rich grid for the LMC metallicity (1/2 solar) using optical constants from [Jager et al. (1998)](https://ui.adsabs.harvard.edu/abs/1998A%26A...332..291J/abstract)
+
+J1000-SMC (*N*=85,546): A carbon-rich grid for the SMC metallicity (1/5 solar) using optical constants from [Jager et al. (1998)](https://ui.adsabs.harvard.edu/abs/1998A%26A...332..291J/abstract)
 
 
 Attribution
