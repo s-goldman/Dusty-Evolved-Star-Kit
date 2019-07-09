@@ -22,9 +22,7 @@ The package is currently in development and all contributions are welcomed. For 
  * output units (Jy or W m2)
 
 **Available model grids**:
-Several grids are **already available** and are located in the _models_ directory (change using the model_grid variable in the config.py file). You can also specify the state-of-the-art dust growth models by Nanni et al. (2019) which are automatically downloaded and used when selected. New grids will include the 2D [GRAMS model grid](https://2dust.stsci.edu/grams_models.cgi) based on the 2DUST code and 3D [DARWIN models](https://arxiv.org/abs/1904.10943).
-
-_Update (15 Apr 2019): Starkey site currently down: Nanni et al. (2019) models currently unavailable_
+Several grids are **already available** and are located in the _models_ directory (change using the model_grid variable in the config.py file). You can also specify the state-of-the-art dust growth models by Nanni et al. (2019) which are automatically downloaded and used when selected. New grids will include the 2D [GRAMS model grid](https://2dust.stsci.edu/grams_models.cgi) based on the 2DUST code and [DARWIN models](https://arxiv.org/abs/1904.10943).
 
 A module for creating your own [DUSTY](https://github.com/ivezic/dusty) grid is under development, but for now please email me ([Dr. Steven Goldman](http://www.stsci.edu/~sgoldman/)) directly for grid requests or for help with the pacakge. 
 
