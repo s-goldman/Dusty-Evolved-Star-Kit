@@ -22,7 +22,7 @@ The package is currently in development and all contributions are welcomed. For 
  * output units (Jy or W m2)
 
 **Available model grids**:
-Several grids are **already available** and are located in the _models_ directory (change using the model_grid variable in the config.py file). You can also specify the state-of-the-art dust growth models by Nanni et al. (2019) which are automatically downloaded and used when selected. New grids will include the 2D [GRAMS model grid](https://2dust.stsci.edu/grams_models.cgi) based on the 2DUST code and [DARWIN models](https://arxiv.org/abs/1904.10943).
+Several grids are **already available** and are located in the _models_ directory (change using the model_grid variable in the config.py file). You can also specify the state-of-the-art dust growth models by [Nanni et al. (2019)](https://ui.adsabs.harvard.edu/abs/2019MNRAS.487..502N/abstract) which are automatically downloaded and used when selected. New grids will include the 2D [GRAMS model grid](https://2dust.stsci.edu/grams_models.cgi) based on the 2DUST code and [DARWIN models](https://arxiv.org/abs/1904.10943).
 
 A module for creating your own [DUSTY](https://github.com/ivezic/dusty) grid is under development, but for now please email me ([Dr. Steven Goldman](http://www.stsci.edu/~sgoldman/)) directly for grid requests or for help with the pacakge. 
 
@@ -83,7 +83,7 @@ arnold-palmer (*N*=2,000): Same as Oss-Orich-aringer but with 50% amorphous carb
 
 
 
-Dust Growth Model Grids from from [Nanni et al. (2018)](https://ui.adsabs.harvard.edu/abs/2018MNRAS.473.5492N/abstract)
+Dust Growth Model Grids from from [Nanni et al. (2019)](https://ui.adsabs.harvard.edu/abs/2019MNRAS.487..502N/abstract)
 -------------------
 
 H11-LMC (*N*=90,899): A carbon-rich grid for the LMC metallicity (1/2 solar) using optical constants from [Hanner et al. (1988)](https://ui.adsabs.harvard.edu/abs/1988ioch.rept.....H/abstract).
