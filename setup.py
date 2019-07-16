@@ -30,7 +30,7 @@ setup(
         'Programming Language :: Python :: 3.7',
     ],
     description="The DESK is an SED-fitting python scripts for fitting data from evolved stars",
-    entry_points={'console_scripts': ['desk = desk.sed_fit:main']},
+    entry_points={'console_scripts': ['desk = main:main']},
     install_requires=requirements,
     license="BSD license",
     long_description=readme + '\n\n' + history,
