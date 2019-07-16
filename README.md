@@ -47,7 +47,7 @@ Download on the main Git page (green box at the top of the screen), use `curl  -
 
 All of the important command line files (.py files) can be found in the `desk` subdirectory.
 
-Just add the csv data files you want to fit to the *put_target_data_here* directory, select your options (shown above) within the config.py script, make sure you are the desk directory, and then use the command `python sed_fitting.py`.
+Just add the csv data files you want to fit to the *put_target_data_here* directory, select your options (shown above) within the config.py script, make sure you are the desk directory, and then use the command `python sed_fit.py`.
 
 <img src="docs/example.png"  width="400" height="500">
 This is an example of the output_sed.png file, where three massive oxygen-rich AGB stars from the LMC have been fit.
