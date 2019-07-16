@@ -10,7 +10,7 @@ def main():
     parser.add_argument("--g", "--grid", help="model grid to use", dest="grid")
     args = parser.parse_args()
     # pdb.set_trace()
-    print(args)
+    # print(args)
     if args.script == 'fit':
         desk.sed_fit.main(arg_input=[args.target], dist=args.distance, grid=args.grid)
     if args.script == 'plot':
