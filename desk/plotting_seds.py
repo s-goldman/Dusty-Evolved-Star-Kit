@@ -22,11 +22,11 @@ def create_fig():
     """
     :return: Runs plotting script
     """
-    rc('text', usetex=True)
-    plt.rcParams['font.family'] = 'serif'
-    plt.rcParams['mathtext.fontset'] = 'dejavuserif'
-    plt.rcParams['text.usetex'] = True
-    plt.rcParams['text.latex.unicode'] = True
+    # rc('text', usetex=True)
+    # plt.rcParams['font.family'] = 'serif'
+    # plt.rcParams['mathtext.fontset'] = 'dejavuserif'
+    # plt.rcParams['text.usetex'] = True
+    # plt.rcParams['text.latex.unicode'] = True
 
     full_path = str(__file__.replace('plotting_seds.py', ''))
     # pdb.set_trace()

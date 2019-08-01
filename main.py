@@ -1,51 +1,47 @@
-import pdb
+import inspect, pdb
 import argparse
-import desk
+
+from desk import sed_fit
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("script", help="script", default="fit", choices=['fit', 'plot'])
-    parser.add_argument("--t", "--target", help="file target name", dest="target")
-    parser.add_argument("--d", "--distance", help="distance to source", type=int, dest="distance")
-    parser.add_argument("--g", "--grid", help="model grid to use", dest="grid")
+
+    parser.add_argument('--global-setting', action='store_true',
+                        help='some global thingie')
+
+    subparsers = parser.add_subparsers(dest='subparser_name', help='sub-command help')
+
+    # create the subparsers and populate them with the correct arguments
+    funcs_to_subcommand = inspect.getmembers(sed_fit, inspect.isfunction)
+    for name, func in funcs_to_subcommand:
+        subparser = subparsers.add_parser(name, help=func.__doc__)
+        for parname, arg in inspect.signature(func).parameters.items():
+            # sanitized_name = parname.replace('_', '-')
+            if arg.default == inspect.Signature.empty:
+                subparser.add_argument(parname)
+            else:
+                subparser.add_argument('--' + parname,
+                                       default=arg.default)
+
+    # now actually parse the arguments
     args = parser.parse_args()
-    # pdb.set_trace()
-    # print(args)
-    if args.script == 'fit':
-        desk.sed_fit.main(arg_input=[args.target], dist=args.distance, grid=args.grid)
-    if args.script == 'plot':
-        desk.plotting_seds.create_fig()
+
+    # set the global
+    sed_fit.GLOBAL_SETTING = args.global_setting
+
+    # and call the function
+    for name, func in funcs_to_subcommand:
+        if args.subparser_name == name:
+            # make a dictionary containing the correct inputs to the function,
+            # extracted from the parsed arguments
+            funcargs = {}
+            for parname in inspect.signature(func).parameters:
+                funcargs[parname] = getattr(args, parname)
+            # pdb.set_trace()
+            func(**funcargs)
+            break  # drop out immediately, which skips the "else" below
+    else:
+        assert False, 'Invalid subparser! This should be impossible...'
 
 if __name__ == '__main__':
     main()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -3,6 +3,7 @@ import os
 import pdb
 import csv
 import time
+import glob
 import math
 import importlib
 import numpy as np
@@ -34,18 +35,6 @@ squares value for each grid in the model and the data. The DUSTY outputs are the
 fitting_results.csv and fitting_plotting_output.csv (for plotting the results). An example plotting script has also
 been provided.
 '''
-
-
-def get_targets():
-    global targets
-    targets = []
-    path = str(__file__.replace('sed_fit.py', ''))
-    # for multiple sources
-    for item in os.listdir(path + 'put_target_data_here/'):
-        if fnmatch(item, "*csv"):
-            targets.append(path + 'put_target_data_here/' + item)
-    return targets
-
 
 def get_data(filename):
     """
@@ -170,10 +159,10 @@ def sed_fitting(target):
     counter.value += 1
 
 
-def main(arg_input=get_targets(), dist=config.target['distance_in_kpc'], grid=config.fitting['model_grid']):
+def fit(source='desk/put_target_data_here', distance=config.target['distance_in_kpc'], grid=config.fitting['model_grid']):
     """
-    :param arg_input: Name of target in array of strings (or one string)
-    :param dist: distance to source(s) in kiloparsecs
+    :param source: Name of target in array of strings (or one string)
+    :param distance: distance to source(s) in kiloparsecs
     :param grid: Name of model grid
     :return:
     """
@@ -190,7 +179,7 @@ def main(arg_input=get_targets(), dist=config.target['distance_in_kpc'], grid=co
     # normalization calculation
     # solar constant = 1379 W
     # distance to sun in kpc 4.8483E-9
-    distance_norm = math.log10(((float(dist) / 4.8482E-9) ** 2) / 1379)
+    distance_norm = math.log10(((float(distance) / 4.8482E-9) ** 2) / 1379)
     full_path = str(__file__.replace('sed_fit.py', ''))
 
     # User input for models
@@ -202,7 +191,7 @@ def main(arg_input=get_targets(), dist=config.target['distance_in_kpc'], grid=co
         model_grid = grid
 
     #number of targets
-    number_of_targets = len(arg_input)
+    number_of_targets = len(source)
 
     # file names to look for
     csv_file = full_path + 'models/' + model_grid + '_outputs.csv'
@@ -242,8 +231,13 @@ def main(arg_input=get_targets(), dist=config.target['distance_in_kpc'], grid=co
         f.close()
 
     # SED FITTING ###############################
-    with Pool(processes=cpu_count() - 1) as pool:
-        pool.map(sed_fitting, [target_string for target_string in arg_input])
+    if fnmatch(source, '*.csv'):
+        sed_fitting(source)
+    elif os.path.exists(source):
+        files = os.listdir(source)
+        files = glob.glob(source+'/'+'*.csv')
+        with Pool(processes=cpu_count() - 1) as pool:
+            pool.map(sed_fitting, [target_string for target_string in files])
 
     # Saves results csv file
     if fnmatch(config.fitting['model_grid'], 'grams*'):
