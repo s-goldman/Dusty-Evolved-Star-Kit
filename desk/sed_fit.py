@@ -159,7 +159,7 @@ def sed_fitting(target):
     counter.value += 1
 
 
-def fit(source='desk/put_target_data_here', distance=config.target['distance_in_kpc'], grid=config.fitting['model_grid']):
+def fit(source='put_target_data_here', distance=config.target['distance_in_kpc'], grid=config.fitting['model_grid']):
     """
     :param source: Name of target in array of strings (or one string)
     :param distance: distance to source(s) in kiloparsecs
@@ -181,7 +181,6 @@ def fit(source='desk/put_target_data_here', distance=config.target['distance_in_
     # distance to sun in kpc 4.8483E-9
     distance_norm = math.log10(((float(distance) / 4.8482E-9) ** 2) / 1379)
     full_path = str(__file__.replace('sed_fit.py', ''))
-
     # User input for models
     if grid == 'carbon':
         model_grid = 'Zubko-Crich-bb'
@@ -231,6 +230,8 @@ def fit(source='desk/put_target_data_here', distance=config.target['distance_in_
         f.close()
 
     # SED FITTING ###############################
+    if source == 'put_target_data_here':
+        source = full_path+source
     if fnmatch(source, '*.csv'):
         sed_fitting(source)
     elif os.path.exists(source):
