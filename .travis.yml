@@ -14,12 +14,12 @@ sudo: false
 #
 # https://github.com/travis-ci/apt-package-whitelist/blob/master/ubuntu-precise
 
-addons:
-    apt:
-        packages:
-            - graphviz
-            - texlive-latex-extra
-            - dvipng
+# addons:
+#     apt:
+#         packages:
+#             - graphviz
+#             - texlive-latex-extra
+#             - dvipng
 
 env:
     global:
