@@ -19,3 +19,4 @@ import desk.plotting_seds
 import desk.config
 import desk.get_remote_models
 import desk.parameter_ranges
+import desk.main

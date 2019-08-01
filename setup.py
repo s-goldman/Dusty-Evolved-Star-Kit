@@ -30,7 +30,7 @@ setup(
         'Programming Language :: Python :: 3.7',
     ],
     description="The DESK is an SED-fitting python scripts for fitting data from evolved stars",
-    entry_points={'console_scripts': ['desk = main:main']},
+    entry_points={'console_scripts': ['desk = desk.main:main']},
     install_requires=requirements,
     license="BSD license",
     long_description=readme + '\n\n' + history,
@@ -43,6 +43,6 @@ setup(
     test_suite='tests',
     tests_require=test_requirements,
     url='https://github.com/s-goldman/Dusty_Evolved_Star_Kit',
-    version='1.5.3',
+    version='1.5.4',
     zip_safe=False,
 )
