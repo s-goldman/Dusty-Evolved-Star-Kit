@@ -94,7 +94,9 @@ J1000-SMC (*N*=85,546): A carbon-rich grid for the SMC metallicity (1/5 solar) u
 Attribution
 -----------
 
-The method used is similar to that of [Goldman et al. 2017](https://ui.adsabs.harvard.edu/abs/2017MNRAS.465..403G/abstract); a more in-depth publication is in prep.
+The method used is similar to that of [Goldman et al. 2017](https://ui.adsabs.harvard.edu/abs/2017MNRAS.465..403G/abstract); a more in-depth publication is in prep. If used please add the following to your acknowledgements:
+
+This research has made use of the Dusty Evolved Star Kit (DESK; https://github.com/s-goldman/Dusty-Evolved-Star-Kit). 
 
 License
 -------
