@@ -43,7 +43,9 @@ additional options are:
 
 `desk fit --source='target_name.csv' --distance=50, --grid='H11-LMC'`
 
-These additional arguments are the distance (in kpc) and the grid of models you would like to use (options listed below). You can select 'oxygen' or 'carbon' to use the default models.
+These additional arguments are the distance (in kpc) and the grid of models you would like to use (options listed below). You can select 'oxygen' or 'carbon' to use the default models. To see other available grids use:
+
+`desk grids`
 
 <img src="docs/example.png"  width="400" height="500">
 This is an example of the output_sed.png file fitting three massive oxygen-rich AGB stars from the LMC.
