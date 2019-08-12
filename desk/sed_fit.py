@@ -94,7 +94,7 @@ def fit_norm(data, norm_model):
     stats = []
     # normalization range
     # trials = np.linspace(config.fitting['min_norm'], config.fitting['max_norm'], config.fitting['ntrials'])
-    trials = np.logspace(log_average_flux_wm2 - 2, log_average_flux_wm2 + 2, 10)
+    trials = np.logspace(log_average_flux_wm2 - 2, log_average_flux_wm2 + 2, 1000)
     for t in trials:
         stat = least2(data[1], norm_model * t)
         stats.append(stat)
