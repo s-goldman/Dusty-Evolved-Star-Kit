@@ -36,6 +36,12 @@ fitting_results.csv and fitting_plotting_output.csv (for plotting the results). 
 been provided.
 '''
 
+def grids():
+    print('\nGrids:')
+    for item in config.grids:
+        print('\t'+str(item))
+    print('\n')
+
 def get_data(filename):
     """
     :param filename: filename of input data. Should be csv with Column 0: wavelength in um and Col 1: flux in Jy
@@ -187,8 +193,10 @@ def fit(source='put_target_data_here', distance=config.target['distance_in_kpc']
     elif grid == 'oxygen':
         model_grid = 'Oss-Orich-bb'
     else:
-        model_grid = grid
-
+        if grid in config.grids:
+            model_grid = grid
+        else:
+            raise ValueError('\n\nUnknown grid. Please make another model selection.\n\n To see options use: desk grids\n')
     #number of targets
     number_of_targets = len(source)
 
@@ -235,10 +243,14 @@ def fit(source='put_target_data_here', distance=config.target['distance_in_kpc']
     if fnmatch(source, '*.csv'):
         sed_fitting(source)
     elif os.path.exists(source):
-        files = os.listdir(source)
-        files = glob.glob(source+'/'+'*.csv')
-        with Pool(processes=cpu_count() - 1) as pool:
-            pool.map(sed_fitting, [target_string for target_string in files])
+        # pdb.set_trace()
+        if glob.glob(source+'*.csv'):
+            files = os.listdir(source)
+            files = glob.glob(source+'/'+'*.csv')
+            with Pool(processes=cpu_count() - 1) as pool:
+                pool.map(sed_fitting, [target_string for target_string in files])
+        else:
+            raise ValueError('\n\nNo .csv files in that directory. Please make another selection.\n')
 
     # Saves results csv file
     if fnmatch(config.fitting['model_grid'], 'grams*'):
@@ -262,4 +274,4 @@ def fit(source='put_target_data_here', distance=config.target['distance_in_kpc']
 
 
 if __name__ == '__main__':
-    main()
+    fit()
