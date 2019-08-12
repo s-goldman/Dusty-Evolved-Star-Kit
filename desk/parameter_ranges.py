@@ -49,6 +49,8 @@ def create_par():
         range_max = par_max + (par_max - par_min) * 0.1
         if range_min != range_max:
             axs[counter].set_xlim(range_min, range_max)
+        elif par_min ==0 and par_max == 0:
+            axs[counter].set_xlim(-0.9,0.9)
         else:
             axs[counter].set_xlim(range_min*0.6, range_min*1.4)
         # print(str(par_min) + ' : ' + str(par_max))

@@ -100,7 +100,7 @@ def fit_norm(data, norm_model):
     stats = []
     # normalization range
     # trials = np.linspace(config.fitting['min_norm'], config.fitting['max_norm'], config.fitting['ntrials'])
-    trials = np.logspace(log_average_flux_wm2 - 2, log_average_flux_wm2 + 2, 500)
+    trials = np.logspace(log_average_flux_wm2 - 2, log_average_flux_wm2 + 2, number_of_tries)
     for t in trials:
         stat = least2(data[1], norm_model * t)
         stats.append(stat)
@@ -149,7 +149,7 @@ def sed_fitting(target):
             print(('             Target: ' + target_name + '        ' + str(counter.value + 1) + '/' + str(number_of_targets)))
             print('-------------------------------------------------')
             print(("Luminosity\t\t\t|\t" + str(round(luminosity))))
-            print(("Optical depth\t\t\t|\t" + str(grid_outputs[model_index]['odep'])))
+            print(("Optical depth\t\t\t|\t" + str(round(grid_outputs[model_index]['odep'],3))))
             print(("Expansion velocity (scaled)\t|\t" + str(round(scaled_vexp, 2))))
             print(("Mass loss (scaled)\t\t|\t" + str("%.2E" % float(scaled_mdot))))
             print('-------------------------------------------------')
@@ -165,7 +165,7 @@ def sed_fitting(target):
     counter.value += 1
 
 
-def fit(source='put_target_data_here', distance=config.target['distance_in_kpc'], grid=config.fitting['model_grid']):
+def fit(source='default', distance=config.target['distance_in_kpc'], grid=config.fitting['model_grid']):
     """
     :param source: Name of target in array of strings (or one string)
     :param distance: distance to source(s) in kiloparsecs
@@ -179,9 +179,12 @@ def fit(source='put_target_data_here', distance=config.target['distance_in_kpc']
     global grid_outputs
     global distance_norm
     global full_path
+    global files
+    global number_of_tries
     global number_of_targets
     start = time.time()
     counter = Value('i', 0)
+    number_of_tries = 5
     # normalization calculation
     # solar constant = 1379 W
     # distance to sun in kpc 4.8483E-9
@@ -197,8 +200,6 @@ def fit(source='put_target_data_here', distance=config.target['distance_in_kpc']
             model_grid = grid
         else:
             raise ValueError('\n\nUnknown grid. Please make another model selection.\n\n To see options use: desk grids\n')
-    #number of targets
-    number_of_targets = len(source)
 
     # file names to look for
     csv_file = full_path + 'models/' + model_grid + '_outputs.csv'
@@ -238,15 +239,17 @@ def fit(source='put_target_data_here', distance=config.target['distance_in_kpc']
         f.close()
 
     # SED FITTING ###############################
-    if source == 'put_target_data_here':
-        source = full_path+source
+
+    if source == 'default':
+        source = full_path+'put_target_data_here/'
     if fnmatch(source, '*.csv'):
         sed_fitting(source)
+        number_of_targets = 1
     elif os.path.exists(source):
-        # pdb.set_trace()
         if glob.glob(source+'*.csv'):
             files = os.listdir(source)
             files = glob.glob(source+'/'+'*.csv')
+            number_of_targets = len(files)
             with Pool(processes=cpu_count() - 1) as pool:
                 pool.map(sed_fitting, [target_string for target_string in files])
         else:
