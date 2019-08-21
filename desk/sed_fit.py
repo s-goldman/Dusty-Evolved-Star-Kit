@@ -243,17 +243,20 @@ def fit(source='default', distance=config.target['distance_in_kpc'], grid=config
     if source == 'default':
         source = full_path+'put_target_data_here/'
     if fnmatch(source, '*.csv'):
-        sed_fitting(source)
         number_of_targets = 1
-    elif os.path.exists(source):
-        if glob.glob(source+'*.csv'):
+        sed_fitting(source)
+    elif os.path.isdir(source):
+        source_dir = (source+'/').replace('//', '/')
+        if glob.glob(source_dir+'/*.csv'):
             files = os.listdir(source)
             files = glob.glob(source+'/'+'*.csv')
             number_of_targets = len(files)
             with Pool(processes=cpu_count() - 1) as pool:
                 pool.map(sed_fitting, [target_string for target_string in files])
         else:
-            raise ValueError('\n\nNo .csv files in that directory. Please make another selection.\n')
+            raise ValueError('\n\n\nERROR: No .csv files in that directory. Please make another selection.\n\n')
+    else:
+        raise ValueError('\n\n\nError: Not a .csv file. Please make another selection.\n\n')
 
     # Saves results csv file
     if fnmatch(config.fitting['model_grid'], 'grams*'):
