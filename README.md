@@ -14,7 +14,7 @@ The DESK is an SED-fitting python package for fitting data from evolved stars (p
 **Output**: Two results files including the best fit model and corresponding stellar parameters, as well as an optional figure of the fit SED.
 
 **Available model grids**:
-Several grids are **already available**. You can also specify the state-of-the-art dust growth models by [Nanni et al. (2019)](https://ui.adsabs.harvard.edu/abs/2019MNRAS.487..502N/abstract) which are automatically downloaded and used when selected. New grids will include the 2D [GRAMS model grid](https://2dust.stsci.edu/grams_models.cgi) based on the 2DUST code and [DARWIN models](https://arxiv.org/abs/1904.10943).
+Several grids are **already available**. You can also specify the state-of-the-art dust growth models by [Nanni et al. (2019)](https://ui.adsabs.harvard.edu/abs/2019MNRAS.487..502N/abstract) which are automatically downloaded and used when selected. New grids will include the 2D [GRAMS model grid](https://2dust.stsci.edu/grams_models.cgi) based on the 2DUST code.
 
 A module for creating your own [DUSTY](https://github.com/ivezic/dusty) grid is under development, but for now please email me ([Dr. Steven Goldman](http://www.stsci.edu/~sgoldman/)) directly for grid requests or for help with the package. 
 
