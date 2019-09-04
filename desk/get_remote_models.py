@@ -40,7 +40,8 @@ def get_models(model_grid_name):
              'fifth-iron',
              'half-iron',
              'one-fifth-carbon',
-             'grams-oxygen'
+             'grams-oxygen',
+             'grams-carbon'
              ]
     grid_csv_link = ['https://stsci.box.com/shared/static/jxtabj6h5zi7a8ggb0mbtag3v6b4b9i7.csv',
                      'https://stsci.box.com/shared/static/z0hnvo0hz0qxcwlcvbmf01avdjlhewah.csv',
@@ -57,7 +58,8 @@ def get_models(model_grid_name):
                      'https://stsci.box.com/shared/static/5zqshpzw748n0doykm7d5cxnlvhue4kk.csv',
                      'https://stsci.box.com/shared/static/x7328lqy8fyg19wswqwq4md4gm398ewi.csv',
                      'https://stsci.box.com/shared/static/8j73qttzj10eu5sct0ds0835uxbxu3s8.csv',
-                     'https://stsci.box.com/shared/static/ldocm4yto4vtxfcg21o23a8uilb3a3do.csv'
+                     'https://stsci.box.com/shared/static/ldocm4yto4vtxfcg21o23a8uilb3a3do.csv',
+                     'https://stsci.box.com/shared/static/iy6dsqrnhi96ecnlsozo1ljr5g8b1jwx.csv'
                      ]
     grid_fits_link = ['https://stsci.box.com/shared/static/1suiv6nqbc7yoqutli2q9q98ste31o1y.fits',
                       'https://stsci.box.com/shared/static/bq384o6m1xm41bkx7s8oloohqkd87hy8.fits',
@@ -74,7 +76,8 @@ def get_models(model_grid_name):
                       'https://stsci.box.com/shared/static/qjuq780xr0ihj9p909wmijwkpclu2njd.fits',
                       'https://stsci.box.com/shared/static/ht6edjsrupwhytwuwa9hjg53dof2zzy0.fits',
                       'https://stsci.box.com/shared/static/n1ng9f4s8s7ps0ah8vp24gk0fzsxp0aj.fits',
-                      'https://stsci.box.com/shared/static/l1qayndbz40lwewvlpg1qxu22rs9f9xu.fits'
+                      'https://stsci.box.com/shared/static/l1qayndbz40lwewvlpg1qxu22rs9f9xu.fits',
+                      'https://stsci.box.com/shared/static/jho46vam6d0k9jwg78gxx4eh7emwx4oz.fits'
                       ]
     if any(ext in model_grid_name for ext in grids):
         match_index = [i for i, item in enumerate(grids) if model_grid_name == item][0]

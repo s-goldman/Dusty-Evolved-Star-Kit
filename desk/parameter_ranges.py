@@ -1,5 +1,3 @@
-from fnmatch import fnmatch
-
 import astropy.units as u
 import collections
 import copy
@@ -31,7 +29,7 @@ def create_par():
     par = Table.read(full_path + 'models/' + model + '_outputs.csv')
 
     for i in par.colnames:
-        if fnmatch(par[i].dtype.str, '<U*'):
+        if fnmatch.fnmatch(par[i].dtype.str, '<U*'):
             par.remove_column(i)
         else:
             par.rename_column(i, i.replace('_', ' '))
