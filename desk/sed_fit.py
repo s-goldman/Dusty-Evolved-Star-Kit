@@ -57,10 +57,10 @@ def make_output_files_dusty():
 
 def make_output_files_grams():
     with open('fitting_results.csv', 'w') as f:
-        f.write('source,L,teff,odep,mdot,rin\n')
+        f.write('source,L,rin,teff,tinner,odep,mdot\n')
         f.close()
     with open('fitting_plotting_outputs.csv', 'w') as f:
-        f.write('target_name,data_file,norm,index,grid_name,teff,odep\n')
+        f.write('target_name,data_file,norm,index,grid_name,teff,tinner,odep\n')
         f.close()
 
 
@@ -187,11 +187,12 @@ def sed_fitting(target):
     def grams_fit():
         luminosity = grid_outputs[model_index]['lum'] * ((distance_value / 50) ** 2)
         teff = grid_outputs[model_index]['teff']
+        tinner = grid_outputs[model_index]['tinner']
         odep = grid_outputs[model_index]['odep']
         mdot = grid_outputs[model_index]['mdot'] * (distance_value / 50)
         rin = grid_outputs[model_index]['rin'] * (distance_value / 50)
         # creates output file
-        latex_array = [target_name, luminosity, teff, odep, "%.3E" % float(mdot), rin]
+        latex_array = [target_name, luminosity, rin, teff, tinner, odep, "%.3E" % float(mdot)]
 
         plotting_array = [target_name, target, trials[trial_index], model_index, model_grid, teff, odep]
         if config.output['printed_output'] == 'True':
