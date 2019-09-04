@@ -1,12 +1,22 @@
-import pylab, os, fnmatch, shutil, time, math, copy, collections, importlib, pdb
-import numpy as np
-import astropy.units as u
-import matplotlib.pyplot as plt
 from fnmatch import fnmatch
-from astropy.units import astrophys
+
+import astropy.units as u
+import collections
+import copy
+import fnmatch
+import importlib
+import math
+import matplotlib.pyplot as plt
+import numpy as np
+import os
+import pdb
+import pylab
+import shutil
+import time
 from astropy.table import Table, Column, vstack
-from numpy import ndarray
+from astropy.units import astrophys
 from desk import config
+from numpy import ndarray
 
 plt.rc('text', usetex=True)
 plt.rcParams['font.family'] = 'serif'
@@ -25,7 +35,6 @@ def create_par():
             par.remove_column(i)
         else:
             par.rename_column(i, i.replace('_', ' '))
-
 
     if len(par.colnames) > 18:
         par = par[par.colnames[:17]]
@@ -49,16 +58,17 @@ def create_par():
         range_max = par_max + (par_max - par_min) * 0.1
         if range_min != range_max:
             axs[counter].set_xlim(range_min, range_max)
-        elif par_min ==0 and par_max == 0:
-            axs[counter].set_xlim(-0.9,0.9)
+        elif par_min == 0 and par_max == 0:
+            axs[counter].set_xlim(-0.9, 0.9)
         else:
-            axs[counter].set_xlim(range_min*0.6, range_min*1.4)
+            axs[counter].set_xlim(range_min * 0.6, range_min * 1.4)
         # print(str(par_min) + ' : ' + str(par_max))
         axs[counter].set_ylabel(col)
         axs[counter].set_yticklabels([])
         axs[counter].set_yticks([])
         counter += 1
     fig.savefig('parameter_ranges_' + model + '.png', dpi=200, bbox_inches='tight')
+
 
 if __name__ == '__main__':
     create_par()

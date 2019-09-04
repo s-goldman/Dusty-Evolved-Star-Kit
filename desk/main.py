@@ -1,7 +1,9 @@
-import inspect, pdb
 import argparse
+import inspect
+import pdb
 
 from desk import sed_fit
+
 
 def main():
     parser = argparse.ArgumentParser()
@@ -42,6 +44,7 @@ def main():
             break  # drop out immediately, which skips the "else" below
     else:
         assert False, 'Invalid subparser! This should be impossible...'
+
 
 if __name__ == '__main__':
     main()

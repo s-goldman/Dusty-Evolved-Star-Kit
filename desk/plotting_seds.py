@@ -1,8 +1,9 @@
 import math
 import pdb
-import numpy as np
+
 import astropy.units as u
 import matplotlib.pyplot as plt
+import numpy as np
 from astropy.io import ascii
 from astropy.table import Table
 from desk import config
@@ -113,6 +114,7 @@ def create_fig():
         # pdb.set_trace()
     plt.subplots_adjust(wspace=0, hspace=0)
     fig.savefig('output_sed.png', dpi=200, bbox_inches='tight')
+
 
 if __name__ == '__main__':
     create_fig()

@@ -45,5 +45,5 @@ grids = ['Crystalline-20-bb',
          'corundum-20-bb',
          'fifth-iron',
          'half-iron',
-         'one-fifth-carbon'
-         ]
+         'one-fifth-carbon',
+         'grams-oxygen']

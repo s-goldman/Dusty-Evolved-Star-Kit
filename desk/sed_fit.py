@@ -1,24 +1,26 @@
 from __future__ import absolute_import
+
+import csv
+import glob
+import importlib
+import math
 import os
 import pdb
-import csv
 import time
-import glob
-import math
-import importlib
-import numpy as np
+from fnmatch import fnmatch
+from multiprocessing import Pool, cpu_count
+from multiprocessing import Process, Value, cpu_count
+
 import astropy.units as u
 import matplotlib.pyplot as plt
-from matplotlib import rc
-from fnmatch import fnmatch
+import numpy as np
 from astropy.io import ascii
-from scipy import interpolate
-from multiprocessing import Process, Value, cpu_count
+from astropy.table import Table, Column
 from desk import config, plotting_seds, get_remote_models, parameter_ranges
 from desk.parameter_ranges import create_par
 from desk.plotting_seds import create_fig
-from multiprocessing import Pool, cpu_count
-from astropy.table import Table, Column
+from matplotlib import rc
+from scipy import interpolate
 
 importlib.reload(config)
 
@@ -36,11 +38,31 @@ fitting_results.csv and fitting_plotting_output.csv (for plotting the results). 
 been provided.
 '''
 
+
 def grids():
     print('\nGrids:')
     for item in config.grids:
-        print('\t'+str(item))
+        print('\t' + str(item))
     print('\n')
+
+
+def make_output_files_dusty():
+    with open('fitting_results.csv', 'w') as f:
+        f.write('source,L,vexp_predicted,teff,tinner,odep,mdot\n')
+        f.close()
+    with open('fitting_plotting_outputs.csv', 'w') as f:
+        f.write('target_name,data_file,norm,index,grid_name,teff,tinner,odep\n')
+        f.close()
+
+
+def make_output_files_grams():
+    with open('fitting_results.csv', 'w') as f:
+        f.write('source,L,teff,odep,mdot,rin\n')
+        f.close()
+    with open('fitting_plotting_outputs.csv', 'w') as f:
+        f.write('target_name,data_file,norm,index,grid_name,teff,odep\n')
+        f.close()
+
 
 def get_data(filename):
     """
@@ -122,10 +144,7 @@ def sed_fitting(target):
     trial_index = argmin % stat_array.shape[1]
     target_name = (target.split('/')[-1][:15]).replace('IRAS-', 'IRAS ')
 
-    if fnmatch(config.fitting['model_grid'], 'grams*'):
-        print(Table(grid_outputs[model_index]))
-
-    else:
+    def dusty_fit():
         # calculates luminosity and scales outputs
         luminosity = int(np.power(10.0, distance_norm - math.log10(trials[trial_index]) * -1))
         scaled_vexp = float(grid_outputs[model_index]['vexp']) * (luminosity / 10000) ** 0.25
@@ -146,23 +165,61 @@ def sed_fitting(target):
         if config.output['printed_output'] == 'True':
             print()
             print()
-            print(('             Target: ' + target_name + '        ' + str(counter.value + 1) + '/' + str(number_of_targets)))
+            print(('             Target: ' + target_name + '        ' + str(counter.value + 1) + '/' + str(
+                number_of_targets)))
             print('-------------------------------------------------')
             print(("Luminosity\t\t\t|\t" + str(round(luminosity))))
-            print(("Optical depth\t\t\t|\t" + str(round(grid_outputs[model_index]['odep'],3))))
+            print(("Optical depth\t\t\t|\t" + str(round(grid_outputs[model_index]['odep'], 3))))
             print(("Expansion velocity (scaled)\t|\t" + str(round(scaled_vexp, 2))))
-            print(("Mass loss (scaled)\t\t|\t" + str("%.2E" % float(scaled_mdot))))
+            print(("Gas mass loss (scaled)\t\t|\t" + str("%.2E" % float(scaled_mdot))))
             print('-------------------------------------------------')
-            with open('fitting_results.csv', 'a') as f:
-                writer = csv.writer(f, delimiter=',', lineterminator='\n')
-                writer.writerow(np.array(latex_array))
-                f.close()
+        with open('fitting_results.csv', 'a') as f:
+            writer = csv.writer(f, delimiter=',', lineterminator='\n')
+            writer.writerow(np.array(latex_array))
+            f.close()
 
-            with open('fitting_plotting_outputs.csv', 'a') as f:
-                writer = csv.writer(f, delimiter=',', lineterminator='\n')
-                writer.writerow(np.array(plotting_array))
-                f.close()
-    counter.value += 1
+        with open('fitting_plotting_outputs.csv', 'a') as f:
+            writer = csv.writer(f, delimiter=',', lineterminator='\n')
+            writer.writerow(np.array(plotting_array))
+            f.close()
+        counter.value += 1
+
+    def grams_fit():
+        luminosity = grid_outputs[model_index]['lum'] * ((distance_value / 50) ** 2)
+        teff = grid_outputs[model_index]['teff']
+        odep = grid_outputs[model_index]['odep']
+        mdot = grid_outputs[model_index]['mdot'] * (distance_value / 50)
+        rin = grid_outputs[model_index]['rin'] * (distance_value / 50)
+        # creates output file
+        latex_array = [target_name, luminosity, teff, odep, "%.3E" % float(mdot), rin]
+
+        plotting_array = [target_name, target, trials[trial_index], model_index, model_grid, teff, odep]
+        if config.output['printed_output'] == 'True':
+            print()
+            print()
+            print(('             Target: ' + target_name + '        ' + str(counter.value + 1) + '/' + str(
+                number_of_targets)))
+            print('-------------------------------------------------')
+            print(("Luminosity\t\t\t|\t" + str(round(luminosity))))
+            print(("Optical depth\t\t\t|\t" + str(round(grid_outputs[model_index]['odep'], 3))))
+            print(("Inner Radius\t\t\t|\t" + str(rin)))
+            print(("Dust production rate \t\t|\t" + str("%.2E" % float(mdot))))
+            print('-------------------------------------------------')
+        with open('fitting_results.csv', 'a') as f:
+            writer = csv.writer(f, delimiter=',', lineterminator='\n')
+            writer.writerow(np.array(latex_array))
+            f.close()
+
+        with open('fitting_plotting_outputs.csv', 'a') as f:
+            writer = csv.writer(f, delimiter=',', lineterminator='\n')
+            writer.writerow(np.array(plotting_array))
+            f.close()
+        counter.value += 1
+
+    if fnmatch(model_grid, 'grams*'):
+        grams_fit()
+    else:
+        dusty_fit()
 
 
 def fit(source='default', distance=config.target['distance_in_kpc'], grid=config.fitting['model_grid']):
@@ -178,6 +235,7 @@ def fit(source='default', distance=config.target['distance_in_kpc'], grid=config
     global grid_dusty
     global grid_outputs
     global distance_norm
+    global distance_value
     global full_path
     global files
     global number_of_tries
@@ -188,8 +246,10 @@ def fit(source='default', distance=config.target['distance_in_kpc'], grid=config
     # normalization calculation
     # solar constant = 1379 W
     # distance to sun in kpc 4.8483E-9
+    distance_value = distance
     distance_norm = math.log10(((float(distance) / 4.8482E-9) ** 2) / 1379)
     full_path = str(__file__.replace('sed_fit.py', ''))
+
     # User input for models
     if grid == 'carbon':
         model_grid = 'Zubko-Crich-bb'
@@ -199,19 +259,17 @@ def fit(source='default', distance=config.target['distance_in_kpc'], grid=config
         if grid in config.grids:
             model_grid = grid
         else:
-            raise ValueError('\n\nUnknown grid. Please make another model selection.\n\n To see options use: desk grids\n')
+            raise ValueError(
+                '\n\nUnknown grid. Please make another model selection.\n\n To see options use: desk grids\n')
 
-    # file names to look for
+    # check if models exist
     csv_file = full_path + 'models/' + model_grid + '_outputs.csv'
     fits_file = full_path + 'models/' + model_grid + '_models.fits'
-
-    # check file path, if missing checks remote directory
     if os.path.isfile(csv_file) and os.path.isfile(fits_file):
         print('You already have the models!')
         print('Great job')
 
     else:
-        # raise ValueError('Model grid does not exist. Please try another')
         user_proceed = input('Models not found locally, download the models [y]/n?: ')
         if user_proceed == 'y' or user_proceed == '':
             get_remote_models.get_models(grid)
@@ -230,26 +288,24 @@ def fit(source='default', distance=config.target['distance_in_kpc'], grid=config
     else:
         raise ValueError("Model grid input error: mismatch in model spectra and model output")
 
-    # Creates results files
-    with open('fitting_results.csv', 'w') as f:
-        f.write('source,L,vexp_predicted,teff,tinner,odep,mdot\n')
-        f.close()
-    with open('fitting_plotting_outputs.csv', 'w') as f:
-        f.write('target_name,data_file,norm,index,grid_name,teff,tinner,odep\n')
-        f.close()
+    # creates correct results files
+    if fnmatch(model_grid, 'grams*'):
+        make_output_files_grams()
+    else:
+        make_output_files_dusty()
 
     # SED FITTING ###############################
 
     if source == 'default':
-        source = full_path+'put_target_data_here/'
+        source = full_path + 'put_target_data_here/'
     if fnmatch(source, '*.csv'):
         number_of_targets = 1
         sed_fitting(source)
     elif os.path.isdir(source):
-        source_dir = (source+'/').replace('//', '/')
-        if glob.glob(source_dir+'/*.csv'):
+        source_dir = (source + '/').replace('//', '/')
+        if glob.glob(source_dir + '/*.csv'):
             files = os.listdir(source)
-            files = glob.glob(source+'/'+'*.csv')
+            files = glob.glob(source + '/' + '*.csv')
             number_of_targets = len(files)
             with Pool(processes=cpu_count() - 1) as pool:
                 pool.map(sed_fitting, [target_string for target_string in files])
@@ -257,10 +313,6 @@ def fit(source='default', distance=config.target['distance_in_kpc'], grid=config
             raise ValueError('\n\n\nERROR: No .csv files in that directory. Please make another selection.\n\n')
     else:
         raise ValueError('\n\n\nError: Not a .csv file. Please make another selection.\n\n')
-
-    # Saves results csv file
-    if fnmatch(config.fitting['model_grid'], 'grams*'):
-        print(Table(grid_outputs[model_index]))
 
     # creating figures
     if config.output['create_figure'] == 'yes':
