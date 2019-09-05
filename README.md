@@ -81,7 +81,7 @@ arnold-palmer (*N*=2,000): Same as Oss-Orich-aringer but with 50% amorphous carb
 
 
 
-Dust Growth Model Grids from from [Nanni et al. (2019)](https://ui.adsabs.harvard.edu/abs/2019MNRAS.487..502N/abstract)
+The dust growth model grids from [Nanni et al. (2019)](https://ui.adsabs.harvard.edu/abs/2019MNRAS.487..502N/abstract)
 -------------------
 
 H11-LMC (*N*=90,899): A carbon-rich grid for the LMC metallicity (1/2 solar) using optical constants from [Hanner et al. (1988)](https://ui.adsabs.harvard.edu/abs/1988ioch.rept.....H/abstract).
@@ -92,6 +92,13 @@ J1000-LMC (*N*=85,392): A carbon-rich grid for the LMC metallicity (1/2 solar) u
 
 J1000-SMC (*N*=85,546): A carbon-rich grid for the SMC metallicity (1/5 solar) using optical constants from [Jager et al. (1998)](https://ui.adsabs.harvard.edu/abs/1998A%26A...332..291J/abstract)
 
+
+The GRAMS model grids ([Sargent et al. (2011)](https://ui.adsabs.harvard.edu/abs/2011ApJ...728...93S/abstract), [Srinivasan et al. (2011)](https://ui.adsabs.harvard.edu/abs/2011A%26A...532A..54S/abstract)
+-------------------
+
+grams-carbon (*N*=12,244): A 2D carbon-rich grid using the [2DUST](https://2dust.stsci.edu/index.cgi) code for the LMC metallicity (1/2 solar) using optical constants from [Zubko et al. 1996](https://ui.adsabs.harvard.edu/abs/1996MNRAS.282.1321Z/abstract).
+
+grams-oxygen (*N*=68,601): A 2D oxygen-rich grid using the [2DUST](https://2dust.stsci.edu/index.cgi) code for the LMC metallicity (1/2 solar) using optical constants from [Ossenkopf et al. 1992](https://ui.adsabs.harvard.edu/abs/1992A%26A...261..567O/abstract).
 
 Attribution
 -----------
