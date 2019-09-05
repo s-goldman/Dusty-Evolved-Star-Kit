@@ -80,7 +80,6 @@ Zubko-Crich-bb (*N*=2,000): Same as Zubko-Crich-aringer but using black bodies i
 arnold-palmer (*N*=2,000): Same as Oss-Orich-aringer but with 50% amorphous carbon grains from [Zubko et al. 1996](https://ui.adsabs.harvard.edu/abs/1996MNRAS.282.1321Z/abstract).
 
 
-
 The dust growth model grids from [Nanni et al. (2019)](https://ui.adsabs.harvard.edu/abs/2019MNRAS.487..502N/abstract)
 -------------------
 
@@ -99,6 +98,7 @@ The GRAMS model grids ([Sargent et al. (2011)](https://ui.adsabs.harvard.edu/abs
 grams-carbon (*N*=12,244): A 2D carbon-rich grid using the [2DUST](https://2dust.stsci.edu/index.cgi) code for the LMC metallicity (1/2 solar) using optical constants from [Zubko et al. 1996](https://ui.adsabs.harvard.edu/abs/1996MNRAS.282.1321Z/abstract).
 
 grams-oxygen (*N*=68,601): A 2D oxygen-rich grid using the [2DUST](https://2dust.stsci.edu/index.cgi) code for the LMC metallicity (1/2 solar) using optical constants from [Ossenkopf et al. 1992](https://ui.adsabs.harvard.edu/abs/1992A%26A...261..567O/abstract).
+
 
 Attribution
 -----------
