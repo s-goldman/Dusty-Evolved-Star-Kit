@@ -2,6 +2,7 @@ from __future__ import absolute_import
 
 import csv
 import glob
+import copy
 import importlib
 import math
 import os
@@ -185,6 +186,7 @@ def sed_fitting(target):
         counter.value += 1
 
     def grams_fit():
+        # pdb.set_trace()
         luminosity = grid_outputs[model_index]['lum'] * ((distance_value / 50) ** 2)
         teff = grid_outputs[model_index]['teff']
         tinner = grid_outputs[model_index]['tinner']
@@ -247,7 +249,7 @@ def fit(source='default', distance=config.target['distance_in_kpc'], grid=config
     # normalization calculation
     # solar constant = 1379 W
     # distance to sun in kpc 4.8483E-9
-    distance_value = distance
+    distance_value = float(copy.copy(distance))
     distance_norm = math.log10(((float(distance) / 4.8482E-9) ** 2) / 1379)
     full_path = str(__file__.replace('sed_fit.py', ''))
 
