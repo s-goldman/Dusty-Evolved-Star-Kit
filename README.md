@@ -41,7 +41,7 @@ or if you have a folder of csv files
 
 additional options are:
 
-`desk fit --source='target_name.csv' --distance=50, --grid='H11-LMC'`
+`desk fit --source='target_name.csv' --distance=50 --grid='H11-LMC'`
 
 These additional arguments are the distance (in kpc) and the grid of models you would like to use (options listed below). You can select 'oxygen' or 'carbon' to use the default models. To see other available grids use:
 
