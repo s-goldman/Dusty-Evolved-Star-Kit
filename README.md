@@ -29,6 +29,8 @@ Install Using Python
 
 1). Install the package with the command `pip install desk`.
 
+![](docs/pip_install.gif)
+
 2). Go to the directory where your target csv file (or target directory of files) is.  
 
 3). Use the command (without starting python) 
