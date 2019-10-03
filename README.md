@@ -62,7 +62,7 @@ Crystalline-20-bb (*N*=2,000): Same as Oss-Orich-bb but using 20% crystalline si
 
 corundum-20-bb (*N*=2,000): Same as Oss-Orich-bb but using 20% corundum grains from [Begemann et al. 1997](https://ui.adsabs.harvard.edu/abs/1997ApJ...476..199B/abstract).
 
-big-grains (*N*=2,000): Same as Oss-Orich-aringer but using a higher maximum dust grain size of 0.35.
+big-grain (*N*=2,000): Same as Oss-Orich-aringer but using a higher maximum dust grain size of 0.35.
 
 fifth-iron (*N*=500): Same as Oss-Orich-aringer but with 20% iron grains from [Henning et al. 1995](https://ui.adsabs.harvard.edu/abs/1995A%26AS..112..143H/abstract), and an effective temperature of 3400 K.
 
