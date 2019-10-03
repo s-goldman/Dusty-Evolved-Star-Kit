@@ -79,9 +79,6 @@ Zubko-Crich-aringer (*N*=2,000): Same as Oss-Orich-aringer but with amorphous ca
 
 Zubko-Crich-bb (*N*=2,000): Same as Zubko-Crich-aringer but using black bodies instead of the photospheric models.
 
-arnold-palmer (*N*=2,000): Same as Oss-Orich-aringer but with 50% amorphous carbon grains from [Zubko et al. 1996](https://ui.adsabs.harvard.edu/abs/1996MNRAS.282.1321Z/abstract).
-
-
 The dust growth model grids from [Nanni et al. (2019)](https://ui.adsabs.harvard.edu/abs/2019MNRAS.487..502N/abstract)
 -------------------
 
