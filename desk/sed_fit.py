@@ -19,7 +19,7 @@ from astropy.io import ascii
 from astropy.table import Table, Column
 from desk import config, plotting_seds, get_remote_models, parameter_ranges
 from desk.parameter_ranges import create_par
-from desk.plotting_seds import create_fig
+from desk.plotting_seds import create_fig, single_fig
 from matplotlib import rc
 from scipy import interpolate
 
