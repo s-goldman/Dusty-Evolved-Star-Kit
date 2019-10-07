@@ -96,8 +96,10 @@ The GRAMS model grids ([Sargent et al. 2011](https://ui.adsabs.harvard.edu/abs/2
 
 grams-carbon (*N*=12,244): A 2D carbon-rich grid using the [2DUST](https://2dust.stsci.edu/index.cgi) code for the LMC metallicity (1/2 solar) using optical constants from [Zubko et al. 1996](https://ui.adsabs.harvard.edu/abs/1996MNRAS.282.1321Z/abstract).
 
-grams-oxygen (*N*=68,601): A 2D oxygen-rich grid using the [2DUST](https://2dust.stsci.edu/index.cgi) code for the LMC metallicity (1/2 solar) using optical constants from [Ossenkopf et al. 1992](https://ui.adsabs.harvard.edu/abs/1992A%26A...261..567O/abstract).
-
+grams-oxygen (*N*=68,601): A 2D oxygen-rich grid using the [2DUST](https://2dust.stsci.edu/index.cgi) code for the LMC metallicity (1/2 solar) using optical constants from [Ossenkopf et al. 1992](https://ui.adsabs.harvard.edu/abs/1992A%26A...261..567O/abstract). 
+```diff
+- Warning: results uncertain outside of 20-150 kpc
+```
 
 Attribution
 -----------
