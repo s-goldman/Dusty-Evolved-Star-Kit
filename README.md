@@ -50,7 +50,9 @@ These additional arguments are the distance (in kpc) and the grid of models you 
 `desk grids`
 
 <img src="docs/example.png"  width="400" height="500">
-This is an example of the output_sed.png file fitting three massive oxygen-rich AGB stars from the LMC. To produce individual figures run the command `desk single_fig` after the script has finished running. 
+This is an example of the output_sed.png file fitting three massive oxygen-rich AGB stars from the LMC. To produce individual figures subsequently run the command:
+
+`desk single_fig` 
 
 Oxygen-Rich Model Grids
 -------------------
