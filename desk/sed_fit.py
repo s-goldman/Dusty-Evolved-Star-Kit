@@ -245,7 +245,7 @@ def fit(source='default', distance=config.target['distance_in_kpc'], grid=config
     global number_of_targets
     start = time.time()
     counter = Value('i', 0)
-    number_of_tries = 5
+    number_of_tries = 200
     # normalization calculation
     # solar constant = 1379 W
     # distance to sun in kpc 4.8483E-9
