@@ -52,6 +52,8 @@ These additional arguments are the distance (in kpc) and the grid of models you 
 <img src="docs/example.png"  width="400" height="500">
 This is an example of the output_sed.png file fitting three massive oxygen-rich AGB stars from the LMC.
 
+To produce individual figures run the command `desk single_fig` after the script has finished running. 
+
 Oxygen-Rich Model Grids
 -------------------
 Oss-Orich-aringer (*N*=2,000): Uses warm silicates from [Ossenkopf et al. 1992](https://ui.adsabs.harvard.edu/abs/1992A%26A...261..567O/abstract) and photospheric models from [Aringer et al. 2016](https://ui.adsabs.harvard.edu/abs/2016MNRAS.457.3611A/abstract). Provides ranges in effective temperature (2600-3400 K: 200 K interval) inner dust temperature (600-1200K: 200 K interval) and optical depth (0.1 - 50: 100 spaced logarithmicly). Standard [MRN](https://ui.adsabs.harvard.edu/abs/1977ApJ...217..425M/abstract) grain size distribution from 0.005 - 0.25 microns.
