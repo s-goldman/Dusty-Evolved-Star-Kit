@@ -31,6 +31,9 @@ Install Using Python
 
 ![](docs/pip_install.gif)
 
+Using the DESK
+-------------------
+
 2). Go to the directory where your target csv file (or target directory of files) is.  
 
 3). Use the command (without starting python) 
