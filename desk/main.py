@@ -8,10 +8,11 @@ from desk import sed_fit
 def main():
     parser = argparse.ArgumentParser()
 
-    parser.add_argument('--global-setting', action='store_true',
-                        help='some global thingie')
+    parser.add_argument(
+        "--global-setting", action="store_true", help="some global thingie"
+    )
 
-    subparsers = parser.add_subparsers(dest='subparser_name', help='sub-command help')
+    subparsers = parser.add_subparsers(dest="subparser_name", help="sub-command help")
 
     # create the subparsers and populate them with the correct arguments
     funcs_to_subcommand = inspect.getmembers(sed_fit, inspect.isfunction)
@@ -22,8 +23,7 @@ def main():
             if arg.default == inspect.Signature.empty:
                 subparser.add_argument(parname)
             else:
-                subparser.add_argument('--' + parname,
-                                       default=arg.default)
+                subparser.add_argument("--" + parname, default=arg.default)
 
     # now actually parse the arguments
     args = parser.parse_args()
@@ -43,8 +43,8 @@ def main():
             func(**funcargs)
             break  # drop out immediately, which skips the "else" below
     else:
-        assert False, 'Invalid subparser! This should be impossible...'
+        assert False, "Invalid subparser! This should be impossible..."
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
