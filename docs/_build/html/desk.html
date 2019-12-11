@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>desk package &mdash; Dusty-Evolved-Star-Kit 1.3.1 documentation</title>
+  <title>desk package &mdash; Dusty-Evolved-Star-Kit 1.4.7 documentation</title>
   
 
   
@@ -63,7 +63,7 @@
             
             
               <div class="version">
-                1.3.1
+                1.4.7
               </div>
             
           
@@ -89,18 +89,15 @@
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="readme.html">Dusty-Evolved-Star-Kit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">desk</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">desk package</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#module-desk.cli">desk.cli module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-desk.config">desk.config module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#module-desk.get_padova">desk.get_padova module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-desk.get_remote_models">desk.get_remote_models module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-desk.parameter_ranges">desk.parameter_ranges module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-desk.plotting_seds">desk.plotting_seds module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#module-desk.remove_old_files">desk.remove_old_files module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-desk.sed_fit">desk.sed_fit module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-desk">Module contents</a></li>
 </ul>
@@ -180,10 +177,6 @@
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="module-desk.cli">
-<span id="desk-cli-module"></span><h2>desk.cli module<a class="headerlink" href="#module-desk.cli" title="Permalink to this headline">¶</a></h2>
-<p>Console script for dusty_evolved_star_kit.</p>
-</div>
 <div class="section" id="module-desk.config">
 <span id="desk-config-module"></span><h2>desk.config module<a class="headerlink" href="#module-desk.config" title="Permalink to this headline">¶</a></h2>
 <p>Steve Goldman
@@ -192,11 +185,11 @@ May 17, 2018
 <a class="reference external" href="mailto:sgoldman&#37;&#52;&#48;stsci&#46;edu">sgoldman<span>&#64;</span>stsci<span>&#46;</span>edu</a></p>
 <p>This script is for plotting the outputs of the sed_fitting script.</p>
 </div>
-<div class="section" id="module-desk.get_padova">
-<span id="desk-get-padova-module"></span><h2>desk.get_padova module<a class="headerlink" href="#module-desk.get_padova" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-desk.get_remote_models">
+<span id="desk-get-remote-models-module"></span><h2>desk.get_remote_models module<a class="headerlink" href="#module-desk.get_remote_models" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="desk.get_padova.get_model">
-<code class="descclassname">desk.get_padova.</code><code class="descname">get_model</code><span class="sig-paren">(</span><em>model_grid_name</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/desk/get_padova.html#get_model"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#desk.get_padova.get_model" title="Permalink to this definition">¶</a></dt>
+<dt id="desk.get_remote_models.get_models">
+<code class="sig-prename descclassname">desk.get_remote_models.</code><code class="sig-name descname">get_models</code><span class="sig-paren">(</span><em class="sig-param">model_grid_name</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/desk/get_remote_models.html#get_models"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#desk.get_remote_models.get_models" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
@@ -204,7 +197,7 @@ May 17, 2018
 <span id="desk-parameter-ranges-module"></span><h2>desk.parameter_ranges module<a class="headerlink" href="#module-desk.parameter_ranges" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="desk.parameter_ranges.create_par">
-<code class="descclassname">desk.parameter_ranges.</code><code class="descname">create_par</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/desk/parameter_ranges.html#create_par"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#desk.parameter_ranges.create_par" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">desk.parameter_ranges.</code><code class="sig-name descname">create_par</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/desk/parameter_ranges.html#create_par"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#desk.parameter_ranges.create_par" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
@@ -212,7 +205,17 @@ May 17, 2018
 <span id="desk-plotting-seds-module"></span><h2>desk.plotting_seds module<a class="headerlink" href="#module-desk.plotting_seds" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="desk.plotting_seds.create_fig">
-<code class="descclassname">desk.plotting_seds.</code><code class="descname">create_fig</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/desk/plotting_seds.html#create_fig"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#desk.plotting_seds.create_fig" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">desk.plotting_seds.</code><code class="sig-name descname">create_fig</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/desk/plotting_seds.html#create_fig"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#desk.plotting_seds.create_fig" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Runs plotting script</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="desk.plotting_seds.single_fig">
+<code class="sig-prename descclassname">desk.plotting_seds.</code><code class="sig-name descname">single_fig</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/desk/plotting_seds.html#single_fig"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#desk.plotting_seds.single_fig" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>Runs plotting script</p>
@@ -221,19 +224,16 @@ May 17, 2018
 </dd></dl>
 
 </div>
-<div class="section" id="module-desk.remove_old_files">
-<span id="desk-remove-old-files-module"></span><h2>desk.remove_old_files module<a class="headerlink" href="#module-desk.remove_old_files" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="desk.remove_old_files.remove">
-<code class="descclassname">desk.remove_old_files.</code><code class="descname">remove</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/desk/remove_old_files.html#remove"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#desk.remove_old_files.remove" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</div>
 <div class="section" id="module-desk.sed_fit">
 <span id="desk-sed-fit-module"></span><h2>desk.sed_fit module<a class="headerlink" href="#module-desk.sed_fit" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
+<dt id="desk.sed_fit.check_models">
+<code class="sig-prename descclassname">desk.sed_fit.</code><code class="sig-name descname">check_models</code><span class="sig-paren">(</span><em class="sig-param">model_grid</em>, <em class="sig-param">full_path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/desk/sed_fit.html#check_models"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#desk.sed_fit.check_models" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
 <dt id="desk.sed_fit.find_closest">
-<code class="descclassname">desk.sed_fit.</code><code class="descname">find_closest</code><span class="sig-paren">(</span><em>target_wave</em>, <em>model_wave</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/desk/sed_fit.html#find_closest"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#desk.sed_fit.find_closest" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">desk.sed_fit.</code><code class="sig-name descname">find_closest</code><span class="sig-paren">(</span><em class="sig-param">target_wave</em>, <em class="sig-param">model_wave</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/desk/sed_fit.html#find_closest"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#desk.sed_fit.find_closest" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -248,8 +248,25 @@ May 17, 2018
 </dd></dl>
 
 <dl class="function">
+<dt id="desk.sed_fit.fit">
+<code class="sig-prename descclassname">desk.sed_fit.</code><code class="sig-name descname">fit</code><span class="sig-paren">(</span><em class="sig-param">source='default'</em>, <em class="sig-param">distance=50</em>, <em class="sig-param">grid='Zubko-Crich-bb'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/desk/sed_fit.html#fit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#desk.sed_fit.fit" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>source</strong> – Name of target in array of strings (or one string)</p></li>
+<li><p><strong>distance</strong> – distance to source(s) in kiloparsecs</p></li>
+<li><p><strong>grid</strong> – Name of model grid</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
 <dt id="desk.sed_fit.fit_norm">
-<code class="descclassname">desk.sed_fit.</code><code class="descname">fit_norm</code><span class="sig-paren">(</span><em>data</em>, <em>norm_model</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/desk/sed_fit.html#fit_norm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#desk.sed_fit.fit_norm" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">desk.sed_fit.</code><code class="sig-name descname">fit_norm</code><span class="sig-paren">(</span><em class="sig-param">data</em>, <em class="sig-param">norm_model</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/desk/sed_fit.html#fit_norm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#desk.sed_fit.fit_norm" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -265,7 +282,7 @@ May 17, 2018
 
 <dl class="function">
 <dt id="desk.sed_fit.get_data">
-<code class="descclassname">desk.sed_fit.</code><code class="descname">get_data</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/desk/sed_fit.html#get_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#desk.sed_fit.get_data" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">desk.sed_fit.</code><code class="sig-name descname">get_data</code><span class="sig-paren">(</span><em class="sig-param">filename</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/desk/sed_fit.html#get_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#desk.sed_fit.get_data" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>filename</strong> – filename of input data. Should be csv with Column 0: wavelength in um and Col 1: flux in Jy</p>
@@ -277,23 +294,38 @@ May 17, 2018
 </dd></dl>
 
 <dl class="function">
-<dt id="desk.sed_fit.get_targets">
-<code class="descclassname">desk.sed_fit.</code><code class="descname">get_targets</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/desk/sed_fit.html#get_targets"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#desk.sed_fit.get_targets" title="Permalink to this definition">¶</a></dt>
+<dt id="desk.sed_fit.get_model">
+<code class="sig-prename descclassname">desk.sed_fit.</code><code class="sig-name descname">get_model</code><span class="sig-paren">(</span><em class="sig-param">grid_name</em>, <em class="sig-param">teff_new</em>, <em class="sig-param">tinner_new</em>, <em class="sig-param">tau_new</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/desk/sed_fit.html#get_model"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#desk.sed_fit.get_model" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="desk.sed_fit.grids">
+<code class="sig-prename descclassname">desk.sed_fit.</code><code class="sig-name descname">grids</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/desk/sed_fit.html#grids"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#desk.sed_fit.grids" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="desk.sed_fit.least2">
-<code class="descclassname">desk.sed_fit.</code><code class="descname">least2</code><span class="sig-paren">(</span><em>data</em>, <em>model_l2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/desk/sed_fit.html#least2"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#desk.sed_fit.least2" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">desk.sed_fit.</code><code class="sig-name descname">least2</code><span class="sig-paren">(</span><em class="sig-param">data</em>, <em class="sig-param">model_l2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/desk/sed_fit.html#least2"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#desk.sed_fit.least2" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="desk.sed_fit.make_output_files_dusty">
+<code class="sig-prename descclassname">desk.sed_fit.</code><code class="sig-name descname">make_output_files_dusty</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/desk/sed_fit.html#make_output_files_dusty"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#desk.sed_fit.make_output_files_dusty" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="desk.sed_fit.make_output_files_grams">
+<code class="sig-prename descclassname">desk.sed_fit.</code><code class="sig-name descname">make_output_files_grams</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/desk/sed_fit.html#make_output_files_grams"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#desk.sed_fit.make_output_files_grams" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="desk.sed_fit.sed_fitting">
-<code class="descclassname">desk.sed_fit.</code><code class="descname">sed_fitting</code><span class="sig-paren">(</span><em>target</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/desk/sed_fit.html#sed_fitting"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#desk.sed_fit.sed_fitting" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">desk.sed_fit.</code><code class="sig-name descname">sed_fitting</code><span class="sig-paren">(</span><em class="sig-param">target</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/desk/sed_fit.html#sed_fitting"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#desk.sed_fit.sed_fitting" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="desk.sed_fit.trim">
-<code class="descclassname">desk.sed_fit.</code><code class="descname">trim</code><span class="sig-paren">(</span><em>data</em>, <em>model_trim</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/desk/sed_fit.html#trim"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#desk.sed_fit.trim" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">desk.sed_fit.</code><code class="sig-name descname">trim</code><span class="sig-paren">(</span><em class="sig-param">data</em>, <em class="sig-param">model_trim</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/desk/sed_fit.html#trim"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#desk.sed_fit.trim" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>desk.sed_fit &mdash; Dusty-Evolved-Star-Kit 1.3.1 documentation</title>
+  <title>desk.sed_fit &mdash; Dusty-Evolved-Star-Kit 1.4.7 documentation</title>
   
 
   
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                1.3.1
+                1.4.7
               </div>
             
           
@@ -87,7 +87,6 @@
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../readme.html">Dusty-Evolved-Star-Kit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../modules.html">desk</a></li>
@@ -157,55 +156,96 @@
             
   <h1>Source code for desk.sed_fit</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">absolute_import</span>
+
+<span class="kn">import</span> <span class="nn">csv</span>
+<span class="kn">import</span> <span class="nn">glob</span>
+<span class="kn">import</span> <span class="nn">copy</span>
+<span class="kn">import</span> <span class="nn">importlib</span>
+<span class="kn">import</span> <span class="nn">math</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">pdb</span>
 <span class="kn">import</span> <span class="nn">time</span>
-<span class="kn">import</span> <span class="nn">math</span>
-<span class="kn">import</span> <span class="nn">click</span>
-<span class="kn">import</span> <span class="nn">importlib</span>
-<span class="kn">import</span> <span class="nn">subprocess</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">fnmatch</span> <span class="k">import</span> <span class="n">fnmatch</span>
+<span class="kn">from</span> <span class="nn">multiprocessing</span> <span class="k">import</span> <span class="n">Pool</span><span class="p">,</span> <span class="n">cpu_count</span>
+<span class="kn">from</span> <span class="nn">multiprocessing</span> <span class="k">import</span> <span class="n">Process</span><span class="p">,</span> <span class="n">Value</span><span class="p">,</span> <span class="n">cpu_count</span>
+
 <span class="kn">import</span> <span class="nn">astropy.units</span> <span class="k">as</span> <span class="nn">u</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">from</span> <span class="nn">tqdm</span> <span class="k">import</span> <span class="n">tqdm</span>
-<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="k">import</span> <span class="n">rc</span>
-<span class="kn">from</span> <span class="nn">fnmatch</span> <span class="k">import</span> <span class="n">fnmatch</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">astropy.io</span> <span class="k">import</span> <span class="n">ascii</span>
-<span class="kn">from</span> <span class="nn">functools</span> <span class="k">import</span> <span class="n">partial</span>
-<span class="kn">from</span> <span class="nn">scipy</span> <span class="k">import</span> <span class="n">interpolate</span>
-<span class="kn">from</span> <span class="nn">multiprocessing</span> <span class="k">import</span> <span class="n">Process</span>
-<span class="kn">from</span> <span class="nn">desk</span> <span class="k">import</span> <span class="n">config</span><span class="p">,</span> <span class="n">remove_old_files</span><span class="p">,</span> <span class="n">plotting_seds</span><span class="p">,</span> <span class="n">get_padova</span><span class="p">,</span> <span class="n">parameter_ranges</span>
-<span class="kn">from</span> <span class="nn">desk.parameter_ranges</span> <span class="k">import</span> <span class="n">create_par</span>
-<span class="kn">from</span> <span class="nn">desk.plotting_seds</span> <span class="k">import</span> <span class="n">create_fig</span>
-<span class="kn">from</span> <span class="nn">multiprocessing</span> <span class="k">import</span> <span class="n">Pool</span><span class="p">,</span> <span class="n">cpu_count</span>
 <span class="kn">from</span> <span class="nn">astropy.table</span> <span class="k">import</span> <span class="n">Table</span><span class="p">,</span> <span class="n">Column</span>
+<span class="kn">from</span> <span class="nn">desk</span> <span class="k">import</span> <span class="n">config</span><span class="p">,</span> <span class="n">plotting_seds</span><span class="p">,</span> <span class="n">get_remote_models</span><span class="p">,</span> <span class="n">parameter_ranges</span>
+<span class="kn">from</span> <span class="nn">desk.parameter_ranges</span> <span class="k">import</span> <span class="n">create_par</span>
+<span class="kn">from</span> <span class="nn">desk.plotting_seds</span> <span class="k">import</span> <span class="n">create_fig</span><span class="p">,</span> <span class="n">single_fig</span>
+<span class="kn">from</span> <span class="nn">desk.interpolate_dusty</span> <span class="k">import</span> <span class="n">interpolate_dusty</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="k">import</span> <span class="n">rc</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="k">import</span> <span class="n">interpolate</span>
 
 <span class="n">importlib</span><span class="o">.</span><span class="n">reload</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
 
-<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Steve Goldman</span>
 <span class="sd">Space Telescope Science Institute</span>
 <span class="sd">Nov 16, 2018</span>
 <span class="sd">sgoldman@stsci.edu</span>
 
-<span class="sd">This package takes a photometry or a spectrum (or spectra) in csv format and fits it/them with a grid of models. </span>
+<span class="sd">This package takes a photometry or a spectrum (or spectra) in csv format and fits it/them with a grid of models.</span>
 <span class="sd">The grids used here are converted from output from the DUSTY code (Elitzur &amp; Ivezic 2001, MNRAS, 327, 403) using</span>
 <span class="sd">the other script dusty_to_grid.py. The code interpolates and trims a version of the data and calculates the least</span>
 <span class="sd">squares value for each grid in the model and the data. The DUSTY outputs are then scaled and returned in files:</span>
 <span class="sd">fitting_results.csv and fitting_plotting_output.csv (for plotting the results). An example plotting script has also</span>
 <span class="sd">been provided.</span>
-<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">&quot;&quot;&quot;</span>
 
 
-<div class="viewcode-block" id="get_targets"><a class="viewcode-back" href="../../desk.html#desk.sed_fit.get_targets">[docs]</a><span class="k">def</span> <span class="nf">get_targets</span><span class="p">():</span>
-    <span class="k">global</span> <span class="n">targets</span>
-    <span class="n">targets</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">full_path</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="vm">__file__</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;sed_fit.py&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">))</span>
-    <span class="c1"># for multiple sources</span>
-    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">full_path</span> <span class="o">+</span> <span class="s1">&#39;put_target_data_here/&#39;</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">fnmatch</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="s2">&quot;*csv&quot;</span><span class="p">):</span>
-            <span class="n">targets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">full_path</span> <span class="o">+</span> <span class="s1">&#39;put_target_data_here/&#39;</span> <span class="o">+</span> <span class="n">item</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">targets</span></div>
+<div class="viewcode-block" id="grids"><a class="viewcode-back" href="../../desk.html#desk.sed_fit.grids">[docs]</a><span class="k">def</span> <span class="nf">grids</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Grids:&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">config</span><span class="o">.</span><span class="n">grids</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">item</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="get_model"><a class="viewcode-back" href="../../desk.html#desk.sed_fit.get_model">[docs]</a><span class="k">def</span> <span class="nf">get_model</span><span class="p">(</span><span class="n">grid_name</span><span class="p">,</span> <span class="n">teff_new</span><span class="p">,</span> <span class="n">tinner_new</span><span class="p">,</span> <span class="n">tau_new</span><span class="p">):</span>
+    <span class="n">interpolate_dusty</span><span class="p">(</span><span class="n">grid_name</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">teff_new</span><span class="p">),</span> <span class="nb">float</span><span class="p">(</span><span class="n">tinner_new</span><span class="p">),</span> <span class="nb">float</span><span class="p">(</span><span class="n">tau_new</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="check_models"><a class="viewcode-back" href="../../desk.html#desk.sed_fit.check_models">[docs]</a><span class="k">def</span> <span class="nf">check_models</span><span class="p">(</span><span class="n">model_grid</span><span class="p">,</span> <span class="n">full_path</span><span class="p">):</span>
+    <span class="k">global</span> <span class="n">csv_file</span>
+    <span class="k">global</span> <span class="n">fits_file</span>
+    <span class="n">csv_file</span> <span class="o">=</span> <span class="n">full_path</span> <span class="o">+</span> <span class="s2">&quot;models/&quot;</span> <span class="o">+</span> <span class="n">model_grid</span> <span class="o">+</span> <span class="s2">&quot;_outputs.csv&quot;</span>
+    <span class="n">fits_file</span> <span class="o">=</span> <span class="n">full_path</span> <span class="o">+</span> <span class="s2">&quot;models/&quot;</span> <span class="o">+</span> <span class="n">model_grid</span> <span class="o">+</span> <span class="s2">&quot;_models.fits&quot;</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">csv_file</span><span class="p">)</span> <span class="ow">and</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">fits_file</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">You already have the grid!</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="c1"># print(&quot;Great job&quot;)</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">user_proceed</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Models not found locally, download the models [y]/n?: &quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">user_proceed</span> <span class="o">==</span> <span class="s2">&quot;y&quot;</span> <span class="ow">or</span> <span class="n">user_proceed</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+            <span class="n">get_remote_models</span><span class="o">.</span><span class="n">get_models</span><span class="p">(</span><span class="n">model_grid</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">user_proceed</span> <span class="o">==</span> <span class="s2">&quot;n&quot;</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Please make another model selection&quot;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">user_proceed</span> <span class="o">!=</span> <span class="s2">&quot;y&quot;</span> <span class="ow">and</span> <span class="n">user_proceed</span> <span class="o">!=</span> <span class="s2">&quot;n&quot;</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid selection&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">csv_file</span><span class="p">,</span> <span class="n">fits_file</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="make_output_files_dusty"><a class="viewcode-back" href="../../desk.html#desk.sed_fit.make_output_files_dusty">[docs]</a><span class="k">def</span> <span class="nf">make_output_files_dusty</span><span class="p">():</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;fitting_results.csv&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;source,L,vexp_predicted,teff,tinner,odep,mdot</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;fitting_plotting_outputs.csv&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;target_name,data_file,norm,index,grid_name,teff,tinner,odep</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="make_output_files_grams"><a class="viewcode-back" href="../../desk.html#desk.sed_fit.make_output_files_grams">[docs]</a><span class="k">def</span> <span class="nf">make_output_files_grams</span><span class="p">():</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;fitting_results.csv&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;source,L,rin,teff,tinner,odep,mdot</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;fitting_plotting_outputs.csv&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;target_name,data_file,norm,index,grid_name,teff,tinner,odep</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
 
 <div class="viewcode-block" id="get_data"><a class="viewcode-back" href="../../desk.html#desk.sed_fit.get_data">[docs]</a><span class="k">def</span> <span class="nf">get_data</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -213,11 +253,13 @@
 <span class="sd">    :return: two arrays of wavelength (x) and flux (y) in unit specified in config.py</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">global</span> <span class="n">log_average_flux_wm2</span>
-    <span class="n">table</span> <span class="o">=</span> <span class="n">ascii</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+    <span class="n">table</span> <span class="o">=</span> <span class="n">ascii</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
     <span class="n">table</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">colnames</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
     <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
     <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-    <span class="n">index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">((</span><span class="n">x</span> <span class="o">&gt;</span> <span class="n">config</span><span class="o">.</span><span class="n">fitting</span><span class="p">[</span><span class="s1">&#39;wavelength_min&#39;</span><span class="p">])</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">x</span> <span class="o">&lt;</span> <span class="n">config</span><span class="o">.</span><span class="n">fitting</span><span class="p">[</span><span class="s1">&#39;wavelength_max&#39;</span><span class="p">]))</span>
+    <span class="n">index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">x</span> <span class="o">&gt;</span> <span class="n">config</span><span class="o">.</span><span class="n">fitting</span><span class="p">[</span><span class="s2">&quot;wavelength_min&quot;</span><span class="p">])</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">x</span> <span class="o">&lt;</span> <span class="n">config</span><span class="o">.</span><span class="n">fitting</span><span class="p">[</span><span class="s2">&quot;wavelength_max&quot;</span><span class="p">])</span>
+    <span class="p">)</span>
     <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
     <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
     <span class="n">y</span> <span class="o">=</span> <span class="n">y</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">Jy</span>
@@ -251,7 +293,11 @@
 <span class="sd">    :param model_trim: input model</span>
 <span class="sd">    :return: trims motimedel to wavelength range of data</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">indexes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">logical_and</span><span class="p">(</span><span class="n">model_trim</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">model_trim</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">])))</span>
+    <span class="n">indexes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">logical_and</span><span class="p">(</span>
+            <span class="n">model_trim</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">model_trim</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">model_trim</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">indexes</span><span class="p">],</span> <span class="n">model_trim</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">indexes</span><span class="p">]])</span></div>
 
 
@@ -265,8 +311,9 @@
     <span class="n">stats</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="c1"># normalization range</span>
     <span class="c1"># trials = np.linspace(config.fitting[&#39;min_norm&#39;], config.fitting[&#39;max_norm&#39;], config.fitting[&#39;ntrials&#39;])</span>
-    <span class="n">trials</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="n">log_average_flux_wm2</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="n">log_average_flux_wm2</span><span class="o">+</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
-    <span class="c1"># pdb.set_trace()</span>
+    <span class="n">trials</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span>
+        <span class="n">log_average_flux_wm2</span> <span class="o">-</span> <span class="mi">2</span><span class="p">,</span> <span class="n">log_average_flux_wm2</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span> <span class="n">number_of_tries</span>
+    <span class="p">)</span>
     <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">trials</span><span class="p">:</span>
         <span class="n">stat</span> <span class="o">=</span> <span class="n">least2</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">norm_model</span> <span class="o">*</span> <span class="n">t</span><span class="p">)</span>
         <span class="n">stats</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">stat</span><span class="p">)</span>
@@ -279,147 +326,273 @@
     <span class="n">raw_data</span> <span class="o">=</span> <span class="n">get_data</span><span class="p">(</span><span class="n">target</span><span class="p">)</span>  <span class="c1"># gets target data</span>
     <span class="c1"># model_x = grid_dusty[0][0][:]  # gets model wavelengths</span>
     <span class="k">for</span> <span class="n">model</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">grid_dusty</span><span class="p">):</span>
-        <span class="n">trimmed_model</span> <span class="o">=</span> <span class="n">trim</span><span class="p">(</span><span class="n">raw_data</span><span class="p">,</span> <span class="n">model</span><span class="p">)</span>  <span class="c1"># gets fluxes for corresponding wavelengths of data and models</span>
+        <span class="n">trimmed_model</span> <span class="o">=</span> <span class="n">trim</span><span class="p">(</span>
+            <span class="n">raw_data</span><span class="p">,</span> <span class="n">model</span>
+        <span class="p">)</span>  <span class="c1"># gets fluxes for corresponding wavelengths of data and models</span>
         <span class="n">matched_model</span> <span class="o">=</span> <span class="n">find_closest</span><span class="p">(</span><span class="n">raw_data</span><span class="p">,</span> <span class="n">trimmed_model</span><span class="p">)</span>
         <span class="n">stat_values</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">fit_norm</span><span class="p">(</span><span class="n">raw_data</span><span class="p">,</span> <span class="n">matched_model</span><span class="p">))</span>
     <span class="n">stat_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span><span class="n">stat_values</span><span class="p">)</span>
     <span class="n">argmin</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">stat_array</span><span class="p">)</span>
     <span class="n">model_index</span> <span class="o">=</span> <span class="n">argmin</span> <span class="o">//</span> <span class="n">stat_array</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
     <span class="n">trial_index</span> <span class="o">=</span> <span class="n">argmin</span> <span class="o">%</span> <span class="n">stat_array</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">target_name</span> <span class="o">=</span> <span class="p">(</span><span class="n">target</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">][:</span><span class="mi">15</span><span class="p">])</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;IRAS-&quot;</span><span class="p">,</span> <span class="s2">&quot;IRAS &quot;</span><span class="p">)</span>
 
-    <span class="c1"># appends data for plotting later</span>
-    <span class="n">follow_up_array</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">grid_outputs</span><span class="p">[</span><span class="n">model_index</span><span class="p">]))</span>
-    <span class="n">target_name</span> <span class="o">=</span> <span class="p">(</span><span class="n">target</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">][:</span><span class="mi">15</span><span class="p">])</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;IRAS-&#39;</span><span class="p">,</span> <span class="s1">&#39;IRAS &#39;</span><span class="p">)</span>
-    <span class="n">follow_up_names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">target_name</span><span class="p">)</span>
-    <span class="n">follow_up_index</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">model_index</span><span class="p">)</span>
-    <span class="n">follow_up_normilazation</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">trials</span><span class="p">[</span><span class="n">trial_index</span><span class="p">])</span>
-
-    <span class="k">if</span> <span class="n">fnmatch</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">fitting</span><span class="p">[</span><span class="s1">&#39;model_grid&#39;</span><span class="p">],</span> <span class="s1">&#39;grams*&#39;</span><span class="p">):</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">Table</span><span class="p">(</span><span class="n">grid_outputs</span><span class="p">[</span><span class="n">model_index</span><span class="p">]))</span>
-        <span class="n">latex_array</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">grid_outputs</span><span class="p">[</span><span class="n">model_index</span><span class="p">])</span>
-
-    <span class="k">else</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">dusty_fit</span><span class="p">():</span>
         <span class="c1"># calculates luminosity and scales outputs</span>
-        <span class="n">luminosity</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">distance_norm</span> <span class="o">-</span> <span class="n">math</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">trials</span><span class="p">[</span><span class="n">trial_index</span><span class="p">])</span> <span class="o">*</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span>
-        <span class="n">scaled_vexp</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">grid_outputs</span><span class="p">[</span><span class="n">model_index</span><span class="p">][</span><span class="s1">&#39;vexp&#39;</span><span class="p">])</span> <span class="o">*</span> <span class="p">(</span><span class="n">luminosity</span> <span class="o">/</span> <span class="mi">10000</span><span class="p">)</span> <span class="o">**</span> <span class="mf">0.25</span>
-        <span class="n">scaled_mdot</span> <span class="o">=</span> <span class="n">grid_outputs</span><span class="p">[</span><span class="n">model_index</span><span class="p">][</span><span class="s1">&#39;mdot&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="p">((</span><span class="n">luminosity</span> <span class="o">/</span> <span class="mi">10000</span><span class="p">)</span> <span class="o">**</span> <span class="mf">0.75</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span>
-                <span class="n">config</span><span class="o">.</span><span class="n">target</span><span class="p">[</span><span class="s1">&#39;assumed_gas_to_dust_ratio&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="mi">200</span><span class="p">)</span> <span class="o">**</span> <span class="mf">0.5</span>
+        <span class="n">luminosity</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">distance_norm</span> <span class="o">-</span> <span class="n">math</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">trials</span><span class="p">[</span><span class="n">trial_index</span><span class="p">])</span> <span class="o">*</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">scaled_vexp</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="nb">float</span><span class="p">(</span><span class="n">grid_outputs</span><span class="p">[</span><span class="n">model_index</span><span class="p">][</span><span class="s2">&quot;vexp&quot;</span><span class="p">])</span> <span class="o">*</span> <span class="p">(</span><span class="n">luminosity</span> <span class="o">/</span> <span class="mi">10000</span><span class="p">)</span> <span class="o">**</span> <span class="mf">0.25</span>
+        <span class="p">)</span>
+        <span class="n">scaled_mdot</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">grid_outputs</span><span class="p">[</span><span class="n">model_index</span><span class="p">][</span><span class="s2">&quot;mdot&quot;</span><span class="p">]</span>
+            <span class="o">*</span> <span class="p">((</span><span class="n">luminosity</span> <span class="o">/</span> <span class="mi">10000</span><span class="p">)</span> <span class="o">**</span> <span class="mf">0.75</span><span class="p">)</span>
+            <span class="o">*</span> <span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">target</span><span class="p">[</span><span class="s2">&quot;assumed_gas_to_dust_ratio&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="mi">200</span><span class="p">)</span> <span class="o">**</span> <span class="mf">0.5</span>
+        <span class="p">)</span>
+
+        <span class="n">teff</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">grid_outputs</span><span class="p">[</span><span class="n">model_index</span><span class="p">][</span><span class="s2">&quot;teff&quot;</span><span class="p">])</span>
+        <span class="n">tinner</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">grid_outputs</span><span class="p">[</span><span class="n">model_index</span><span class="p">][</span><span class="s2">&quot;tinner&quot;</span><span class="p">])</span>
+        <span class="n">odep</span> <span class="o">=</span> <span class="n">grid_outputs</span><span class="p">[</span><span class="n">model_index</span><span class="p">][</span><span class="s2">&quot;odep&quot;</span><span class="p">]</span>
 
         <span class="c1"># creates output file</span>
-        <span class="n">latex_array</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">target_name</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">luminosity</span><span class="p">),</span> <span class="nb">str</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">scaled_vexp</span><span class="p">,</span> <span class="mi">1</span><span class="p">)),</span> <span class="nb">str</span><span class="p">(</span>
-            <span class="nb">int</span><span class="p">(</span><span class="n">grid_outputs</span><span class="p">[</span><span class="n">model_index</span><span class="p">][</span><span class="s1">&#39;teff&#39;</span><span class="p">])),</span> <span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">grid_outputs</span><span class="p">[</span><span class="n">model_index</span><span class="p">][</span><span class="s1">&#39;tinner&#39;</span><span class="p">])),</span> <span class="nb">str</span><span class="p">(</span>
-            <span class="n">grid_outputs</span><span class="p">[</span><span class="n">model_index</span><span class="p">][</span><span class="s1">&#39;odep&#39;</span><span class="p">]),</span> <span class="s2">&quot;</span><span class="si">%.3E</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">float</span><span class="p">(</span><span class="n">scaled_mdot</span><span class="p">)))</span>
+        <span class="n">latex_array</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">target_name</span><span class="p">,</span>
+            <span class="n">luminosity</span><span class="p">,</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">scaled_vexp</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+            <span class="n">teff</span><span class="p">,</span>
+            <span class="n">tinner</span><span class="p">,</span>
+            <span class="n">odep</span><span class="p">,</span>
+            <span class="s2">&quot;</span><span class="si">%.3E</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">float</span><span class="p">(</span><span class="n">scaled_mdot</span><span class="p">),</span>
+        <span class="p">]</span>
+
+        <span class="n">plotting_array</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">target_name</span><span class="p">,</span>
+            <span class="n">target</span><span class="p">,</span>
+            <span class="n">trials</span><span class="p">[</span><span class="n">trial_index</span><span class="p">],</span>
+            <span class="n">model_index</span><span class="p">,</span>
+            <span class="n">model_grid</span><span class="p">,</span>
+            <span class="n">teff</span><span class="p">,</span>
+            <span class="n">tinner</span><span class="p">,</span>
+            <span class="n">odep</span><span class="p">,</span>
+        <span class="p">]</span>
 
         <span class="c1"># printed output</span>
-        <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">output</span><span class="p">[</span><span class="s1">&#39;printed_output&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;True&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">output</span><span class="p">[</span><span class="s2">&quot;printed_output&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;True&quot;</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">()</span>
             <span class="nb">print</span><span class="p">()</span>
-            <span class="nb">print</span><span class="p">((</span><span class="s1">&#39;             Target: &#39;</span> <span class="o">+</span> <span class="n">target_name</span> <span class="o">+</span> <span class="s1">&#39;        &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">counter</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">targets</span><span class="p">))))</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;-------------------------------------------------&#39;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span>
+                <span class="p">(</span>
+                    <span class="s2">&quot;             Target: &quot;</span>
+                    <span class="o">+</span> <span class="n">target_name</span>
+                    <span class="o">+</span> <span class="s2">&quot;        &quot;</span>
+                    <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">counter</span><span class="o">.</span><span class="n">value</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+                    <span class="o">+</span> <span class="s2">&quot;/&quot;</span>
+                    <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">number_of_targets</span><span class="p">)</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-------------------------------------------------&quot;</span><span class="p">)</span>
             <span class="nb">print</span><span class="p">((</span><span class="s2">&quot;Luminosity</span><span class="se">\t\t\t</span><span class="s2">|</span><span class="se">\t</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">luminosity</span><span class="p">))))</span>
-            <span class="nb">print</span><span class="p">((</span><span class="s2">&quot;Optical depth</span><span class="se">\t\t\t</span><span class="s2">|</span><span class="se">\t</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">grid_outputs</span><span class="p">[</span><span class="n">model_index</span><span class="p">][</span><span class="s1">&#39;odep&#39;</span><span class="p">])))</span>
+            <span class="nb">print</span><span class="p">(</span>
+                <span class="p">(</span>
+                    <span class="s2">&quot;Optical depth</span><span class="se">\t\t\t</span><span class="s2">|</span><span class="se">\t</span><span class="s2">&quot;</span>
+                    <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">grid_outputs</span><span class="p">[</span><span class="n">model_index</span><span class="p">][</span><span class="s2">&quot;odep&quot;</span><span class="p">],</span> <span class="mi">3</span><span class="p">))</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
             <span class="nb">print</span><span class="p">((</span><span class="s2">&quot;Expansion velocity (scaled)</span><span class="se">\t</span><span class="s2">|</span><span class="se">\t</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">scaled_vexp</span><span class="p">,</span> <span class="mi">2</span><span class="p">))))</span>
-            <span class="nb">print</span><span class="p">((</span><span class="s2">&quot;Mass loss (scaled)</span><span class="se">\t\t</span><span class="s2">|</span><span class="se">\t</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%.2E</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">float</span><span class="p">(</span><span class="n">scaled_mdot</span><span class="p">))))</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;-------------------------------------------------&#39;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">latex_array</span><span class="p">,</span> <span class="n">follow_up_normilazation</span><span class="p">,</span> <span class="n">follow_up_names</span><span class="p">,</span> <span class="n">follow_up_index</span><span class="p">,</span> <span class="n">follow_up_array</span></div>
+            <span class="nb">print</span><span class="p">((</span><span class="s2">&quot;Gas mass loss (scaled)</span><span class="se">\t\t</span><span class="s2">|</span><span class="se">\t</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%.2E</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">float</span><span class="p">(</span><span class="n">scaled_mdot</span><span class="p">))))</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-------------------------------------------------&quot;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;fitting_results.csv&quot;</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">writer</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">writer</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="p">,</span> <span class="n">lineterminator</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">latex_array</span><span class="p">))</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 
-    <span class="c1"># with Pool(processes=number_of_cores_to_use) as pool:</span>
-    <span class="c1">#         pool.map(sed_fitting, targets)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;fitting_plotting_outputs.csv&quot;</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">writer</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">writer</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="p">,</span> <span class="n">lineterminator</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">plotting_array</span><span class="p">))</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="n">counter</span><span class="o">.</span><span class="n">value</span> <span class="o">+=</span> <span class="mi">1</span>
 
-<span class="nd">@click</span><span class="o">.</span><span class="n">command</span><span class="p">()</span>
-<span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">arg_input</span><span class="o">=</span><span class="n">get_targets</span><span class="p">(),</span> <span class="n">dist</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">target</span><span class="p">[</span><span class="s1">&#39;distance_in_kpc&#39;</span><span class="p">]):</span>
+    <span class="k">def</span> <span class="nf">grams_fit</span><span class="p">():</span>
+        <span class="c1"># pdb.set_trace()</span>
+        <span class="n">luminosity</span> <span class="o">=</span> <span class="n">grid_outputs</span><span class="p">[</span><span class="n">model_index</span><span class="p">][</span><span class="s2">&quot;lum&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="p">((</span><span class="n">distance_value</span> <span class="o">/</span> <span class="mi">50</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">teff</span> <span class="o">=</span> <span class="n">grid_outputs</span><span class="p">[</span><span class="n">model_index</span><span class="p">][</span><span class="s2">&quot;teff&quot;</span><span class="p">]</span>
+        <span class="n">tinner</span> <span class="o">=</span> <span class="n">grid_outputs</span><span class="p">[</span><span class="n">model_index</span><span class="p">][</span><span class="s2">&quot;tinner&quot;</span><span class="p">]</span>
+        <span class="n">odep</span> <span class="o">=</span> <span class="n">grid_outputs</span><span class="p">[</span><span class="n">model_index</span><span class="p">][</span><span class="s2">&quot;odep&quot;</span><span class="p">]</span>
+        <span class="n">mdot</span> <span class="o">=</span> <span class="n">grid_outputs</span><span class="p">[</span><span class="n">model_index</span><span class="p">][</span><span class="s2">&quot;mdot&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">distance_value</span> <span class="o">/</span> <span class="mi">50</span><span class="p">)</span>
+        <span class="n">rin</span> <span class="o">=</span> <span class="n">grid_outputs</span><span class="p">[</span><span class="n">model_index</span><span class="p">][</span><span class="s2">&quot;rin&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">distance_value</span> <span class="o">/</span> <span class="mi">50</span><span class="p">)</span>
+        <span class="c1"># creates output file</span>
+        <span class="n">latex_array</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">target_name</span><span class="p">,</span>
+            <span class="n">luminosity</span><span class="p">,</span>
+            <span class="n">rin</span><span class="p">,</span>
+            <span class="n">teff</span><span class="p">,</span>
+            <span class="n">tinner</span><span class="p">,</span>
+            <span class="n">odep</span><span class="p">,</span>
+            <span class="s2">&quot;</span><span class="si">%.3E</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">float</span><span class="p">(</span><span class="n">mdot</span><span class="p">),</span>
+        <span class="p">]</span>
+
+        <span class="n">plotting_array</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">target_name</span><span class="p">,</span>
+            <span class="n">target</span><span class="p">,</span>
+            <span class="n">trials</span><span class="p">[</span><span class="n">trial_index</span><span class="p">],</span>
+            <span class="n">model_index</span><span class="p">,</span>
+            <span class="n">model_grid</span><span class="p">,</span>
+            <span class="n">teff</span><span class="p">,</span>
+            <span class="n">odep</span><span class="p">,</span>
+        <span class="p">]</span>
+        <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">output</span><span class="p">[</span><span class="s2">&quot;printed_output&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;True&quot;</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">()</span>
+            <span class="nb">print</span><span class="p">()</span>
+            <span class="nb">print</span><span class="p">(</span>
+                <span class="p">(</span>
+                    <span class="s2">&quot;             Target: &quot;</span>
+                    <span class="o">+</span> <span class="n">target_name</span>
+                    <span class="o">+</span> <span class="s2">&quot;        &quot;</span>
+                    <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">counter</span><span class="o">.</span><span class="n">value</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+                    <span class="o">+</span> <span class="s2">&quot;/&quot;</span>
+                    <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">number_of_targets</span><span class="p">)</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-------------------------------------------------&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">((</span><span class="s2">&quot;Luminosity</span><span class="se">\t\t\t</span><span class="s2">|</span><span class="se">\t</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">luminosity</span><span class="p">))))</span>
+            <span class="nb">print</span><span class="p">(</span>
+                <span class="p">(</span>
+                    <span class="s2">&quot;Optical depth</span><span class="se">\t\t\t</span><span class="s2">|</span><span class="se">\t</span><span class="s2">&quot;</span>
+                    <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">grid_outputs</span><span class="p">[</span><span class="n">model_index</span><span class="p">][</span><span class="s2">&quot;odep&quot;</span><span class="p">],</span> <span class="mi">3</span><span class="p">))</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+            <span class="nb">print</span><span class="p">((</span><span class="s2">&quot;Inner Radius</span><span class="se">\t\t\t</span><span class="s2">|</span><span class="se">\t</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">rin</span><span class="p">)))</span>
+            <span class="nb">print</span><span class="p">((</span><span class="s2">&quot;Dust production rate </span><span class="se">\t\t</span><span class="s2">|</span><span class="se">\t</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%.2E</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">float</span><span class="p">(</span><span class="n">mdot</span><span class="p">))))</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-------------------------------------------------&quot;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;fitting_results.csv&quot;</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">writer</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">writer</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="p">,</span> <span class="n">lineterminator</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">latex_array</span><span class="p">))</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;fitting_plotting_outputs.csv&quot;</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">writer</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">writer</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="p">,</span> <span class="n">lineterminator</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">plotting_array</span><span class="p">))</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="n">counter</span><span class="o">.</span><span class="n">value</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="k">if</span> <span class="n">fnmatch</span><span class="p">(</span><span class="n">model_grid</span><span class="p">,</span> <span class="s2">&quot;grams*&quot;</span><span class="p">):</span>
+        <span class="n">grams_fit</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">dusty_fit</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="fit"><a class="viewcode-back" href="../../desk.html#desk.sed_fit.fit">[docs]</a><span class="k">def</span> <span class="nf">fit</span><span class="p">(</span>
+    <span class="n">source</span><span class="o">=</span><span class="s2">&quot;default&quot;</span><span class="p">,</span>
+    <span class="n">distance</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">target</span><span class="p">[</span><span class="s2">&quot;distance_in_kpc&quot;</span><span class="p">],</span>
+    <span class="n">grid</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">fitting</span><span class="p">[</span><span class="s2">&quot;model_grid&quot;</span><span class="p">],</span>
+<span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    :param source: Name of target in array of strings (or one string)</span>
+<span class="sd">    :param distance: distance to source(s) in kiloparsecs</span>
+<span class="sd">    :param grid: Name of model grid</span>
+<span class="sd">    :return:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># set variables</span>
+    <span class="k">global</span> <span class="n">model_grid</span>
     <span class="k">global</span> <span class="n">counter</span>
     <span class="k">global</span> <span class="n">grid_dusty</span>
     <span class="k">global</span> <span class="n">grid_outputs</span>
     <span class="k">global</span> <span class="n">distance_norm</span>
-    <span class="k">global</span> <span class="n">latex_array</span>
+    <span class="k">global</span> <span class="n">distance_value</span>
     <span class="k">global</span> <span class="n">full_path</span>
-    <span class="k">global</span> <span class="n">follow_up_array</span>
-    <span class="k">global</span> <span class="n">follow_up_index</span>
-    <span class="k">global</span> <span class="n">follow_up_names</span>
-    <span class="k">global</span> <span class="n">follow_up_normilazation</span>
-    <span class="n">follow_up_array</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">follow_up_names</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">follow_up_index</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">follow_up_normilazation</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">latex_array</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">global</span> <span class="n">files</span>
+    <span class="k">global</span> <span class="n">number_of_tries</span>
+    <span class="k">global</span> <span class="n">number_of_targets</span>
     <span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+    <span class="n">counter</span> <span class="o">=</span> <span class="n">Value</span><span class="p">(</span><span class="s2">&quot;i&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">number_of_tries</span> <span class="o">=</span> <span class="mi">200</span>
     <span class="c1"># normalization calculation</span>
     <span class="c1"># solar constant = 1379 W</span>
     <span class="c1"># distance to sun in kpc 4.8483E-9</span>
-    <span class="n">distance_norm</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">log10</span><span class="p">(((</span><span class="nb">int</span><span class="p">(</span><span class="n">dist</span><span class="p">)</span> <span class="o">/</span> <span class="mf">4.8482E-9</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="mi">1379</span><span class="p">)</span>
+    <span class="n">distance_value</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">copy</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">distance</span><span class="p">))</span>
+    <span class="n">distance_norm</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">log10</span><span class="p">(((</span><span class="nb">float</span><span class="p">(</span><span class="n">distance</span><span class="p">)</span> <span class="o">/</span> <span class="mf">4.8482e-9</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="mi">1379</span><span class="p">)</span>
+    <span class="n">full_path</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="vm">__file__</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;sed_fit.py&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">))</span>
 
-    <span class="n">full_path</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="vm">__file__</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;sed_fit.py&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">))</span>
-
-    <span class="c1"># remove old file</span>
-    <span class="n">remove_old_files</span><span class="o">.</span><span class="n">remove</span><span class="p">()</span>
-
-    <span class="c1"># check if padova</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">full_path</span> <span class="o">+</span> <span class="s1">&#39;models/&#39;</span> <span class="o">+</span> <span class="n">config</span><span class="o">.</span><span class="n">fitting</span><span class="p">[</span><span class="s1">&#39;model_grid&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;_models.fits&#39;</span><span class="p">):</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Models not in directory&#39;</span><span class="p">)</span>
-        <span class="n">user_proceed</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s1">&#39;Download model [y]/n? (may take 30 minutes): &#39;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">user_proceed</span> <span class="o">==</span> <span class="s1">&#39;y&#39;</span> <span class="ow">or</span> <span class="n">user_proceed</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
-            <span class="n">get_model</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">fitting</span><span class="p">[</span><span class="s1">&#39;model_grid&#39;</span><span class="p">])</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Choose another model (in config.py file)&#39;</span><span class="p">)</span>
+    <span class="c1"># User input for models</span>
+    <span class="k">if</span> <span class="n">grid</span> <span class="o">==</span> <span class="s2">&quot;carbon&quot;</span><span class="p">:</span>
+        <span class="n">model_grid</span> <span class="o">=</span> <span class="s2">&quot;Zubko-Crich-bb&quot;</span>
+    <span class="k">elif</span> <span class="n">grid</span> <span class="o">==</span> <span class="s2">&quot;oxygen&quot;</span><span class="p">:</span>
+        <span class="n">model_grid</span> <span class="o">=</span> <span class="s2">&quot;Oss-Orich-bb&quot;</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;You already have the models!&#39;</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Great job&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">grid</span> <span class="ow">in</span> <span class="n">config</span><span class="o">.</span><span class="n">grids</span><span class="p">:</span>
+            <span class="n">model_grid</span> <span class="o">=</span> <span class="n">grid</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">Unknown grid. Please make another model selection.</span><span class="se">\n\n</span><span class="s2"> To see options use: desk grids</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
 
-    <span class="n">grid_dusty</span> <span class="o">=</span> <span class="n">Table</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">full_path</span> <span class="o">+</span> <span class="s1">&#39;models/&#39;</span> <span class="o">+</span> <span class="n">config</span><span class="o">.</span><span class="n">fitting</span><span class="p">[</span><span class="s1">&#39;model_grid&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;_models.fits&#39;</span><span class="p">)</span>
-    <span class="n">grid_outputs</span> <span class="o">=</span> <span class="n">Table</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">full_path</span> <span class="o">+</span> <span class="s1">&#39;models/&#39;</span> <span class="o">+</span> <span class="n">config</span><span class="o">.</span><span class="n">fitting</span><span class="p">[</span><span class="s1">&#39;model_grid&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;_outputs.csv&#39;</span><span class="p">)</span>
+    <span class="c1"># check if models exist</span>
+    <span class="n">check_models</span><span class="p">(</span><span class="n">model_grid</span><span class="p">,</span> <span class="n">full_path</span><span class="p">)</span>
 
-    <span class="c1"># Model grid check</span>
+    <span class="c1"># gets models</span>
+    <span class="n">grid_dusty</span> <span class="o">=</span> <span class="n">Table</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">fits_file</span><span class="p">)</span>
+    <span class="n">grid_outputs</span> <span class="o">=</span> <span class="n">Table</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">csv_file</span><span class="p">)</span>
+
+    <span class="c1"># Model grid equal lengths check</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">grid_dusty</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">grid_outputs</span><span class="p">):</span>
         <span class="k">pass</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Model grid input error: mismatch in model spectra and model output&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="s2">&quot;Model grid input error: mismatch in model spectra and model output&quot;</span>
+        <span class="p">)</span>
 
-    <span class="c1"># SED FITTING</span>
-    <span class="c1"># pdb.set_trace()</span>
-    <span class="k">for</span> <span class="n">counter</span><span class="p">,</span> <span class="n">target_string</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="nb">enumerate</span><span class="p">(</span><span class="n">arg_input</span><span class="p">)):</span>
-        <span class="n">sed_fitting</span><span class="p">(</span><span class="n">target_string</span><span class="p">)</span>
-
-    <span class="c1"># saves results csv file</span>
-    <span class="k">if</span> <span class="n">fnmatch</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">fitting</span><span class="p">[</span><span class="s1">&#39;model_grid&#39;</span><span class="p">],</span> <span class="s1">&#39;grams*&#39;</span><span class="p">):</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">Table</span><span class="p">(</span><span class="n">grid_outputs</span><span class="p">[</span><span class="n">model_index</span><span class="p">]))</span>
-
+    <span class="c1"># creates correct results files</span>
+    <span class="k">if</span> <span class="n">fnmatch</span><span class="p">(</span><span class="n">model_grid</span><span class="p">,</span> <span class="s2">&quot;grams*&quot;</span><span class="p">):</span>
+        <span class="n">make_output_files_grams</span><span class="p">()</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">file_a</span> <span class="o">=</span> <span class="n">Table</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">latex_array</span><span class="p">),</span> <span class="n">names</span><span class="o">=</span><span class="p">(</span>
-            <span class="s1">&#39;source&#39;</span><span class="p">,</span> <span class="s1">&#39;L&#39;</span><span class="p">,</span> <span class="s1">&#39;vexp_predicted&#39;</span><span class="p">,</span> <span class="s1">&#39;teff&#39;</span><span class="p">,</span> <span class="s1">&#39;tinner&#39;</span><span class="p">,</span> <span class="s1">&#39;odep&#39;</span><span class="p">,</span> <span class="s1">&#39;mdot&#39;</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="p">(</span>
-            <span class="s1">&#39;S16&#39;</span><span class="p">,</span> <span class="s1">&#39;int32&#39;</span><span class="p">,</span> <span class="s1">&#39;f8&#39;</span><span class="p">,</span> <span class="s1">&#39;int32&#39;</span><span class="p">,</span> <span class="s1">&#39;int32&#39;</span><span class="p">,</span> <span class="s1">&#39;f8&#39;</span><span class="p">,</span> <span class="s1">&#39;f8&#39;</span><span class="p">))</span>
-        <span class="n">file_a</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;fitting_results.csv&#39;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;csv&#39;</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">make_output_files_dusty</span><span class="p">()</span>
 
-    <span class="c1"># saves plotting file</span>
-    <span class="n">file_b</span> <span class="o">=</span> <span class="n">Table</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">follow_up_array</span><span class="p">))</span>
-    <span class="n">file_b</span><span class="o">.</span><span class="n">add_column</span><span class="p">(</span><span class="n">Column</span><span class="p">(</span><span class="n">follow_up_index</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;index&#39;</span><span class="p">),</span> <span class="n">index</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-    <span class="n">file_b</span><span class="o">.</span><span class="n">add_column</span><span class="p">(</span><span class="n">Column</span><span class="p">(</span><span class="n">follow_up_normilazation</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;norm&#39;</span><span class="p">),</span> <span class="n">index</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-    <span class="n">file_b</span><span class="o">.</span><span class="n">add_column</span><span class="p">(</span><span class="n">Column</span><span class="p">(</span><span class="n">arg_input</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;data_file&#39;</span><span class="p">),</span> <span class="n">index</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-    <span class="n">file_b</span><span class="o">.</span><span class="n">add_column</span><span class="p">(</span><span class="n">Column</span><span class="p">(</span><span class="n">follow_up_names</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;target_name&#39;</span><span class="p">),</span> <span class="n">index</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-    <span class="n">file_b</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;fitting_plotting_outputs.csv&#39;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;csv&#39;</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="c1"># SED FITTING ###############################</span>
 
-    <span class="c1"># remove old file</span>
-    <span class="n">remove_old_files</span><span class="o">.</span><span class="n">remove</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">source</span> <span class="o">==</span> <span class="s2">&quot;default&quot;</span><span class="p">:</span>
+        <span class="n">source</span> <span class="o">=</span> <span class="n">full_path</span> <span class="o">+</span> <span class="s2">&quot;put_target_data_here/&quot;</span>
+    <span class="k">if</span> <span class="n">fnmatch</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="s2">&quot;*.csv&quot;</span><span class="p">):</span>
+        <span class="n">number_of_targets</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">sed_fitting</span><span class="p">(</span><span class="n">source</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">source</span><span class="p">):</span>
+        <span class="n">source_dir</span> <span class="o">=</span> <span class="p">(</span><span class="n">source</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;//&quot;</span><span class="p">,</span> <span class="s2">&quot;/&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">source_dir</span> <span class="o">+</span> <span class="s2">&quot;/*.csv&quot;</span><span class="p">):</span>
+            <span class="n">files</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">source</span><span class="p">)</span>
+            <span class="n">files</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">source</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="s2">&quot;*.csv&quot;</span><span class="p">)</span>
+            <span class="n">number_of_targets</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">files</span><span class="p">)</span>
+            <span class="k">with</span> <span class="n">Pool</span><span class="p">(</span><span class="n">processes</span><span class="o">=</span><span class="n">cpu_count</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="k">as</span> <span class="n">pool</span><span class="p">:</span>
+                <span class="n">pool</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">sed_fitting</span><span class="p">,</span> <span class="p">[</span><span class="n">target_string</span> <span class="k">for</span> <span class="n">target_string</span> <span class="ow">in</span> <span class="n">files</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;</span><span class="se">\n\n\n</span><span class="s2">ERROR: No .csv files in that directory. Please make another selection.</span><span class="se">\n\n</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="s2">&quot;</span><span class="se">\n\n\n</span><span class="s2">Error: Not a .csv file. Please make another selection.</span><span class="se">\n\n</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
 
-    <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">output</span><span class="p">[</span><span class="s1">&#39;figures_single_multiple_or_none&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;single&#39;</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Creating figure&#39;</span><span class="p">)</span>
+    <span class="c1"># creating figures</span>
+    <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">output</span><span class="p">[</span><span class="s2">&quot;create_figure&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;yes&quot;</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">. . . Creating SED figure . . . . . . . . . . . .&quot;</span><span class="p">)</span>
         <span class="n">create_fig</span><span class="p">()</span>  <span class="c1"># runs plotting script</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;No figure created. To automatically generate a figure or multiple figures change the &#39;</span> <span class="o">+</span>
-              <span class="s1">&#39;&quot;figures_single_multiple_or_none&quot; variable in the config.py script to &quot;single&quot; or &quot;multiple&quot;.&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span>
+            <span class="s2">&quot;No figure created. To automatically generate a figure change the &quot;</span>
+            <span class="o">+</span> <span class="s1">&#39;&quot;create_figure&quot; variable in the config.py script to &quot;yes&quot;.&#39;</span>
+        <span class="p">)</span>
 
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">fnmatch</span><span class="p">(</span><span class="s2">&quot;parameter_ranges_&quot;</span><span class="o">+</span><span class="n">config</span><span class="o">.</span><span class="n">fitting</span><span class="p">[</span><span class="s1">&#39;model_grid&#39;</span><span class="p">]</span><span class="o">+</span><span class="s2">&quot;.png&quot;</span><span class="p">,</span> <span class="s1">&#39;*&#39;</span><span class="p">):</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Creating parameter range figure&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="s2">&quot;parameter_ranges_&quot;</span> <span class="o">+</span> <span class="n">config</span><span class="o">.</span><span class="n">fitting</span><span class="p">[</span><span class="s2">&quot;model_grid&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;.png&quot;</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;. . . Creating parameter range figure . . . . . .&quot;</span><span class="p">)</span>
         <span class="n">create_par</span><span class="p">()</span>
 
     <span class="n">end</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
     <span class="nb">print</span><span class="p">()</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="s1">&#39;Time: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%.2f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">float</span><span class="p">((</span><span class="n">end</span> <span class="o">-</span> <span class="n">start</span><span class="p">)</span> <span class="o">/</span> <span class="mi">60</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39; minutes&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Time: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%.2f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">float</span><span class="p">((</span><span class="n">end</span> <span class="o">-</span> <span class="n">start</span><span class="p">)</span> <span class="o">/</span> <span class="mi">60</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot; minutes&quot;</span><span class="p">)</span></div>
 
 
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
-    <span class="n">main</span><span class="p">()</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">fit</span><span class="p">()</span>
 </pre></div>
 
            </div>
