@@ -35,7 +35,10 @@ Outputs
 
 This is an example of the output_sed.png file fitting three massive oxygen-rich AGB stars from the LMC. To produce individual figures subsequently run the command:
 
-``desk single_fig``
+.. code-block:: console
+
+	> desk single_fit
+
 
 
 Retrieve Single Model from Grid
