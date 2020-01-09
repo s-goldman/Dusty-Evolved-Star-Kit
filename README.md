@@ -60,7 +60,7 @@ This is an example of the output_sed.png file fitting three massive oxygen-rich 
 
 WARNING
 -------
-2DUST scaling currently incorrect (expected correction: Feb. 2020)
+GRAMS model grids currently have incorrect scaling of output parameters (expected correction: Feb. 2020).
 
 Attribution
 -----------
