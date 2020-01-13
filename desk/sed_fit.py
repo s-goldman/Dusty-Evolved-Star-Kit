@@ -159,6 +159,7 @@ def fit_norm(data, norm_model):
 
 # for each target, fit spectra with given models (.fits file)
 def sed_fitting(*args, **kargs):
+    # passes arguments to either dusty_fit or grams_fit
     if fnmatch(grid_type, "grams*"):
         return grams_fit(*args ** kargs)
     else:
@@ -170,12 +171,19 @@ def fit(
     distance=config.target["distance_in_kpc"],
     grid=config.fitting["model_grid"],
 ):
+    """Fits the seds of sources with specified grid.
+
+    Parameters
+    ----------
+    source : str
+        Name of target in array of strings (or one string).
+    distance : float
+        Distance to source(s) in kiloparsecs.
+    grid : str
+        Name of model grid.
+
     """
-    :param source: Name of target in array of strings (or one string)
-    :param distance: distance to source(s) in kiloparsecs
-    :param grid: Name of model grid
-    :return:
-    """
+
     # set variables
     global grid_type
     grid_type = copy.copy(grid)
