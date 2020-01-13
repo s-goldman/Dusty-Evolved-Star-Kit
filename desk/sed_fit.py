@@ -1,67 +1,43 @@
-from __future__ import absolute_import
-
-import csv
-import glob
-import copy
-import importlib
-import math
+# Steve Goldman, Space Telescope Science Institute, sgoldman@stsci.edu
 import os
-import pdb
+import glob
 import time
-import functools
-from fnmatch import fnmatch
-from multiprocessing import Pool, cpu_count
-from multiprocessing import Process, Value, cpu_count
-
-import astropy.units as u
-import matplotlib.pyplot as plt
+import ipdb
+import importlib
 import numpy as np
+import astropy.units as u
+from fnmatch import fnmatch
 from astropy.io import ascii
-from astropy.table import Table, Column
-from desk import config, plotting_seds, get_remote_models, parameter_ranges
 from desk.dusty_fit import dusty_fit
 from desk.grams_fit import grams_fit
-
-from matplotlib import rc
-from scipy import interpolate
+from desk.interpolate_dusty import interpolate_dusty
+from astropy.table import Table, Column
+from multiprocessing import Pool, cpu_count
+from multiprocessing import Process, Value, cpu_count
+from desk import config, plotting_seds, get_remote_models, parameter_ranges
 
 importlib.reload(config)
 
-"""
-Steve Goldman
-Space Telescope Science Institute
-Nov 16, 2018
-sgoldman@stsci.edu
-
-This package takes a photometry or a spectrum (or spectra) in csv format and fits it/them with a grid of models.
-The grids used here are converted from output from the DUSTY code (Elitzur & Ivezic 2001, MNRAS, 327, 403) using
-the other script dusty_to_grid.py. The code interpolates and trims a version of the data and calculates the least
-squares value for each grid in the model and the data. The DUSTY outputs are then scaled and returned in files:
-fitting_results.csv and fitting_plotting_output.csv (for plotting the results). An example plotting script has also
-been provided.
-"""
-
-
+# Non-fitting commands
 def grids():
+    # Prints the model grids available for fitting.
     print("\nGrids:")
     for item in config.grids:
         print("\t" + str(item))
     print("\n")
 
 
+# returns interpolate model as csv for any model grid
 def get_model(grid_name, teff_new, tinner_new, tau_new):
-    desk.interpolate_dusty(
-        grid_name, float(teff_new), float(tinner_new), float(tau_new)
-    )
+    interpolate_dusty(grid_name, float(teff_new), float(tinner_new), float(tau_new))
 
 
+# Checks if model exists and if it's a csv file or directory of csv files
 def check_models(model_grid, full_path):
     csv_file = full_path + "models/" + model_grid + "_outputs.csv"
     fits_file = full_path + "models/" + model_grid + "_models.fits"
     if os.path.isfile(csv_file) and os.path.isfile(fits_file):
         print("\nYou already have the grid!\n")
-        # print("Great job")
-
     else:
         user_proceed = input("Models not found locally, download the models [y]/n?: ")
         if user_proceed == "y" or user_proceed == "":
@@ -74,9 +50,20 @@ def check_models(model_grid, full_path):
 
 
 def get_data(filename):
-    """
-    :param filename: filename of input data. Should be csv with Column 0: wavelength in um and Col 1: flux in Jy
-    :return: two arrays of wavelength (x) and flux (y) in unit specified in config.py
+    """Retrieves data by reading csv file.
+
+    Parameters
+    ----------
+    filename : str
+        Name of csv file name. The file should have:
+            Column 0: wavelength in um
+            Column 1: flux in Jy
+
+    Returns
+    -------
+    2 arrays
+        wavelength (x) and flux (y) in unit specified in config.py (default is w/m2)
+
     """
     global log_average_flux_wm2
     table = ascii.read(filename, delimiter=",")
@@ -95,10 +82,20 @@ def get_data(filename):
 
 
 def find_closest(target_wave, model_wave):
-    """
-    :param target_wave: Target wavelength in um
-    :param model_wave: model wavelength in um
-    :return: a 1-D array of the closest data wavelength values, to the model wavelength values
+    """Find values model values corresponding to the closest values in the data
+
+    Parameters
+    ----------
+    target_wave : 1-D array
+        Target wavelength in um.
+    model_wave : 1-D array
+        model wavelength in um.
+
+    Returns
+    -------
+    array
+        Array of the closest data wavelength values, to the model wavelength values.
+
     """
     idx = np.searchsorted(model_wave[0], target_wave[0])
     idx = np.clip(idx, 1, len(model_wave[0]) - 1)
@@ -110,14 +107,25 @@ def find_closest(target_wave, model_wave):
 
 
 def least2(data, model_l2):
+    # least squares fit
     return np.nansum(np.square(model_l2 - data))
 
 
 def trim(data, model_trim):
-    """
-    :param data: input data in tuple of x and y arrays
-    :param model_trim: input model
-    :return: trims motimedel to wavelength range of data
+    """Removes data outside of wavelegth range of model grid.
+
+    Parameters
+    ----------
+    data : 2-D array
+        input data in 2-D array of wavelength and flux.
+    model_trim : type
+        input model in 2-D array of wavelength and flux.
+
+    Returns
+    -------
+    2-D array
+        Trimmed input model in 2-D array of wavelength and flux.
+
     """
     indexes = np.where(
         np.logical_and(

@@ -43,7 +43,8 @@ def dusty_fit(
             f.close()
 
     # Creates output file
-    make_output_files_dusty()
+    if counter == 0:
+        make_output_files_dusty()
 
     # gets target data
     raw_data = sed_fit.get_data(source)
@@ -59,13 +60,14 @@ def dusty_fit(
         stats, trials = sed_fit.fit_norm(raw_data, matched_model)
         stat_values.append(stats)
 
+    # obtains best fit model and model index
     stat_array = np.vstack(stat_values)
     argmin = np.argmin(stat_array)  # lowest chi square value
     model_index = argmin // stat_array.shape[1]
     trial_index = argmin % stat_array.shape[1]
     target_name = (source.split("/")[-1][:15]).replace("IRAS-", "IRAS ")
 
-    # normalize output values by the set distance
+    # normalizes output values by the set distance
     distance_value = float(copy.copy(distance))
     distance_norm = math.log10(((float(distance) / 4.8482e-9) ** 2) / 1379)
     luminosity = int(

@@ -13,12 +13,3 @@ distribution, as that directory only contains C extension code.
 __author__ = """Steven R. Goldman"""
 __email__ = "sgoldman@stsci.edu"
 __version__ = "1.4.7"
-
-import desk.sed_fit
-import desk.plotting_seds
-import desk.config
-import desk.get_remote_models
-import desk.parameter_ranges
-import desk.main
-import desk.dusty_fit
-import desk.grams_fit
