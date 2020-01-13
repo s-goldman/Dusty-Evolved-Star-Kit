@@ -1,11 +1,13 @@
 # Steve Goldman, Space Telescope Science Institute, sgoldman@stsci.edu
 import os
+import copy
 import glob
 import time
 import ipdb
 import importlib
 import numpy as np
 import astropy.units as u
+from dask import delayed
 from fnmatch import fnmatch
 from astropy.io import ascii
 from desk.dusty_fit import dusty_fit
@@ -156,33 +158,15 @@ def fit_norm(data, norm_model):
 
 
 # for each target, fit spectra with given models (.fits file)
-def sed_fitting(
-    source, distance, model_grid, grid_dusty, grid_outputs, counter, number_of_targets
-):
-    if fnmatch(model_grid, "grams*"):
-        grams_fit(
-            source,
-            distance,
-            model_grid,
-            grid_dusty,
-            grid_outputs,
-            counter,
-            number_of_targets,
-        )
+def sed_fitting(*args, **kargs):
+    if fnmatch(grid_type, "grams*"):
+        return grams_fit(*args ** kargs)
     else:
-        dusty_fit(
-            source,
-            distance,
-            model_grid,
-            grid_dusty,
-            grid_outputs,
-            counter,
-            number_of_targets,
-        )
+        return dusty_fit(*args, **kargs)
 
 
 def fit(
-    source="default",
+    source="carbon",
     distance=config.target["distance_in_kpc"],
     grid=config.fitting["model_grid"],
 ):
@@ -193,6 +177,8 @@ def fit(
     :return:
     """
     # set variables
+    global grid_type
+    grid_type = copy.copy(grid)
     start = time.time()
     counter = Value("i", 0)
     # normalization calculation
