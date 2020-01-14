@@ -34,33 +34,10 @@ def dusty_fit(
     # Initialize variables
     stat_values = []
 
-    def make_output_files_dusty():
-        with open("fitting_results.csv", "w") as f:
-            f.write("source,L,vexp_predicted,teff,tinner,odep,mdot\n")
-            f.close()
-        with open("fitting_plotting_outputs.csv", "w") as f:
-            f.write("target_name,data_file,norm,index,grid_name,teff,tinner,odep\n")
-            f.close()
-
-    # Creates output file
-    if counter == 0:
-        make_output_files_dusty()
-
     # gets target data
     raw_data = sed_fit.get_data(source)
 
     trials = sed_fit.create_trials(raw_data[1])
-
-    # for model in np.array(grid_dusty):
-    #     # removes data outside of wavelegth range of model grid
-    #     trimmed_model = sed_fit.trim(raw_data, model)
-    #
-    #     # gets fluxes for corresponding wavelengths of data and models
-    #     matched_model = sed_fit.find_closest(raw_data, trimmed_model)
-    #
-    #     # fits source with n(set in config) models spanning 4 orders of magnitude
-    #     stats = sed_fit.fit_norm(raw_data, matched_model, trials)
-    #     stat_values.append(stats)
 
     def trim_find_lsq(model):
         # removes data outside of wavelegth range of model grid

@@ -171,11 +171,38 @@ def fit_norm(data, norm_model, trials):
     return stats
 
 
+def remove_old_output_files():
+    if os.path.exists("fitting_results.txt"):
+        os.remove("fitting_results.txt")
+    if os.path.exists("fitting_plotting_outputs.txt"):
+        os.remove("fitting_plotting_outputs.txt")
+
+
+def make_output_files_dusty():
+    remove_old_output_files()
+    with open("fitting_results.csv", "w") as f:
+        f.write("source,L,vexp_predicted,teff,tinner,odep,mdot\n")
+        f.close()
+    with open("fitting_plotting_outputs.csv", "w") as f:
+        f.write("target_name,data_file,norm,index,grid_name,teff,tinner,odep\n")
+        f.close()
+
+
+def make_output_files_grams():
+    remove_old_output_files()
+    with open("fitting_results.csv", "w") as f:
+        f.write("source,L,rin,teff,tinner,odep,mdot\n")
+        f.close()
+    with open("fitting_plotting_outputs.csv", "w") as f:
+        f.write("target_name,data_file,norm,index,grid_name,teff,tinner,odep\n")
+        f.close()
+
+
 # for each target, fit spectra with given models (.fits file)
 def sed_fitting(*args, **kargs):
     # passes arguments to either dusty_fit or grams_fit
     if fnmatch(grid_type, "grams*"):
-        return grams_fit(*args ** kargs)
+        return grams_fit(*args, **kargs)
     else:
         return dusty_fit(*args, **kargs)
 
@@ -207,6 +234,12 @@ def fit(
     # solar constant = 1379 W
     # distance to sun in kpc 4.8483E-9
     full_path = str(__file__.replace("sed_fit.py", ""))
+
+    # create output files
+    if fnmatch(grid_type, "grams*"):
+        make_output_files_grams()
+    else:
+        make_output_files_dusty()
 
     # User input for models
     if grid == "carbon":
