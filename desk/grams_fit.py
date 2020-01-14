@@ -3,22 +3,22 @@ import copy
 import math
 import ipdb
 import numpy as np
-from desk import sed_fit, config
+from desk import sed_fit, config, fitting_tools
 
 
 def grams_fit(
-    source, distance, model_grid, grid_dusty, grid_outputs, counter, number_of_targets
+    model_grid, source, distance, grid_dusty, grid_outputs, counter, number_of_targets
 ):
     """Function fits astropy table data with a least squares method.
 
     Parameters
     ----------
+    model_grid : str
+        Name of model grid being used.
     source : str
         Name of the source being fit.
     distance : float
         Distance to source in kpc.
-    model_grid : str
-        Name of model grid being used.
     grid_dusty : astropy table
         Table with two items in each row item 1 being an array
         with wavelength in microns and item 2 being an array with flux in w/m2.
@@ -36,23 +36,23 @@ def grams_fit(
     stat_values = []
 
     # gets target data
-    raw_data = sed_fit.get_data(source)
+    raw_data = fitting_tools.get_data(source)
 
     #
     flux_scaling_factor = 50 ** 2 / float(distance) ** 2
 
     def trim_find_lsq(model):
         # removes data outside of wavelegth range of model grid
-        trimmed_model = sed_fit.trim(raw_data, model)
+        trimmed_model = fitting_tools.trim(raw_data, model)
 
         # gets fluxes for corresponding wavelengths of data and models
-        matched_model = sed_fit.find_closest(raw_data, trimmed_model)
+        matched_model = fitting_tools.find_closest(raw_data, trimmed_model)
 
         # normalize model to specified distance
         scaled_matched_model = matched_model * flux_scaling_factor
 
         # fits source with least squares
-        stats = sed_fit.least2(raw_data, matched_model)
+        stats = fitting_tools.least2(raw_data, matched_model)
         stat_values.append(stats)
 
     [trim_find_lsq(x) for x in grid_dusty]
