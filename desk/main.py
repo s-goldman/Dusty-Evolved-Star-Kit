@@ -2,7 +2,7 @@ import argparse
 import inspect
 import pdb
 
-from desk import sed_fit
+from desk import console_commands
 
 
 def main():

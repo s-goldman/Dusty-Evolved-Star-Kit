@@ -2,7 +2,7 @@ import csv
 import copy
 import math
 import numpy as np
-from desk import sed_fit, config, fitting_tools
+from desk import console_commands, config, fitting_tools
 
 
 def dusty_fit(

@@ -3,7 +3,7 @@ import copy
 import math
 import ipdb
 import numpy as np
-from desk import sed_fit, config, fitting_tools
+from desk import console_commands, config, fitting_tools
 
 
 def grams_fit(
