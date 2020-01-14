@@ -29,9 +29,6 @@ This package is designed for beginners to easily compare stellar samples and mod
 
 # Figures
 
-An example of sources fit with an oxygen-rich grid  
-<img src="docs/example.png" width="300">
+An example of sources fit with an oxygen-rich grid  ![Example figure.](docs/example.png)
 
 # References
-
-nocite: '@*'
