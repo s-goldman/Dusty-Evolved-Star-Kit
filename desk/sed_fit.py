@@ -4,20 +4,16 @@ import copy
 import glob
 import time
 import ipdb
-import dask
 import importlib
 import numpy as np
 import astropy.units as u
-import multiprocessing
-from itertools import product
 from fnmatch import fnmatch
 from astropy.io import ascii
 from desk.dusty_fit import dusty_fit
 from desk.grams_fit import grams_fit
 from desk.interpolate_dusty import interpolate_dusty
 from astropy.table import Table, Column
-from multiprocessing import Pool, cpu_count
-from multiprocessing import Process, Value, cpu_count
+from multiprocessing import Value
 from desk import config, plotting_seds, get_remote_models, parameter_ranges
 
 importlib.reload(config)

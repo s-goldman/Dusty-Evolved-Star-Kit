@@ -1,9 +1,6 @@
 import csv
 import copy
 import math
-import tqdm
-import ipdb
-import dask
 import numpy as np
 from desk import sed_fit, config
 
