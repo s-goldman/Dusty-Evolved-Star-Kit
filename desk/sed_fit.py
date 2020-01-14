@@ -4,10 +4,12 @@ import copy
 import glob
 import time
 import ipdb
+import dask
 import importlib
 import numpy as np
 import astropy.units as u
-from dask import delayed
+import multiprocessing
+from itertools import product
 from fnmatch import fnmatch
 from astropy.io import ascii
 from desk.dusty_fit import dusty_fit
@@ -20,7 +22,7 @@ from desk import config, plotting_seds, get_remote_models, parameter_ranges
 
 importlib.reload(config)
 
-# Non-fitting commands
+# Non-fitting commands #########################################################
 def grids():
     # Prints the model grids available for fitting.
     print("\nGrids:")
@@ -33,6 +35,8 @@ def grids():
 def get_model(grid_name, teff_new, tinner_new, tau_new):
     interpolate_dusty(grid_name, float(teff_new), float(tinner_new), float(tau_new))
 
+
+################################################################################
 
 # Checks if model exists and if it's a csv file or directory of csv files
 def check_models(model_grid, full_path):
@@ -137,24 +141,38 @@ def trim(data, model_trim):
     return np.vstack([model_trim[0][indexes], model_trim[1][indexes]])
 
 
-def fit_norm(data, norm_model):
+def create_trials(y_flux_array):
+    """Creates arrays of model fluxes normalize to +/- 2.
+
+    Parameters
+    ----------
+    y_flux_array : array
+        The flux of the model in w/m2.
+
+    Returns
+    -------
+    array
+        An array of model flux arrays for each normalized value
+
     """
-    :param data: input data in tuple of x and y arrays
-    :param norm_model: closest wavelength values to data in 1-D array (from trim)
-    :return: trimmed model in 2 column np.array
-    """
-    stats = []
-    # normalization range
-    # trials = np.linspace(config.fitting['min_norm'], config.fitting['max_norm'], config.fitting['ntrials'])
+    log_average_flux_wm2 = np.log10(np.median(y_flux_array))
     trials = np.logspace(
         log_average_flux_wm2 - 2,
         log_average_flux_wm2 + 2,
         config.fitting["number_of_tries"],
     )
-    for t in trials:
-        stat = least2(data[1], norm_model * t)
-        stats.append(stat)
-    return stats, trials
+    return trials
+
+
+def fit_norm(data, norm_model, trials):
+    """
+    :param data: input data in tuple of x and y arrays
+    :param norm_model: closest wavelength values to data in 1-D array (from trim)
+    :return: trimmed model in 2 column np.array
+    """
+    # normalization range
+    stats = [least2(data[1], norm_model * x) for x in trials]
+    return stats
 
 
 # for each target, fit spectra with given models (.fits file)
@@ -223,9 +241,8 @@ def fit(
         )
 
     # SED FITTING ###############################
-    if fnmatch(source, "*.csv"):
-        number_of_targets = 1
-        sed_fitting(
+    def add_variables(source):
+        return sed_fitting(
             source,
             distance,
             model_grid,
@@ -234,6 +251,10 @@ def fit(
             counter,
             number_of_targets,
         )
+
+    if fnmatch(source, "*.csv"):
+        number_of_targets = 1
+        add_variables(source)
     elif os.path.isdir(source):
         source_dir = (source + "/").replace("//", "/")
         if glob.glob(source_dir + "/*.csv"):
@@ -241,16 +262,9 @@ def fit(
             number_of_targets = len(files)
             # with Pool(processes=cpu_count() - 1) as pool:
             #     pool.map(sed_fitting, [target_string for target_string in files])
+
             for target_string in files:
-                sed_fitting(
-                    target_string,
-                    distance,
-                    model_grid,
-                    grid_dusty,
-                    grid_outputs,
-                    counter,
-                    number_of_targets,
-                )
+                add_variables(target_string)
         else:
             raise ValueError(
                 "\n\n\nERROR: No .csv files in that directory. Please make another selection.\n\n"
