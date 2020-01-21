@@ -27,7 +27,7 @@ env:
         # The following versions are the 'default' for tests, unless
         # overridden underneath. They are defined here in order to save having
         # to repeat them for all configurations.
-        - PYTHON_VERSION=3.7
+        - PYTHON_VERSION=3.6
         - NUMPY_VERSION=stable
         - ASTROPY_VERSION=stable
         - MAIN_CMD='python setup.py'
@@ -35,11 +35,11 @@ env:
         - PIP_DEPENDENCIES='sphinx-astropy sphinx_rtd_theme'
         - EVENT_TYPE='pull_request push'
 
-
+        
         # List other runtime dependencies for the package that are available as
         # conda packages here.
         - CONDA_DEPENDENCIES='tqdm scipy'
-
+        
         # List other runtime dependencies for the package that are available as
         # pip packages here.
 #         - PIP_DEPENDENCIES=''
@@ -57,7 +57,7 @@ env:
 
     matrix:
         # Make sure that egg_info works without dependencies
-        - PYTHON_VERSION=3.7 SETUP_CMD='egg_info'
+        - PYTHON_VERSION=3.5 SETUP_CMD='egg_info'
         - PYTHON_VERSION=3.6 SETUP_CMD='egg_info'
 
 
@@ -80,10 +80,12 @@ matrix:
         - os: linux
           env: SETUP_CMD='build_sphinx'
 
-        # Now try Astropy dev with the latest Python and 3.x.
+        # Now try Astropy dev with the latest Python and LTS with Python 2.7 and 3.x.
         - os: linux
           env: ASTROPY_VERSION=development
                EVENT_TYPE='pull_request push cron'
+#        - os: linux
+#          env: PYTHON_VERSION=2.7 ASTROPY_VERSION=lts
         - os: linux
           env: ASTROPY_VERSION=lts
 
@@ -92,8 +94,12 @@ matrix:
         # versions of Python, we can vary Python and Numpy versions at the same
         # time.
 
+#        - os: linux
+#          env: PYTHON_VERSION=3.5 NUMPY_VERSION=1.10
         - os: linux
-          env: PYTHON_VERSION=3.6 NUMPY_VERSION=1.16
+          env: PYTHON_VERSION=3.7 NUMPY_VERSION=1.16
+        - os: linux
+          env: PYTHON_VERSION=3.6 NUMPY_VERSION=1.15
         - os: linux
           env: PYTHON_VERSION=3.5 NUMPY_VERSION=1.15
 
