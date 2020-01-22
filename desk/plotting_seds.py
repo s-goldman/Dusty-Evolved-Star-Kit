@@ -10,15 +10,6 @@ from astropy.table import Table
 from desk import config, fitting_tools
 from matplotlib import rc
 
-"""
-Steve Goldman
-Space Telescope Science Institute
-May 17, 2018
-sgoldman@stsci.edu
-
-This script is for plotting the outputs of the sed_fitting script.
-"""
-
 
 def get_model_and_data_for_plotting(counter, target):
     full_path = str(__file__.replace("plotting_seds.py", ""))

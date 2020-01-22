@@ -1,6 +1,3 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
 import desk, time, os, glob
 import pytest
 import numpy as np
@@ -18,6 +15,8 @@ def test_create_fig():
 
 
 def test_single_figures():
+    # checks if the number of files created matches the number of files fit.
+    # Also checks to see if all pngs created within time_check_threshold.
     created_times = []
     time_check_threshold = 10  # seconds
     plotting_seds.single_figures()
