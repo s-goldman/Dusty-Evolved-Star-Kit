@@ -7,7 +7,7 @@ import numpy as np
 from fnmatch import fnmatch
 from astropy.io import ascii
 from astropy.table import Table
-from desk import config
+from desk import config, fitting_tools
 from matplotlib import rc
 
 """
@@ -24,35 +24,12 @@ def create_fig():
     """
     :return: Runs plotting script
     """
-    # rc('text', usetex=True)
-    # plt.rcParams['font.family'] = 'serif'
-    # plt.rcParams['mathtext.fontset'] = 'dejavuserif'
-    # plt.rcParams['text.usetex'] = True
-    # plt.rcParams['text.latex.unicode'] = True
 
     full_path = str(__file__.replace("plotting_seds.py", ""))
     input_file = Table.read("fitting_plotting_outputs.csv")
     grid_dusty = Table.read(
         full_path + "models/" + str(input_file["grid_name"][0]) + "_models.fits"
     )
-
-    def get_data(filename):
-        """
-        :param filename: filename of input data. Should be csv with Column 0: wavelength in um and Col 1: flux in Jy
-        :return: two arrays of wavelength (x) and flux (y) in unit specified in config.py
-        """
-        table = ascii.read(filename, delimiter=",")
-        table.sort(table.colnames[0])
-        x = np.array(table.columns[0])
-        y = np.array(table.columns[1])
-        if config.output["output_unit"] == "Wm^-2":
-            y = y * u.Jy
-            y = y.to(u.W / (u.m * u.m), equivalencies=u.spectral_density(x * u.um))
-        elif config.output["output_unit"] == "Jy":
-            pass
-        else:
-            raise ValueError("Unit in config.py not 'Wm^-2' or 'Jy'")
-        return x, np.array(y)
 
     # setting axes
     if len(input_file) == 1:
@@ -70,7 +47,7 @@ def create_fig():
     for counter, target in enumerate(input_file):
         # gets data for plotting
         target_name = (target["target_name"]).replace(".csv", "").replace("_", " ")
-        x_data, y_data = get_data(target["data_file"])
+        x_data, y_data = fitting_tools.get_data(target["data_file"])
         x_model, y_model = grid_dusty[target["index"]]
         x_model = x_model[np.where(y_model != 0)]
         if fnmatch(input_file["grid_name"][0], "grams*"):
@@ -82,16 +59,6 @@ def create_fig():
             y_model = y_model * u.W / (u.m * u.m)
         y_model = y_model[np.where(y_model != 0)] * input_file[counter]["norm"]
         axislabel = "log $\lambda$ F$_{\lambda}$ (W m$^{-2}$)"
-
-        # if config.output["output_unit"] == "Wm^-2":
-        #     axislabel = "log $\lambda$ F$_{\lambda}$ (W m$^{-2}$)"
-        # elif config.output["output_unit"] == "Jy":
-        #     y_model = y_model * u.W / (u.m * u.m)
-        #     y_model = y_model / ((x_model * u.um).to(u.Hz, equivalencies=u.spectral()))
-        #     y_model = y_model.to(u.Jy).value
-        #     axislabel = "log F$_{\lambda}$ (Jy)"
-        # else:
-        #     raise ValueError("Unit in config.py not 'Wm^-2' or 'Jy'")
 
         # logscale
         x_model = np.log10(x_model)
@@ -160,30 +127,12 @@ def single_fig():
         full_path + "models/" + str(input_file["grid_name"][0]) + "_models.fits"
     )
 
-    def get_data(filename):
-        """
-        :param filename: filename of input data. Should be csv with Column 0: wavelength in um and Col 1: flux in Jy
-        :return: two arrays of wavelength (x) and flux (y) in unit specified in config.py
-        """
-        table = ascii.read(filename, delimiter=",")
-        table.sort(table.colnames[0])
-        x = np.array(table.columns[0])
-        y = np.array(table.columns[1])
-        if config.output["output_unit"] == "Wm^-2":
-            y = y * u.Jy
-            y = y.to(u.W / (u.m * u.m), equivalencies=u.spectral_density(x * u.um))
-        elif config.output["output_unit"] == "Jy":
-            pass
-        else:
-            raise ValueError("Unit in config.py not 'Wm^-2' or 'Jy'")
-        return x, np.array(y)
-
     # setting axes
 
     for counter, target in enumerate(input_file):
         # gets data for plotting
         target_name = (target["target_name"]).replace(".csv", "")
-        x_data, y_data = get_data(target["data_file"])
+        x_data, y_data = fitting_tools.get_data(target["data_file"])
         x_model, y_model = grid_dusty[target["index"]]
         x_model = x_model[np.where(y_model != 0)]
         y_model = y_model[np.where(y_model != 0)] * input_file[counter]["norm"]

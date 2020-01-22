@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from astropy.table import Table, Column, vstack
 from scipy import interpolate
-from desk import sed_fit
+from desk import fitting_tools
 
 # teff_new = 4010
 # tinner_new = 900
@@ -14,7 +14,7 @@ from desk import sed_fit
 def interpolate_dusty(grid_name, teff_new, tinner_new, tau_new):
     # checks if grid files available
     full_path = str(__file__.replace("interpolate_dusty.py", ""))
-    sed_fit.check_models(grid_name, full_path)
+    fitting_tools.check_models(grid_name, full_path)
     try:
         output_array = Table.read(
             full_path + "models/" + grid_name + "_outputs.csv", format="csv"
