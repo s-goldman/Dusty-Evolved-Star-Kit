@@ -20,12 +20,40 @@ This script is for plotting the outputs of the sed_fitting script.
 """
 
 
+def get_model_and_data_for_plotting(counter, target):
+    full_path = str(__file__.replace("plotting_seds.py", ""))
+    input_file = Table.read("fitting_plotting_outputs.csv")
+    grid_dusty = Table.read(
+        full_path + "models/" + str(input_file["grid_name"][0]) + "_models.fits"
+    )
+
+    target_name = (target["target_name"]).replace(".csv", "").replace("_", " ")
+    x_data, y_data = fitting_tools.get_data(target["data_file"])
+    x_model, y_model = grid_dusty[target["index"]]
+    x_model = x_model[np.where(y_model != 0)]
+    if fnmatch(input_file["grid_name"][0], "grams*"):
+        y_model = y_model * u.Jy
+        y_model = y_model.to(
+            u.W / (u.m * u.m), equivalencies=u.spectral_density(x_model * u.um)
+        )
+    else:
+        y_model = y_model * u.W / (u.m * u.m)
+    y_model = y_model[np.where(y_model != 0)] * input_file[counter]["norm"]
+
+    # logscale
+    x_model = np.log10(x_model)
+    y_model = np.log10(y_model.value)
+    x_data = np.log10(x_data)
+    y_data = np.log10(y_data)
+    return x_model, y_model, x_data, y_data, target_name
+
+
 def create_fig():
     """Takes results from fitting_plotting_outputs.csv and plots SED.
 
     Returns
     -------
-    pdf
+    png
         SED figure with data in blue and model in black.
 
     """
@@ -37,6 +65,7 @@ def create_fig():
     )
 
     # setting axes
+    axislabel = "log $\lambda$ F$_{\lambda}$ (W m$^{-2}$)"
     if len(input_file) == 1:
         fig, ax1 = plt.subplots(1, 1, sharex=True, sharey=True, figsize=(8, 5))
     elif len(input_file) == 2:
@@ -51,25 +80,9 @@ def create_fig():
 
     for counter, target in enumerate(input_file):
         # gets data for plotting
-        target_name = (target["target_name"]).replace(".csv", "").replace("_", " ")
-        x_data, y_data = fitting_tools.get_data(target["data_file"])
-        x_model, y_model = grid_dusty[target["index"]]
-        x_model = x_model[np.where(y_model != 0)]
-        if fnmatch(input_file["grid_name"][0], "grams*"):
-            y_model = y_model * u.Jy
-            y_model = y_model.to(
-                u.W / (u.m * u.m), equivalencies=u.spectral_density(x_model * u.um)
-            )
-        else:
-            y_model = y_model * u.W / (u.m * u.m)
-        y_model = y_model[np.where(y_model != 0)] * input_file[counter]["norm"]
-        axislabel = "log $\lambda$ F$_{\lambda}$ (W m$^{-2}$)"
-
-        # logscale
-        x_model = np.log10(x_model)
-        y_model = np.log10(y_model.value)
-        x_data = np.log10(x_data)
-        y_data = np.log10(y_data)
+        x_model, y_model, x_data, y_data, target_name = get_model_and_data_for_plotting(
+            counter, target
+        )
 
         if len(input_file) == 1:
             ax1.set_xlim(-0.99, 2.49)
@@ -121,7 +134,7 @@ def create_fig():
     fig.savefig("output_sed.png", dpi=200, bbox_inches="tight")
 
 
-def single_fig():
+def single_figures():
     """
     :return: Runs plotting script
     """
@@ -136,26 +149,9 @@ def single_fig():
 
     for counter, target in enumerate(input_file):
         # gets data for plotting
-        target_name = (target["target_name"]).replace(".csv", "")
-        x_data, y_data = fitting_tools.get_data(target["data_file"])
-        x_model, y_model = grid_dusty[target["index"]]
-        x_model = x_model[np.where(y_model != 0)]
-        y_model = y_model[np.where(y_model != 0)] * input_file[counter]["norm"]
-        if config.output["output_unit"] == "Wm^-2":
-            axislabel = "log $\lambda$ F$_{\lambda}$ (W m$^{-2}$)"
-        elif config.output["output_unit"] == "Jy":
-            y_model = y_model * u.W / (u.m * u.m)
-            y_model = y_model / ((x_model * u.um).to(u.Hz, equivalencies=u.spectral()))
-            y_model = y_model.to(u.Jy).value
-            axislabel = "log F$_{\lambda}$ (Jy)"
-        else:
-            raise ValueError("Unit in config.py not 'Wm^-2' or 'Jy'")
-
-        # logscale
-        x_model = np.log10(x_model)
-        y_model = np.log10(y_model)
-        x_data = np.log10(x_data)
-        y_data = np.log10(y_data)
+        x_model, y_model, x_data, y_data, target_name = get_model_and_data_for_plotting(
+            counter, target
+        )
 
         # Figure plotting
         fig, ax1 = plt.subplots(1, 1, sharex=True, sharey=True, figsize=(8, 5))
@@ -183,7 +179,7 @@ def single_fig():
         ax1.set_ylabel("log $\lambda$ F$_{\lambda}$ " + "(W m$^{-2}$)", labelpad=10)
         plt.subplots_adjust(wspace=0, hspace=0)
         fig.savefig(
-            "output_sed" + str(target_name) + ".png", dpi=200, bbox_inches="tight"
+            "output_sed_" + str(target_name) + ".png", dpi=200, bbox_inches="tight"
         )
         plt.close()
 
