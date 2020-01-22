@@ -21,8 +21,13 @@ This script is for plotting the outputs of the sed_fitting script.
 
 
 def create_fig():
-    """
-    :return: Runs plotting script
+    """Takes results from fitting_plotting_outputs.csv and plots SED.
+
+    Returns
+    -------
+    pdf
+        SED figure with data in blue and model in black.
+
     """
 
     full_path = str(__file__.replace("plotting_seds.py", ""))
