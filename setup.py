@@ -11,8 +11,6 @@ with open("README.rst") as readme_file:
 with open("HISTORY.rst") as history_file:
     history = history_file.read()
 
-requirements = ["Click>=6.0", "tqdm", "scipy", "ipdb"]
-
 setup(
     author="Steven R. Goldman",
     author_email="sgoldman@stsci.edu",
@@ -27,7 +25,7 @@ setup(
     ],
     description="The DESK is an SED-fitting python scripts for fitting data from evolved stars",
     entry_points={"console_scripts": ["desk = desk.main:main"]},
-    install_requires=requirements,
+    install_requires=["Click>=6.0", "tqdm", "scipy", "ipdb"],
     license="BSD license",
     long_description=readme + "\n\n" + history,
     include_package_data=True,
