@@ -1,4 +1,3 @@
-from .context import desk
 import time, os, glob
 import pytest
 import numpy as np

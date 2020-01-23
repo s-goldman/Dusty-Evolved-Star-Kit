@@ -3,7 +3,6 @@
 
 """Tests for `dusty_evolved_star_kit` package."""
 
-from .context import desk
 import pytest
 from desk import console_commands
 
