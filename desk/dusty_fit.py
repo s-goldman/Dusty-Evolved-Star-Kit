@@ -39,18 +39,9 @@ def dusty_fit(
 
     trials = fitting_tools.create_trials(raw_data[1])
 
-    def trim_find_lsq(model):
-        # removes data outside of wavelegth range of model grid
-        trimmed_model = fitting_tools.trim(raw_data, model)
-
-        # gets fluxes for corresponding wavelengths of data and models
-        matched_model = fitting_tools.find_closest(raw_data, trimmed_model)
-
-        # fits source with n(set in config) models spanning 4 orders of magnitude
-        stats = fitting_tools.fit_norm(raw_data, matched_model, trials)
-        stat_values.append(stats)
-
-    [trim_find_lsq(x) for x in grid_dusty]
+    stat_values.append(
+        [fitting_tools.trim_find_lsq(x, raw_data, trials) for x in grid_dusty]
+    )
 
     # obtains best fit model and model index
     stat_array = np.vstack(stat_values)

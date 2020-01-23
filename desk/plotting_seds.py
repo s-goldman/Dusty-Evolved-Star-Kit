@@ -1,6 +1,5 @@
 import math
 import ipdb
-
 import astropy.units as u
 import matplotlib.pyplot as plt
 import numpy as np
@@ -12,6 +11,29 @@ from matplotlib import rc
 
 
 def get_model_and_data_for_plotting(counter, target):
+    """Gets data from target.csv file and model from grid file.
+
+    Parameters
+    ----------
+    counter : int
+        The nth item being fit, starting at 1.
+    target : astropy table row
+        Results of fit item read from fitting_plotting_outputs.csv.
+
+    Returns
+    -------
+    x_data: array
+        log of the wavelength of the data in microns.
+    y_data: array
+        log of the flux of the data in w*m^-2
+    x_model: array
+        log of the wavelength of the model in microns.
+    y_model: array
+        log of the flux of the model in w*m^-2
+    target_name: str
+        targetname of source with underscores and extension removed
+
+    """
     full_path = str(__file__.replace("plotting_seds.py", ""))
     input_file = Table.read("fitting_plotting_outputs.csv")
     grid_dusty = Table.read(
@@ -123,11 +145,18 @@ def create_fig():
         # pdb.set_trace()
     plt.subplots_adjust(wspace=0, hspace=0)
     fig.savefig("output_sed.png", dpi=200, bbox_inches="tight")
+    plt.close()
 
 
 def single_figures():
-    """
-    :return: Runs plotting script
+    """Takes results from fitting_plotting_outputs.csv and plots SEDs in individual
+     figures.
+
+    Returns
+    -------
+    png's
+        SED figures with data in blue and model in black.
+
     """
 
     full_path = str(__file__.replace("plotting_seds.py", ""))
@@ -135,8 +164,6 @@ def single_figures():
     grid_dusty = Table.read(
         full_path + "models/" + str(input_file["grid_name"][0]) + "_models.fits"
     )
-
-    # setting axes
 
     for counter, target in enumerate(input_file):
         # gets data for plotting
@@ -168,7 +195,6 @@ def single_figures():
         ax1.get_yaxis().set_tick_params(which="both", direction="in", labelsize=15)
         ax1.set_xlabel("log $\lambda$ ($\mu m$)", labelpad=10)
         ax1.set_ylabel("log $\lambda$ F$_{\lambda}$ " + "(W m$^{-2}$)", labelpad=10)
-        plt.subplots_adjust(wspace=0, hspace=0)
         fig.savefig(
             "output_sed_" + str(target_name) + ".png", dpi=200, bbox_inches="tight"
         )

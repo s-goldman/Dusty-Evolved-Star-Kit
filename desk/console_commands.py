@@ -31,7 +31,7 @@ def get_model(grid_name, teff_new, tinner_new, tau_new):
 
 
 def fit(
-    source="carbon",
+    source="desk/put_target_data_here",
     distance=config.target["distance_in_kpc"],
     grid=config.fitting["model_grid"],
 ):
@@ -55,7 +55,7 @@ def fit(
     # normalization calculation
     # solar constant = 1379 W
     # distance to sun in kpc 4.8483E-9
-    full_path = str(__file__.replace("sed_fit.py", ""))
+    full_path = str(__file__.replace("console_commands.py", ""))
 
     # create output files
     if fnmatch(grid_type, "grams*"):
