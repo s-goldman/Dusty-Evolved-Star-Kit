@@ -1,5 +1,6 @@
 import os
 import pdb
+import ipdb
 import shutil
 import sys
 import tarfile
@@ -16,11 +17,11 @@ def get_models(model_grid_name):
         readsofar = blocknum * blocksize
         if totalsize > 0:
             percent = readsofar * 1e2 / totalsize
-            s = "\r%5.1f%% %*d / %d" % (
+            s = "\r%5.0f%% %*d / %d KB" % (
                 percent,
                 len(str(totalsize)),
-                readsofar,
-                totalsize,
+                readsofar / 1e3,
+                totalsize / 1e3,
             )
             sys.stderr.write(s)
             if readsofar >= totalsize:  # near the end
@@ -100,7 +101,7 @@ def get_models(model_grid_name):
     # Download files
     print(". . . Downloading model: " + model_grid_name + " . . .")
     urllib.request.urlretrieve(
-        url_csv, full_path + "/models/" + model_grid_name + "_outputs.csv", reporthook
+        url_csv, full_path + "/models/" + model_grid_name + "_outputs.csv"
     )
     urllib.request.urlretrieve(
         url_fits, full_path + "/models/" + model_grid_name + "_models.fits", reporthook
