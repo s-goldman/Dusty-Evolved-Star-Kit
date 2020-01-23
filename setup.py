@@ -19,7 +19,6 @@ setup(
         "Intended Audience :: Developers",
         "License :: OSI Approved :: BSD License",
         "Natural Language :: English",
-        "Programming Language :: Python :: 3.5",
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
     ],
@@ -37,6 +36,6 @@ setup(
     test_suite="tests",
     tests_require="pytest",
     url="https://github.com/s-goldman/Dusty_Evolved_Star_Kit",
-    version="1.6.0",
+    version="1.6.12",
     zip_safe=False,
 )
