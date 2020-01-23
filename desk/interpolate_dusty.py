@@ -1,20 +1,20 @@
 import os, sys, pdb
 import numpy as np
-import matplotlib.pyplot as plt
-from astropy.table import Table, Column, vstack
-from scipy import interpolate
-from desk import sed_fit
+from astropy.table import Table
+from scipy.interpolate import RegularGridInterpolator
+from desk import fitting_tools
 
+# Example
+# grid_name = "Oss-Orich-bb"
 # teff_new = 4010
 # tinner_new = 900
 # tau_new = 0.146
-# grid_name = "Oss-Orich-bb"
 
 
-def interpolate_dusty(grid_name, teff_new, tinner_new, tau_new):
+def interpolate(grid_name, teff_new, tinner_new, tau_new):
     # checks if grid files available
     full_path = str(__file__.replace("interpolate_dusty.py", ""))
-    sed_fit.check_models(grid_name, full_path)
+    fitting_tools.check_models(grid_name, full_path)
     try:
         output_array = Table.read(
             full_path + "models/" + grid_name + "_outputs.csv", format="csv"
@@ -90,14 +90,11 @@ def interpolate_dusty(grid_name, teff_new, tinner_new, tau_new):
                         expansion_velocity_array[i][j][k] = output_array["vexp"][
                             mc_index
                         ]
-        # data_array = Table(array)
-        interpolator = interpolate.RegularGridInterpolator(
-            (teff, tinner, tau, waves), array
-        )
-        mdot_interpolator = interpolate.RegularGridInterpolator(
+        interpolator = RegularGridInterpolator((teff, tinner, tau, waves), array)
+        mdot_interpolator = RegularGridInterpolator(
             (teff, tinner, tau), mass_loss_array
         )
-        vexp_interpolator = interpolate.RegularGridInterpolator(
+        vexp_interpolator = RegularGridInterpolator(
             (teff, tinner, tau), expansion_velocity_array
         )
 
@@ -128,4 +125,4 @@ def interpolate_dusty(grid_name, teff_new, tinner_new, tau_new):
 
 
 if __name__ == "__main__":
-    interpolate_dusty()
+    interpolate()
