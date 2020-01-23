@@ -13,10 +13,6 @@ with open("HISTORY.rst") as history_file:
 
 requirements = ["Click>=6.0", "tqdm", "scipy", "ipdb"]
 
-setup_requirements = ["numpy", "pytest-runner"]
-
-test_requirements = ["scipy", "pytest"]
-
 setup(
     author="Steven R. Goldman",
     author_email="sgoldman@stsci.edu",
@@ -39,8 +35,9 @@ setup(
     name="desk",
     packages=find_packages(include=["desk"]),
     package_data={"project": ["desk/models/*", "desk/put_target_data_here/*"]},
-    setup_requires=setup_requirements,
-    tests_require=test_requirements,
+    setup_requires=["pytest-runner"],
+    test_suite="tests",
+    tests_require="pytest",
     url="https://github.com/s-goldman/Dusty_Evolved_Star_Kit",
     version="1.6.0",
     zip_safe=False,

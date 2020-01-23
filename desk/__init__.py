@@ -13,6 +13,3 @@ distribution, as that directory only contains C extension code.
 __author__ = """Steven R. Goldman"""
 __email__ = "sgoldman@stsci.edu"
 __version__ = "1.4.7"
-
-cwd = os.getcwd()
-sys.path.insert(0, cwd)
