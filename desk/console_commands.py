@@ -8,11 +8,10 @@ import importlib
 import numpy as np
 import astropy.units as u
 from fnmatch import fnmatch
-from desk.interpolate_dusty import interpolate
 from astropy.table import Table, Column
 from multiprocessing import Value
 from desk import config, plotting_seds, get_remote_models
-from desk import parameter_ranges, fitting_tools
+from desk import parameter_ranges, fitting_tools, interpolate_dusty
 
 importlib.reload(config)
 
@@ -27,7 +26,9 @@ def grids():
 
 # returns interpolate model as csv for any model grid
 def get_model(grid_name, teff_new, tinner_new, tau_new):
-    interpolate(grid_name, float(teff_new), float(tinner_new), float(tau_new))
+    interpolate_dusty.interpolate(
+        grid_name, float(teff_new), float(tinner_new), float(tau_new)
+    )
 
 
 def fit(
