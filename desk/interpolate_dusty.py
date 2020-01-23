@@ -11,7 +11,7 @@ from desk import fitting_tools
 # grid_name = "Oss-Orich-bb"
 
 
-def interpolate_dusty(grid_name, teff_new, tinner_new, tau_new):
+def interpolate(grid_name, teff_new, tinner_new, tau_new):
     # checks if grid files available
     full_path = str(__file__.replace("interpolate_dusty.py", ""))
     fitting_tools.check_models(grid_name, full_path)
@@ -128,4 +128,4 @@ def interpolate_dusty(grid_name, teff_new, tinner_new, tau_new):
 
 
 if __name__ == "__main__":
-    interpolate_dusty()
+    interpolate()
