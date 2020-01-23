@@ -1,6 +1,0 @@
-import os
-import sys
-
-sys.path.insert(0, os.path.abspath.join(os.path.dirname(__file__), ".."))
-
-import desk
