@@ -1,9 +1,9 @@
-import time, os, glob, ipdb
-import pytest
-import numpy as np
-from desk import parameter_ranges, console_commands
-from astropy.table import Table
-
+# import time, os, glob, ipdb
+# import pytest
+# import numpy as np
+# from desk import parameter_ranges, console_commands
+# from astropy.table import Table
+#
 
 # def test_create_par():
 #     # checks to see if png was created or modified within time_check_threshold

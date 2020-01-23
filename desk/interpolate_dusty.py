@@ -1,14 +1,14 @@
 import os, sys, pdb
 import numpy as np
-import matplotlib.pyplot as plt
-from astropy.table import Table, Column, vstack
-from scipy import interpolate
+from astropy.table import Table
+from scipy.interpolate import RegularGridInterpolator
 from desk import fitting_tools
 
+# Example
+# grid_name = "Oss-Orich-bb"
 # teff_new = 4010
 # tinner_new = 900
 # tau_new = 0.146
-# grid_name = "Oss-Orich-bb"
 
 
 def interpolate(grid_name, teff_new, tinner_new, tau_new):
@@ -90,14 +90,11 @@ def interpolate(grid_name, teff_new, tinner_new, tau_new):
                         expansion_velocity_array[i][j][k] = output_array["vexp"][
                             mc_index
                         ]
-        # data_array = Table(array)
-        interpolator = interpolate.RegularGridInterpolator(
-            (teff, tinner, tau, waves), array
-        )
-        mdot_interpolator = interpolate.RegularGridInterpolator(
+        interpolator = RegularGridInterpolator((teff, tinner, tau, waves), array)
+        mdot_interpolator = RegularGridInterpolator(
             (teff, tinner, tau), mass_loss_array
         )
-        vexp_interpolator = interpolate.RegularGridInterpolator(
+        vexp_interpolator = RegularGridInterpolator(
             (teff, tinner, tau), expansion_velocity_array
         )
 
