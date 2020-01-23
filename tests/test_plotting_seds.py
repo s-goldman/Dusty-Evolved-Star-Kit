@@ -1,5 +1,4 @@
-from .context import desk
-import time, os, glob
+from .context import desk, time, os, glob
 import pytest
 import numpy as np
 from desk import plotting_seds
