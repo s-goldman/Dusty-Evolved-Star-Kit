@@ -31,6 +31,10 @@ def get_model(grid_name, teff_new, tinner_new, tau_new):
     )
 
 
+def single_fig():
+    plotting_seds.single_figures()
+
+
 def fit(
     source="desk/put_target_data_here",
     distance=config.target["distance_in_kpc"],

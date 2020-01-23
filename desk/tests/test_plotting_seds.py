@@ -1,8 +1,8 @@
-import time, os, glob
-import pytest
-import numpy as np
-from desk import console_commands, plotting_seds
-from astropy.table import Table
+# import time, os, glob
+# import pytest
+# import numpy as np
+# from desk import console_commands, plotting_seds
+# from astropy.table import Table
 
 
 # def test_create_fig():
