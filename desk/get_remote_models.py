@@ -29,7 +29,7 @@ def get_models(model_grid_name):
         else:  # total size is unknown
             sys.stderr.write("read %d\n" % (readsofar,))
 
-    full_path = str(__file__.replace("get_remote_models.py", ""))
+    full_path = str(__file__.replace("/get_remote_models.py", ""))
     grids = [
         "Crystalline-20-bb",
         "H11-SMC",
