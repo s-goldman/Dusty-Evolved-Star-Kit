@@ -97,9 +97,25 @@ def create_fig():
             counter, target
         )
 
+        # find y limits
+        median = np.median(
+            y_model[(x_model > np.min(x_data)) & (x_model < np.max(x_data))]
+        )
+
+        y_min = median - 2
+        y_max = median + 2
+
+        y_diff = np.median(y_data) - median
+
+        if y_diff > 0:
+            y_max = y_max + y_diff
+        else:
+            y_min = y_min - ydiff
+
+        # plotting
         if len(input_file) == 1:
             ax1.set_xlim(-0.99, 2.49)
-            ax1.set_ylim(np.median(y_model) - 2, np.median(y_model) + 2)
+            ax1.set_ylim(y_min, y_max)
             ax1.scatter(x_data, y_data, c="blue", label="data")
             ax1.plot(
                 x_model,
@@ -122,7 +138,7 @@ def create_fig():
             ax1.set_ylabel("log $\lambda$ F$_{\lambda}$ " + "(W m$^{-2}$)", labelpad=10)
         else:
             axs[counter].set_xlim(-0.99, 2.49)
-            axs[counter].set_ylim(np.median(y_model) - 2, np.median(y_model) + 2)
+            axs[counter].set_ylim(y_min, y_max)
             axs[counter].plot(
                 x_model, y_model, c="k", linewidth=0.4, linestyle="--", zorder=2
             )

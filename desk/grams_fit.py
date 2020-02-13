@@ -3,6 +3,7 @@ import copy
 import math
 import ipdb
 import numpy as np
+from astropy.table import Table
 from desk import console_commands, config, fitting_tools
 
 
@@ -41,21 +42,31 @@ def grams_fit(
     # flux scaling from LMC to *distance* kpc
     flux_scaling_factor = 50 ** 2 / float(distance) ** 2
 
-    def trim_find_lsq(model):
-        # removes data outside of wavelegth range of model grid
-        trimmed_model = fitting_tools.trim(raw_data, model)
+    scaled_grid = Table(
+        (grid_dusty["col0"], np.multiply(grid_dusty["col1"], flux_scaling_factor))
+    )
 
-        # gets fluxes for corresponding wavelengths of data and models
-        matched_model = fitting_tools.find_closest(raw_data, trimmed_model)
+    # One big grid and no trials
+    stat_values.append(
+        [fitting_tools.trim_find_lsq(x, raw_data, [1]) for x in scaled_grid]
+    )
 
-        # normalize model to specified distance
-        scaled_matched_model = matched_model * flux_scaling_factor
+    # def trim_find_lsq(model):
+    #     # removes data outside of wavelegth range of model grid
+    #     trimmed_model = fitting_tools.trim(raw_data, model)
+    #
+    #     # gets fluxes for corresponding wavelengths of data and models
+    #     matched_model = fitting_tools.find_closest(raw_data, trimmed_model)
+    #
+    #     # normalize model to specified distance
+    #     scaled_matched_model = matched_model * flux_scaling_factor
+    #     ipdb.set_trace()
+    #
+    #     # fits source with least squares
+    #     stats = fitting_tools.least2(raw_data, matched_model)
+    #     stat_values.append(stats)
 
-        # fits source with least squares
-        stats = fitting_tools.least2(raw_data, matched_model)
-        stat_values.append(stats)
-
-    [trim_find_lsq(x) for x in grid_dusty]
+    # [trim_find_lsq(x) for x in grid_dusty]
 
     # obtains best fit model and model index
     stat_array = np.vstack(stat_values)
@@ -66,7 +77,7 @@ def grams_fit(
     distance_value = float(copy.copy(distance))
     luminosity = grid_outputs[model_index]["lum"] * ((distance_value / 50) ** 2)
     teff = grid_outputs[model_index]["teff"]
-    tinner = grid_outputs[model_index]["tinner"]
+    tinner = int(grid_outputs[model_index]["tinner"])
     odep = grid_outputs[model_index]["odep"]
     mdot = grid_outputs[model_index]["mdot"] * (distance_value / 50)
     rin = grid_outputs[model_index]["rin"] * (distance_value / 50)
