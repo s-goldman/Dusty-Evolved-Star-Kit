@@ -38,7 +38,7 @@ def grams_fit(
     # gets target data
     raw_data = fitting_tools.get_data(source)
 
-    #
+    # flux scaling from LMC to *distance* kpc
     flux_scaling_factor = 50 ** 2 / float(distance) ** 2
 
     def trim_find_lsq(model):
@@ -59,10 +59,10 @@ def grams_fit(
 
     # obtains best fit model and model index
     stat_array = np.vstack(stat_values)
-    argmin = np.argmin(stat_array)  # lowest chi square value
-    model_index = argmin // stat_array.shape[1]
+    model_index = np.argmin(stat_array)  # lowest chi square value
     target_name = (source.split("/")[-1][:15]).replace("IRAS-", "IRAS ")
 
+    # scaling outputs
     distance_value = float(copy.copy(distance))
     luminosity = grid_outputs[model_index]["lum"] * ((distance_value / 50) ** 2)
     teff = grid_outputs[model_index]["teff"]

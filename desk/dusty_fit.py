@@ -46,6 +46,7 @@ def dusty_fit(
     # obtains best fit model and model index
     stat_array = np.vstack(stat_values)
     argmin = np.argmin(stat_array)  # lowest chi square value
+    # total with e.g. len 300 and grid with e.g. len 100, yields grid index
     model_index = argmin // stat_array.shape[1]
     trial_index = argmin % stat_array.shape[1]
     target_name = (source.split("/")[-1][:15]).replace("IRAS-", "IRAS ")
