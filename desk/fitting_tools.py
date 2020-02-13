@@ -225,7 +225,7 @@ def make_output_files_grams():
 def sed_fitting(model_grid, *args, **kargs):
     # passes arguments to either dusty_fit or grams_fit
     if fnmatch(model_grid, "grams*"):
-        print("\n currently unavailble \n")
+        raise ValueError("\n\n\n ***Currently Unavailble*** \n")
         # return grams_fit(model_grid, *args, **kargs)
     else:
         return dusty_fit(model_grid, *args, **kargs)
