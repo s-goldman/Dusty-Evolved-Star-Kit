@@ -63,7 +63,7 @@ def get_data(filename):
 
 
 def find_closest(target_wave, model_wave):
-    """Find values model values corresponding to the closest values in the data
+    """Find model values corresponding to the closest values in the data
 
     Parameters
     ----------
@@ -225,6 +225,7 @@ def make_output_files_grams():
 def sed_fitting(model_grid, *args, **kargs):
     # passes arguments to either dusty_fit or grams_fit
     if fnmatch(model_grid, "grams*"):
-        return grams_fit(model_grid, *args, **kargs)
+        print("\n currently unavailble \n")
+        # return grams_fit(model_grid, *args, **kargs)
     else:
         return dusty_fit(model_grid, *args, **kargs)
