@@ -110,7 +110,7 @@ def create_fig():
         if y_diff > 0:
             y_max = y_max + y_diff
         else:
-            y_min = y_min - ydiff
+            y_min = y_min - y_diff
 
         # plotting
         if len(input_file) == 1:
