@@ -70,7 +70,7 @@ See documentation for more details.
 
 WARNING
 -------
-GRAMS model grids currently have incorrect scaling of output parameters (expected correction: Feb. 2020).
+GRAMS model grids currently have incorrect scaling of output parameters (expected correction: Mar. 2020).
 
 Attribution
 -----------
