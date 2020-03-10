@@ -133,7 +133,7 @@ def create_trials(y_flux_array):
     log_average_flux_wm2 = np.log10(np.median(y_flux_array))
     trials = np.logspace(
         log_average_flux_wm2 - 2,
-        log_average_flux_wm2 + 2,
+        log_average_flux_wm2 + 4,
         config.fitting["number_of_tries"],
     )
     return trials
