@@ -116,7 +116,7 @@ def trim(data, model_trim):
     return np.vstack([model_trim[0][indexes], model_trim[1][indexes]])
 
 
-def create_trials(y_flux_array):
+def create_trials(y_flux_array, distance):
     """Creates arrays of model fluxes normalize to +/- 2.
 
     Parameters
@@ -130,11 +130,14 @@ def create_trials(y_flux_array):
         An array of model flux arrays for each normalized value
 
     """
-    log_average_flux_wm2 = np.log10(np.median(y_flux_array))
-    trials = np.logspace(
-        log_average_flux_wm2 - 2,
-        log_average_flux_wm2 + 4,
-        config.fitting["number_of_tries"],
+    distance_norm = math.log10(((float(distance) / 4.8482e-9) ** 2) / 1379)
+    lum_min = 1000  # solar luminosities
+    lum_max = 100000
+    trials = (
+        np.linspace(
+            np.log10(lum_min), np.log10(lum_max), config.fitting["number_of_tries"]
+        )
+        - distance_norm
     )
     return trials
 
