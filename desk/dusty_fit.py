@@ -37,7 +37,7 @@ def dusty_fit(
     # gets target data
     raw_data = fitting_tools.get_data(source)
 
-    trials = fitting_tools.create_trials(raw_data[1])
+    trials = fitting_tools.create_trials(raw_data[1], distance)
 
     stat_values.append(
         [fitting_tools.trim_find_lsq(x, raw_data, trials) for x in grid_dusty]
