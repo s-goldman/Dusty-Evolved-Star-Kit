@@ -51,7 +51,9 @@ def get_model_and_data_for_plotting(counter, target):
         )
     else:
         y_model = y_model * u.W / (u.m * u.m)
-    y_model = y_model[np.where(y_model != 0)] * input_file[counter]["norm"]
+    y_model = y_model[np.where(y_model != 0)] * np.power(
+        10, input_file[counter]["norm"]
+    )
 
     # logscale
     x_model = np.log10(x_model)

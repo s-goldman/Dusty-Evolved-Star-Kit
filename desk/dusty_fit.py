@@ -1,8 +1,13 @@
 import csv
 import copy
 import math
+import ipdb
 import numpy as np
+from copy import deepcopy
 from desk import console_commands, config, fitting_tools
+from astropy.table import Table, Column, vstack, hstack
+from create_full_grid import *
+from fitting import fit
 
 
 def dusty_fit(
@@ -30,45 +35,43 @@ def dusty_fit(
         The total number of sources to be fit.
 
     """
-
-    # Initialize variables
-    stat_values = []
-
     # gets target data
-    raw_data = fitting_tools.get_data(source)
+    data_wave, data_flux = fitting_tools.get_data(source)
 
-    trials = fitting_tools.create_trials(raw_data[1], distance)
+    trials = fitting_tools.create_trials(data_flux, distance)
 
-    stat_values.append(
-        [fitting_tools.trim_find_lsq(x, raw_data, trials) for x in grid_dusty]
-    )
+    # only works with copy
+    full_outputs = create_full_outputs(deepcopy(grid_outputs), distance, trials)
+
+    full_model_grid = create_full_model_grid(grid_dusty, trials)
+
+    wavelength_grid = grid_dusty["col0"][0]
+
+    stat_values = [
+        fit.fit_data([data_wave, data_flux], [wavelength_grid, x])
+        for x in full_model_grid["col0"]
+    ]
 
     # obtains best fit model and model index
     stat_array = np.vstack(stat_values)
-    argmin = np.argmin(stat_array)  # lowest chi square value
+    best_model = np.argmin(stat_array)  # lowest chi square value
+
     # total with e.g. len 300 and grid with e.g. len 100, yields grid index
-    model_index = argmin // stat_array.shape[1]
-    trial_index = argmin % stat_array.shape[1]
+    # model_index = argmin // stat_array.shape[1]
+    # trial_index = argmin % stat_array.shape[1]
     target_name = (source.split("/")[-1][:15]).replace("IRAS-", "IRAS ")
 
     # normalizes output values by the set distance
     distance_value = float(copy.copy(distance))
     distance_norm = math.log10(((float(distance) / 4.8482e-9) ** 2) / 1379)
-    luminosity = int(
-        np.power(10.0, distance_norm - math.log10(trials[trial_index]) * -1)
-    )
-    scaled_vexp = (
-        float(grid_outputs[model_index]["vexp"]) * (luminosity / 10000) ** 0.25
-    )
-    scaled_mdot = (
-        grid_outputs[model_index]["mdot"]
-        * ((luminosity / 10000) ** 0.75)
-        * (config.target["assumed_gas_to_dust_ratio"] / 200) ** 0.5
-    )
-
-    teff = int(grid_outputs[model_index]["teff"])
-    tinner = int(grid_outputs[model_index]["tinner"])
-    odep = grid_outputs[model_index]["odep"]
+    luminosity = full_outputs["lum"][best_model]
+    scaled_vexp = full_outputs["scaled_vexp"][best_model]
+    scaled_mdot = full_outputs["scaled_mdot"][best_model]
+    teff = int(full_outputs["teff"][best_model])
+    tinner = int(full_outputs["tinner"][best_model])
+    odep = full_outputs["odep"][best_model]
+    trial = full_outputs["trial"][best_model]
+    model_index = best_model % len(grid_outputs)  # remainder
 
     # creates results file
     latex_array = [
@@ -85,7 +88,7 @@ def dusty_fit(
     plotting_array = [
         target_name,
         source,
-        trials[trial_index],
+        trial,
         model_index,
         model_grid,
         teff,
