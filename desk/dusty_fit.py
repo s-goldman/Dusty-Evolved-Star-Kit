@@ -10,49 +10,30 @@ from create_full_grid import *
 from compute_grid_weights import *
 from fitting import fit
 
+__all__ = ["dusty_fit"]
+
 
 def dusty_fit(
-    model_grid, source, distance, grid_dusty, grid_outputs, counter, number_of_targets
+    source,
+    distance,
+    model_grid,
+    wavelength_grid,
+    full_model_grid,
+    full_outputs,
+    grid_outputs,
+    counter,
+    number_of_targets,
 ):
-    """Function fits astropy table data with a least squares method.
 
-    Parameters
-    ----------
-    model_grid : str
-        Name of model grid being used.
-    source : str
-        Name of the source being fit.
-    distance : float
-        Distance to source in kpc.
-    grid_dusty : astropy table
-        Table with two items in each row item 1 being an array
-        with wavelength in microns and item 2 being an array with flux in w/m2.
-    grid_outputs : astropy table
-        Table with each row showing the output results corresponding to each row
-        in grid_dusty
-    counter : int
-        The nth item being fit.
-    number_of_targets : int
-        The total number of sources to be fit.
-
-    """
     # gets target data
     data_wave, data_flux = set_up.get_data(source)
-
-    trials = create_trials(data_flux, distance)
-
-    # only works with copy
-    full_outputs = create_full_outputs(deepcopy(grid_outputs), distance, trials)
-
-    full_model_grid = create_full_model_grid(grid_dusty, trials)
-
-    wavelength_grid = grid_dusty["col0"][0]
 
     stat_values = [
         fit.fit_data([data_wave, data_flux], [wavelength_grid, x])
         for x in full_model_grid["col0"]
     ]
     stat_array = np.array(stat_values)
+
     # obtains best fit model and model index
     liklihood = np.exp(-0.5 * stat_array)
     liklihood /= np.sum(liklihood)  # normalize
@@ -61,11 +42,8 @@ def dusty_fit(
     probability_distribution = liklihood * grid_weights
     # ipdb.set_trace()
     best_model = np.argmax(liklihood)
-    # ipdb.set_trace()
 
-    # total with e.g. len 300 and grid with e.g. len 100, yields grid index
-    # model_index = argmin // stat_array.shape[1]
-    # trial_index = argmin % stat_array.shape[1]
+    # print and save results
     target_name = (source.split("/")[-1][:15]).replace("IRAS-", "IRAS ")
 
     # normalizes output values by the set distance
@@ -140,3 +118,5 @@ def dusty_fit(
         writer.writerow(np.array(plotting_array))
         f.close()
     counter.value += 1
+
+    return best_model

@@ -8,8 +8,11 @@ import importlib
 import numpy as np
 import astropy.units as u
 from fnmatch import fnmatch
+from copy import deepcopy
 from astropy.table import Table, Column
 from multiprocessing import Value
+from create_full_grid import *
+from dusty_fit import *
 from desk import config, plotting_seds, get_remote_models
 from desk import parameter_ranges, set_up, interpolate_dusty
 
@@ -53,74 +56,55 @@ def fit(
 
     """
 
-    # set variables
-    grid_type = copy.copy(grid)
+    # progress tracking
     start = time.time()
     counter = Value("i", 0)
-    # normalization calculation
-    # solar constant = 1379 W
-    # distance to sun in kpc 4.8483E-9
-    full_path = str(__file__.replace("console_commands.py", ""))
-
-    # create output files
-    if fnmatch(grid_type, "grams*"):
-        set_up.make_output_files_grams()
-    else:
-        set_up.make_output_files_dusty()
-
-    # User input for models
-    if grid == "carbon":
-        model_grid = "Zubko-Crich-bb"
-    elif grid == "oxygen":
-        model_grid = "Oss-Orich-bb"
-    else:
-        if grid in config.grids:
-            model_grid = grid
-        else:
-            raise ValueError(
-                "\n\nUnknown grid. Please make another model selection.\n\n To see options use: desk grids\n"
-            )
-
-    # check if models exist
-    csv_file, fits_file = set_up.check_models(model_grid, full_path)
 
     # gets models
-    grid_dusty = Table.read(fits_file)
-    grid_outputs = Table.read(csv_file)
+    grid_dusty, grid_outputs, model_grid = set_up.get_model_grid(grid)
 
-    # Model grid equal lengths check
-    if len(grid_dusty) == len(grid_outputs):
-        pass
-    else:
-        raise ValueError(
-            "Model grid input error: mismatch in model spectra and model output"
-        )
+    # get full grids
+    trials = create_trials(distance)
+    wavelength_grid = grid_dusty["col0"][0]
+    full_outputs = create_full_outputs(deepcopy(grid_outputs), distance, trials)
+    full_model_grid = create_full_model_grid(grid_dusty, trials)
 
-    # SED FITTING ###############################
     def add_variables(source):
-        return set_up.sed_fitting(
-            model_grid,
+        pass
+
+    # run SED fitting on csv or directory of csvs
+    if fnmatch(source, "*.csv"):
+        number_of_targets = 1
+        best_model = dusty_fit(
             source,
             distance,
-            grid_dusty,
+            model_grid,
+            wavelength_grid,
+            full_model_grid,
+            full_outputs,
             grid_outputs,
             counter,
             number_of_targets,
         )
 
-    if fnmatch(source, "*.csv"):
-        number_of_targets = 1
-        add_variables(source)
     elif os.path.isdir(source):
-        source_dir = (source + "/").replace("//", "/")
+        source_dir = (source + "/").replace("//", "/")  # if input dir ends in /
         if glob.glob(source_dir + "/*.csv"):
             files = glob.glob(source + "/" + "*.csv")
             number_of_targets = len(files)
-            # with Pool(processes=cpu_count() - 1) as pool:
-            #     pool.map(sed_fitting, [target_string for target_string in files])
-
             for target_string in files:
-                add_variables(target_string)
+                best_model = dusty_fit(
+                    target_string,
+                    distance,
+                    model_grid,
+                    wavelength_grid,
+                    full_model_grid,
+                    full_outputs,
+                    grid_outputs,
+                    counter,
+                    number_of_targets,
+                )
+
         else:
             raise ValueError(
                 "\n\n\nERROR: No .csv files in that directory. Please make another selection.\n\n"

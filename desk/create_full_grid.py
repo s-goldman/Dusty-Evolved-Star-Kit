@@ -10,13 +10,13 @@ from astropy.table import Table, Column, vstack, hstack
 __all__ = ["create_full_outputs", "create_full_model_grid", "create_trials"]
 
 
-def create_trials(y_flux_array, distance):
+def create_trials(distance):
     """Creates arrays of model fluxes normalize to +/- 2.
 
     Parameters
     ----------
-    y_flux_array : array
-        The flux of the model in w/m2.
+    distance : int
+        distance in kpc
 
     Returns
     -------
