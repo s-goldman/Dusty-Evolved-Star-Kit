@@ -59,7 +59,8 @@ class fit:
 
     def least2(data, model_l2):
         # least squares fit
-        return np.nansum(np.square(model_l2 - data))
+        stat = np.nansum(np.square(data - model_l2) / model_l2)
+        return stat
 
     def fit_data(data, model):
         trimmed_wave, trimmed_flux = fit.trim(data, model)

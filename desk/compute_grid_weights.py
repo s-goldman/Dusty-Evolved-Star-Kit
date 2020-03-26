@@ -8,8 +8,10 @@ If the grid is not uniformly spaced, weights can be used to correct
 for the non-uniform spacing.
 """
 import numpy as np
+import ipdb
+from astropy.table import Table, Column
 
-__all__ = ["compute_flat_prior_grid_weights"]
+__all__ = ["compute_total_weights"]
 
 
 def compute_bin_boundaries(tab):
@@ -37,7 +39,7 @@ def compute_bin_boundaries(tab):
     return tab2
 
 
-def compute_flat_prior_grid_weights(masses):
+def compute_bin_weights(unique_values):
     """
     Computes the mass weights to set a uniform prior on linear mass
     Parameters
@@ -50,16 +52,62 @@ def compute_flat_prior_grid_weights(masses):
        weights to provide a constant SFR in linear age
     """
     # sort the initial mass along this isochrone
-    sindxs = np.argsort(masses)
+    indexes = np.argsort(unique_values)
 
     # Compute the mass bin boundaries
-    masses_bounds = compute_bin_boundaries(masses[sindxs])
+    value_bounds = compute_bin_boundaries(unique_values[indexes])
 
     # compute the weights = bin widths
-    mass_weights = np.empty(len(masses))
-    mass_weights[sindxs] = np.diff(masses_bounds)
+    value_weights = np.empty(len(unique_values))
+    value_weights[indexes] = np.diff(value_bounds)
 
     # normalize to avoid numerical issues (too small or too large)
-    mass_weights /= np.average(mass_weights)
+    value_weights /= np.average(value_weights)
 
-    return mass_weights
+    return value_weights
+
+
+def compute_weights(_grid, _grid_param):
+    """Returns grid and prior weigths for given paramters.
+
+    Parameters
+    ----------
+    _grid : 1D array
+        Grid of radiative transfer model paramters
+
+    Returns
+    -------
+    type: 1D arrays
+        grid_weights for parameters
+    """
+
+    total_grid_weight = np.zeros(len(_grid), dtype=np.longfloat)
+    unique_values = np.unique(_grid[_grid_param])
+    grid_weights = compute_bin_weights(unique_values)
+    # fill grid weights array
+    for idx, _item in enumerate(unique_values):
+        _index_grid = np.where(_grid[_grid_param] == unique_values[idx])[0]
+        total_grid_weight[_index_grid] = grid_weights[idx]
+        total_grid_weight /= np.sum(total_grid_weight)
+
+    return total_grid_weight
+
+
+def compute_total_weights(_grid, param_array):
+    """Computes the total grid weights for the model grid.
+
+    Parameters
+    ----------
+    param_array : 1D array
+        Array of model grid column names
+
+    Returns
+    -------
+    type : 1D array
+        Total normalized grid weights for the model grid
+
+    """
+    weights = [compute_weights(_grid, x) for x in param_array]
+    total_weights = np.prod(weights, axis=0)
+    total_weights /= np.sum(total_weights)
+    return total_weights

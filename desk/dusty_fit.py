@@ -7,6 +7,7 @@ from copy import deepcopy
 from desk import console_commands, config, fitting_tools
 from astropy.table import Table, Column, vstack, hstack
 from create_full_grid import *
+from compute_grid_weights import *
 from fitting import fit
 
 
@@ -51,10 +52,16 @@ def dusty_fit(
         fit.fit_data([data_wave, data_flux], [wavelength_grid, x])
         for x in full_model_grid["col0"]
     ]
-
+    stat_array = np.array(stat_values)
     # obtains best fit model and model index
-    stat_array = np.vstack(stat_values)
-    best_model = np.argmin(stat_array)  # lowest chi square value
+    liklihood = np.exp(-0.5 * stat_array)
+    liklihood /= np.sum(liklihood)  # normalize
+
+    grid_weights = compute_total_weights(full_outputs, ["mdot", "vexp", "lum", "odep"])
+    probability_distribution = liklihood * grid_weights
+    # ipdb.set_trace()
+    best_model = np.argmax(liklihood)
+    # ipdb.set_trace()
 
     # total with e.g. len 300 and grid with e.g. len 100, yields grid index
     # model_index = argmin // stat_array.shape[1]
