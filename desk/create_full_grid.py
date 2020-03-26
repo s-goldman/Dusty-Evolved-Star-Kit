@@ -4,10 +4,36 @@ import math
 import ipdb
 import numpy as np
 from copy import deepcopy
-from desk import console_commands, config, fitting_tools
+from desk import console_commands, config
 from astropy.table import Table, Column, vstack, hstack
 
-__all__ = ["create_full_outputs", "create_full_model_grid"]
+__all__ = ["create_full_outputs", "create_full_model_grid", "create_trials"]
+
+
+def create_trials(y_flux_array, distance):
+    """Creates arrays of model fluxes normalize to +/- 2.
+
+    Parameters
+    ----------
+    y_flux_array : array
+        The flux of the model in w/m2.
+
+    Returns
+    -------
+    array
+        An array of model flux arrays for each normalized value
+
+    """
+    distance_norm = math.log10(((float(distance) / 4.8482e-9) ** 2) / 1379)
+    lum_min = 10000  # solar luminosities
+    lum_max = 200000
+    trials = (
+        np.linspace(
+            np.log10(lum_min), np.log10(lum_max), config.fitting["number_of_tries"]
+        )
+        - distance_norm
+    )
+    return trials
 
 
 def create_full_outputs(_grid_outputs, distance, trials):

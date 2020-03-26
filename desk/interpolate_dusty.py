@@ -2,7 +2,7 @@ import os, sys, pdb
 import numpy as np
 from astropy.table import Table
 from scipy.interpolate import RegularGridInterpolator
-from desk import fitting_tools
+from desk import set_up
 
 # Example
 # grid_name = "Oss-Orich-bb"
@@ -14,7 +14,7 @@ from desk import fitting_tools
 def interpolate(grid_name, teff_new, tinner_new, tau_new):
     # checks if grid files available
     full_path = str(__file__.replace("interpolate_dusty.py", ""))
-    fitting_tools.check_models(grid_name, full_path)
+    set_up.check_models(grid_name, full_path)
     try:
         output_array = Table.read(
             full_path + "models/" + grid_name + "_outputs.csv", format="csv"

@@ -4,7 +4,7 @@ import math
 import ipdb
 import numpy as np
 from copy import deepcopy
-from desk import console_commands, config, fitting_tools
+from desk import console_commands, config, set_up
 from astropy.table import Table, Column, vstack, hstack
 from create_full_grid import *
 from compute_grid_weights import *
@@ -37,9 +37,9 @@ def dusty_fit(
 
     """
     # gets target data
-    data_wave, data_flux = fitting_tools.get_data(source)
+    data_wave, data_flux = set_up.get_data(source)
 
-    trials = fitting_tools.create_trials(data_flux, distance)
+    trials = create_trials(data_flux, distance)
 
     # only works with copy
     full_outputs = create_full_outputs(deepcopy(grid_outputs), distance, trials)

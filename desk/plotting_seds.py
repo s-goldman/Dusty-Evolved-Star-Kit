@@ -6,7 +6,7 @@ import numpy as np
 from fnmatch import fnmatch
 from astropy.io import ascii
 from astropy.table import Table
-from desk import config, fitting_tools
+from desk import config, set_up
 from matplotlib import rc
 
 
@@ -41,7 +41,7 @@ def get_model_and_data_for_plotting(counter, target):
     )
 
     target_name = (target["target_name"]).replace(".csv", "").replace("_", " ")
-    x_data, y_data = fitting_tools.get_data(target["data_file"])
+    x_data, y_data = set_up.get_data(target["data_file"])
     x_model, y_model = grid_dusty[target["index"]]
     x_model = x_model[np.where(y_model != 0)]
     if fnmatch(input_file["grid_name"][0], "grams*"):

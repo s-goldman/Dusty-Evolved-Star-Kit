@@ -11,7 +11,7 @@ from fnmatch import fnmatch
 from astropy.table import Table, Column
 from multiprocessing import Value
 from desk import config, plotting_seds, get_remote_models
-from desk import parameter_ranges, fitting_tools, interpolate_dusty
+from desk import parameter_ranges, set_up, interpolate_dusty
 
 importlib.reload(config)
 
@@ -64,9 +64,9 @@ def fit(
 
     # create output files
     if fnmatch(grid_type, "grams*"):
-        fitting_tools.make_output_files_grams()
+        set_up.make_output_files_grams()
     else:
-        fitting_tools.make_output_files_dusty()
+        set_up.make_output_files_dusty()
 
     # User input for models
     if grid == "carbon":
@@ -82,7 +82,7 @@ def fit(
             )
 
     # check if models exist
-    csv_file, fits_file = fitting_tools.check_models(model_grid, full_path)
+    csv_file, fits_file = set_up.check_models(model_grid, full_path)
 
     # gets models
     grid_dusty = Table.read(fits_file)
@@ -98,7 +98,7 @@ def fit(
 
     # SED FITTING ###############################
     def add_variables(source):
-        return fitting_tools.sed_fitting(
+        return set_up.sed_fitting(
             model_grid,
             source,
             distance,

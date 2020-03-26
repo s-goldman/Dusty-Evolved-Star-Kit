@@ -4,7 +4,7 @@ import math
 import ipdb
 import numpy as np
 from astropy.table import Table
-from desk import console_commands, config, fitting_tools
+from desk import console_commands, config, set_up
 
 
 def grams_fit(
@@ -37,7 +37,7 @@ def grams_fit(
     stat_values = []
 
     # gets target data
-    raw_data = fitting_tools.get_data(source)
+    raw_data = set_up.get_data(source)
 
     # flux scaling from LMC to *distance* kpc
     flux_scaling_factor = 50 ** 2 / float(distance) ** 2
@@ -47,23 +47,21 @@ def grams_fit(
     )
 
     # One big grid and no trials
-    stat_values.append(
-        [fitting_tools.trim_find_lsq(x, raw_data, [1]) for x in scaled_grid]
-    )
+    stat_values.append([set_up.trim_find_lsq(x, raw_data, [1]) for x in scaled_grid])
 
     # def trim_find_lsq(model):
     #     # removes data outside of wavelegth range of model grid
-    #     trimmed_model = fitting_tools.trim(raw_data, model)
+    #     trimmed_model = set_up.trim(raw_data, model)
     #
     #     # gets fluxes for corresponding wavelengths of data and models
-    #     matched_model = fitting_tools.find_closest(raw_data, trimmed_model)
+    #     matched_model = set_up.find_closest(raw_data, trimmed_model)
     #
     #     # normalize model to specified distance
     #     scaled_matched_model = matched_model * flux_scaling_factor
     #     ipdb.set_trace()
     #
     #     # fits source with least squares
-    #     stats = fitting_tools.least2(raw_data, matched_model)
+    #     stats = set_up.least2(raw_data, matched_model)
     #     stat_values.append(stats)
 
     # [trim_find_lsq(x) for x in grid_dusty]

@@ -3,7 +3,7 @@ import copy
 import math
 import ipdb
 import numpy as np
-from desk import console_commands, config, fitting_tools
+from desk import console_commands, config
 from astropy.table import Table, Column, vstack, hstack
 
 
