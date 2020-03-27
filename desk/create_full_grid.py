@@ -11,19 +11,22 @@ __all__ = ["create_full_outputs", "create_full_model_grid", "create_trials"]
 
 
 def create_trials(distance):
-    """Creates arrays of model fluxes normalize to +/- 2.
+    """Creates arrays of model fluxes from lum_min to lum_max
 
     Parameters
     ----------
-    distance : int
-        distance in kpc
+    distance : float
+        Distance to source in Kpc.
 
     Returns
     -------
-    array
-        An array of model flux arrays for each normalized value
-
+    trials : 1D numpy array
+        An array of scaling factors that the model grids will be scaled to.
+        As the model grids are used to create higher-luminosity models through scaling,
+        this sets the different luminosities that each grid will have (i.e. the model
+        grid will be appended by the same model grid scaled by each of the values in trials)
     """
+
     distance_norm = math.log10(((float(distance) / 4.8482e-9) ** 2) / 1379)
     lum_min = 10000  # solar luminosities
     lum_max = 200000
@@ -59,6 +62,7 @@ def create_full_outputs(_grid_outputs, distance, trials):
     distance_norm = math.log10(((float(distance) / 4.8482e-9) ** 2) / 1379)
     grid_template = deepcopy(_grid_outputs)
 
+    # for each scaling value, create a grid to be appended
     for i, trial in enumerate(trials):
         appended_trials = Column(np.full(len(grid_template), trial), name="trial")
         if i == 0:
@@ -73,7 +77,6 @@ def create_full_outputs(_grid_outputs, distance, trials):
         np.array(np.power(10.0, distance_norm - _grid_outputs["trial"] * -1)),
         name="lum",
     )
-
     _grid_outputs.add_column(luminosity.astype(int))
 
     # adds scaled parameters
@@ -88,8 +91,8 @@ def create_full_outputs(_grid_outputs, distance, trials):
         * (config.target["assumed_gas_to_dust_ratio"] / 200) ** 0.5,
         name="scaled_mdot",
     )
-
     _grid_outputs.add_columns([scaled_vexp, scaled_mdot])
+
     return _grid_outputs
 
 

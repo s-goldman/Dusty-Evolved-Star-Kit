@@ -8,7 +8,7 @@ from astropy.table import Table, Column, vstack, hstack
 
 
 class fit:
-    """docstring for dusty_fit_models."""
+    """Fitting tools for least square fit"""
 
     def trim(data, model_trim):
         """Removes data outside of wavelegth range of model grid.
@@ -38,14 +38,16 @@ class fit:
 
         Parameters
         ----------
-        target_wave : 1-D array
-            Target wavelength in um.
+        data_wave : 1-D array
+            wavelengths of data in microns.
         model_wave : 1-D array
-            model wavelength in um.
+            wavelengths of model in microns.
+        model_flux : 1-D array
+            scaled flux of model in W M-2
 
         Returns
         -------
-        array
+        closest_data_flux: array
             Array of the closest data wavelength values, to the model wavelength values.
 
         """
@@ -63,6 +65,21 @@ class fit:
         return stat
 
     def fit_data(data, model):
+        """trims the data, finds the closest match, and returns chi square value
+
+        Parameters
+        ----------
+        data : 2D array
+            Data with wavelength in microns and flux in W M-2
+        model : 2D array
+            model with wavelength in microns and scaled flux in W M-2
+
+        Returns
+        -------
+        stats: float
+            chi square value.
+
+        """
         trimmed_wave, trimmed_flux = fit.trim(data, model)
         matched_model = fit.find_closest(data[0], trimmed_wave, trimmed_flux)
         stats = fit.least2(data[1], matched_model)

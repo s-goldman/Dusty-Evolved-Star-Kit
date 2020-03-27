@@ -40,7 +40,6 @@ def dusty_fit(
 
     grid_weights = compute_total_weights(full_outputs, ["mdot", "vexp", "lum", "odep"])
     probability_distribution = liklihood * grid_weights
-    # ipdb.set_trace()
     best_model = np.argmax(liklihood)
 
     # print and save results

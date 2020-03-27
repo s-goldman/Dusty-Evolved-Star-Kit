@@ -29,12 +29,32 @@ def grids():
 
 # returns interpolate model as csv for any model grid
 def get_model(grid_name, teff_new, tinner_new, tau_new):
+    """Retreives a model from one of the available model grids.
+
+    Parameters
+    ----------
+    grid_name : str
+        Name of model grid.
+    teff_new : float
+        effective temperature (K).
+    tinner_new : float
+        Inner dust temperature (K).
+    tau_new : float
+        Optical depth at 10 microns.
+
+    Returns
+    -------
+    type
+        The model grid is saved in current direcotry.
+
+    """
     interpolate_dusty.interpolate(
         grid_name, float(teff_new), float(tinner_new), float(tau_new)
     )
 
 
 def single_fig():
+    # creates single SED figures for each source previously fit
     plotting_seds.single_figures()
 
 
@@ -72,7 +92,7 @@ def fit(
     def add_variables(source):
         pass
 
-    # run SED fitting on csv or directory of csvs
+    # run SED fitting on csv
     if fnmatch(source, "*.csv"):
         number_of_targets = 1
         best_model = dusty_fit(
@@ -87,6 +107,7 @@ def fit(
             number_of_targets,
         )
 
+    # or runs SED fitting on direcory of csvs
     elif os.path.isdir(source):
         source_dir = (source + "/").replace("//", "/")  # if input dir ends in /
         if glob.glob(source_dir + "/*.csv"):

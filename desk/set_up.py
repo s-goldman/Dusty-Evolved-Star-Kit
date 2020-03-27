@@ -17,13 +17,35 @@ from desk import config, get_remote_models
 
 # Checks if model exists and if it's a csv file or directory of csv files
 def check_models(model_grid, full_path):
+    """Checks if model grids are available and returns the full path to the model.
+    If the model is not downloaded, it is downloaded via Box.
+
+    Parameters
+    ----------
+    model_grid : str
+        Name of model grid to use.
+    full_path : str
+        full path to desk.
+
+    Returns
+    -------
+    csv_file: str
+        The full path/name of the model outputs file.
+    fits_file: str
+        The full path/name of the model grid file.
+
+    """
     csv_file = full_path + "models/" + model_grid + "_outputs.csv"
     fits_file = full_path + "models/" + model_grid + "_models.fits"
+
+    # Checks if grid is available
     if os.path.isfile(csv_file) and os.path.isfile(fits_file):
         print("\nYou already have the grid!\n")
     else:
+        # asks if you want to download the models
         user_proceed = input("Models not found locally, download the models [y]/n?: ")
         if user_proceed == "y" or user_proceed == "":
+            # downloads models
             get_remote_models.get_models(model_grid)
         elif user_proceed == "n":
             raise ValueError("Please make another model selection")
@@ -33,7 +55,8 @@ def check_models(model_grid, full_path):
 
 
 def get_model_grid(grid):
-    """confirms model grid or uses default, and retrieves file name
+    """Gets the real model grid name if the defaults were chosen,
+    and runs check models.
 
     Parameters
     ----------
@@ -42,9 +65,13 @@ def get_model_grid(grid):
 
     Returns
     -------
-    type : str
-        model grid name
+    grid_dusty : 2 column astropy table with array of wavelengths and array of
+    fluxes in each column of each row
+        The (intial) model grid wavelengths and fluxes. This is not the full model
+        grid with appended scaled models.
 
+    grid_outputs : astropy table
+        The model grid parameters corresponding to the grid_dusty model grids
     """
     full_path = str(__file__.replace("set_up.py", ""))
     grid_type = copy.copy(grid)
