@@ -68,9 +68,10 @@ for example:
 
 See documentation for more details.
 
-WARNING
--------
+<aside class="warning">
 GRAMS model grids currently have incorrect scaling of output parameters (expected correction: Mar. 2020).
+
+</aside>
 
 Attribution
 -----------
