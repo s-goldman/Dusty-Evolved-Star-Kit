@@ -4,13 +4,15 @@ import math
 import ipdb
 import numpy as np
 from copy import deepcopy
+import matplotlib.pyplot as plt
 from desk import console_commands, config, set_up
 from astropy.table import Table, Column, vstack, hstack
 from create_full_grid import *
 from compute_grid_weights import *
+from create_pdf import *
 from fitting import fit
 
-__all__ = ["dusty_fit"]
+__all__ = ["dusty_fit", "print_save_results"]
 
 
 def dusty_fit(
@@ -33,78 +35,66 @@ def dusty_fit(
         for x in full_model_grid["col0"]
     ]
     stat_array = np.array(stat_values)
-
     # obtains best fit model and model index
     liklihood = np.exp(-0.5 * stat_array)
-    liklihood /= np.sum(liklihood)  # normalize
+    liklihood /= np.sum(liklihood)
 
-    grid_weights = compute_total_weights(full_outputs, ["mdot", "vexp", "lum", "odep"])
-    probability_distribution = liklihood * grid_weights
-    best_model = np.argmax(liklihood)
+    # grid_weights = compute_total_weights(full_outputs, ["mdot", "vexp", "lum", "odep"])
+    grid_weights_odep = grid_weights(full_outputs["odep"])
+    pdf = pdf1d(full_outputs["odep"], 50, logspacing=True)
+    bins, bin_vals = pdf.gen1d(np.arange(0, len(grid_weights_odep)), grid_weights_odep)
 
-    # print and save results
-    target_name = (source.split("/")[-1][:15]).replace("IRAS-", "IRAS ")
+    ipdb.set_trace()
+    # probability_distribution = liklihood * grid_weights
+    # probability_distribution = grid_weights
+    # most_likely, stds = create_pdfs(full_outputs, probability_distribution, 50)
+    return most_likely
 
-    # normalizes output values by the set distance
-    distance_value = float(copy.copy(distance))
-    distance_norm = math.log10(((float(distance) / 4.8482e-9) ** 2) / 1379)
-    luminosity = full_outputs["lum"][best_model]
-    scaled_vexp = full_outputs["scaled_vexp"][best_model]
-    scaled_mdot = full_outputs["scaled_mdot"][best_model]
-    teff = int(full_outputs["teff"][best_model])
-    tinner = int(full_outputs["tinner"][best_model])
-    odep = full_outputs["odep"][best_model]
-    trial = full_outputs["trial"][best_model]
-    model_index = best_model % len(grid_outputs)  # remainder
+
+def print_save_results(target_string, counter, number_of_targets, most_likely):
 
     # creates results file
+    target_name = target_string.split("/")[-1][:-4].replace("IRAS-", "IRAS ")
     latex_array = [
         target_name,
-        luminosity,
-        np.round(scaled_vexp, 1),
-        teff,
-        tinner,
-        odep,
-        "%.3E" % float(scaled_mdot),
+        most_likely["lum"],
+        np.round(most_likely["scaled_vexp"], 1),
+        most_likely["teff"],
+        most_likely["teff"],
+        most_likely["odep"],
+        "%.3E" % float(most_likely["scaled_mdot"]),
     ]
-
-    # creates file for creating figure
-    plotting_array = [
-        target_name,
-        source,
-        trial,
-        model_index,
-        model_grid,
-        teff,
-        tinner,
-        odep,
-    ]
+    with open("fitting_results.csv", "a") as f:
+        writer = csv.writer(f, delimiter=",", lineterminator="\n")
+        writer.writerow(np.array(latex_array))
+        f.close()
 
     # printed output
-    if config.output["printed_output"] == "True":
-        print()
-        print()
-        print(
-            (
-                "             Target: "
-                + target_name
-                + "        "
-                + str(counter.value + 1)
-                + "/"
-                + str(number_of_targets)
-            )
+    print()
+    print()
+    print(
+        (
+            "             Target: "
+            + target_name
+            + "        "
+            + str(counter.value + 1)
+            + "/"
+            + str(number_of_targets)
         )
-        print("-------------------------------------------------")
-        print(("Luminosity\t\t\t|\t" + str(round(luminosity))))
-        print(
-            (
-                "Optical depth\t\t\t|\t"
-                + str(round(grid_outputs[model_index]["odep"], 3))
-            )
+    )
+    print("-------------------------------------------------")
+    print(("Luminosity\t\t\t|\t" + str(int(most_likely["lum"]))))
+    print(("Optical depth\t\t\t|\t" + str(round(most_likely["odep"], 2))))
+    print(
+        ("Expansion velocity (scaled)\t|\t" + str(round(most_likely["scaled_vexp"], 2)))
+    )
+    print(
+        (
+            "Gas mass loss (scaled)\t\t|\t"
+            + str("%.2E" % float(most_likely["scaled_mdot"]))
         )
-        print(("Expansion velocity (scaled)\t|\t" + str(round(scaled_vexp, 2))))
-        print(("Gas mass loss (scaled)\t\t|\t" + str("%.2E" % float(scaled_mdot))))
-        print("-------------------------------------------------")
+    )
+    print("-------------------------------------------------")
 
     # saves files
     with open("fitting_results.csv", "a") as f:
@@ -112,10 +102,4 @@ def dusty_fit(
         writer.writerow(np.array(latex_array))
         f.close()
 
-    with open("fitting_plotting_outputs.csv", "a") as f:
-        writer = csv.writer(f, delimiter=",", lineterminator="\n")
-        writer.writerow(np.array(plotting_array))
-        f.close()
     counter.value += 1
-
-    return best_model

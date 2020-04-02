@@ -15,7 +15,9 @@ from desk.dusty_fit import dusty_fit
 from desk.grams_fit import grams_fit
 from desk import config, get_remote_models
 
-# Checks if model exists and if it's a csv file or directory of csv files
+# def check_source_input():
+
+
 def check_models(model_grid, full_path):
     """Checks if model grids are available and returns the full path to the model.
     If the model is not downloaded, it is downloaded via Box.

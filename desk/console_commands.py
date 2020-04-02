@@ -18,6 +18,7 @@ from desk import parameter_ranges, set_up, interpolate_dusty
 
 importlib.reload(config)
 
+
 # Non-fitting commands #########################################################
 def grids():
     # Prints the model grids available for fitting.
@@ -76,6 +77,13 @@ def fit(
 
     """
 
+    # error messages
+    class BadFilenameError(ValueError):
+        pass
+
+    class BadSourceDirectoryError(ValueError):
+        pass
+
     # progress tracking
     start = time.time()
     counter = Value("i", 0)
@@ -89,13 +97,10 @@ def fit(
     full_outputs = create_full_outputs(deepcopy(grid_outputs), distance, trials)
     full_model_grid = create_full_model_grid(grid_dusty, trials)
 
-    def add_variables(source):
-        pass
-
     # run SED fitting on csv
     if fnmatch(source, "*.csv"):
         number_of_targets = 1
-        best_model = dusty_fit(
+        most_likely = dusty_fit(
             source,
             distance,
             model_grid,
@@ -106,6 +111,7 @@ def fit(
             counter,
             number_of_targets,
         )
+        print_save_results(source, counter, number_of_targets, most_likely)
 
     # or runs SED fitting on direcory of csvs
     elif os.path.isdir(source):
@@ -114,7 +120,7 @@ def fit(
             files = glob.glob(source + "/" + "*.csv")
             number_of_targets = len(files)
             for target_string in files:
-                best_model = dusty_fit(
+                most_likely = dusty_fit(
                     target_string,
                     distance,
                     model_grid,
@@ -125,16 +131,15 @@ def fit(
                     counter,
                     number_of_targets,
                 )
+                print_save_results(
+                    target_string, counter, number_of_targets, most_likely
+                )
 
         else:
-            raise ValueError(
-                "\n\n\nERROR: No .csv files in that directory. Please make another selection.\n\n"
-            )
+            raise BadSourceDirectoryError(source)
     else:
-        raise ValueError(
-            "\n\n\nError: Not a .csv file. Please make another selection.\n\n"
-        )
-
+        raise BadFilenameError(source)
+    ipdb.set_trace()
     # creating figures
     if config.output["create_figure"] == "yes":
         print("\n. . . Creating SED figure . . . . . . . . . . . .")

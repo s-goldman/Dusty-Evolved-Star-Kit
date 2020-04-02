@@ -2,6 +2,7 @@ import csv
 import copy
 import math
 import ipdb
+from tqdm import tqdm
 import numpy as np
 from copy import deepcopy
 from desk import console_commands, config
@@ -28,8 +29,8 @@ def create_trials(distance):
     """
 
     distance_norm = math.log10(((float(distance) / 4.8482e-9) ** 2) / 1379)
-    lum_min = 10000  # solar luminosities
-    lum_max = 200000
+    lum_min = 50000  # solar luminosities
+    lum_max = 300000
     trials = (
         np.linspace(
             np.log10(lum_min), np.log10(lum_max), config.fitting["number_of_tries"]
@@ -62,8 +63,10 @@ def create_full_outputs(_grid_outputs, distance, trials):
     distance_norm = math.log10(((float(distance) / 4.8482e-9) ** 2) / 1379)
     grid_template = deepcopy(_grid_outputs)
 
+    print("Extrapolating to full grid")
+
     # for each scaling value, create a grid to be appended
-    for i, trial in enumerate(trials):
+    for i, trial in enumerate(tqdm(trials)):
         appended_trials = Column(np.full(len(grid_template), trial), name="trial")
         if i == 0:
             _grid_outputs.add_column(appended_trials)
