@@ -1,9 +1,4 @@
-import ipdb
-import numpy as np
-from tqdm import tqdm
-import matplotlib.pyplot as plt
-from astropy.table import Table, Column, vstack, hstack
-
+# Steve Goldman, Space Telescope Science Institute, sgoldman@stsci.edu
 __all__ = ["users"]
 
 

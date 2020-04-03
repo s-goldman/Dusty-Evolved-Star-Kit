@@ -8,7 +8,7 @@ from astropy.table import Table, Column, vstack, hstack
 from desk import console_commands
 from desk.set_up import config
 
-__all__ = ["create_full_outputs", "create_full_model_grid", "generate_scaling_factors"]
+__all__ = ["generate_scaling_factors", "create_full_outputs", "create_full_model_grid"]
 
 
 def generate_scaling_factors(distance):
@@ -32,8 +32,8 @@ def generate_scaling_factors(distance):
     distance_norm = math.log10(((float(distance) / 4.8482e-9) ** 2) / 1379)
     scaling_vals = (
         np.linspace(
-            np.log10(config.lum_min),
-            np.log10(config.lum_max),
+            np.log10(config.fitting["lum_min"]),
+            np.log10(config.fitting["lum_max"]),
             config.fitting["number_of_tries"],
         )
         - distance_norm

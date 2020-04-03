@@ -1,10 +1,7 @@
+# Steve Goldman, Space Telescope Science Institute, sgoldman@stsci.edu
 import os
-import sys
-import copy
 import glob
-import time
 import ipdb
-import math
 import numpy as np
 import astropy.units as u
 from astropy.io import ascii
@@ -13,7 +10,8 @@ from astropy.table import Table, Column
 
 
 def get_values(filename):
-    """Retrieves data by reading csv file.
+    """reads csv file, convets Jy to Wm2, sorts both by wavelength and returns both
+    as 1D arrays
 
     Parameters
     ----------
@@ -24,7 +22,7 @@ def get_values(filename):
 
     Returns
     -------
-    2 arrays
+    2 1D arrays
         wavelength (x) and flux (y) in unit specified in config.py (default is w/m2)
 
     """
@@ -52,13 +50,14 @@ def compile_data(source):
         array with 1 or multiple filenames
 
     """
-    # error messages
+    # specific error messages
     class BadFilenameError(ValueError):
         pass
 
     class BadSourceDirectoryError(ValueError):
         pass
 
+    # checks if single source with good filename
     if fnmatch(source, "*.csv"):
         try:
             with open(source) as f:
@@ -66,6 +65,7 @@ def compile_data(source):
                 data = np.array(source)
         except IOError:
             raise BadFilenameError(source)
+    # checks if dir with csv files
     elif os.path.isdir(source):
         source_dir = (source + "/").replace("//", "/")  # if input dir ends in /
         if glob.glob(source_dir + "/*.csv"):
