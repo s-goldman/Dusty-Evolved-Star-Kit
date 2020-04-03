@@ -1,54 +1,52 @@
+# Steve Goldman, Space Telescope Science Institute, sgoldman@stsci.edu
 import csv
-import copy
-import math
 import ipdb
 import numpy as np
-from copy import deepcopy
 import matplotlib.pyplot as plt
-from desk import console_commands, config, set_up
-from astropy.table import Table, Column, vstack, hstack
-from create_full_grid import *
-from compute_grid_weights import *
-from create_pdf import *
-from fitting import fit
-
-__all__ = ["dusty_fit", "print_save_results"]
+from desk.set_up import config
+from desk.fitting import fitting_tools
+from desk.probabilities import compute_grid_weights, create_pdf
 
 
-def dusty_fit(
-    source,
-    distance,
-    model_grid,
+def fit_single_source(
+    source_file_name,
+    data,
+    user,
     wavelength_grid,
     full_model_grid,
     full_outputs,
-    grid_outputs,
     counter,
     number_of_targets,
 ):
 
-    # gets target data
-    data_wave, data_flux = set_up.get_data(source)
+    # calculate chi squared values for each model
+    chi2_vals = np.array(
+        [
+            fitting_tools.fit.fit_data(data, [wavelength_grid, x["col0"]])
+            for x in full_model_grid
+        ]
+    )
 
-    stat_values = [
-        fit.fit_data([data_wave, data_flux], [wavelength_grid, x])
-        for x in full_model_grid["col0"]
-    ]
-    stat_array = np.array(stat_values)
     # obtains best fit model and model index
-    liklihood = np.exp(-0.5 * stat_array)
-    liklihood /= np.sum(liklihood)
+    liklihood = np.exp(-0.5 * chi2_vals)
+    liklihood /= np.sum(liklihood)  # normalized
 
-    # grid_weights = compute_total_weights(full_outputs, ["mdot", "vexp", "lum", "odep"])
-    grid_weights_odep = grid_weights(full_outputs["odep"])
-    pdf = pdf1d(full_outputs["odep"], 50, logspacing=True)
-    bins, bin_vals = pdf.gen1d(np.arange(0, len(grid_weights_odep)), grid_weights_odep)
+    # compute grid weights
+    grid_weights_odep = compute_grid_weights.grid_weights(full_outputs["odep"])
+
+    # create 1d-pdfs
+    pdf = create_pdf.pdf1d(full_outputs["odep"], 50, logspacing=True)
+
+    # combined_grid_weights, priors, and liklihoods
+    probs = grid_weights_odep * liklihood
+
+    # calculates probabilities for each bin (bin width set by dif in bins)
+    bins, bin_vals = create_pdf.pdf1d.gen1d(
+        pdf, np.arange(0, len(grid_weights_odep)), probs
+    )
 
     ipdb.set_trace()
-    # probability_distribution = liklihood * grid_weights
-    # probability_distribution = grid_weights
-    # most_likely, stds = create_pdfs(full_outputs, probability_distribution, 50)
-    return most_likely
+    # return most_likely
 
 
 def print_save_results(target_string, counter, number_of_targets, most_likely):

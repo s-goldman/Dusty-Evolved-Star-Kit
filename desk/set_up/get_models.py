@@ -32,25 +32,6 @@ def get_remote_models(model_grid_name):
         else:  # total size is unknown
             sys.stderr.write("read %d\n" % (readsofar,))
 
-    # grids = [
-    #     "Crystalline-20-bb",
-    #     "H11-SMC",
-    #     "H11-LMC",
-    #     "J1000-SMC",
-    #     "J1000-LMC",
-    #     "Oss-Orich-aringer",
-    #     "Oss-Orich-bb",
-    #     "Zubko-Crich-aringer",
-    #     "Zubko-Crich-bb",
-    #     "arnold-palmer",
-    #     "big-grain",
-    #     "corundum-20-bb",
-    #     "fifth-iron",
-    #     "half-iron",
-    #     "one-fifth-carbon",
-    #     "grams-oxygen",
-    #     "grams-carbon",
-    # ]
     grids = config.grids
     grid_csv_link = [
         "https://stsci.box.com/shared/static/jxtabj6h5zi7a8ggb0mbtag3v6b4b9i7.csv",

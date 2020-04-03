@@ -1,11 +1,4 @@
-"""
-Steve Goldman
-Space Telescope Science Institute
-May 17, 2018
-sgoldman@stsci.edu
-
-This script is for plotting the outputs of the sed_fitting script.
-"""
+# Steve Goldman, Space Telescope Science Institute, sgoldman@stsci.edu
 
 target = dict(distance_in_kpc=50, assumed_gas_to_dust_ratio=200, input_unit="Jy")
 
@@ -15,6 +8,8 @@ fitting = dict(
     model_grid="Zubko-Crich-bb",
     wavelength_min=0.00001,
     wavelength_max=100,
+    lum_min=10000,
+    lum_max=150000,
     number_of_tries=20,
 )
 output = dict(
