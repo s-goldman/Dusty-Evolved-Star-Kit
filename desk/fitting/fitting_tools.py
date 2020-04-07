@@ -62,6 +62,8 @@ class fit:
     def least2(_data, _model):
         # least squares fit
         _stat = np.nansum(np.square(_data - _model) / _model)
+        prob = np.exp(-0.5 * np.float128(_stat))
+        # ipdb.set_trace()
         return _stat
 
     def fit_data(data, model):

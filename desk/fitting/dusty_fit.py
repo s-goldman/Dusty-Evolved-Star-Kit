@@ -4,8 +4,10 @@ import ipdb
 import numpy as np
 import matplotlib.pyplot as plt
 from desk.set_up import config
+from astropy.table import Table
 from desk.fitting import fitting_tools
 from desk.probabilities import compute_grid_weights, create_pdf
+from desk.probabilities import get_prior, resample_prior_to_model_grid
 
 
 def fit_single_source(
@@ -20,15 +22,12 @@ def fit_single_source(
 ):
 
     # calculate chi squared values for each model
-    chi2_vals = np.array(
+    liklihood = np.array(
         [
             fitting_tools.fit.fit_data(data, [wavelength_grid, x["col0"]])
             for x in full_model_grid
         ]
     )
-
-    # obtains best fit model and model index
-    liklihood = np.exp(-0.5 * chi2_vals)
     liklihood /= np.sum(liklihood)  # normalized
 
     # compute grid weights
@@ -37,8 +36,15 @@ def fit_single_source(
     # create 1d-pdfs
     pdf = create_pdf.pdf1d(full_outputs["odep"], 50, logspacing=True)
 
+    # priors
+    lmc_data = Table.read(
+        config.path + "probabilities/priors/LMC_tables_H11_all.dat", format="ascii"
+    )
+    get_prior.prior(lmc_data, "dmdt", 2e-6)
+    p_dmdt = resample_prior_to_model_grid.resamp(full_outputs, "scaled_mdot", "dmdt")
+
     # combined_grid_weights, priors, and liklihoods
-    probs = grid_weights_odep * liklihood
+    probs = grid_weights_odep * liklihood * p_dmdt
 
     # calculates probabilities for each bin (bin width set by dif in bins)
     bins, bin_vals = create_pdf.pdf1d.gen1d(
