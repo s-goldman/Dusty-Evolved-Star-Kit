@@ -1,6 +1,7 @@
 
 Dusty-Evolved-Star-Kit<img align="left" width="100" height="100" src="docs/the_desk.png">
 =========================================================================================
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/b469de798a5842408944379bbe5acec4)](https://app.codacy.com/manual/s-goldman/Dusty-Evolved-Star-Kit?utm_source=github.com&utm_medium=referral&utm_content=s-goldman/Dusty-Evolved-Star-Kit&utm_campaign=Badge_Grade_Settings)
 [![pypi](https://img.shields.io/badge/pypi-DESK-blue.svg)](https://pypi.org/project/desk/)
 [![Documentation Status](https://readthedocs.org/projects/dusty-evolved-star-kit/badge/?version=latest)](https://dusty-evolved-star-kit.readthedocs.io/en/latest/?badge=latest)
 [![Build Status](https://travis-ci.org/s-goldman/Dusty-Evolved-Star-Kit.svg?branch=master)](https://travis-ci.org/s-goldman/Dusty-Evolved-Star-Kit)
