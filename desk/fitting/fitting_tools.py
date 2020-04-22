@@ -34,7 +34,7 @@ class fit:
         return model_trim[0][indexes], model_trim[1][indexes]
 
     def find_closest(data_wave, model_wave, model_flux):
-        """Find model values corresponding to the closest values in the data
+        """Find model fluxes closest in wavelength to data
 
         Parameters
         ----------
@@ -47,17 +47,17 @@ class fit:
 
         Returns
         -------
-        closest_data_flux: array
-            Array of the closest data wavelength values, to the model wavelength values.
+        closest_model_flux: array
+            subset of model fluxes
 
         """
-        idx = np.searchsorted(model_wave, data_wave)
-        idx = np.clip(idx, 1, len(model_wave) - 1)
+        closest = np.searchsorted(model_wave, data_wave)
+        idx = np.clip(closest, 1, len(model_wave) - 1)
         left = model_wave[idx - 1]
         right = model_wave[idx]
         idx -= data_wave - left < right - data_wave
-        closest_data_flux = model_flux[idx]
-        return closest_data_flux
+        closest_model_flux = model_flux[idx]
+        return closest_model_flux
 
     def least2(_data, _model):
         # least squares fit
