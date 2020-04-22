@@ -171,9 +171,9 @@ def single_figures():
 
     """
 
-    input_file = Table.read("fitting_plotting_outputs.csv")
+    input_file = Table.read("fitting_results.csv")
     grid_dusty = Table.read(
-        config.path + "models/" + str(input_file["grid_name"][0]) + "_models.fits"
+        config.path + "models/" + str(input_file["grid"][0]) + "_models.fits"
     )
 
     for counter, target in enumerate(input_file):

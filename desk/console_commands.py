@@ -24,6 +24,10 @@ def grids():
     print("\n")
 
 
+def single_fig():
+    plotting_seds.single_figures()
+
+
 def fit(source="desk/put_target_data_here", distance=50, grid="Oss-Orich-bb"):
     """Fits the seds of sources with specified grid.
 
