@@ -57,7 +57,7 @@ def resamp(model, model_par, prior_par):
             + model_par
             + " prior range. Model grid limited by "
             + str(missed_percentage)
-            + "\%."
+            + "%."
         )
 
     # interpolate new values

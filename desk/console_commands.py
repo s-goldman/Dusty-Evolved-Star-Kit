@@ -12,6 +12,7 @@ from desk.set_up import (
     create_full_grid,
 )
 from desk.fitting import dusty_fit
+from desk.outputs import plotting_seds
 
 
 # Non-fitting commands #########################################################
@@ -58,6 +59,8 @@ def fit(source="desk/put_target_data_here", distance=50, grid="Oss-Orich-bb"):
     # gets models
     grid_dusty, grid_outputs, model_grid = get_models.get_model_grid(grid)
 
+    # update ids to number in grid
+    grid_outputs["number"] = np.arange(0, len(grid_outputs))
     # create scaling factors for larger model grid
     scaling_factors = create_full_grid.generate_scaling_factors(distance)
 
@@ -71,16 +74,18 @@ def fit(source="desk/put_target_data_here", distance=50, grid="Oss-Orich-bb"):
     )
 
     # Fitting ##################################################################
-    dusty_fit.fit_single_source(
-        file_names[0],
-        data[0],
-        user,
-        model_wavelength_grid,
-        full_model_grid,
-        full_outputs,
-        counter=1,
-        number_of_targets=3,
-    )
+    for i, item in enumerate(data):
+        dusty_fit.fit_single_source(
+            file_names[i],
+            data[i],
+            user,
+            model_wavelength_grid,
+            full_model_grid,
+            full_outputs,
+            counter=i + 1,
+            number_of_targets=len(data),
+        )
+    plotting_seds.create_fig()
 
 
 if __name__ == "__main__":

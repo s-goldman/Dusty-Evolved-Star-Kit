@@ -28,7 +28,7 @@ def fit_single_source(
             for x in full_model_grid
         ]
     )
-    ipdb.set_trace()
+
     liklihood /= np.sum(liklihood)  # normalized
 
     # compute grid weights
@@ -51,30 +51,18 @@ def fit_single_source(
     lum_best = create_pdf.par_pdf("lum", full_outputs, probs)
     mdot_best = create_pdf.par_pdf("scaled_mdot", full_outputs, probs)
     vexp_best = create_pdf.par_pdf("scaled_vexp", full_outputs, probs)
+    best_fit = full_outputs[np.argmax(liklihood)]
+    out = Table(best_fit)
+    out.remove_columns(["vexp", "mdot"])
 
-    best_fit = full_outputs[np.argmax(probs)]
+    target_name = source_file_name.split("/")[-1][:-4].replace("IRAS-", "IRAS ")
 
-    ipdb.set_trace()
-    # return most_likely
-
-
-def print_save_results(target_string, counter, number_of_targets, most_likely):
-
-    # creates results file
-    target_name = target_string.split("/")[-1][:-4].replace("IRAS-", "IRAS ")
-    latex_array = [
-        target_name,
-        most_likely["lum"],
-        np.round(most_likely["scaled_vexp"], 1),
-        most_likely["teff"],
-        most_likely["teff"],
-        most_likely["odep"],
-        "%.3E" % float(most_likely["scaled_mdot"]),
-    ]
     with open("fitting_results.csv", "a") as f:
         writer = csv.writer(f, delimiter=",", lineterminator="\n")
-        writer.writerow(np.array(latex_array))
+        writer.writerow([target_name] + [str(x) for x in out[0]] + [source_file_name])
         f.close()
+
+    # creates results file
 
     # printed output
     print()
@@ -84,29 +72,19 @@ def print_save_results(target_string, counter, number_of_targets, most_likely):
             "             Target: "
             + target_name
             + "        "
-            + str(counter.value + 1)
+            + str(counter)
             + "/"
             + str(number_of_targets)
         )
     )
     print("-------------------------------------------------")
-    print(("Luminosity\t\t\t|\t" + str(int(most_likely["lum"]))))
-    print(("Optical depth\t\t\t|\t" + str(round(most_likely["odep"], 2))))
+    print(("Luminosity\t\t\t|\t" + str(int(best_fit["lum"]))))
+    print(("Optical depth\t\t\t|\t" + str(round(best_fit["odep"], 2))))
+    print(("Expansion velocity (scaled)\t|\t" + str(round(best_fit["scaled_vexp"], 2))))
     print(
-        ("Expansion velocity (scaled)\t|\t" + str(round(most_likely["scaled_vexp"], 2)))
-    )
-    print(
-        (
-            "Gas mass loss (scaled)\t\t|\t"
-            + str("%.2E" % float(most_likely["scaled_mdot"]))
-        )
+        ("Gas mass loss (scaled)\t\t|\t" + str("%.2E" % float(best_fit["scaled_mdot"])))
     )
     print("-------------------------------------------------")
 
-    # saves files
-    with open("fitting_results.csv", "a") as f:
-        writer = csv.writer(f, delimiter=",", lineterminator="\n")
-        writer.writerow(np.array(latex_array))
-        f.close()
-
-    counter.value += 1
+    counter += 1
+    return counter

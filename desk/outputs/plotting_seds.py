@@ -7,7 +7,7 @@ from fnmatch import fnmatch
 from astropy.io import ascii
 from astropy.table import Table
 from matplotlib import rc
-from desk.set_up import config
+from desk.set_up import config, get_data
 
 
 def get_model_and_data_for_plotting(counter, target):
@@ -30,20 +30,16 @@ def get_model_and_data_for_plotting(counter, target):
         log of the wavelength of the model in microns.
     y_model: array
         log of the flux of the model in w*m^-2
-    target_name: str
-        targetname of source with underscores and extension removed
-
     """
-    input_file = Table.read("fitting_plotting_outputs.csv")
+    input_file = Table.read("fitting_results.csv")
     grid_dusty = Table.read(
-        config.path + "models/" + str(input_file["grid_name"][0]) + "_models.fits"
+        config.path + "models/" + str(input_file["grid"][0]) + "_models.fits"
     )
 
-    target_name = (target["target_name"]).replace(".csv", "").replace("_", " ")
-    x_data, y_data = set_up.get_data(target["data_file"])
-    x_model, y_model = grid_dusty[target["index"]]
+    x_data, y_data = get_data.get_values(config.path[:-5] + target["file_name"])
+    x_model, y_model = grid_dusty[target["model_id"]]
     x_model = x_model[np.where(y_model != 0)]
-    if fnmatch(input_file["grid_name"][0], "grams*"):
+    if fnmatch(input_file["grid"][0], "grams*"):
         y_model = y_model * u.Jy
         y_model = y_model.to(
             u.W / (u.m * u.m), equivalencies=u.spectral_density(x_model * u.um)
@@ -59,7 +55,7 @@ def get_model_and_data_for_plotting(counter, target):
     y_model = np.log10(y_model.value)
     x_data = np.log10(x_data)
     y_data = np.log10(y_data)
-    return x_model, y_model, x_data, y_data, target_name
+    return x_model, y_model, x_data, y_data
 
 
 def create_fig():
@@ -72,9 +68,9 @@ def create_fig():
 
     """
 
-    input_file = Table.read("fitting_plotting_outputs.csv")
+    input_file = Table.read("fitting_results.csv")
     grid_dusty = Table.read(
-        config.path + "models/" + str(input_file["grid_name"][0]) + "_models.fits"
+        config.path + "models/" + str(input_file["grid"][0]) + "_models.fits"
     )
 
     # setting axes
@@ -93,7 +89,7 @@ def create_fig():
 
     for counter, target in enumerate(input_file):
         # gets data for plotting
-        x_model, y_model, x_data, y_data, target_name = get_model_and_data_for_plotting(
+        x_model, y_model, x_data, y_data = get_model_and_data_for_plotting(
             counter, target
         )
 
@@ -127,7 +123,7 @@ def create_fig():
                 label="model",
             )
             ax1.annotate(
-                target_name.replace("-", r"\textendash"),
+                target["source"].replace("_", ""),
                 (0.07, 0.85),
                 xycoords="axes fraction",
                 fontsize=14,
@@ -144,7 +140,7 @@ def create_fig():
             )
             axs[counter].scatter(x_data, y_data, c="blue")
             axs[counter].annotate(
-                target_name.replace("-", r"\textendash"),
+                target["source"].replace("_", ""),
                 (0.7, 0.8),
                 xycoords="axes fraction",
                 fontsize=14,
@@ -182,7 +178,7 @@ def single_figures():
 
     for counter, target in enumerate(input_file):
         # gets data for plotting
-        x_model, y_model, x_data, y_data, target_name = get_model_and_data_for_plotting(
+        x_model, y_model, x_data, y_data = get_model_and_data_for_plotting(
             counter, target
         )
 
@@ -201,7 +197,7 @@ def single_figures():
             label="model",
         )
         ax1.annotate(
-            target_name.replace("_", " "),
+            target["source"].replace("_", " "),
             (0.07, 0.85),
             xycoords="axes fraction",
             fontsize=14,
@@ -211,7 +207,7 @@ def single_figures():
         ax1.set_xlabel("log $\lambda$ ($\mu m$)", labelpad=10)
         ax1.set_ylabel("log $\lambda$ F$_{\lambda}$ " + "(W m$^{-2}$)", labelpad=10)
         fig.savefig(
-            "output_sed_" + str(target_name) + ".png", dpi=200, bbox_inches="tight"
+            "output_sed_" + str(target["source"]) + ".png", dpi=200, bbox_inches="tight"
         )
         plt.close()
 
