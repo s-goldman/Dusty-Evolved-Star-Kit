@@ -36,10 +36,10 @@ def resamp(model, model_par, prior_par):
         & (model[model_par] < np.max(prior["x"]))
     )[0]
 
-    # and out of arange
+    # and out of range
     idx_model_out_prior = np.where(
-        (model[model_par] > np.min(prior["x"]))
-        & (model[model_par] < np.max(prior["x"]))
+        (model[model_par] < np.min(prior["x"]))
+        | (model[model_par] > np.max(prior["x"]))
     )[0]
 
     model_in = model[model_par][idx_model_in_prior]
@@ -47,6 +47,18 @@ def resamp(model, model_par, prior_par):
 
     # set up interpolation function
     f = interp1d(prior["x"], prior["y"], kind="cubic")
+
+    # return warning of % of model values outside of prior range
+    if len(model_out) > 0:
+        missed_percentage = int((len(model_out) / len(model)) * 100)
+        print(
+            "Warning: "
+            + "Model outside of "
+            + model_par
+            + " prior range. Model grid limited by "
+            + str(missed_percentage)
+            + "\%."
+        )
 
     # interpolate new values
     x_new = np.sort(np.unique(list(model_in)))

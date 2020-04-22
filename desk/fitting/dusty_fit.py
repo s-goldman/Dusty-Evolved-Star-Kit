@@ -7,7 +7,7 @@ from desk.set_up import config
 from astropy.table import Table
 from desk.fitting import fitting_tools
 from desk.probabilities import compute_grid_weights, create_pdf
-from desk.probabilities import get_prior, resample_prior_to_model_grid
+from desk.probabilities import create_prior, resample_prior_to_model_grid
 
 
 def fit_single_source(
@@ -28,28 +28,31 @@ def fit_single_source(
             for x in full_model_grid
         ]
     )
+    ipdb.set_trace()
     liklihood /= np.sum(liklihood)  # normalized
 
     # compute grid weights
     grid_weights_odep = compute_grid_weights.grid_weights(full_outputs["odep"])
 
-    # create 1d-pdfs
-    pdf = create_pdf.pdf1d(full_outputs["odep"], 50, logspacing=True)
-
     # priors
     lmc_data = Table.read(
         config.path + "probabilities/priors/LMC_tables_H11_all.dat", format="ascii"
     )
-    get_prior.prior(lmc_data, "dmdt", 2e-6)
+    create_prior.prior(lmc_data, "dmdt", 2e-6)
+    create_prior.prior(lmc_data, "L", 1000)
+
     p_dmdt = resample_prior_to_model_grid.resamp(full_outputs, "scaled_mdot", "dmdt")
+    p_lum = resample_prior_to_model_grid.resamp(full_outputs, "lum", "L")
 
     # combined_grid_weights, priors, and liklihoods
-    probs = grid_weights_odep * liklihood * p_dmdt
+    probs = grid_weights_odep * liklihood * p_dmdt * p_lum
 
-    # calculates probabilities for each bin (bin width set by dif in bins)
-    bins, bin_vals = create_pdf.pdf1d.gen1d(
-        pdf, np.arange(0, len(grid_weights_odep)), probs
-    )
+    odep_best = create_pdf.par_pdf("odep", full_outputs, probs)
+    lum_best = create_pdf.par_pdf("lum", full_outputs, probs)
+    mdot_best = create_pdf.par_pdf("scaled_mdot", full_outputs, probs)
+    vexp_best = create_pdf.par_pdf("scaled_vexp", full_outputs, probs)
+
+    best_fit = full_outputs[np.argmax(probs)]
 
     ipdb.set_trace()
     # return most_likely

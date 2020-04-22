@@ -5,6 +5,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import math
 
+from desk.outputs import plot_pdf
+
 
 class pdf1d:
     def __init__(self, gridvals, nbins, logspacing=False, minval=None, maxval=None):
@@ -116,3 +118,18 @@ class pdf1d:
                     _vals_1d[i] = np.sum(_tgrid[self.pdf_bin_indxs[i]])
 
             return (self.bin_vals, _vals_1d)
+
+
+def par_pdf(par, full_outputs, probs):
+    # create 1d-pdfs
+    pdf = pdf1d(full_outputs[par], 50, logspacing=True)
+
+    # calculates probabilities for each bin (bin width set by dif in bins)
+    bins, bin_total_prob = pdf1d.gen1d(pdf, np.arange(0, len(full_outputs)), probs)
+
+    # most likely value
+    best = bins[np.argmax(bin_total_prob)]
+
+    # plot probability function
+    plot_pdf.plot(par, pdf, bin_total_prob, best)
+    return best

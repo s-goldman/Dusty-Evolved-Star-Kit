@@ -6,8 +6,8 @@ import numpy as np
 from fnmatch import fnmatch
 from astropy.io import ascii
 from astropy.table import Table
-from desk import config, set_up
 from matplotlib import rc
+from desk.set_up import config
 
 
 def get_model_and_data_for_plotting(counter, target):
@@ -34,10 +34,9 @@ def get_model_and_data_for_plotting(counter, target):
         targetname of source with underscores and extension removed
 
     """
-    full_path = str(__file__.replace("plotting_seds.py", ""))
     input_file = Table.read("fitting_plotting_outputs.csv")
     grid_dusty = Table.read(
-        full_path + "models/" + str(input_file["grid_name"][0]) + "_models.fits"
+        config.path + "models/" + str(input_file["grid_name"][0]) + "_models.fits"
     )
 
     target_name = (target["target_name"]).replace(".csv", "").replace("_", " ")
@@ -73,10 +72,9 @@ def create_fig():
 
     """
 
-    full_path = str(__file__.replace("plotting_seds.py", ""))
     input_file = Table.read("fitting_plotting_outputs.csv")
     grid_dusty = Table.read(
-        full_path + "models/" + str(input_file["grid_name"][0]) + "_models.fits"
+        config.path + "models/" + str(input_file["grid_name"][0]) + "_models.fits"
     )
 
     # setting axes
@@ -177,10 +175,9 @@ def single_figures():
 
     """
 
-    full_path = str(__file__.replace("plotting_seds.py", ""))
     input_file = Table.read("fitting_plotting_outputs.csv")
     grid_dusty = Table.read(
-        full_path + "models/" + str(input_file["grid_name"][0]) + "_models.fits"
+        config.path + "models/" + str(input_file["grid_name"][0]) + "_models.fits"
     )
 
     for counter, target in enumerate(input_file):
