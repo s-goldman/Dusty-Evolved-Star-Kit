@@ -8,9 +8,9 @@ fitting = dict(
     model_grid="Zubko-Crich-bb",
     wavelength_min=0.00001,
     wavelength_max=100,
-    lum_min=10000,
+    lum_min=1000,
     lum_max=150000,
-    number_of_tries=20,
+    number_of_tries=400,
 )
 output = dict(
     printed_output="True",

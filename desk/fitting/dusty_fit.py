@@ -28,9 +28,7 @@ def fit_single_source(
             for x in full_model_grid
         ]
     )
-
-    liklihood /= np.sum(liklihood)  # normalized
-
+    # liklihood /= np.sum(liklihood)  # normalized
     # compute grid weights
     grid_weights_odep = compute_grid_weights.grid_weights(full_outputs["odep"])
 
