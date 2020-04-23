@@ -1,2 +1,0 @@
-source,grid,teff,tinner,model_id,odep,norm,L,vexp,mdot,file_name
-sample_target,Oss-Orich-bb,3200,600,1416,0.273,-11.711123428985108,150000,35.81741201703083,2.4085492262528738e-05,/private/var/folders/zs/hqh_d0sd35n8y1_8wq6t9qw00001q_/T/pytest-of-sgoldman/pytest-23/test_single_fit0/sample_target.csv
