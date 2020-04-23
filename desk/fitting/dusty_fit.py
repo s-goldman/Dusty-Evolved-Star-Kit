@@ -1,8 +1,6 @@
 # Steve Goldman, Space Telescope Science Institute, sgoldman@stsci.edu
 import csv
-import ipdb
 import numpy as np
-import matplotlib.pyplot as plt
 from desk.set_up import config
 from astropy.table import Table
 from desk.fitting import fitting_tools
@@ -49,6 +47,7 @@ def fit_single_source(
     lum_best = create_pdf.par_pdf("lum", full_outputs, probs)
     mdot_best = create_pdf.par_pdf("scaled_mdot", full_outputs, probs)
     vexp_best = create_pdf.par_pdf("scaled_vexp", full_outputs, probs)
+
     best_fit = full_outputs[np.argmax(liklihood)]
     out = Table(best_fit)
     out.remove_columns(["vexp", "mdot"])

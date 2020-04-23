@@ -1,12 +1,9 @@
 import math
-import ipdb
 import astropy.units as u
 import matplotlib.pyplot as plt
 import numpy as np
 from fnmatch import fnmatch
-from astropy.io import ascii
 from astropy.table import Table
-from matplotlib import rc
 from desk.set_up import config, get_data
 
 
