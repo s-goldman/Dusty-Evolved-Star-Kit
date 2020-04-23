@@ -2,9 +2,36 @@ import math
 import astropy.units as u
 import matplotlib.pyplot as plt
 import numpy as np
+from astropy.io import ascii
 from fnmatch import fnmatch
 from astropy.table import Table
-from desk.set_up import config, get_data
+
+
+def get_values(filename):
+    """reads csv file, convets Jy to Wm2, sorts both by wavelength and returns both
+    as 1D arrays
+
+    Parameters
+    ----------
+    filename : str
+        Name of csv file name. The file should have:
+            Column 0: wavelength in um
+            Column 1: flux in Jy
+
+    Returns
+    -------
+    2 1D arrays
+        wavelength (x) and flux (y) in unit specified in config.py (default is w/m2)
+
+    """
+    table = ascii.read(filename, delimiter=",")
+    table.sort(table.colnames[0])
+    x = np.array(table.columns[0])
+    y = np.array(table.columns[1])
+    y = y * u.Jy
+    y = y.to(u.W / (u.m * u.m), equivalencies=u.spectral_density(x * u.um))
+    log_average_flux_wm2 = np.log10(np.median(y).value)
+    return x, np.array(y)
 
 
 def get_model_and_data_for_plotting(counter, target):
@@ -28,12 +55,13 @@ def get_model_and_data_for_plotting(counter, target):
     y_model: array
         log of the flux of the model in w*m^-2
     """
+    full_path = str(__file__.replace("outputs/plotting_seds.py", ""))
     input_file = Table.read("fitting_results.csv")
     grid_dusty = Table.read(
-        config.path + "models/" + str(input_file["grid"][0]) + "_models.fits"
+        full_path + "models/" + str(input_file["grid"][0]) + "_models.fits"
     )
 
-    x_data, y_data = get_data.get_values(config.path[:-5] + target["file_name"])
+    x_data, y_data = get_values(target["file_name"])
     x_model, y_model = grid_dusty[target["model_id"]]
     x_model = x_model[np.where(y_model != 0)]
     if fnmatch(input_file["grid"][0], "grams*"):
@@ -64,10 +92,10 @@ def create_fig():
         SED figure with data in blue and model in black.
 
     """
-
+    full_path = str(__file__.replace("outputs/plotting_seds.py", ""))
     input_file = Table.read("fitting_results.csv")
     grid_dusty = Table.read(
-        config.path + "models/" + str(input_file["grid"][0]) + "_models.fits"
+        full_path + "models/" + str(input_file["grid"][0]) + "_models.fits"
     )
 
     # setting axes
@@ -167,10 +195,10 @@ def single_figures():
         SED figures with data in blue and model in black.
 
     """
-
+    full_path = str(__file__.replace("outputs/plotting_seds.py", ""))
     input_file = Table.read("fitting_results.csv")
     grid_dusty = Table.read(
-        config.path + "models/" + str(input_file["grid"][0]) + "_models.fits"
+        full_path + "models/" + str(input_file["grid"][0]) + "_models.fits"
     )
 
     for counter, target in enumerate(input_file):

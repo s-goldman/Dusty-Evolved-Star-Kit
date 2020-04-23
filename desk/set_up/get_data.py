@@ -62,7 +62,7 @@ def compile_data(source):
         try:
             with open(source) as f:
                 number_of_targets = 1
-                data = np.array(source)
+                data = np.array([source])
         except IOError:
             raise BadFilenameError(source)
     # checks if dir with csv files

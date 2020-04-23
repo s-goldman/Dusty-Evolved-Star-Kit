@@ -62,7 +62,7 @@ def create_full_outputs(_grid_outputs, distance, trials):
         With the added columns for luminosity, scaled mdot, and sclaed vexp
 
     """
-    print("Extrapolating to full grid")
+    print("Scaling to full grid")
 
     grid_template = deepcopy(_grid_outputs)
     distance_norm = math.log10(((float(distance) / 4.8482e-9) ** 2) / 1379)

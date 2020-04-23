@@ -89,6 +89,9 @@ def fit(source="desk/put_target_data_here", distance=50, grid="Oss-Orich-bb"):
             counter=i + 1,
             number_of_targets=len(data),
         )
+
+
+def sed():
     plotting_seds.create_fig()
 
 
