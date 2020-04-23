@@ -1,16 +1,11 @@
-import csv
-import copy
-import math
-import ipdb
 import numpy as np
-from desk.set_up import config
-from astropy.table import Table, Column, vstack, hstack
 
 
 class fit:
-    """Fitting tools for least square fit"""
+    """Fitting tools for least square fit."""
 
     def trim(data, model_trim):
+
         """Removes data outside of wavelegth range of model grid.
 
         Parameters
@@ -34,7 +29,8 @@ class fit:
         return model_trim[0][indexes], model_trim[1][indexes]
 
     def find_closest(data_wave, model_wave, model_flux):
-        """Find model fluxes closest in wavelength to data
+
+        """Find model fluxes closest in wavelength to data.
 
         Parameters
         ----------
@@ -66,7 +62,8 @@ class fit:
         return prob
 
     def fit_data(data, model):
-        """trims the data, finds the closest match, and returns chi square value
+
+        """trims the data, finds the closest match, and returns chi square value.
 
         Parameters
         ----------
