@@ -88,6 +88,7 @@ def get_remote_models(model_grid_name):
 
 
 def check_models(model_grid):
+
     """Checks if model grids are available and returns the full path to the model.
     If the model is not downloaded, it is downloaded via Box.
 
@@ -142,7 +143,7 @@ def get_model_grid(grid):
     grid_outputs : astropy table
         The model grid parameters corresponding to the grid_dusty model grids
     """
-    grid_type = copy.copy(grid)
+
     # User input for models
     if grid == "carbon":
         model_grid = "Zubko-Crich-bb"
