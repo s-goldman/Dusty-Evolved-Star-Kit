@@ -10,7 +10,7 @@ fitting = dict(
     wavelength_max=100,
     lum_min=1000,
     lum_max=150000,
-    number_of_tries=400,
+    number_of_tries=40,
 )
 output = dict(
     printed_output="True",

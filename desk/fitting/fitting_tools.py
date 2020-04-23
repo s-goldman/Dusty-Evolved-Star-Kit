@@ -59,7 +59,7 @@ class fit:
         closest_model_flux = model_flux[idx]
         return closest_model_flux
 
-    def least2(_data, _model):
+    def least2_liklihood(_data, _model):
         # least squares fit
         _stat = np.nansum(np.square(_data - _model) / _model)
         prob = np.exp(-0.5 * np.float128(_stat))
@@ -85,5 +85,6 @@ class fit:
         matched_model = fit.find_closest(
             data[0], trimmed_model_wave, trimmed_model_flux
         )
-        stats = fit.least2(data[1], matched_model)
-        return stats
+        liklihood = fit.least2_liklihood(data[1], matched_model)
+        # ipdb.set_trace()
+        return liklihood
