@@ -2,17 +2,9 @@
 import os
 import sys
 import copy
-import glob
-import time
-import ipdb
-import math
 import urllib
-import numpy as np
-import astropy.units as u
-from astropy.io import ascii
-from fnmatch import fnmatch
-from astropy.table import Table, Column
-from desk.set_up import get_inputs, config
+from astropy.table import Table
+from desk.set_up import config
 
 
 def get_remote_models(model_grid_name):
