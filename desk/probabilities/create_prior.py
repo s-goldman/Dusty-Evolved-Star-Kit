@@ -2,7 +2,7 @@ import ipdb
 import numpy as np
 import matplotlib.pyplot as plt
 from desk.set_up import config
-from astropy.table import Table, vstack, hstack
+from astropy.table import Table
 from sklearn.neighbors import KernelDensity
 
 

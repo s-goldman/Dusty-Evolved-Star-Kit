@@ -1,7 +1,6 @@
 # Steve Goldman, Space Telescope Science Institute, sgoldman@stsci.edu
 import os
 import sys
-import copy
 import urllib
 from astropy.table import Table
 from desk.set_up import config
@@ -106,6 +105,7 @@ def check_models(model_grid):
         The full path/name of the model grid file.
 
     """
+
     csv_file = config.path + "models/" + model_grid + "_outputs.csv"
     fits_file = config.path + "models/" + model_grid + "_models.fits"
 

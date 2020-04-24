@@ -1,4 +1,4 @@
-import ipdb, csv
+import ipdb
 import numpy as np
 from desk.set_up import config
 from astropy.table import Table

@@ -40,7 +40,7 @@ def compute_bin_boundaries(tab):
 
 def compute_weights(mets):
     """
-    Computes the metallicity weights to set a uniform prior on linear metallicity
+    Computes the metallicity weights to set a uniform prior on linear metallicity.
     Parameters
     ----------
     mets : numpy vector
