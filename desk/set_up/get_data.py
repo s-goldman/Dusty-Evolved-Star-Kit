@@ -9,8 +9,10 @@ from fnmatch import fnmatch
 
 
 def get_values(filename):
+
     """Reads csv file, convets Jy to Wm2, sorts both by wavelength and
     returns both as 1D arrays.
+
     Parameters
     ----------
     filename : str
@@ -34,6 +36,7 @@ def get_values(filename):
 
 
 def compile_data(source):
+
     """Returns array with csv filename or csv filenames in specified directory.
 
     Parameters
