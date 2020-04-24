@@ -1,6 +1,5 @@
 # Steve Goldman, Space Telescope Science Institute, sgoldman@stsci.edu
 import os
-import glob
 import ipdb
 import numpy as np
 import astropy.units as u
