@@ -13,9 +13,9 @@ def test_grids(capfd):
 # @pytest.mark.parametrize("test_input,expected", [("3+5", 8), ("2+4", 6), ("6*9", 42)])
 # def test_get_model(test_input, expected):
 # 	assert
-def create_sample_data(dir, sample_id):
+def create_sample_data(directory, sample_id):
     target_filename = "sample_target_" + str(sample_id) + ".csv"
-    target_file_path = dir.join(target_filename)
+    target_file_path = directory.join(target_filename)
     file = open(target_file_path, "w")
     file.write("3.55,0.389\n4.49,0.357\n5.73,0.344\n7.87,0.506\n23.7,0.676")
     file.close()
@@ -60,4 +60,6 @@ def test_multiple_sed(tmpdir):
     console_commands.sed()
     sed = Image.open("output_sed.png")
     expected_sed = Image.open("desk/tests/expected_sed_2.png")
-    assert ImageChops.difference(sed, expected_sed).getbbox() is None
+    np.testing.assert_string_equal(
+        str(ImageChops.difference(sed, expected_sed).getbbox()), "None"
+    )

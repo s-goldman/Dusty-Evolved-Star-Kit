@@ -9,9 +9,9 @@ from fnmatch import fnmatch
 
 
 def get_values(filename):
-
-    """Reads csv file, convets Jy to Wm2, sorts both by wavelength and
-    returns both as 1D arrays.
+    """
+    Reads csv file, convets Jy to Wm2, sorts both by wavelength.
+    Returns both as 1D arrays.
 
     Parameters
     ----------
@@ -37,7 +37,8 @@ def get_values(filename):
 
 def compile_data(source):
 
-    """Returns array with csv filename or csv filenames in specified directory.
+    """
+    Returns array with csv filename or csv filenames in specified directory.
 
     Parameters
     ----------
@@ -62,7 +63,6 @@ def compile_data(source):
         try:
             with open(source) as f:
                 f.readlines()
-                number_of_targets = 1
                 data = np.array([source])
         except IOError:
             raise BadFilenameError(source)
@@ -71,7 +71,6 @@ def compile_data(source):
         source_dir = (source + "/").replace("//", "/")  # if input dir ends in /
         if glob.glob(source_dir + "/*.csv"):
             file_names = glob.glob(source + "/" + "*.csv")
-            number_of_targets = len(file_names)
             data = np.array(file_names)
         else:
             raise BadSourceDirectoryError(source)

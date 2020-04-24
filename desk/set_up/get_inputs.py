@@ -3,9 +3,11 @@ __all__ = ["users"]
 
 
 class users(object):
-    """docstring for user."""
+
+    """Docstring for users."""
 
     def __init__(self, source, distance, grid):
+        # Initialize user-inputted data
         self.source = source
         self.distance = distance
         self.grid = grid
