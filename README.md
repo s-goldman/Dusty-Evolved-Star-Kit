@@ -1,4 +1,3 @@
-
 Dusty-Evolved-Star-Kit<img align="left" width="100" height="100" src="docs/the_desk.png">
 =========================================================================================
 [![pypi](https://img.shields.io/badge/pypi-DESK-blue.svg)](https://pypi.org/project/desk/)
@@ -16,13 +15,12 @@ The DESK is an SED-fitting python package for fitting data from evolved stars (p
 **Available model grids**:
 Several grids are **already available** upon installation. Descriptions of the model grids can be found in the [Documentation](https://dusty-evolved-star-kit.readthedocs.io/en/latest/grids.html). You can also specify the state-of-the-art dust growth models by [Nanni et al. (2019)](https://ui.adsabs.harvard.edu/abs/2019MNRAS.487..502N/abstract), the 2D [GRAMS](https://2dust.stsci.edu/grams_models.cgi) model grid based on the [2DUST](https://2dust.stsci.edu/index.cgi) code, which are automatically downloaded and used when selected.
 
-A module for creating your own [DUSTY](https://github.com/ivezic/dusty) grid is under development, but for now, please email me ([Dr. Steven Goldman](http://www.stsci.edu/~sgoldman/)) directly for grid requests or for help with the package. 
+A module for creating your own [DUSTY](https://github.com/ivezic/dusty) grid is under development, but for now, please email me ([Dr. Steven Goldman](http://www.stsci.edu/~sgoldman/)) directly for grid requests or for help with the package.
 
 Documentation
 -------------
 
 The documentation can be found on [readthedocs](http://dusty-evolved-star-kit.readthedocs.io/en/latest/).
-
 
 Install Using Python
 -------------------
@@ -36,7 +34,7 @@ Using the DESK
 
 2). Go to the directory where your target csv file (or target directory of files) is.  
 
-3). Use the command (without starting python) 
+3). Use the command (without starting python)
 
   `desk fit --source='target_name.csv'`
 
@@ -55,7 +53,7 @@ These additional arguments are the distance (in kpc) and the grid of models you 
 <img src="docs/example.png"  width="400" height="500">
 This is an example of the output_sed.png file fitting three massive oxygen-rich AGB stars from the LMC. To produce individual figures subsequently run the command:
 
-`desk single_fig` 
+`desk single_fig`
 
 Get model
 -------------------
@@ -77,9 +75,9 @@ Attribution
 
 The method used is similar to that of [Goldman et al. 2017](https://ui.adsabs.harvard.edu/abs/2017MNRAS.465..403G/abstract); a more in-depth publication is in prep. If used please add the following to your acknowledgements:
 
-This research has made use of the Dusty Evolved Star Kit (DESK; https://github.com/s-goldman/Dusty-Evolved-Star-Kit). 
+This research has made use of the Dusty Evolved Star Kit (DESK; <https://github.com/s-goldman/Dusty-Evolved-Star-Kit>).
 
-Please also specify the options selected and make the data publicly availble for reproducability. 
+Please also specify the options selected and make the data publicly availble for reproducability.
 
 License
 -------
