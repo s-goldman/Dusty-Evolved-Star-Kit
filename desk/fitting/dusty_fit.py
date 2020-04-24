@@ -44,10 +44,12 @@ def fit_single_source(
     probs = grid_weights_odep * liklihood * p_dmdt * p_lum
 
     ## most likly values
-    # odep_best = create_pdf.par_pdf("odep", full_outputs, probs)
-    # lum_best = create_pdf.par_pdf("lum", full_outputs, probs)
-    # mdot_best = create_pdf.par_pdf("scaled_mdot", full_outputs, probs)
-    # vexp_best = create_pdf.par_pdf("scaled_vexp", full_outputs, probs)
+    odep_best = create_pdf.par_pdf("odep", full_outputs, probs)
+    lum_best = create_pdf.par_pdf("lum", full_outputs, probs)
+    mdot_best = create_pdf.par_pdf("scaled_mdot", full_outputs, probs)
+    vexp_best = create_pdf.par_pdf("scaled_vexp", full_outputs, probs)
+
+    best = [odep_best, lum_best, mdot_best, vexp_best]
 
     best_fit = full_outputs[np.argmax(liklihood)]
     out = Table(best_fit)

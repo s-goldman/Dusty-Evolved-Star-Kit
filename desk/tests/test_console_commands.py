@@ -43,7 +43,7 @@ def test_single_sed(tmpdir):
 
 
 def test_multiple_fit(tmpdir):
-    reate_sample_data(tmpdir, 1)
+    create_sample_data(tmpdir, 1)
     create_sample_data(tmpdir, 2)
     console_commands.fit(source=str(tmpdir))
     results = Table.read("fitting_results.csv")

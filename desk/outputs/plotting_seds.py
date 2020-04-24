@@ -94,14 +94,14 @@ def create_fig():
         SED figure with data in blue and model in black.
 
     """
-    full_path = str(__file__.replace("outputs/plotting_seds.py", ""))
+    # full_path = str(__file__.replace("outputs/plotting_seds.py", ""))
     input_file = Table.read("fitting_results.csv")
     # grid_dusty = Table.read(
     #     full_path + "models/" + str(input_file["grid"][0]) + "_models.fits"
     # )
 
     # setting axes
-    axislabel = "log $\lambda$ F$_{\lambda}$ (W m$^{-2}$)"
+    axislabel = r"log $\lambda$ F$_{\lambda}$ (W m$^{-2}$)"
     if len(input_file) == 1:
         fig, ax1 = plt.subplots(1, 1, sharex=True, sharey=True, figsize=(8, 5))
     elif len(input_file) == 2:
@@ -157,8 +157,10 @@ def create_fig():
             )
             ax1.get_xaxis().set_tick_params(which="both", direction="in", labelsize=15)
             ax1.get_yaxis().set_tick_params(which="both", direction="in", labelsize=15)
-            ax1.set_xlabel("log $\lambda$ ($\mu m$)", labelpad=10)
-            ax1.set_ylabel("log $\lambda$ F$_{\lambda}$ " + "(W m$^{-2}$)", labelpad=10)
+            ax1.set_xlabel(r"log $\lambda$ ($\mu m$)", labelpad=10)
+            ax1.set_ylabel(
+                r"log $\lambda$ F$_{\lambda}$ " + "(W m$^{-2}$)", labelpad=10
+            )
         else:
             axs[counter].set_xlim(-0.99, 2.49)
             axs[counter].set_ylim(y_min, y_max)
@@ -178,7 +180,7 @@ def create_fig():
             axs[counter].get_yaxis().set_tick_params(
                 which="both", direction="in", labelsize=15
             )
-            axs[counter].set_xlabel("log $\lambda$ ($\mu m$)", labelpad=10)
+            axs[counter].set_xlabel(r"log $\lambda$ ($\mu m$)", labelpad=10)
             axs[counter].set_ylabel(axislabel, labelpad=10)
 
         # pdb.set_trace()
@@ -198,11 +200,11 @@ def single_figures():
         SED figures with data in blue and model in black.
 
     """
-    full_path = str(__file__.replace("outputs/plotting_seds.py", ""))
+    # full_path = str(__file__.replace("outputs/plotting_seds.py", ""))
     input_file = Table.read("fitting_results.csv")
-    grid_dusty = Table.read(
-        full_path + "models/" + str(input_file["grid"][0]) + "_models.fits"
-    )
+    # grid_dusty = Table.read(
+    #     full_path + "models/" + str(input_file["grid"][0]) + "_models.fits"
+    # )
 
     for counter, target in enumerate(input_file):
         # gets data for plotting
@@ -232,8 +234,8 @@ def single_figures():
         )
         ax1.get_xaxis().set_tick_params(which="both", direction="in", labelsize=15)
         ax1.get_yaxis().set_tick_params(which="both", direction="in", labelsize=15)
-        ax1.set_xlabel("log $\lambda$ ($\mu m$)", labelpad=10)
-        ax1.set_ylabel("log $\lambda$ F$_{\lambda}$ " + "(W m$^{-2}$)", labelpad=10)
+        ax1.set_xlabel(r"log $\lambda$ ($\mu m$)", labelpad=10)
+        ax1.set_ylabel(r"log $\lambda$ F$_{\lambda}$ " + "(W m$^{-2}$)", labelpad=10)
         fig.savefig(
             "output_sed_" + str(target["source"]) + ".png", dpi=200, bbox_inches="tight"
         )
