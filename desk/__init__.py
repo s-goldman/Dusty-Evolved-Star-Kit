@@ -8,7 +8,7 @@ distribution, as that directory only contains C extension code.
 
 # -*- coding: utf-8 -*-
 
-"""Top-level package for Dusty-Evolved-Star-Kit."""
+# Top-level package for Dusty-Evolved-Star-Kit.
 
 __author__ = """Steven R. Goldman"""
 __email__ = "sgoldman@stsci.edu"

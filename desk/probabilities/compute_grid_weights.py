@@ -9,7 +9,6 @@ for the non-uniform spacing.
 """
 import numpy as np
 import ipdb
-from astropy.table import Table, Column
 
 __all__ = ["grid_weights"]
 

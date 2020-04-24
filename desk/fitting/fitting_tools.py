@@ -2,6 +2,7 @@ import numpy as np
 
 
 class fit:
+
     """Fitting tools for least square fit."""
 
     def trim(data, model_trim):
