@@ -29,6 +29,7 @@ def single_fig():
 
 
 def fit(source="desk/put_target_data_here", distance=50, grid="Oss-Orich-bb"):
+
     """Fits the seds of sources with specified grid.
 
     Parameters
@@ -44,8 +45,8 @@ def fit(source="desk/put_target_data_here", distance=50, grid="Oss-Orich-bb"):
 
     # SET-UP ###################################################################
     # progress tracking
-    start = time()
-    counter = Value("i", 0)
+    # start = time()
+    # counter = Value("i", 0)
 
     # get inputs
     user = get_inputs.users(source, distance, grid)
@@ -55,7 +56,7 @@ def fit(source="desk/put_target_data_here", distance=50, grid="Oss-Orich-bb"):
     create_output_files.make_output_files_dusty()
 
     # get data filenames
-    file_names, n_sources = get_data.compile_data(source)
+    file_names = get_data.compile_data(source)
 
     # gets data in array of [source[waves, fluxes], source[waves, fluxes], ...]
     data = [get_data.get_values(x) for x in file_names]

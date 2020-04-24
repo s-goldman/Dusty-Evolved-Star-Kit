@@ -77,4 +77,4 @@ def compile_data(source):
             raise BadSourceDirectoryError(source)
     else:
         raise BadFilenameError(source)
-    return data, number_of_targets
+    return data

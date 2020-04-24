@@ -41,6 +41,7 @@ def generate_scaling_factors(distance):
 
 
 def create_full_outputs(_grid_outputs, distance, trials):
+
     """Returns the input grid for each luminosity in the form of trial
     (scaling factor not including distance; e.g. -12.5, -13.5) specified by trials.
     Also includeds the scled vexp and mass loss rate
