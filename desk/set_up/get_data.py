@@ -1,17 +1,16 @@
 # Steve Goldman, Space Telescope Science Institute, sgoldman@stsci.edu
 import os
+import glob
 import ipdb
 import numpy as np
 import astropy.units as u
-from astropy.io import ascii
+from astropy.io.ascii import read
 from fnmatch import fnmatch
-from astropy.table import Table, Column
 
 
 def get_values(filename):
-    """reads csv file, convets Jy to Wm2, sorts both by wavelength and
-    returns both as 1D arrays. 
-
+    """Reads csv file, convets Jy to Wm2, sorts both by wavelength and
+    returns both as 1D arrays.
     Parameters
     ----------
     filename : str
@@ -25,18 +24,17 @@ def get_values(filename):
         wavelength (x) and flux (y) in unit specified in config.py (default is w/m2)
 
     """
-    table = ascii.read(filename, delimiter=",")
+    table = read(filename, delimiter=",")
     table.sort(table.colnames[0])
     x = np.array(table.columns[0])
     y = np.array(table.columns[1])
     y = y * u.Jy
     y = y.to(u.W / (u.m * u.m), equivalencies=u.spectral_density(x * u.um))
-    log_average_flux_wm2 = np.log10(np.median(y).value)
     return x, np.array(y)
 
 
 def compile_data(source):
-    """Returns array with csv filename or csv filenames in specified directory
+    """Returns array with csv filename or csv filenames in specified directory.
 
     Parameters
     ----------
@@ -60,6 +58,7 @@ def compile_data(source):
     if fnmatch(source, "*.csv"):
         try:
             with open(source) as f:
+                f.readlines()
                 number_of_targets = 1
                 data = np.array([source])
         except IOError:
