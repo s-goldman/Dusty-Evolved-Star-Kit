@@ -9,8 +9,8 @@ from astropy.table import Table, Column
 
 
 def get_values(filename):
-    """reads csv file, convets Jy to Wm2, sorts both by wavelength and returns both
-    as 1D arrays
+    """reads csv file, convets Jy to Wm2, sorts both by wavelength and
+    returns both as 1D arrays.
 
     Parameters
     ----------
