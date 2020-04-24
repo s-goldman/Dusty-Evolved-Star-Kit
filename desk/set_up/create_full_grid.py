@@ -11,7 +11,8 @@ __all__ = ["generate_scaling_factors", "create_full_outputs", "create_full_model
 
 
 def generate_scaling_factors(distance):
-    """Creates arrays of model fluxes from lum_min to lum_max
+    """
+    Creates arrays of model fluxes from lum_min to lum_max.
 
     Parameters
     ----------
@@ -42,9 +43,10 @@ def generate_scaling_factors(distance):
 
 def create_full_outputs(_grid_outputs, distance, trials):
 
-    """Returns the input grid for each luminosity in the form of trial
+    """
+    Returns the input grid for each luminosity in the form of trial.
     (scaling factor not including distance; e.g. -12.5, -13.5) specified by trials.
-    Also includeds the scled vexp and mass loss rate
+    Also includeds the scled vexp and mass loss rate.
 
     Parameters
     ----------
@@ -101,7 +103,8 @@ def create_full_outputs(_grid_outputs, distance, trials):
 
 
 def create_full_model_grid(grid_dusty, scaling_factors):
-    """Returns model flux grids for each luminosity scaling (scaling_factors).
+    """
+    Returns model flux grids for each luminosity scaling (scaling_factors).
 
     Parameters
     ----------

@@ -2,7 +2,6 @@
 # Script adapted from the BEAST (https://github.com/BEAST-Fitting)
 import ipdb
 import numpy as np
-import matplotlib.pyplot as plt
 import math
 
 from desk.outputs import plot_pdf
@@ -11,7 +10,7 @@ from desk.outputs import plot_pdf
 class pdf1d:
     def __init__(self, gridvals, nbins, logspacing=False, minval=None, maxval=None):
         """
-        Create an object which can be used to efficiently generate a 1D pdf for an observed object
+        Create an object which can be used to efficiently generate a 1D pdf for an observed object.
 
         Parameters
         ----------
@@ -90,7 +89,8 @@ class pdf1d:
             self.pdf_bin_indxs = pdf_bin_indxs
 
     def gen1d(self, gindxs, weights):
-        """Determines the probabilities for each bin in weights.
+        """
+        Determines the probabilities for each bin in weights.
 
         Parameters
         ----------

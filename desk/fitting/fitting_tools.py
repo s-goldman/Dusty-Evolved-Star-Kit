@@ -9,7 +9,8 @@ class fit:
 
     def trim(data, model_trim):
 
-        """Removes data outside of wavelegth range of model grid.
+        """
+        Removes data outside of wavelegth range of model grid.
 
         Parameters
         ----------
@@ -33,7 +34,8 @@ class fit:
 
     def find_closest(data_wave, model_wave, model_flux):
 
-        """Find model fluxes closest in wavelength to data.
+        """
+        Find model fluxes closest in wavelength to data.
 
         Parameters
         ----------
@@ -66,7 +68,8 @@ class fit:
 
     def fit_data(data, model):
 
-        """trims the data, finds the closest match, and returns chi square value.
+        """
+        Trims the data, finds the closest match, and returns chi square value.
 
         Parameters
         ----------
