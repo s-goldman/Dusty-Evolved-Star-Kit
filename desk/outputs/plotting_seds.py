@@ -2,14 +2,15 @@ import math
 import astropy.units as u
 import matplotlib.pyplot as plt
 import numpy as np
-from astropy.io import ascii
+from astropy.io.ascii import read
 from fnmatch import fnmatch
 from astropy.table import Table
 
 
 def get_values(filename):
-    """reads csv file, convets Jy to Wm2, sorts both by wavelength and returns both
-    as 1D arrays
+    """
+    Reads csv file, convets Jy to Wm2, and sorts both by wavelength.
+    Returns both as 1D arrays
 
     Parameters
     ----------
@@ -24,18 +25,18 @@ def get_values(filename):
         wavelength (x) and flux (y) in unit specified in config.py (default is w/m2)
 
     """
-    table = ascii.read(filename, delimiter=",")
+    table = read(filename, delimiter=",")
     table.sort(table.colnames[0])
     x = np.array(table.columns[0])
     y = np.array(table.columns[1])
     y = y * u.Jy
     y = y.to(u.W / (u.m * u.m), equivalencies=u.spectral_density(x * u.um))
-    log_average_flux_wm2 = np.log10(np.median(y).value)
     return x, np.array(y)
 
 
 def get_model_and_data_for_plotting(counter, target):
-    """Gets data from target.csv file and model from grid file.
+    """
+    Gets data from target.csv file and model from grid file.
 
     Parameters
     ----------
@@ -84,7 +85,8 @@ def get_model_and_data_for_plotting(counter, target):
 
 
 def create_fig():
-    """Takes results from fitting_plotting_outputs.csv and plots SED.
+    """
+    Takes results from fitting_plotting_outputs.csv and plots SED.
 
     Returns
     -------
@@ -186,8 +188,9 @@ def create_fig():
 
 
 def single_figures():
-    """Takes results from fitting_plotting_outputs.csv and plots SEDs in individual
-     figures.
+    """
+    Takes results from fitting_plotting_outputs.csv and plots SEDs.
+    Plots in individual figures.
 
     Returns
     -------

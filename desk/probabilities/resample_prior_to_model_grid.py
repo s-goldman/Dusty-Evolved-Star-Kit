@@ -1,7 +1,7 @@
 import ipdb, csv
 import numpy as np
 from desk.set_up import config
-from astropy.table import Table, vstack
+from astropy.table import Table
 from scipy.interpolate import interp1d
 
 
