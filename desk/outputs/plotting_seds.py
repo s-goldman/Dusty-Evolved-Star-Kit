@@ -96,9 +96,9 @@ def create_fig():
     """
     full_path = str(__file__.replace("outputs/plotting_seds.py", ""))
     input_file = Table.read("fitting_results.csv")
-    grid_dusty = Table.read(
-        full_path + "models/" + str(input_file["grid"][0]) + "_models.fits"
-    )
+    # grid_dusty = Table.read(
+    #     full_path + "models/" + str(input_file["grid"][0]) + "_models.fits"
+    # )
 
     # setting axes
     axislabel = "log $\lambda$ F$_{\lambda}$ (W m$^{-2}$)"

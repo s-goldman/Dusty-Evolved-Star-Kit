@@ -56,7 +56,6 @@ def interpolate(grid_name, teff_new, tinner_new, tau_new):
             + str(tau.max())
             + "\n"
         )
-        sys.exit()
 
     # if model already exists
     if (teff_new in teff) & (tinner_new in tinner) & (tau_new in tau):
