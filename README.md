@@ -55,17 +55,6 @@ This is an example of the output_sed.png file fitting three massive oxygen-rich 
 
 `desk single_fig`
 
-Get model
--------------------
-The DESK will also return any model or interpolate a model within the grids. To retrieve a single model use the command:
-
-`desk get_model model_grid_name Teff Tinner Odep`
-
-for example:
-
-`desk get_model Oss-Orich-aringer 2800 600 0.176`
-
-See documentation for more details.
 
 | :exclamation:  GRAMS model grids currently have incorrect scaling of output parameters (expected correction: Apr. 2020). |
 |--------------------------------------------------------------------------------------------------------------------------|
