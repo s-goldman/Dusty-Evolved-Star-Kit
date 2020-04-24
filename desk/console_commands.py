@@ -1,8 +1,8 @@
 # Steve Goldman, Space Telescope Science Institute, sgoldman@stsci.edu
-from time import time
-import ipdb
+# from time import time
+# import ipdb
+# from multiprocessing import Value
 import numpy as np
-from multiprocessing import Value
 from desk.set_up import (
     get_inputs,
     get_data,
@@ -29,8 +29,8 @@ def single_fig():
 
 
 def fit(source="desk/put_target_data_here", distance=50, grid="Oss-Orich-bb"):
-
-    """Fits the seds of sources with specified grid.
+    """
+    Fits the seds of sources with specified grid.
 
     Parameters
     ----------
@@ -62,7 +62,7 @@ def fit(source="desk/put_target_data_here", distance=50, grid="Oss-Orich-bb"):
     data = [get_data.get_values(x) for x in file_names]
 
     # gets models
-    grid_dusty, grid_outputs, model_grid = get_models.get_model_grid(grid)
+    grid_dusty, grid_outputs = get_models.get_model_grid(grid)
 
     # update ids to number in grid
     grid_outputs["number"] = np.arange(0, len(grid_outputs))
@@ -79,7 +79,7 @@ def fit(source="desk/put_target_data_here", distance=50, grid="Oss-Orich-bb"):
     )
 
     # Fitting ##################################################################
-    for i, item in enumerate(data):
+    for i in range(0, len(data)):
         dusty_fit.fit_single_source(
             file_names[i],
             data[i],

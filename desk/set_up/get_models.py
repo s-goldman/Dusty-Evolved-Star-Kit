@@ -161,4 +161,4 @@ def get_model_grid(grid):
     grid_dusty = Table.read(fits_file_name)
     grid_outputs = Table.read(csv_file_name)
 
-    return grid_dusty, grid_outputs, model_grid
+    return grid_dusty, grid_outputs
