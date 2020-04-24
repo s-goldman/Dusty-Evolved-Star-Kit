@@ -77,7 +77,7 @@ def fit(source="desk/put_target_data_here", distance=50, grid="Oss-Orich-bb"):
     )
 
     # Fitting ##################################################################
-    for i in range(0, len(data)):
+    for i, _ in enumerate(data):
         dusty_fit.fit_single_source(
             file_names[i],
             data[i],
