@@ -1,15 +1,14 @@
 import ipdb
 import numpy as np
-from tqdm import tqdm
 import matplotlib.pyplot as plt
 from desk.set_up import config
-from scipy.stats import norm
-from astropy.table import Table, Column, vstack, hstack
+from astropy.table import Table, vstack, hstack
 from sklearn.neighbors import KernelDensity
 
 
 def prior(data, par, bandwidth, sampling=500):
-    """Script to create prior distribution given dataset.
+    """
+    Script to create prior distribution given dataset.
 
     Parameters
     ----------

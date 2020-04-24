@@ -1,14 +1,12 @@
 import ipdb
 import numpy as np
-from tqdm import tqdm
 import matplotlib.pyplot as plt
-from astropy.table import Table, Column, vstack, hstack
-
 from desk.set_up import config
 
 
 def plot(par, pdf, bin_total_prob, best):
-    """Creates png with probability distribution of given parameter.
+    """
+    Creates png with probability distribution of given parameter.
 
     Parameters
     ----------
