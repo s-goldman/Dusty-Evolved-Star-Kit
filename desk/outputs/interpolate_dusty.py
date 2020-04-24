@@ -1,4 +1,5 @@
-import os, sys, pdb
+import sys
+import ipdb
 import numpy as np
 from astropy.table import Table
 from scipy.interpolate import RegularGridInterpolator
@@ -25,7 +26,6 @@ def interpolate(grid_name, teff_new, tinner_new, tau_new):
         raise Exception(
             "Could not find model grid. Please double check input or try another grid. To see available grids use the command: desk grids"
         )
-        sys.exit()
 
     # create interpolator
     tau = np.unique(output_array["odep"])
@@ -76,9 +76,9 @@ def interpolate(grid_name, teff_new, tinner_new, tau_new):
         mass_loss_array = np.zeros((len(teff), len(tinner), len(tau)))
         expansion_velocity_array = np.zeros((len(teff), len(tinner), len(tau)))
 
-        for i in range(0, len(teff)):
-            for j in range(0, len(tinner)):
-                for k in range(0, len(tau)):
+        for i, _ in enumerate(teff):
+            for j, _ in enumerate(tinner):
+                for k, _ in enumerate(tau):
                     mc_index = np.where(
                         (teff[i] == output_array["teff"])
                         & (tinner[j] == output_array["tinner"])
@@ -98,7 +98,6 @@ def interpolate(grid_name, teff_new, tinner_new, tau_new):
             (teff, tinner, tau), expansion_velocity_array
         )
 
-        interp_array = []
         interp_dusty = []
         y_new = []
 
@@ -122,7 +121,3 @@ def interpolate(grid_name, teff_new, tinner_new, tau_new):
         + ".csv",
         overwrite=True,
     )
-
-
-if __name__ == "__main__":
-    interpolate()
