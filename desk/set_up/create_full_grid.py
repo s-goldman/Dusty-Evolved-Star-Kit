@@ -4,8 +4,7 @@ import ipdb
 from tqdm import tqdm
 import numpy as np
 from copy import deepcopy
-from astropy.table import Table, Column, vstack, hstack
-from desk import console_commands
+from astropy.table import Table, Column, vstack
 from desk.set_up import config
 
 __all__ = ["generate_scaling_factors", "create_full_outputs", "create_full_model_grid"]
@@ -101,7 +100,7 @@ def create_full_outputs(_grid_outputs, distance, trials):
 
 
 def create_full_model_grid(grid_dusty, scaling_factors):
-    """returns model flux grids for each luminosity scaling (scaling_factors).
+    """Returns model flux grids for each luminosity scaling (scaling_factors).
 
     Parameters
     ----------
@@ -117,8 +116,8 @@ def create_full_model_grid(grid_dusty, scaling_factors):
 
     """
     scaled_rows = []
-    for i, val in enumerate(scaling_factors):
-        for j, row in enumerate(grid_dusty["col1"]):
+    for val in scaling_factors:
+        for row in grid_dusty["col1"]:
             scaled_rows.append(row * np.power(10, val))
     scaled_grid = Table([scaled_rows])
     return scaled_grid
