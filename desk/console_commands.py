@@ -29,7 +29,8 @@ def single_fig():
 
 
 def fit(source="desk/put_target_data_here", distance=50, grid="Oss-Orich-bb"):
-    """Fits the seds of sources with specified grid.
+    """
+    Fits the seds of sources with specified grid.
 
     Parameters
     ----------

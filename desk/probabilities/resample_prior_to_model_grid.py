@@ -1,15 +1,13 @@
 import ipdb, csv
 import numpy as np
-from tqdm import tqdm
 from desk.set_up import config
-import matplotlib.pyplot as plt
-from astropy.table import Table, Column, vstack, hstack
+from astropy.table import Table, vstack
 from scipy.interpolate import interp1d
 
 
 def resamp(model, model_par, prior_par):
-    """Resamples input prior probabilities to interpolated
-    values of model grid.
+    """
+    Resamples input prior probabilities to interpolated values of model grid.
 
     Parameters
     ----------

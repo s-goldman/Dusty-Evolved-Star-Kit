@@ -89,7 +89,8 @@ def get_remote_models(model_grid_name):
 
 def check_models(model_grid):
 
-    """Checks if model grids are available and returns the full path to the model.
+    """
+    Checks if model grids are available and returns the full path to the model.
     If the model is not downloaded, it is downloaded via Box.
 
     Parameters
@@ -125,8 +126,8 @@ def check_models(model_grid):
 
 
 def get_model_grid(grid):
-    """Gets the real model grid name if the defaults were chosen,
-    and runs check models.
+    """
+    Gets the real model grid name if the defaults were chosen,and runs check_models.
 
     Parameters
     ----------
