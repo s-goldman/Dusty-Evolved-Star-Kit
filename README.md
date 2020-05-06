@@ -55,9 +55,7 @@ This is an example of the output_sed.png file fitting three massive oxygen-rich 
 
 `desk single_fig`
 
-
-| :exclamation:  GRAMS model grids currently have incorrect scaling of output parameters (expected correction: Apr. 2020). |
-|--------------------------------------------------------------------------------------------------------------------------|
+-----------------------------------------------------------------------------------------------------------------------|
 
 Attribution
 -----------
