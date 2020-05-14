@@ -15,7 +15,7 @@ Types of Contributions
 Report Bugs
 ~~~~~~~~~~~
 
-Report bugs at https://github.com/s-goldman/dusty_evolved_star_kit/issues.
+Report bugs at https://github.com/s-goldman/Dusty-Evolved-Star-Kit/issues
 
 If you are reporting a bug, please include:
 
