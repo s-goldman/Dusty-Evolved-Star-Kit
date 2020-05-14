@@ -15,7 +15,7 @@ Types of Contributions
 Report Bugs
 ~~~~~~~~~~~
 
-Report bugs at https://github.com/s-goldman/Dusty-Evolved-Star-Kit/issues
+Report bugs at https://github.com/s-goldman/Dusty-Evolved-Star-Kit/issues.
 
 If you are reporting a bug, please include:
 
@@ -45,7 +45,7 @@ articles, and such.
 Submit Feedback
 ~~~~~~~~~~~~~~~
 
-The best way to send feedback is to file an issue at https://github.com/s-goldman/dusty_evolved_star_kit/issues.
+The best way to send feedback is to file an issue at https://github.com/s-goldman/Dusty-Evolved-Star-Kit/issues.
 
 If you are proposing a feature:
 
