@@ -46,7 +46,7 @@ Retrieve Single Model from Grid
 
 The DESK can also be used to easily access radiative transfer models from the grids, and interpolate models and their corresponding outputs.
 
-To retrieve a model grid, enter the following command with the desired effective temperature (Teff), inner dust temparature (Tinner), and optical depth (odep):
+To retrieve a model grid, enter the following command with the desired effective temperature (Teff), inner dust temperature (Tinner), and optical depth (odep):
 
 .. code-block:: console
 
