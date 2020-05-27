@@ -63,7 +63,7 @@ The method used is similar to that of [Goldman et al. 2017](https://ui.adsabs.ha
 
 This research has made use of the Dusty Evolved Star Kit (DESK; <https://github.com/s-goldman/Dusty-Evolved-Star-Kit>).
 
-Please also specify the options selected and make the data publicly availble for reproducability.
+Please also specify the options selected and make the data publicly available for reproducibility.
 
 License
 -------
