@@ -27,9 +27,10 @@ def get_values(filename):
 
     """
     table = read(filename, delimiter=",")
-    table.sort(table.colnames[0])
-    x = np.array(table.columns[0])
-    y = np.array(table.columns[1])
+    real_data = table[table["col1"] > 0]
+    real_data.sort(real_data.colnames[0])
+    x = np.array(real_data.columns[0])
+    y = np.array(real_data.columns[1])
     y = y * u.Jy
     y = y.to(u.W / (u.m * u.m), equivalencies=u.spectral_density(x * u.um))
     return x, np.array(y)

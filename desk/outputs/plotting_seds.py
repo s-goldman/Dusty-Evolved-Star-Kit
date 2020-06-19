@@ -1,37 +1,37 @@
-import math
+import math, ipdb
 import astropy.units as u
 import matplotlib.pyplot as plt
 import numpy as np
 from astropy.io.ascii import read
 from fnmatch import fnmatch
 from astropy.table import Table
+from desk.set_up import get_data
 
-
-def get_values(filename):
-    """
-    Reads csv file, convets Jy to Wm2, and sorts both by wavelength.
-    Returns both as 1D arrays
-
-    Parameters
-    ----------
-    filename : str
-        Name of csv file name. The file should have:
-            Column 0: wavelength in um
-            Column 1: flux in Jy
-
-    Returns
-    -------
-    2 1D arrays
-        wavelength (x) and flux (y) in unit specified in config.py (default is w/m2)
-
-    """
-    table = read(filename, delimiter=",")
-    table.sort(table.colnames[0])
-    x = np.array(table.columns[0])
-    y = np.array(table.columns[1])
-    y = y * u.Jy
-    y = y.to(u.W / (u.m * u.m), equivalencies=u.spectral_density(x * u.um))
-    return x, np.array(y)
+# def get_values(filename):
+#     """
+#     Reads csv file, convets Jy to Wm2, and sorts both by wavelength.
+#     Returns both as 1D arrays
+#
+#     Parameters
+#     ----------
+#     filename : str
+#         Name of csv file name. The file should have:
+#             Column 0: wavelength in um
+#             Column 1: flux in Jy
+#
+#     Returns
+#     -------
+#     2 1D arrays
+#         wavelength (x) and flux (y) in unit specified in config.py (default is w/m2)
+#
+#     """
+#     table = read(filename, delimiter=",")
+#     table.sort(table.colnames[0])
+#     x = np.array(table.columns[0])
+#     y = np.array(table.columns[1])
+#     y = y * u.Jy
+#     y = y.to(u.W / (u.m * u.m), equivalencies=u.spectral_density(x * u.um))
+#     return x, np.array(y)
 
 
 def get_model_and_data_for_plotting(counter, target):
@@ -62,7 +62,7 @@ def get_model_and_data_for_plotting(counter, target):
         full_path + "models/" + str(input_file["grid"][0]) + "_models.fits"
     )
 
-    x_data, y_data = get_values(target["file_name"])
+    x_data, y_data = get_data.get_values(target["file_name"])
     x_model, y_model = grid_dusty[target["model_id"]]
     x_model = x_model[np.where(y_model != 0)]
     if fnmatch(input_file["grid"][0], "grams*"):
@@ -134,7 +134,6 @@ def create_fig():
             y_max = y_max + y_diff
         else:
             y_min = y_min - y_diff
-
         # plotting
         if len(input_file) == 1:
             ax1.set_xlim(-0.99, 2.49)
@@ -150,7 +149,7 @@ def create_fig():
                 label="model",
             )
             ax1.annotate(
-                target["source"].replace("_", ""),
+                str(target["source"]).replace("_", ""),
                 (0.07, 0.85),
                 xycoords="axes fraction",
                 fontsize=14,
@@ -169,7 +168,7 @@ def create_fig():
             )
             axs[counter].scatter(x_data, y_data, c="blue")
             axs[counter].annotate(
-                target["source"].replace("_", ""),
+                str(target["source"]).replace("_", ""),
                 (0.7, 0.8),
                 xycoords="axes fraction",
                 fontsize=14,
@@ -227,7 +226,7 @@ def single_figures():
             label="model",
         )
         ax1.annotate(
-            target["source"].replace("_", " "),
+            str(target["source"]).replace("_", " "),
             (0.07, 0.85),
             xycoords="axes fraction",
             fontsize=14,

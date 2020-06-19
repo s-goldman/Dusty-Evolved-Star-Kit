@@ -17,6 +17,7 @@ def fit_single_source(
     full_outputs,
     counter,
     number_of_targets,
+    bayesian_fit=False,
 ):
 
     # calculate chi squared values for each model
@@ -26,22 +27,28 @@ def fit_single_source(
             for x in full_model_grid
         ]
     )
-    # liklihood /= np.sum(liklihood)  # normalized
-    # compute grid weights
-    grid_weights_odep = compute_grid_weights.grid_weights(full_outputs["odep"])
 
-    # priors
-    lmc_data = Table.read(
-        config.path + "probabilities/priors/LMC_tables_H11_all.dat", format="ascii"
-    )
-    create_prior.prior(lmc_data, "dmdt", 2e-6)
-    create_prior.prior(lmc_data, "L", 1000)
+    if bayesian_fit == True:
+        # liklihood /= np.sum(liklihood)  # normalized
+        # compute grid weights
+        grid_weights_odep = compute_grid_weights.grid_weights(full_outputs["odep"])
 
-    p_dmdt = resample_prior_to_model_grid.resamp(full_outputs, "scaled_mdot", "dmdt")
-    p_lum = resample_prior_to_model_grid.resamp(full_outputs, "lum", "L")
+        # priors
+        lmc_data = Table.read(
+            config.path + "probabilities/priors/LMC_tables_H11_all.dat", format="ascii"
+        )
+        create_prior.prior(lmc_data, "dmdt", 2e-6)
+        create_prior.prior(lmc_data, "L", 1000)
 
-    # combined_grid_weights, priors, and liklihoods
-    probs = grid_weights_odep * liklihood * p_dmdt * p_lum
+        p_dmdt = resample_prior_to_model_grid.resamp(
+            full_outputs, "scaled_mdot", "dmdt"
+        )
+        p_lum = resample_prior_to_model_grid.resamp(full_outputs, "lum", "L")
+        # combined_grid_weights, priors, and liklihoods
+        probs = grid_weights_odep * liklihood * p_dmdt * p_lum
+
+    else:
+        probs = liklihood
 
     ## most likly values
     odep_best = create_pdf.par_pdf("odep", full_outputs, probs)
