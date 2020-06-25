@@ -58,13 +58,14 @@ def fit(source="desk/put_target_data_here", distance=50, grid="Oss-Orich-bb"):
     file_names = get_data.compile_data(source)
 
     # gets data in array of [source[waves, fluxes], source[waves, fluxes], ...]
-    data = [get_data.get_values(x) for x in file_names]
+    data = [get_data.get_values(x, fitting=True) for x in file_names]
 
     # gets models
     grid_dusty, grid_outputs = get_models.get_model_grid(grid)
 
     # update ids to number in grid
     grid_outputs["number"] = np.arange(0, len(grid_outputs))
+
     # create scaling factors for larger model grid
     scaling_factors = create_full_grid.generate_scaling_factors(distance)
 
