@@ -6,9 +6,10 @@ import numpy as np
 import astropy.units as u
 from astropy.io.ascii import read
 from fnmatch import fnmatch
+from desk.set_up import config
 
 
-def get_values(filename):
+def get_values(filename, fitting=False):
     """
     Reads csv file, convets Jy to Wm2, sorts both by wavelength.
     Returns both as 1D arrays.
@@ -26,8 +27,28 @@ def get_values(filename):
         wavelength (x) and flux (y) in unit specified in config.py (default is w/m2)
 
     """
+    # error messages
+    class Fitting_Range_Error(ValueError):
+        pass
+
     table = read(filename, delimiter=",")
-    real_data = table[table["col1"] > 0]
+    if fitting == True:
+        # ipdb.set_trace()
+        table = table[
+            (table["col1"] > config.fitting["wavelength_min"])
+            & (table["col1"] < config.fitting["wavelength_max"])
+        ]
+        if len(table) < 2:
+            print(table)
+            raise Fitting_Range_Error(
+                "\n\nCurrent Range: "
+                + str(config.fitting["wavelength_min"])
+                + " - "
+                + str(config.fitting["wavelength_max"])
+                + " um\n"
+            )
+    # remove empty fluxes and bad wavelengths
+    real_data = table[(table["col1"] > 0) & (table["col2"] > 0)]
     real_data.sort(real_data.colnames[0])
     x = np.array(real_data.columns[0])
     y = np.array(real_data.columns[1])
