@@ -6,10 +6,10 @@ path = str(__file__.replace("set_up/config.py", ""))
 
 fitting = dict(
     model_grid="Zubko-Crich-bb",
-    wavelength_min=3.5,
-    wavelength_max=1000,
     lum_min=1000,
     lum_max=150000,
+    default_wavelength_min=3.5,
+    default_wavelength_max=1000,
     default_distance=50,
     default_number_of_models=100,
     default_grid="oxygen",

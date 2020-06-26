@@ -68,7 +68,11 @@ def create_full_outputs(_grid_outputs, distance, trials):
     grid_template = deepcopy(_grid_outputs)
     distance_norm = math.log10(((float(distance) / 4.8482e-9) ** 2) / 1379)
 
-    print("Scaling to full grid (" + str(len(grid_template) * len(trials)) + " models)")
+    print(
+        "Scaling to full grid ("
+        + "{:,}".format((len(grid_template) * len(trials)))
+        + " models)"
+    )
 
     # for each scaling value, create and append a grid
     for i, trial in enumerate(tqdm(trials)):

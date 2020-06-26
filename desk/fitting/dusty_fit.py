@@ -78,14 +78,18 @@ def fit_single_source(
         + "/"
         + str(number_of_targets)
     )
-    print("-------------------------------------------------")
-    print(("Luminosity\t\t\t|\t" + str(int(best_fit["lum"]))))
+    print("-" * 56)
+    print(("Luminosity\t\t\t|\t" + "{:,}".format((int(best_fit["lum"])))) + " Msun")
     print(("Optical depth\t\t\t|\t" + str(round(best_fit["odep"], 2))))
-    print(("Expansion velocity (scaled)\t|\t" + str(round(best_fit["scaled_vexp"], 2))))
+    print(
+        ("Expansion velocity (scaled)\t|\t" + str(round(best_fit["scaled_vexp"], 2)))
+        + " km/s"
+    )
     print(
         ("Gas mass loss (scaled)\t\t|\t" + str("%.2E" % float(best_fit["scaled_mdot"])))
+        + " Msun/yr"
     )
-    print("-------------------------------------------------")
+    print("-" * 56)
 
     counter += 1
     return counter

@@ -17,7 +17,6 @@ from desk.fitting import dusty_fit
 from desk.outputs import plotting_seds
 
 
-# Non-fitting commands #########################################################
 def grids():
     # Prints the model grids available for fitting.
     print("\nGrids:")
@@ -35,6 +34,8 @@ def fit(
     distance=config.fitting["default_distance"],
     grid=config.fitting["default_grid"],
     n=config.fitting["default_number_of_models"],
+    min_wavelength=config.fitting["default_wavelength_min"],
+    max_wavelength=config.fitting["default_wavelength_max"],
     testing=False,
 ):
     """
@@ -66,7 +67,10 @@ def fit(
     file_names = get_data.compile_data(source)
 
     # gets data in array of [source[waves, fluxes], source[waves, fluxes], ...]
-    data = [get_data.get_values(x, fitting=True) for x in file_names]
+    data = [
+        get_data.get_values(x, min_wavelength, max_wavelength, fitting=True)
+        for x in file_names
+    ]
 
     # gets models
     grid_dusty, grid_outputs = get_models.get_model_grid(grid)
