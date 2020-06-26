@@ -114,14 +114,8 @@ def check_models(model_grid):
         print("\nYou already have the grid!\n")
     else:
         # asks if you want to download the models
-        user_proceed = input("Models not found locally, download the models [y]/n?: ")
-        if user_proceed == "y" or user_proceed == "":
-            # downloads models
-            get_remote_models(model_grid)
-        elif user_proceed == "n":
-            raise ValueError("Please make another model selection")
-        elif user_proceed != "y" and user_proceed != "n":
-            raise ValueError("Invalid selection")
+        print("Models not found locally")
+        get_remote_models(model_grid)
     return (csv_file, fits_file)
 
 
