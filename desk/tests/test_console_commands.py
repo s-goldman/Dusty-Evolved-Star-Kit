@@ -1,5 +1,6 @@
 from astropy.table import Table
-from PIL import Image, ImageChops
+
+# from PIL import Image, ImageChops
 from desk import console_commands
 from desk.set_up import config
 import numpy as np
