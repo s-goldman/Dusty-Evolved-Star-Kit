@@ -6,11 +6,13 @@ path = str(__file__.replace("set_up/config.py", ""))
 
 fitting = dict(
     model_grid="Zubko-Crich-bb",
-    wavelength_min=0.001,
+    wavelength_min=3.5,
     wavelength_max=1000,
     lum_min=1000,
     lum_max=150000,
-    number_of_tries=40,
+    default_distance=50,
+    default_number_of_models=100,
+    default_grid="oxygen",
 )
 output = dict(
     printed_output="True",
@@ -20,10 +22,10 @@ output = dict(
 )
 grids = [
     "Crystalline-20-bb",
-    "H11-LMC",
-    "H11-SMC",
-    "J1000-LMC",
-    "J1000-SMC",
+    # "H11-LMC",
+    # "H11-SMC",
+    # "J1000-LMC",
+    # "J1000-SMC",
     "Oss-Orich-aringer",
     "Oss-Orich-bb",
     "Zubko-Crich-aringer",
@@ -34,6 +36,9 @@ grids = [
     "fifth-iron",
     "half-iron",
     "one-fifth-carbon",
-    "grams-oxygen",
-    "grams-carbon",
+    # "grams-oxygen",
+    # "grams-carbon",
 ]
+nanni_grids = []
+# nanni_grids = ["H11-LMC", "H11-SMC", "J1000-LMC", "J1000-SMC"]
+# grams_grids = ["grams-oxygen", "grams-carbon"]

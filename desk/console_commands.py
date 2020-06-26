@@ -1,8 +1,10 @@
 # Steve Goldman, Space Telescope Science Institute, sgoldman@stsci.edu
 # from time import time
-# import ipdb
+import ipdb
+
 # from multiprocessing import Value
 import numpy as np
+from astropy.table import Column
 from desk.set_up import (
     get_inputs,
     get_data,
@@ -28,7 +30,13 @@ def single_fig():
     plotting_seds.single_figures()
 
 
-def fit(source="desk/put_target_data_here", distance=50, grid="Oss-Orich-bb"):
+def fit(
+    source="desk/put_target_data_here",
+    distance=config.fitting["default_distance"],
+    grid=config.fitting["default_grid"],
+    n=config.fitting["default_number_of_models"],
+    testing=False,
+):
     """
     Fits the seds of sources with specified grid.
 
@@ -63,20 +71,45 @@ def fit(source="desk/put_target_data_here", distance=50, grid="Oss-Orich-bb"):
     # gets models
     grid_dusty, grid_outputs = get_models.get_model_grid(grid)
 
-    # update ids to number in grid
-    grid_outputs["number"] = np.arange(0, len(grid_outputs))
+    if testing == True:
+        grid_dusty = grid_dusty[:10]
+        grid_outputs = grid_outputs[:10]
 
-    # create scaling factors for larger model grid
-    scaling_factors = create_full_grid.generate_scaling_factors(distance)
+    # does not scale nanni or grams models
+    if grid in config.nanni_grids:
+        full_model_grid = grid_dusty
+        full_outputs = grid_outputs
+        full_outputs.rename_columns(
+            ["L", "vexp", "dmdt_ir"], ["lum", "scaled_vexp", "scaled_mdot"]
+        )
 
-    # create larger grid by scaling and appending current grid
+    # elif grid in config.grams_grids:
+    #     full_model_grid = grid_dusty
+    #     full_outputs = grid_outputs
+    #     full_model_grid.rename_columns(["LSPEC"], ["col0"])
+    #     full_outputs.rename_columns(["mdot"], ["scaled_mdot"])
+    #
+    #     # does not calculate expansion velocity so set as 0
+    #     full_outputs.add_column(Column([0] * len(full_outputs), name="scaled_vexp"))
+
+    else:
+        # update ids to number in grid
+        grid_outputs["number"] = np.arange(0, len(grid_outputs))
+
+        # create scaling factors for larger model grid
+        scaling_factors = create_full_grid.generate_scaling_factors(distance, int(n))
+
+        # create larger grid by scaling and appending current grid
+        full_outputs = create_full_grid.create_full_outputs(
+            grid_outputs, distance, scaling_factors
+        )
+        full_model_grid = create_full_grid.create_full_model_grid(
+            grid_dusty, scaling_factors
+        )
+        full_outputs.remove_columns(["vexp", "mdot"])
+
+    # get model wavelengths
     model_wavelength_grid = grid_dusty["col0"][0]
-    full_outputs = create_full_grid.create_full_outputs(
-        grid_outputs, distance, scaling_factors
-    )
-    full_model_grid = create_full_grid.create_full_model_grid(
-        grid_dusty, scaling_factors
-    )
 
     # Fitting ##################################################################
     for i, _ in enumerate(data):

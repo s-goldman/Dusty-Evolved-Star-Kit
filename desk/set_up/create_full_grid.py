@@ -10,7 +10,7 @@ from desk.set_up import config
 __all__ = ["generate_scaling_factors", "create_full_outputs", "create_full_model_grid"]
 
 
-def generate_scaling_factors(distance):
+def generate_scaling_factors(distance, number_of_models):
     """
     Creates arrays of model fluxes from lum_min to lum_max.
 
@@ -34,7 +34,7 @@ def generate_scaling_factors(distance):
         np.linspace(
             np.log10(config.fitting["lum_min"]),
             np.log10(config.fitting["lum_max"]),
-            config.fitting["number_of_tries"],
+            number_of_models,
         )
         - distance_norm
     )
@@ -64,10 +64,11 @@ def create_full_outputs(_grid_outputs, distance, trials):
         With the added columns for luminosity, scaled mdot, and sclaed vexp
 
     """
-    print("Scaling to full grid")
 
     grid_template = deepcopy(_grid_outputs)
     distance_norm = math.log10(((float(distance) / 4.8482e-9) ** 2) / 1379)
+
+    print("Scaling to full grid (" + str(len(grid_template) * len(trials)) + " models)")
 
     # for each scaling value, create and append a grid
     for i, trial in enumerate(tqdm(trials)):
