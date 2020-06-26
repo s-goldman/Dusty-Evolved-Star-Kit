@@ -9,7 +9,7 @@ from fnmatch import fnmatch
 from desk.set_up import config
 
 
-def get_values(filename, fitting=False):
+def get_values(filename, min_wavelength, max_wavelength, fitting=False):
     """
     Reads csv file, convets Jy to Wm2, sorts both by wavelength.
     Returns both as 1D arrays.
@@ -35,16 +35,16 @@ def get_values(filename, fitting=False):
     if fitting == True:
         # ipdb.set_trace()
         table = table[
-            (table["col1"] > config.fitting["wavelength_min"])
-            & (table["col1"] < config.fitting["wavelength_max"])
+            (table["col1"] > float(min_wavelength))
+            & (table["col1"] < float(max_wavelength))
         ]
         if len(table) < 2:
             print(table)
             raise Fitting_Range_Error(
                 "\n\nCurrent Range: "
-                + str(config.fitting["wavelength_min"])
+                + str(min_wavelength)
                 + " - "
-                + str(config.fitting["wavelength_max"])
+                + str(max_wavelength)
                 + " um\n"
             )
     # remove empty fluxes and bad wavelengths

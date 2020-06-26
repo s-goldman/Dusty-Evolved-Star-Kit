@@ -1,5 +1,6 @@
 # Steve Goldman, Space Telescope Science Institute, sgoldman@stsci.edu
 import csv
+import ipdb
 import numpy as np
 from desk.set_up import config
 from astropy.table import Table
@@ -47,51 +48,48 @@ def fit_single_source(
         # combined_grid_weights, priors, and liklihoods
         probs = grid_weights_odep * liklihood * p_dmdt * p_lum
 
+        ## most likly values
+        odep_best = create_pdf.par_pdf("odep", full_outputs, probs)
+        lum_best = create_pdf.par_pdf("lum", full_outputs, probs)
+        mdot_best = create_pdf.par_pdf("scaled_mdot", full_outputs, probs)
+        vexp_best = create_pdf.par_pdf("scaled_vexp", full_outputs, probs)
+        best = [odep_best, lum_best, mdot_best, vexp_best]
+
     else:
         probs = liklihood
 
-    ## most likly values
-    odep_best = create_pdf.par_pdf("odep", full_outputs, probs)
-    lum_best = create_pdf.par_pdf("lum", full_outputs, probs)
-    mdot_best = create_pdf.par_pdf("scaled_mdot", full_outputs, probs)
-    vexp_best = create_pdf.par_pdf("scaled_vexp", full_outputs, probs)
-
-    best = [odep_best, lum_best, mdot_best, vexp_best]
-
     best_fit = full_outputs[np.argmax(liklihood)]
     out = Table(best_fit)
-    out.remove_columns(["vexp", "mdot"])
 
     target_name = source_file_name.split("/")[-1][:-4].replace("IRAS-", "IRAS ")
 
+    # creates results file
     with open("fitting_results.csv", "a") as f:
         writer = csv.writer(f, delimiter=",", lineterminator="\n")
         writer.writerow([target_name] + [str(x) for x in out[0]] + [source_file_name])
         f.close()
 
-    # creates results file
-
     # printed output
-    print()
-    print()
     print(
-        (
-            "             Target: "
-            + target_name
-            + "        "
-            + str(counter)
-            + "/"
-            + str(number_of_targets)
-        )
+        "\n\n             Target: "
+        + target_name
+        + "        "
+        + str(counter)
+        + "/"
+        + str(number_of_targets)
     )
-    print("-------------------------------------------------")
-    print(("Luminosity\t\t\t|\t" + str(int(best_fit["lum"]))))
+    print("-" * 56)
+    print(("Luminosity\t\t\t|\t" + "{:,}".format((int(best_fit["lum"])))) + " Msun")
     print(("Optical depth\t\t\t|\t" + str(round(best_fit["odep"], 2))))
-    print(("Expansion velocity (scaled)\t|\t" + str(round(best_fit["scaled_vexp"], 2))))
+    print(
+        ("Expansion velocity (scaled)\t|\t" + str(round(best_fit["scaled_vexp"], 2)))
+        + " km/s"
+    )
     print(
         ("Gas mass loss (scaled)\t\t|\t" + str("%.2E" % float(best_fit["scaled_mdot"])))
+        + " Msun/yr"
     )
-    print("-------------------------------------------------")
+    print("-" * 56)
 
     counter += 1
     return counter
