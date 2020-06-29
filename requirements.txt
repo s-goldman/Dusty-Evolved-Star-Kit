@@ -2,3 +2,4 @@ astropy
 numpy
 ipdb
 tqdm
+matplotlib
