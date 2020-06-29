@@ -4,3 +4,5 @@ ipdb
 tqdm
 matplotlib
 sklearn
+h5py
+wheel

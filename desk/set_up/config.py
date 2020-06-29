@@ -31,7 +31,7 @@ grids = [
     "Zubko-Crich-aringer",
     "Zubko-Crich-bb",
     "arnold-palmer",
-    "big-grain",
+    "big-grains",
     "corundum-20-bb",
     "fifth-iron",
     "half-iron",

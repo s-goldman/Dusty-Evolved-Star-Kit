@@ -73,11 +73,7 @@ def fit(
     ]
 
     # gets models
-    grid_dusty, grid_outputs = get_models.get_model_grid(grid)
-
-    if testing == True:
-        grid_dusty = grid_dusty[:10]
-        grid_outputs = grid_outputs[:10]
+    grid_dusty, grid_outputs = get_models.get_model_grid(grid, testing)
 
     # does not scale nanni or grams models
     if grid in config.nanni_grids:

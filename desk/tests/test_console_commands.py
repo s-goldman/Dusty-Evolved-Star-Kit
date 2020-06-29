@@ -11,7 +11,7 @@ import pytest
 def test_grids(capfd):
     console_commands.grids()
     out, _ = capfd.readouterr()
-    np.testing.assert_allclose(len(out), 182, err_msg=("Print grids error"))
+    np.testing.assert_allclose(len(out), 183, err_msg=("Print grids error"))
 
 
 # @pytest.mark.parametrize("test_input,expected", [("3+5", 8), ("2+4", 6), ("6*9", 42)])
