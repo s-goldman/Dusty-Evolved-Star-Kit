@@ -3,3 +3,4 @@ numpy
 ipdb
 tqdm
 matplotlib
+sklearn
