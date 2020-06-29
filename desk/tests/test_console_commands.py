@@ -19,7 +19,7 @@ def test_grids(capfd):
 # 	assert
 def create_sample_data(directory, set):
     target_filename = "sample_target_" + str(set) + ".csv"
-    target_file_path = directory.join(target_filename)
+    target_file_path = str(directory.join(target_filename))
     file = open(target_file_path, "w")
     # simple set
     if set == 1:
