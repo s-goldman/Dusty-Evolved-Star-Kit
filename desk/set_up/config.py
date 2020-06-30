@@ -11,7 +11,7 @@ fitting = dict(
     default_wavelength_min=3.5,
     default_wavelength_max=1000,
     default_distance=50,
-    default_number_of_models=100,
+    default_number_of_times_to_scale_models=100,
     default_grid="oxygen",
 )
 output = dict(

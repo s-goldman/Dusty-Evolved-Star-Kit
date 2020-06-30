@@ -24,7 +24,7 @@ setup(
     ],
     description="The DESK is an SED-fitting python scripts for fitting data from evolved stars",
     entry_points={"console_scripts": ["desk = desk.main:main"]},
-    install_requires=["Click>=6.0", "tqdm", "scipy", "ipdb"],
+    install_requires=["astropy", "numpy", "scipy", "tqdm", "ipdb"],
     license="BSD license",
     long_description=readme + "\n\n" + history,
     include_package_data=True,
@@ -36,6 +36,6 @@ setup(
     test_suite="tests",
     tests_require="pytest",
     url="https://github.com/s-goldman/Dusty_Evolved_Star_Kit",
-    version="1.6.16",
+    version="1.6.17",
     zip_safe=False,
 )

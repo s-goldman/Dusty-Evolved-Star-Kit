@@ -1,11 +1,9 @@
+import pytest
+import numpy as np
 from astropy.table import Table
-
-# from PIL import Image, ImageChops
 import desk
 from desk import console_commands
 from desk.set_up import config
-import numpy as np
-import pytest
 
 
 def test_grids(capfd):
@@ -15,6 +13,21 @@ def test_grids(capfd):
 
 
 def create_sample_data(directory, set):
+    """Creates sample datasets for testing and saves it to a two column csv.
+
+    Parameters
+    ----------
+    directory : str
+        Directory to write csv file to.
+    set : int
+        The integer associated with each sample testing dataset.
+
+    Returns
+    -------
+    type : csv file
+        two column csv file with wavelength (um) and flux (Jy).
+
+    """
     target_filename = "sample_target_" + str(set) + ".csv"
     target_file_path = str(directory.join(target_filename))
     file = open(target_file_path, "w")
@@ -34,41 +47,39 @@ def create_sample_data(directory, set):
     return target_file_path
 
 
-# tests single fit for each sample set and each grid
 @pytest.mark.parametrize("set", [1, 2, 3])
 @pytest.mark.parametrize("testing_grid", config.grids)
 def test_single_fit(tmpdir, testing_grid, set):
+    # tests single fit for each sample set and each grid
     example_filename = create_sample_data(tmpdir, set)
     console_commands.fit(
         source=str(example_filename), grid=testing_grid, n=2, testing=True
     )
 
 
-# def test_single_sed(tmpdir):
-#     console_commands.sed()
-#     sed = Image.open("output_sed.png")
-#     expected_sed = Image.open("desk/tests/expected_sed_1.png")
-#     assert ImageChops.difference(sed, expected_sed).getbbox() is None
-#
-#
-# def test_multiple_fit(tmpdir):
-#     create_sample_data(tmpdir, 1)
-#     create_sample_data(tmpdir, 2)
-#     console_commands.fit(source=str(tmpdir))
-#     results = Table.read("fitting_results.csv")
-#     expected_results = Table.read("desk/tests/expected_fitting_results_2.csv")
-#     cols = results.colnames
-#     np.testing.assert_allclose(
-#         np.array(results[cols[2:-1]]).tolist(),
-#         np.array(expected_results[cols[2:-1]]).tolist(),
-#         err_msg=("Fitting results error"),
-#     )
-#
-#
-# def test_multiple_sed(tmpdir):
-#     console_commands.sed()
-#     sed = Image.open("output_sed.png")
-#     expected_sed = Image.open("desk/tests/expected_sed_2.png")
-#     np.testing.assert_string_equal(
-#         str(ImageChops.difference(sed, expected_sed).getbbox()), "None"
-#     )
+def test_single_fit_options(tmpdir):
+    # testing single fit user options
+    example_filename = create_sample_data(tmpdir, 2)
+    console_commands.fit(
+        source=str(example_filename),
+        distance=0.1,
+        grid="oxygen",
+        n=2,
+        min_wavelength=1,
+        max_wavelength=100,
+        testing=True,
+    )
+
+
+def test_single_sed(tmpdir):
+    # test for single SED figure
+    console_commands.sed()
+
+
+def test_multiple_fit(tmpdir):
+    # test for multiple SED fit with SED figure
+    create_sample_data(tmpdir, 1)
+    create_sample_data(tmpdir, 2)
+    create_sample_data(tmpdir, 3)
+    console_commands.fit(source=str(tmpdir))
+    console_commands.sed()

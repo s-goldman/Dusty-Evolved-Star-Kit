@@ -33,7 +33,7 @@ def fit(
     source="desk/put_target_data_here",
     distance=config.fitting["default_distance"],
     grid=config.fitting["default_grid"],
-    n=config.fitting["default_number_of_models"],
+    n=config.fitting["default_number_of_times_to_scale_models"],
     min_wavelength=config.fitting["default_wavelength_min"],
     max_wavelength=config.fitting["default_wavelength_max"],
     testing=False,
