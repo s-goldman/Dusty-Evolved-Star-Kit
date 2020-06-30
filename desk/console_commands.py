@@ -51,10 +51,7 @@ def fit(
         Name of model grid.
     """
 
-    # SET-UP ###################################################################
-    # progress tracking
-    # start = time()
-    # counter = Value("i", 0)
+    # Set-up ###################################################################
 
     # get inputs
     user = get_inputs.users(source, distance, grid)
@@ -123,6 +120,7 @@ def fit(
             counter=i + 1,
             number_of_targets=len(data),
         )
+    plotting_seds.create_fig()
 
 
 def sed():

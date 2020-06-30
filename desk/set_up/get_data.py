@@ -9,7 +9,7 @@ from fnmatch import fnmatch
 from desk.set_up import config
 
 
-def get_values(filename, min_wavelength, max_wavelength, fitting=False):
+def get_values(filename, min_wavelength=0, max_wavelength=0, fitting=False):
     """
     Reads csv file, convets Jy to Wm2, sorts both by wavelength.
     Returns both as 1D arrays.

@@ -59,7 +59,7 @@ def get_model_and_data_for_plotting(counter, target):
     full_path = str(__file__.replace("outputs/plotting_seds.py", ""))
     input_file = Table.read("fitting_results.csv")
     grid_dusty = Table.read(
-        full_path + "models/" + str(input_file["grid"][0]) + "_models.fits"
+        full_path + "models/" + str(input_file["grid"][0]) + "_models.hdf5"
     )
 
     x_data, y_data = get_data.get_values(target["file_name"])

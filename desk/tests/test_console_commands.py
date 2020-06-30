@@ -14,9 +14,6 @@ def test_grids(capfd):
     np.testing.assert_allclose(len(out), 183, err_msg=("Print grids error"))
 
 
-# @pytest.mark.parametrize("test_input,expected", [("3+5", 8), ("2+4", 6), ("6*9", 42)])
-# def test_get_model(test_input, expected):
-# 	assert
 def create_sample_data(directory, set):
     target_filename = "sample_target_" + str(set) + ".csv"
     target_file_path = str(directory.join(target_filename))
@@ -45,8 +42,6 @@ def test_single_fit(tmpdir, testing_grid, set):
     console_commands.fit(
         source=str(example_filename), grid=testing_grid, n=2, testing=True
     )
-    # results = Table.read("fitting_results.csv")
-    # assert len(results) == 1
 
 
 # def test_single_sed(tmpdir):

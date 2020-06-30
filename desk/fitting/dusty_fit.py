@@ -73,14 +73,14 @@ def fit_single_source(
     print(
         "\n\n             Target: "
         + target_name
-        + "        "
+        + "\t\t"
         + str(counter)
         + "/"
         + str(number_of_targets)
     )
     print("-" * 56)
     print(("Luminosity\t\t\t|\t" + "{:,}".format((int(best_fit["lum"])))) + " Msun")
-    print(("Optical depth\t\t\t|\t" + str(round(best_fit["odep"], 2))))
+    print(("Optical depth (at 10 um)\t|\t" + str(round(best_fit["odep"], 2))))
     print(
         ("Expansion velocity (scaled)\t|\t" + str(round(best_fit["scaled_vexp"], 2)))
         + " km/s"
