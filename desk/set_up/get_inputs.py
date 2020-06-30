@@ -5,7 +5,22 @@ __all__ = ["users"]
 class users(object):
     """Initializes user inputs."""
 
-    def __init__(self, source, distance, grid):
+    def __init__(
+        self,
+        file_names,
+        source,
+        distance,
+        grid,
+        n,
+        model_wavelength_grid,
+        full_model_grid,
+        full_outputs,
+        min_wavelength,
+        max_wavelength,
+        bayesian_fit,
+        testing,
+        # counter,
+    ):
         """
         Initializes user inputs.
 
@@ -20,9 +35,16 @@ class users(object):
 
         """
         # Initialize user-inputted data
+        self.file_names = file_names
         self.source = source
         self.distance = distance
         self.grid = grid
-        self.target = dict(
-            distance_in_kpc=50, assumed_gas_to_dust_ratio=200, input_unit="Jy"
-        )
+        self.n = n
+        self.model_wavelength_grid = model_wavelength_grid
+        self.full_model_grid = full_model_grid
+        self.full_outputs = full_outputs
+        self.min_wavelength = min_wavelength
+        self.max_wavelength = max_wavelength
+        self.bayesian_fit = bayesian_fit
+        self.testing = testing
+        # self.counter = counter

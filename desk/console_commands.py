@@ -2,7 +2,8 @@
 # from time import time
 import ipdb
 
-# from multiprocessing import Value
+from multiprocessing import Process, Value, Manager, Pool, cpu_count
+from functools import partial
 import numpy as np
 from astropy.table import Column
 from desk.set_up import (
@@ -52,22 +53,14 @@ def fit(
     """
 
     # Set-up ###################################################################
-
-    # get inputs
-    user = get_inputs.users(source, distance, grid)
-
-    # remove old / create new output files
-    create_output_files.remove_old_output_files()
-    create_output_files.make_output_files_dusty()
+    bayesian_fit = False
 
     # get data filenames
     file_names = get_data.compile_data(source)
 
-    # gets data in array of [source[waves, fluxes], source[waves, fluxes], ...]
-    data = [
-        get_data.get_values(x, min_wavelength, max_wavelength, fitting=True)
-        for x in file_names
-    ]
+    # remove old / create new output files
+    create_output_files.remove_old_output_files()
+    create_output_files.make_output_files_dusty()
 
     # gets models
     grid_dusty, grid_outputs = get_models.get_model_grid(grid, testing)
@@ -108,18 +101,32 @@ def fit(
     # get model wavelengths
     model_wavelength_grid = grid_dusty["col0"][0]
 
+    # counter
+    counter = Value("i", 1)
+
+    # initialize fitting parameters
+    fit_params = get_inputs.users(
+        file_names,
+        source,
+        distance,
+        grid,
+        n,
+        model_wavelength_grid,
+        full_model_grid,
+        full_outputs,
+        min_wavelength,
+        max_wavelength,
+        bayesian_fit,
+        testing,
+        # counter,
+    )
+
     # Fitting ##################################################################
-    for i, _ in enumerate(data):
-        dusty_fit.fit_single_source(
-            file_names[i],
-            data[i],
-            user,
-            model_wavelength_grid,
-            full_model_grid,
-            full_outputs,
-            counter=i + 1,
-            number_of_targets=len(data),
-        )
+    pool = Pool(processes=cpu_count() - 1)
+    mapfunc = partial(dusty_fit.fit_single_source, fit_params=fit_params)
+    pool.map(mapfunc, range(len(file_names)))
+
+    # creates sed figure
     plotting_seds.create_fig()
 
 

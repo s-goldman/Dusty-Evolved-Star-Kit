@@ -2,34 +2,35 @@
 import csv
 import ipdb
 import numpy as np
-from desk.set_up import config
+from desk.set_up import config, get_data
 from astropy.table import Table
 from desk.fitting import fitting_tools
 from desk.probabilities import compute_grid_weights, create_pdf
 from desk.probabilities import create_prior, resample_prior_to_model_grid
 
 
-def fit_single_source(
-    source_file_name,
-    data,
-    user,
-    wavelength_grid,
-    full_model_grid,
-    full_outputs,
-    counter,
-    number_of_targets,
-    bayesian_fit=False,
-):
+def fit_single_source(source_number, fit_params):
+    source_file_name = fit_params.file_names[source_number]
+    full_model_grid = fit_params.full_model_grid
+    full_outputs = fit_params.full_outputs
+    data = get_data.get_values(
+        source_file_name,
+        fit_params.min_wavelength,
+        fit_params.max_wavelength,
+        fitting=True,
+    )
 
     # calculate chi squared values for each model
     liklihood = np.array(
         [
-            fitting_tools.fit.fit_data(data, [wavelength_grid, x["col0"]])
+            fitting_tools.fit.fit_data(
+                data, [fit_params.model_wavelength_grid, x["col0"]]
+            )
             for x in full_model_grid
         ]
     )
 
-    if bayesian_fit == True:
+    if fit_params.bayesian_fit == True:
         # liklihood /= np.sum(liklihood)  # normalized
         # compute grid weights
         grid_weights_odep = compute_grid_weights.grid_weights(full_outputs["odep"])
@@ -74,9 +75,9 @@ def fit_single_source(
         "\n\n             Target: "
         + target_name
         + "\t\t"
-        + str(counter)
+        + str(source_number + 1)
         + "/"
-        + str(number_of_targets)
+        + str(len(fit_params.file_names))
     )
     print("-" * 56)
     print(("Luminosity\t\t\t|\t" + "{:,}".format((int(best_fit["lum"])))) + " Msun")
@@ -91,5 +92,5 @@ def fit_single_source(
     )
     print("-" * 56)
 
-    counter += 1
-    return counter
+    # fit_params.counter.value += 1
+    # return fit_params.counter
