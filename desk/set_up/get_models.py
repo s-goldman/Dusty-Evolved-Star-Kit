@@ -16,6 +16,7 @@ def read_hdf5(filename, testing):
         data = list(f[key][1:4])
     else:
         data = list(f[key])
+    f.close()
     out = Table(np.array(data))
     return out
 
