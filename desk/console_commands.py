@@ -105,7 +105,7 @@ def fit(
     counter = Value("i", 1)
 
     # initialize fitting parameters
-    fit_params = get_inputs.users(
+    fit_params = get_inputs.fitting_parameters(
         file_names,
         source,
         distance,

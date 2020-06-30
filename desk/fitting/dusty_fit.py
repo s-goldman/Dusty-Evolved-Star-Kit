@@ -91,6 +91,3 @@ def fit_single_source(source_number, fit_params):
         + " Msun/yr"
     )
     print("-" * 56)
-
-    # fit_params.counter.value += 1
-    # return fit_params.counter

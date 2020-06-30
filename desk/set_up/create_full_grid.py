@@ -120,7 +120,7 @@ def create_full_model_grid(grid_dusty, scaling_factors):
 
     Returns
     -------
-    type: Astropy table with 1 column with scaled flux grid in each row
+    type: Astropy table with 1 column with scaled flux grid (w m-2) in each row
         scaled flux grid
 
     """
