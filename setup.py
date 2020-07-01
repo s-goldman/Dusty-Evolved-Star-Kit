@@ -5,6 +5,7 @@
 """The setup script."""
 
 from setuptools import setup, find_packages
+import os
 
 
 def read(rel_path):
