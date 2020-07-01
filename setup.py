@@ -5,7 +5,8 @@
 """The setup script."""
 
 from setuptools import setup, find_packages
-import os
+import codecs
+import os.path
 
 
 def read(rel_path):
