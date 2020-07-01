@@ -2,36 +2,9 @@ import math, ipdb
 import astropy.units as u
 import matplotlib.pyplot as plt
 import numpy as np
-from astropy.io.ascii import read
 from fnmatch import fnmatch
 from astropy.table import Table
 from desk.set_up import get_data
-
-# def get_values(filename):
-#     """
-#     Reads csv file, convets Jy to Wm2, and sorts both by wavelength.
-#     Returns both as 1D arrays
-#
-#     Parameters
-#     ----------
-#     filename : str
-#         Name of csv file name. The file should have:
-#             Column 0: wavelength in um
-#             Column 1: flux in Jy
-#
-#     Returns
-#     -------
-#     2 1D arrays
-#         wavelength (x) and flux (y) in unit specified in config.py (default is w/m2)
-#
-#     """
-#     table = read(filename, delimiter=",")
-#     table.sort(table.colnames[0])
-#     x = np.array(table.columns[0])
-#     y = np.array(table.columns[1])
-#     y = y * u.Jy
-#     y = y.to(u.W / (u.m * u.m), equivalencies=u.spectral_density(x * u.um))
-#     return x, np.array(y)
 
 
 def get_model_and_data_for_plotting(counter, target):

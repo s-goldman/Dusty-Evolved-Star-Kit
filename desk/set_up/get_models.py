@@ -37,7 +37,6 @@ def get_remote_models(model_grid_name):
         else:  # total size is unknown
             sys.stderr.write("read %d\n" % (readsofar,))
 
-    grids = config.grids
     models = {
         "arnold-palmer": "https://stsci.box.com/shared/static/5uw23xy6dzrjeb012tw8250r6zfquq1d.hdf5",
         "big-grains": "https://stsci.box.com/shared/static/iwd1wi62rosqhxps2m5ebl8jmv7edx1z.hdf5",

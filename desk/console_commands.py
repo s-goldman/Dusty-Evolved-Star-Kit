@@ -5,7 +5,6 @@ import ipdb
 from multiprocessing import Process, Value, Manager, Pool, cpu_count
 from functools import partial
 import numpy as np
-from astropy.table import Column
 from desk.set_up import (
     get_inputs,
     get_data,
@@ -39,7 +38,7 @@ def fit(
     n=config.fitting["default_number_of_times_to_scale_models"],
     min_wavelength=config.fitting["default_wavelength_min"],
     max_wavelength=config.fitting["default_wavelength_max"],
-    multprocessing=True,
+    multiprocessing=True,
     testing=False,
 ):
     """
@@ -104,9 +103,6 @@ def fit(
     # get model wavelengths
     model_wavelength_grid = grid_dusty["col0"][0]
 
-    # counter
-    counter = Value("i", 1)
-
     # initialize fitting parameters
     fit_params = get_inputs.fitting_parameters(
         file_names,
@@ -121,10 +117,9 @@ def fit(
         max_wavelength,
         bayesian_fit,
         testing,
-        # counter,
     )
 
-    if multprocessing == True:
+    if multiprocessing == True:
         # Multi-core fitting
         pool = Pool(processes=cpu_count() - 1)
         mapfunc = partial(dusty_fit.fit_single_source, fit_params=fit_params)
