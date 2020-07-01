@@ -3,14 +3,16 @@ include HISTORY.rst
 include LICENSE
 include README.rst
 
-recursive-exclude * __pycache__
-recursive-exclude * *.py[co]
-recursive-exclude desk output_sed.png
-recursive-exclude desk fitting*
-recursive-exclude desk output_sed.png
-recursive-exclude desk parameter*.png
-
-recursive-include tests *
+recursive-include desk/tests *
+recursive-include desk/fitting *
+recursive-include desk/probabilities *
+recursive-include desk/outputs *
+recursive-include desk/set_up *
 recursive-include desk/put_target_data_here *
 recursive-include desk/models *
 recursive-include docs *.rst conf.py Makefile make.bat *.jpg *.png *.gif
+
+recursive-exclude * __pycache__
+recursive-exclude * *.py[co]
+recursive-exclude desk output_sed.png
+recursive-exclude desk parameter*.png
