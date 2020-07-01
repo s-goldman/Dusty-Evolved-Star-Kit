@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+# bumpversion setup.cfg
 """The setup script."""
 
 from setuptools import setup, find_packages
@@ -28,7 +29,7 @@ setup(
     license="BSD license",
     long_description=readme + "\n\n" + history,
     include_package_data=True,
-    keywords="Dusty_Evolved_Star_Kit",
+    keywords="Dusty-Evolved-Star-Kit",
     name="desk",
     packages=find_packages(include=["desk"]),
     package_data={"project": ["desk/models/*", "desk/put_target_data_here/*"]},
