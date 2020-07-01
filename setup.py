@@ -37,6 +37,6 @@ setup(
     test_suite="tests",
     tests_require="pytest",
     url="https://github.com/s-goldman/Dusty_Evolved_Star_Kit",
-    version="1.6.20",
+    version="1.6.21",
     zip_safe=False,
 )
