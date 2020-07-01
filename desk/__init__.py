@@ -12,6 +12,6 @@ distribution, as that directory only contains C extension code.
 
 __author__ = """Steven R. Goldman"""
 __email__ = "sgoldman@stsci.edu"
-__version__ = "1.6.19"
+__version__ = "1.6.20"
 
 from desk import fitting, outputs, probabilities, set_up
