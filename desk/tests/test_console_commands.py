@@ -1,4 +1,5 @@
 import pytest
+import time
 import numpy as np
 from astropy.table import Table
 import desk
@@ -55,6 +56,7 @@ def test_single_fit(tmpdir, testing_grid, set):
     console_commands.fit(
         source=str(example_filename), grid=testing_grid, n=2, testing=True
     )
+    time.sleep(1)
 
 
 def test_single_fit_options(tmpdir):

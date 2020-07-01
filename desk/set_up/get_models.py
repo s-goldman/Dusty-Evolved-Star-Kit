@@ -10,13 +10,12 @@ from desk.set_up import config
 
 
 def read_hdf5(filename, testing):
-    f = h5py.File(filename, "r")
-    key = list(f.keys())[0]
-    if testing == True:
-        data = list(f[key][1:4])
-    else:
-        data = list(f[key])
-    f.close()
+    with h5py.File(filename, "r") as f:
+        key = list(f.keys())[0]
+        if testing == True:
+            data = list(f[key][1:4])
+        else:
+            data = list(f[key])
     out = Table(np.array(data))
     return out
 
