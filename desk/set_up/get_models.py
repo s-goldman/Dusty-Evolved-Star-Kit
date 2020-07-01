@@ -10,13 +10,12 @@ from desk.set_up import config
 
 
 def read_hdf5(filename, testing):
-    f = h5py.File(filename, "r")
-    key = list(f.keys())[0]
-    if testing == True:
-        data = list(f[key][1:4])
-    else:
-        data = list(f[key])
-    f.close()
+    with h5py.File(filename, "r") as f:
+        key = list(f.keys())[0]
+        if testing == True:
+            data = list(f[key][1:4])
+        else:
+            data = list(f[key])
     out = Table(np.array(data))
     return out
 
@@ -38,7 +37,6 @@ def get_remote_models(model_grid_name):
         else:  # total size is unknown
             sys.stderr.write("read %d\n" % (readsofar,))
 
-    grids = config.grids
     models = {
         "arnold-palmer": "https://stsci.box.com/shared/static/5uw23xy6dzrjeb012tw8250r6zfquq1d.hdf5",
         "big-grains": "https://stsci.box.com/shared/static/iwd1wi62rosqhxps2m5ebl8jmv7edx1z.hdf5",

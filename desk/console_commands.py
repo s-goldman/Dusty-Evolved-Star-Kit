@@ -5,7 +5,6 @@ import ipdb
 from multiprocessing import Process, Value, Manager, Pool, cpu_count
 from functools import partial
 import numpy as np
-from astropy.table import Column
 from desk.set_up import (
     get_inputs,
     get_data,
@@ -16,6 +15,8 @@ from desk.set_up import (
 )
 from desk.fitting import dusty_fit
 from desk.outputs import plotting_seds
+
+desk_path = str(__file__.replace("console_commands.py", ""))
 
 
 def grids():
@@ -31,12 +32,13 @@ def single_fig():
 
 
 def fit(
-    source="desk/put_target_data_here",
+    source=desk_path + "put_target_data_here",
     distance=config.fitting["default_distance"],
     grid=config.fitting["default_grid"],
     n=config.fitting["default_number_of_times_to_scale_models"],
     min_wavelength=config.fitting["default_wavelength_min"],
     max_wavelength=config.fitting["default_wavelength_max"],
+    multiprocessing=True,
     testing=False,
 ):
     """
@@ -101,9 +103,6 @@ def fit(
     # get model wavelengths
     model_wavelength_grid = grid_dusty["col0"][0]
 
-    # counter
-    counter = Value("i", 1)
-
     # initialize fitting parameters
     fit_params = get_inputs.fitting_parameters(
         file_names,
@@ -118,13 +117,16 @@ def fit(
         max_wavelength,
         bayesian_fit,
         testing,
-        # counter,
     )
 
-    # Fitting ##################################################################
-    pool = Pool(processes=cpu_count() - 1)
-    mapfunc = partial(dusty_fit.fit_single_source, fit_params=fit_params)
-    pool.map(mapfunc, range(len(file_names)))
+    if multiprocessing == True:
+        # Multi-core fitting
+        pool = Pool(processes=cpu_count() - 1)
+        mapfunc = partial(dusty_fit.fit_single_source, fit_params=fit_params)
+        pool.map(mapfunc, range(len(file_names)))
+    else:
+        # Single-core fitting
+        [dusty_fit.fit_single_source(x, fit_params) for x in range(len(file_names))]
 
     # creates sed figure
     plotting_seds.create_fig()

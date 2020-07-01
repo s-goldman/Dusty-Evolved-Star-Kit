@@ -6,7 +6,7 @@ import numpy as np
 import astropy.units as u
 from astropy.io.ascii import read
 from fnmatch import fnmatch
-from desk.set_up import config
+from desk.set_up import config, error_messages
 
 
 def get_values(filename, min_wavelength=0, max_wavelength=0, fitting=False):
@@ -27,20 +27,16 @@ def get_values(filename, min_wavelength=0, max_wavelength=0, fitting=False):
         wavelength (x) and flux (y) in unit specified in config.py (default is w/m2)
 
     """
-    # error messages
-    class Fitting_Range_Error(ValueError):
-        pass
 
-    table = read(filename, delimiter=",")
+    table = read(filename, delimiter=",", names=[])
     if fitting == True:
-        # ipdb.set_trace()
         table = table[
             (table["col1"] > float(min_wavelength))
             & (table["col1"] < float(max_wavelength))
         ]
         if len(table) < 2:
             print(table)
-            raise Fitting_Range_Error(
+            raise error_messages.Fitting_Range_Error(
                 "\n\nCurrent Range: "
                 + str(min_wavelength)
                 + " - "
@@ -73,12 +69,6 @@ def compile_data(source):
         array with 1 or multiple filenames
 
     """
-    # specific error messages
-    class BadFilenameError(ValueError):
-        pass
-
-    class BadSourceDirectoryError(ValueError):
-        pass
 
     # checks if single source with good filename
     if fnmatch(source, "*.csv"):
@@ -87,7 +77,7 @@ def compile_data(source):
                 f.readlines()
                 data = np.array([source])
         except IOError:
-            raise BadFilenameError(source)
+            raise error_messages.BadFilenameError(source)
     # checks if dir with csv files
     elif os.path.isdir(source):
         source_dir = (source + "/").replace("//", "/")  # if input dir ends in /
@@ -95,7 +85,7 @@ def compile_data(source):
             file_names = glob.glob(source + "/" + "*.csv")
             data = np.array(file_names)
         else:
-            raise BadSourceDirectoryError(source)
+            raise error_messages.BadSourceDirectoryError(source)
     else:
-        raise BadFilenameError(source)
+        raise error_messages.BadFilenameError(source)
     return data
