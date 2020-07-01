@@ -31,9 +31,8 @@ def get_values(filename, min_wavelength=0, max_wavelength=0, fitting=False):
     class Fitting_Range_Error(ValueError):
         pass
 
-    table = read(filename, delimiter=",")
+    table = read(filename, delimiter=",", names=[])
     if fitting == True:
-        # ipdb.set_trace()
         table = table[
             (table["col1"] > float(min_wavelength))
             & (table["col1"] < float(max_wavelength))

@@ -17,6 +17,8 @@ from desk.set_up import (
 from desk.fitting import dusty_fit
 from desk.outputs import plotting_seds
 
+desk_path = str(__file__.replace("console_commands.py", ""))
+
 
 def grids():
     # Prints the model grids available for fitting.
@@ -31,12 +33,13 @@ def single_fig():
 
 
 def fit(
-    source="desk/put_target_data_here",
+    source=desk_path + "put_target_data_here",
     distance=config.fitting["default_distance"],
     grid=config.fitting["default_grid"],
     n=config.fitting["default_number_of_times_to_scale_models"],
     min_wavelength=config.fitting["default_wavelength_min"],
     max_wavelength=config.fitting["default_wavelength_max"],
+    multprocessing=True,
     testing=False,
 ):
     """
@@ -121,10 +124,14 @@ def fit(
         # counter,
     )
 
-    # Fitting ##################################################################
-    pool = Pool(processes=cpu_count() - 1)
-    mapfunc = partial(dusty_fit.fit_single_source, fit_params=fit_params)
-    pool.map(mapfunc, range(len(file_names)))
+    if multprocessing == True:
+        # Multi-core fitting
+        pool = Pool(processes=cpu_count() - 1)
+        mapfunc = partial(dusty_fit.fit_single_source, fit_params=fit_params)
+        pool.map(mapfunc, range(len(file_names)))
+    else:
+        # Single-core fitting
+        [dusty_fit.fit_single_source(x, fit_params) for x in range(len(file_names))]
 
     # creates sed figure
     plotting_seds.create_fig()
