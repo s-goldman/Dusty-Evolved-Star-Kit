@@ -12,4 +12,4 @@ distribution, as that directory only contains C extension code.
 
 __author__ = """Steven R. Goldman"""
 __email__ = "sgoldman@stsci.edu"
-__version__ = "1.6.18"
+__version__ = "__version__ = '1.6.18'"
