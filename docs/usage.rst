@@ -37,25 +37,4 @@ This is an example of the output_sed.png file fitting three massive oxygen-rich 
 
 .. code-block:: console
 
-	> desk single_fit
-
-
-
-Retrieve Single Model from Grid
--------------------------------
-
-The DESK can also be used to easily access radiative transfer models from the grids, and interpolate models and their corresponding outputs.
-
-To retrieve a model grid, enter the following command with the desired effective temperature (Teff), inner dust temperature (Tinner), and optical depth (odep):
-
-.. code-block:: console
-
-	> desk get_model model_grid_name Teff Tinner Odep
-
-For example:
-
-.. code-block:: console
-
-	> desk get_model Oss-Orich-aringer 2800 600 0.176
-
-Where a model exists in this parameter range, the DESK will retrieve an save a csv file of the model spectra and print the mass-loss rate and expansion velocity. Where the desired parameters are between grid points, an interpolated model grid will be created and saved.
+	> desk single_fig
