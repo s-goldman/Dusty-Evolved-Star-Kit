@@ -27,7 +27,7 @@ Install Using Python
 
 1). Install the package with the command `pip install desk`.
 
-![](docs/pip_install.gif)
+![](docs/pip_install2.gif)
 
 Using the DESK
 -------------------
