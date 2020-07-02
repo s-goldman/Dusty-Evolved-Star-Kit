@@ -26,6 +26,12 @@ or specify a directory with multiple csv files:
 .. code-block:: console
 
 	> desk fit --source='folder_of_csvs' --distance=30 --grid='Oss-Orich-bb'
+	
+Additional options include the density of the model grid (n). The strength of the 1D DUSTY models is that they can be scaled to create more luminous models. The DESK takes the initial grid and scales it n times (default: 50) to create a larger denser grid of sources within the luinosity limits (default: 1,000 - 150,000 Msun). The user may also specify a wavelength minimum and maximum. This will still show the full photometry in the final SED figure, but fit only the wavelength region specified. Lastly, the user can specify whether to fit using multiprocessing (using all but 1 computer cores) or single core fitting (multiprocessing=False):
+
+.. code-block:: console
+
+	> desk fit --source='target_name.csv' --distance=50 --grid='oxygen' --n=20 --min_wavelength=3.5 --max_wavelength=23 --multiprocessing=False
 
 Outputs
 -------
