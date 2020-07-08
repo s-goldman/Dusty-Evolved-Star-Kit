@@ -61,7 +61,7 @@ def single_fig():
 
 def fit(
     source=desk_path + "put_target_data_here",
-    distance=config.fitting["default_distance"],
+    distance=config.target["distance_in_kpc"],
     grid=config.fitting["default_grid"],
     n=config.fitting["default_number_of_times_to_scale_models"],
     min_wavelength=config.fitting["default_wavelength_min"],
@@ -106,9 +106,12 @@ def fit(
 
     # gets models
     grid_dusty, grid_outputs = get_models.get_model_grid(grid, testing)
+
+    # create class for scaling to full grids
     full_grid_params = full_grid.instantiate(
         grid, grid_dusty, grid_outputs, distance, n
     )
+    # scale to full grids and get distance scaling factors
     full_outputs, full_model_grid = full_grid.retrieve(full_grid_params)
 
     # get model wavelengths
@@ -141,7 +144,8 @@ def fit(
     else:
         # Single-core fitting
         [dusty_fit.fit_single_source(x, fit_params) for x in range(len(file_names))]
-    # creates sed figure
+
+    # automatically create sed figure
     # plotting_seds.create_fig()
 
 

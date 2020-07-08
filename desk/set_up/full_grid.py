@@ -9,7 +9,7 @@ from desk.set_up import config
 
 
 class instantiate:
-    """docstring for create."""
+    """Creates class with parameters needed to scale to the full grids"""
 
     def __init__(self, grid, grid_dusty, grid_outputs, distance, n):
         self.grid = grid
@@ -20,14 +20,40 @@ class instantiate:
 
 
 def retrieve(full_grid_params):
+    """Creates full scaled grid using data from full_grid_params Class.
+
+    Parameters
+    ----------
+    full_grid_params : class
+        Class using parameters from instantiate class.
+
+    Returns
+    -------
+    full_outputs : astropy table
+        scaled model grid outputs similar to grid_outputs
+    full_model_grid : astropy table
+        scaled models similar to grid_dusty
+
+    """
+
     def scale_vexp(expansion_velocities, luminosities):
+        """Scales expansion velocity by the luminosity and gas-to-dust ratio see:
+        Elitzur & Ivezić 2001, MNRAS, 327, 403
+        (https://ui.adsabs.harvard.edu/abs/2001MNRAS.327..403E/abstract)
+        """
         scaled_expansion_velocities = Column(
-            np.array(expansion_velocities) * (np.array(luminosities) / 10000) ** 0.25,
+            np.array(expansion_velocities)
+            * (np.array(luminosities) / 10000) ** 0.25
+            * (config.target["assumed_gas_to_dust_ratio"] / 200) ** (-0.5),
             name="scaled_vexp",
         )
         return scaled_expansion_velocities
 
     def scale_mdot(mass_loss_rates, luminosities):
+        """Scales mass loss rate by the luminosity and gas-to-dust ratio see:
+        Elitzur & Ivezić 2001, MNRAS, 327, 403
+        (https://ui.adsabs.harvard.edu/abs/2001MNRAS.327..403E/abstract)
+        """
         scaled_mdot = Column(
             np.array(mass_loss_rates)
             * ((np.array(luminosities) / 10000) ** 0.75)
@@ -61,6 +87,7 @@ def retrieve(full_grid_params):
         return scaling_vals
 
     def reconfigure_nanni_models(_full_outputs):
+        """reconfigures model grids to work with DESK framework"""
         # model_id starts at 1
         _full_outputs.add_column(
             Column(np.arange(1, len(_full_outputs) + 1), name="model_id"), index=0
@@ -71,7 +98,8 @@ def retrieve(full_grid_params):
         return _full_outputs
 
     def reconfigure_dusty_models(_full_outputs):
-
+        """recongfigures dusty grids, allowing for cross-use of desk functions
+        with other model grids"""
         # adds luminosity column
         luminosity = Column(
             np.array(
