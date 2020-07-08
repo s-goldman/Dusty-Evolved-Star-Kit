@@ -10,7 +10,6 @@ fitting = dict(
     lum_max=150000,
     default_wavelength_min=0.01,
     default_wavelength_max=1000,
-    default_distance=50,
     default_number_of_times_to_scale_models=50,
     default_grid="oxygen",
 )
