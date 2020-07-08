@@ -8,7 +8,7 @@ from desk.set_up import config
 def test_grids(capfd):
     console_commands.grids()
     out, _ = capfd.readouterr()
-    np.testing.assert_allclose(len(out), 183, err_msg=("Print grids error"))
+    np.testing.assert_allclose(len(out), 223, err_msg=("Print grids error"))
 
 
 def create_sample_data(directory, dataset):

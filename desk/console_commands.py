@@ -1,5 +1,4 @@
 # Steve Goldman, Space Telescope Science Institute, sgoldman@stsci.edu
-# from time import time
 import ipdb
 import pkg_resources
 
@@ -12,7 +11,7 @@ from desk.set_up import (
     create_output_files,
     get_models,
     config,
-    create_full_grid,
+    full_grid,
 )
 from desk.fitting import dusty_fit
 from desk.outputs import plotting_seds
@@ -82,53 +81,35 @@ def fit(
         Distance to source(s) in kiloparsecs.
     grid : str
         Name of model grid.
+    n : int
+        Number of times to scale the grid between the
+        lum_min and lum_max specified in the config.py script
+        (essentially grid density).
+    min_wavelength : float
+        Minimum wavelength to fit, the other data will still be shown
+        in the output SED.
+    max_wavelength : float
+        Maximum wavelength to be fit.
+    multiprocessing : bool
+        Flag that, if true, uses all but one of the user's
+        available cores for the fitting
+    testing : bool
+        Flag for testing that uses only the first 3 rows of the mode grids.
     """
 
     # Set-up ###################################################################
+    # bayesian fitting currently in development
     bayesian_fit = False
 
     # get data filenames
     file_names = get_data.compile_data(source)
 
-    # remove old / create new output files
-    create_output_files.remove_old_output_files()
-    create_output_files.make_output_files_dusty()
-
     # gets models
     grid_dusty, grid_outputs = get_models.get_model_grid(grid, testing)
-
-    # does not scale nanni or grams models
-    if grid in config.nanni_grids:
-        full_model_grid = grid_dusty
-        full_outputs = grid_outputs
-        full_outputs.rename_columns(
-            ["L", "vexp", "dmdt_ir"], ["lum", "scaled_vexp", "scaled_mdot"]
-        )
-
-    # elif grid in config.grams_grids:
-    #     full_model_grid = grid_dusty
-    #     full_outputs = grid_outputs
-    #     full_model_grid.rename_columns(["LSPEC"], ["col0"])
-    #     full_outputs.rename_columns(["mdot"], ["scaled_mdot"])
-    #
-    #     # does not calculate expansion velocity so set as 0
-    #     full_outputs.add_column(Column([0] * len(full_outputs), name="scaled_vexp"))
-
-    else:
-        # update ids to number in grid
-        grid_outputs["number"] = np.arange(0, len(grid_outputs))
-
-        # create scaling factors for larger model grid
-        scaling_factors = create_full_grid.generate_scaling_factors(distance, int(n))
-
-        # create larger grid by scaling and appending current grid
-        full_outputs = create_full_grid.create_full_outputs(
-            grid_outputs, distance, scaling_factors
-        )
-        full_model_grid = create_full_grid.create_full_model_grid(
-            grid_dusty, scaling_factors
-        )
-        full_outputs.remove_columns(["vexp", "mdot"])
+    full_grid_params = full_grid.instantiate(
+        grid, grid_dusty, grid_outputs, distance, n
+    )
+    full_outputs, full_model_grid = full_grid.retrieve(full_grid_params)
 
     # get model wavelengths
     model_wavelength_grid = grid_dusty["col0"][0]
@@ -149,6 +130,9 @@ def fit(
         testing,
     )
 
+    # remove old / create new output files
+    create_output_files.make_output_files_dusty(fit_params)
+
     if multiprocessing == True:
         # Multi-core fitting
         pool = Pool(processes=cpu_count() - 1)
@@ -159,7 +143,7 @@ def fit(
         [dusty_fit.fit_single_source(x, fit_params) for x in range(len(file_names))]
 
     # creates sed figure
-    plotting_seds.create_fig()
+    # plotting_seds.create_fig()
 
 
 if __name__ == "__main__":

@@ -36,7 +36,8 @@ def get_model_and_data_for_plotting(counter, target):
     )
 
     x_data, y_data = get_data.get_values(target["file_name"])
-    x_model, y_model = grid_dusty[target["model_id"]]
+    x_model, y_model = grid_dusty[target["model_id"] - 1]  # model_id starts at 1
+
     x_model = x_model[np.where(y_model != 0)]
     if fnmatch(input_file["grid"][0], "grams*"):
         y_model = y_model * u.Jy

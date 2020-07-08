@@ -14,18 +14,13 @@ fitting = dict(
     default_number_of_times_to_scale_models=50,
     default_grid="oxygen",
 )
-output = dict(
-    printed_output="True",
-    output_unit="Wm^-2",
-    # output_unit='Jy',
-    create_figure="yes",
-)
+output = dict(printed_output="True", output_unit="Wm^-2", create_figure="yes")
 grids = [
     "Crystalline-20-bb",
-    # "H11-LMC",
-    # "H11-SMC",
-    # "J1000-LMC",
-    # "J1000-SMC",
+    "H11-LMC",
+    "H11-SMC",
+    "J1000-LMC",
+    "J1000-SMC",
     "Oss-Orich-aringer",
     "Oss-Orich-bb",
     "Zubko-Crich-aringer",
@@ -39,6 +34,5 @@ grids = [
     # "grams-oxygen",
     # "grams-carbon",
 ]
-nanni_grids = []
-# nanni_grids = ["H11-LMC", "H11-SMC", "J1000-LMC", "J1000-SMC"]
+nanni_grids = ["H11-LMC", "H11-SMC", "J1000-LMC", "J1000-SMC"]
 # grams_grids = ["grams-oxygen", "grams-carbon"]
