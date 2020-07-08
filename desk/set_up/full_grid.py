@@ -67,9 +67,9 @@ def retrieve(full_grid_params):
         _full_outputs.add_column(
             Column(np.arange(1, len(_full_outputs) + 1), name="model_id"), index=0
         )
-        _full_outputs.add_column(
-            Column([full_grid_params.distance_norm] * len(_full_outputs), name="norm")
-        )
+        # _full_outputs.add_column(
+        #     Column([full_grid_params.distance_norm] * len(_full_outputs), name="norm")
+        # )
         _full_outputs.rename_columns(
             ["L", "vexp", "mdot"], ["lum", "scaled_vexp", "scaled_mdot"]
         )

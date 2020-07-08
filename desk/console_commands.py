@@ -141,7 +141,6 @@ def fit(
     else:
         # Single-core fitting
         [dusty_fit.fit_single_source(x, fit_params) for x in range(len(file_names))]
-
     # creates sed figure
     # plotting_seds.create_fig()
 
