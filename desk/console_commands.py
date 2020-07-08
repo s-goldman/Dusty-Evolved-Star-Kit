@@ -1,7 +1,8 @@
 # Steve Goldman, Space Telescope Science Institute, sgoldman@stsci.edu
 import ipdb
+import pkg_resources
 
-from multiprocessing import Process, Value, Manager, Pool, cpu_count
+from multiprocessing import Pool, cpu_count
 from functools import partial
 import numpy as np
 from desk.set_up import (
@@ -19,14 +20,42 @@ desk_path = str(__file__.replace("console_commands.py", ""))
 
 
 def grids():
-    # Prints the model grids available for fitting.
+    """Prints the model grids available for fitting.
+
+    """
     print("\nGrids:")
     for item in config.grids:
         print("\t" + str(item))
     print("\n")
 
 
+def version():
+    """Returns DESK version.
+    """
+    print("\n\tDESK version: " + pkg_resources.get_distribution("desk").version + "\n")
+
+
+def sed():
+    """Creates single SED figure of all fit SEDs using
+    the 'fitting_results.csv' file.
+
+    Returns
+    -------
+    png
+
+    """
+    plotting_seds.create_fig()
+
+
 def single_fig():
+    """Creates an individual SED figure for each fit SED using the
+    results in the 'fitting_results.csv' file.
+
+    Returns
+    -------
+    multiple pngs
+
+    """
     plotting_seds.single_figures()
 
 
@@ -42,6 +71,7 @@ def fit(
 ):
     """
     Fits the seds of sources with specified grid.
+
 
     Parameters
     ----------
@@ -114,10 +144,6 @@ def fit(
 
     # creates sed figure
     # plotting_seds.create_fig()
-
-
-def sed():
-    plotting_seds.create_fig()
 
 
 if __name__ == "__main__":

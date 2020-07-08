@@ -8,10 +8,10 @@ fitting = dict(
     model_grid="Zubko-Crich-bb",
     lum_min=1000,
     lum_max=150000,
-    default_wavelength_min=3.5,
+    default_wavelength_min=0.01,
     default_wavelength_max=1000,
     default_distance=50,
-    default_number_of_times_to_scale_models=100,
+    default_number_of_times_to_scale_models=50,
     default_grid="oxygen",
 )
 output = dict(printed_output="True", output_unit="Wm^-2", create_figure="yes")

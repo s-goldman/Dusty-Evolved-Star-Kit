@@ -25,5 +25,6 @@ __keywords__ = (
     "Mira variable stars",
     "Extreme carbon stars",
 )
+__version__ = "1.6.23"
 
 from desk import fitting, outputs, probabilities, set_up

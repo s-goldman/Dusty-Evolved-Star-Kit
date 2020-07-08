@@ -26,6 +26,12 @@ or specify a directory with multiple csv files:
 .. code-block:: console
 
 	> desk fit --source='folder_of_csvs' --distance=30 --grid='Oss-Orich-bb'
+	
+Additional options include the density of the model grid (n). The strength of the 1D DUSTY models is that they can be scaled to create more luminous models. The DESK takes the initial grid and scales it n times (default: 50) to create a larger denser grid of sources within the luinosity limits (default: 1,000 - 150,000 Msun). The user may also specify a wavelength minimum and maximum. This will still show the full photometry in the final SED figure, but fit only the wavelength region specified. Lastly, the user can specify whether to fit using multiprocessing (using all but 1 computer cores) or single core fitting (multiprocessing=False):
+
+.. code-block:: console
+
+	> desk fit --source='target_name.csv' --distance=50 --grid='oxygen' --n=20 --min_wavelength=3.5 --max_wavelength=23 --multiprocessing=False
 
 Outputs
 -------
@@ -37,25 +43,4 @@ This is an example of the output_sed.png file fitting three massive oxygen-rich 
 
 .. code-block:: console
 
-	> desk single_fit
-
-
-
-Retrieve Single Model from Grid
--------------------------------
-
-The DESK can also be used to easily access radiative transfer models from the grids, and interpolate models and their corresponding outputs.
-
-To retrieve a model grid, enter the following command with the desired effective temperature (Teff), inner dust temperature (Tinner), and optical depth (odep):
-
-.. code-block:: console
-
-	> desk get_model model_grid_name Teff Tinner Odep
-
-For example:
-
-.. code-block:: console
-
-	> desk get_model Oss-Orich-aringer 2800 600 0.176
-
-Where a model exists in this parameter range, the DESK will retrieve an save a csv file of the model spectra and print the mass-loss rate and expansion velocity. Where the desired parameters are between grid points, an interpolated model grid will be created and saved.
+	> desk single_fig
