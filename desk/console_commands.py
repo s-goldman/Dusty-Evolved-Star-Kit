@@ -1,6 +1,7 @@
 # Steve Goldman, Space Telescope Science Institute, sgoldman@stsci.edu
-# from time import time
 import ipdb
+import math
+from astropy.table import Column
 
 from multiprocessing import Process, Value, Manager, Pool, cpu_count
 from functools import partial
@@ -52,17 +53,28 @@ def fit(
         Distance to source(s) in kiloparsecs.
     grid : str
         Name of model grid.
+    n : int
+        Number of times to scale the grid between the
+        lum_min and lum_max specified in the config.py script
+        (essentially grid density).
+    min_wavelength : float
+        Minimum wavelength to fit, the other data will still be shown
+        in the output SED.
+    max_wavelength : float
+        Maximum wavelength to be fit.
+    multiprocessing : bool
+        Flag that, if true, uses all but one of the user's
+        available cores for the fitting
+    testing : bool
+        Flag for testing that uses only the first 3 rows of the mode grids.
     """
 
     # Set-up ###################################################################
+    # bayesian fitting currently in development
     bayesian_fit = False
 
     # get data filenames
     file_names = get_data.compile_data(source)
-
-    # remove old / create new output files
-    create_output_files.remove_old_output_files()
-    create_output_files.make_output_files_dusty()
 
     # gets models
     grid_dusty, grid_outputs = get_models.get_model_grid(grid, testing)
@@ -71,6 +83,15 @@ def fit(
     if grid in config.nanni_grids:
         full_model_grid = grid_dusty
         full_outputs = grid_outputs
+        distance_norm = math.log10(((float(distance) / 4.8482e-9) ** 2) / 1379)
+
+        # model_id starts at 1
+        full_outputs.add_column(
+            Column(np.arange(1, len(full_outputs) + 1), name="model_id"), index=0
+        )
+        full_outputs.add_column(
+            Column([distance_norm] * len(full_outputs), name="norm")
+        )
         full_outputs.rename_columns(
             ["L", "vexp", "dmdt_ir"], ["lum", "scaled_vexp", "scaled_mdot"]
         )
@@ -85,9 +106,6 @@ def fit(
     #     full_outputs.add_column(Column([0] * len(full_outputs), name="scaled_vexp"))
 
     else:
-        # update ids to number in grid
-        grid_outputs["number"] = np.arange(0, len(grid_outputs))
-
         # create scaling factors for larger model grid
         scaling_factors = create_full_grid.generate_scaling_factors(distance, int(n))
 
@@ -119,6 +137,9 @@ def fit(
         testing,
     )
 
+    # remove old / create new output files
+    create_output_files.make_output_files_dusty(fit_params)
+
     if multiprocessing == True:
         # Multi-core fitting
         pool = Pool(processes=cpu_count() - 1)
@@ -129,7 +150,7 @@ def fit(
         [dusty_fit.fit_single_source(x, fit_params) for x in range(len(file_names))]
 
     # creates sed figure
-    plotting_seds.create_fig()
+    # plotting_seds.create_fig()
 
 
 def sed():
