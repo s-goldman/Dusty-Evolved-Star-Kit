@@ -1,5 +1,5 @@
 # Steve Goldman, Space Telescope Science Institute, sgoldman@stsci.edu
-import os, ipdb
+import os
 from desk.set_up import config
 
 

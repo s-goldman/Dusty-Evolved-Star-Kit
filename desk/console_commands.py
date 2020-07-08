@@ -1,7 +1,5 @@
 # Steve Goldman, Space Telescope Science Institute, sgoldman@stsci.edu
 import ipdb
-import math
-from astropy.table import Column
 
 from multiprocessing import Process, Value, Manager, Pool, cpu_count
 from functools import partial
