@@ -83,49 +83,6 @@ def fit(
     )
     full_outputs, full_model_grid = full_grid.retrieve(full_grid_params)
 
-    # does not scale nanni or grams models
-    if grid in config.nanni_grids:
-        full_model_grid = grid_dusty
-        full_outputs = grid_outputs
-        distance_norm = math.log10(((float(distance) / 4.8482e-9) ** 2) / 1379)
-
-        # model_id starts at 1
-        full_outputs.add_column(
-            Column(np.arange(1, len(full_outputs) + 1), name="model_id"), index=0
-        )
-        full_outputs.add_column(
-            Column([distance_norm] * len(full_outputs), name="norm")
-        )
-        full_outputs.rename_columns(
-            ["L", "vexp", "dmdt_ir"], ["lum", "scaled_vexp", "scaled_mdot"]
-        )
-
-    # elif grid in config.grams_grids:
-    #     full_model_grid = grid_dusty
-    #     full_outputs = grid_outputs
-    #     full_model_grid.rename_columns(["LSPEC"], ["col0"])
-    #     full_outputs.rename_columns(["mdot"], ["scaled_mdot"])
-    #
-    #     # does not calculate expansion velocity so set as 0
-    #     full_outputs.add_column(Column([0] * len(full_outputs), name="scaled_vexp"))
-
-    else:
-
-        # full_outputs, full_model_grid = full_grid.create(
-        #     grid_dusty, grid_outputs, distance, n
-        # )
-        # create scaling factors for larger model grid
-        scaling_factors = create_full_grid.generate_scaling_factors(distance, int(n))
-
-        # create larger grid by scaling and appending current grid
-        full_outputs = create_full_grid.create_full_outputs(
-            grid_outputs, distance, scaling_factors
-        )
-        full_model_grid = create_full_grid.create_full_model_grid(
-            grid_dusty, scaling_factors
-        )
-        full_outputs.remove_columns(["vexp", "mdot"])
-
     # get model wavelengths
     model_wavelength_grid = grid_dusty["col0"][0]
 

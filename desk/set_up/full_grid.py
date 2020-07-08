@@ -7,7 +7,7 @@ from copy import deepcopy
 from astropy.table import Table, Column, vstack
 from desk.set_up import config
 
-# __all__ = ["generate_scaling_factors", "create_full_outputs", "create_full_model_grid"]
+# __all__ = ["generate_scaling_factors", "scale_to_full_grid", "create_full_model_grid"]
 
 
 class instantiate:
@@ -22,6 +22,22 @@ class instantiate:
 
 
 def retrieve(full_grid_params):
+    def scale_vexp(expansion_velocities, luminosities):
+        scaled_expansion_velocities = Column(
+            np.array(expansion_velocities) * (np.array(luminosities) / 10000) ** 0.25,
+            name="scaled_vexp",
+        )
+        return scaled_expansion_velocities
+
+    def scale_mdot(mass_loss_rates, luminosities):
+        scaled_mdot = Column(
+            np.array(mass_loss_rates)
+            * ((np.array(luminosities) / 10000) ** 0.75)
+            * (config.target["assumed_gas_to_dust_ratio"] / 200) ** 0.5,
+            name="scaled_mdot",
+        )
+        return scaled_mdot
+
     def generate_scaling_factors(n):
         """
         Creates arrays of model fluxes from lum_min to lum_max.
@@ -46,7 +62,40 @@ def retrieve(full_grid_params):
         )
         return scaling_vals
 
-    def create_full_outputs(scaling_factors):
+    def reconfigure_nanni_models(_full_outputs):
+        # model_id starts at 1
+        _full_outputs.add_column(
+            Column(np.arange(1, len(_full_outputs) + 1), name="model_id"), index=0
+        )
+        _full_outputs.add_column(
+            Column([full_grid_params.distance_norm] * len(_full_outputs), name="norm")
+        )
+        _full_outputs.rename_columns(
+            ["L", "vexp", "mdot"], ["lum", "scaled_vexp", "scaled_mdot"]
+        )
+        return _full_outputs
+
+    def reconfigure_dusty_models(_full_outputs):
+
+        # adds luminosity column
+        luminosity = Column(
+            np.array(
+                np.power(
+                    10.0, full_grid_params.distance_norm - _full_outputs["trial"] * -1
+                )
+            ),
+            name="lum",
+        )
+        _full_outputs.add_column(luminosity.astype(int))
+
+        # scale other values by luminosities
+        scaled_vexp = scale_vexp(_full_outputs["vexp"], _full_outputs["lum"])
+        scaled_mdot = scale_mdot(_full_outputs["mdot"], _full_outputs["lum"])
+        _full_outputs.remove_columns(["vexp", "mdot"])
+        _full_outputs.add_columns([scaled_vexp, scaled_mdot])
+        return _full_outputs
+
+    def scale_to_full_grid(scaling_factors):
 
         """
         Returns the input grid for each luminosity in the form of trial.
@@ -87,31 +136,6 @@ def retrieve(full_grid_params):
                 add_trials = deepcopy(grid_template)
                 add_trials.add_column(appended_trials)
                 _grid_outputs = vstack((_grid_outputs, add_trials))
-
-        # adds luminosity column
-        luminosity = Column(
-            np.array(
-                np.power(
-                    10.0, full_grid_params.distance_norm - _grid_outputs["trial"] * -1
-                )
-            ),
-            name="lum",
-        )
-        _grid_outputs.add_column(luminosity.astype(int))
-
-        # adds scaled parameters of gas mass loss rate and expansion velocity
-        scaled_vexp = Column(
-            np.array(_grid_outputs["vexp"])
-            * (np.array(_grid_outputs["lum"]) / 10000) ** 0.25,
-            name="scaled_vexp",
-        )
-        scaled_mdot = Column(
-            np.array(_grid_outputs["mdot"])
-            * ((np.array(_grid_outputs["lum"]) / 10000) ** 0.75)
-            * (config.target["assumed_gas_to_dust_ratio"] / 200) ** 0.5,
-            name="scaled_mdot",
-        )
-        _grid_outputs.add_columns([scaled_vexp, scaled_mdot])
         return _grid_outputs
 
     def create_full_model_grid(scaling_factors):
@@ -133,16 +157,21 @@ def retrieve(full_grid_params):
         """
         scaled_rows = []
         for val in scaling_factors:
-            for row in self.grid_dusty["col1"]:
+            for row in full_grid_params.grid_dusty["col1"]:
                 scaled_rows.append(row * np.power(10, val))
         scaled_grid = Table([scaled_rows])
         return scaled_grid
 
+    ##################
     if full_grid_params.grid in config.nanni_grids:
         scaling_factors = generate_scaling_factors(1)
+        scaled_outputs = scale_to_full_grid(scaling_factors)
+        full_outputs = reconfigure_nanni_models(scaled_outputs)
     else:
         scaling_factors = generate_scaling_factors(full_grid_params.n)
+        scaled_outputs = scale_to_full_grid(scaling_factors)
+        full_outputs = reconfigure_dusty_models(scaled_outputs)
 
-    full_outputs = create_full_outputs(scaling_factors)
-    ipdb.set_trace()
     full_model_grid = create_full_model_grid(scaling_factors)
+
+    return full_outputs, full_model_grid
