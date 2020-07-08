@@ -12,7 +12,7 @@ from desk.set_up import (
     create_output_files,
     get_models,
     config,
-    create_full_grid,
+    full_grid,
 )
 from desk.fitting import dusty_fit
 from desk.outputs import plotting_seds
@@ -78,6 +78,10 @@ def fit(
 
     # gets models
     grid_dusty, grid_outputs = get_models.get_model_grid(grid, testing)
+    full_grid_params = full_grid.instantiate(
+        grid, grid_dusty, grid_outputs, distance, n
+    )
+    full_outputs, full_model_grid = full_grid.retrieve(full_grid_params)
 
     # does not scale nanni or grams models
     if grid in config.nanni_grids:
@@ -106,6 +110,10 @@ def fit(
     #     full_outputs.add_column(Column([0] * len(full_outputs), name="scaled_vexp"))
 
     else:
+
+        # full_outputs, full_model_grid = full_grid.create(
+        #     grid_dusty, grid_outputs, distance, n
+        # )
         # create scaling factors for larger model grid
         scaling_factors = create_full_grid.generate_scaling_factors(distance, int(n))
 

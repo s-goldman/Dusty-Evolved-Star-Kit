@@ -156,7 +156,6 @@ def get_model_grid(grid, testing):
     ----------
     grid : str
         Model grid name.
-
     testing: str
         Flag for testing that returns small grid (3 rows)
 
