@@ -3,6 +3,7 @@ import math
 import ipdb
 from tqdm import tqdm
 import numpy as np
+import astropy.units as u
 from copy import deepcopy
 from astropy.table import Table, Column, vstack
 from desk.set_up import config
@@ -15,7 +16,13 @@ class instantiate:
         self.grid = grid
         self.grid_dusty = grid_dusty
         self.grid_outputs = grid_outputs
-        self.distance_norm = math.log10(((float(distance) / 4.8482e-9) ** 2) / 1379)
+        # factor to multiply the model flux by to scale flux to a 1 Lsun star at given distance
+        # derived using L/Lsun=4*pi*(d/dsun)^2 * F/Fsun
+        # Fsun = 1379 W m-2
+        self.scaling_factor_flux_to_Lsun = (
+            (float(distance) / u.AU.to(u.kpc)) ** 2
+        ) / 1379  #
+        self.scaling_factor_flux_to_distance = 1379 * ((u.AU.to(u.kpc)) / distance) ** 2
         self.n = n
 
 
@@ -35,6 +42,13 @@ def retrieve(full_grid_params):
         scaled models similar to grid_dusty
 
     """
+
+    def generate_model_luminosities(n):
+
+        luminosities = np.logspace(
+            np.log10(config.fitting["lum_min"]), np.log10(config.fitting["lum_max"]), n
+        )
+        return luminosities
 
     def scale_vexp(expansion_velocities, luminosities):
         """Scales expansion velocity by the luminosity and gas-to-dust ratio see:
@@ -62,29 +76,53 @@ def retrieve(full_grid_params):
         )
         return scaled_mdot
 
-    def generate_scaling_factors(n):
-        """
-        Creates arrays of model fluxes from lum_min to lum_max.
+    def scale_dusty_outputs(luminosities):
+        # norm is for lum not distance
+        # duplicate grid for each luminosity
+        _grid_outputs = vstack(([full_grid_params.grid_outputs] * len(luminosities)))
 
-        Returns
-        -------
-        scaling_vals : 1D numpy array
-            An array of scaling factors that the model grid will be scaled to.
-            As the model grids are used to create higher-luminosity models through scaling,
-            this sets the different luminosities that each grid will have (i.e. the model
-            grid will be appended by the same model grid scaled by each of the values
-            in scaling_factors)
-        """
-
-        scaling_vals = (
-            np.linspace(
-                np.log10(config.fitting["lum_min"]),
-                np.log10(config.fitting["lum_max"]),
-                n,
-            )
-            - full_grid_params.distance_norm
+        # create lum col
+        lum_col = Column(
+            np.ndarray.flatten(
+                np.array(
+                    [
+                        np.full(len(full_grid_params.grid_outputs), x)
+                        for x in luminosities
+                    ]
+                )
+            ),
+            name="lum",
+            dtype="int",
         )
-        return scaling_vals
+        scaled_vexp_col = scale_vexp(_grid_outputs["vexp"], lum_col)
+        scaled_mdot_col = scale_mdot(_grid_outputs["mdot"], lum_col)
+        log_norm_factor = Column(
+            np.log10(
+                lum_col
+                * full_grid_params.scaling_factor_flux_to_Lsun
+                * full_grid_params.scaling_factor_flux_to_distance
+            ),
+            name="norm",
+        )
+
+        _grid_outputs.add_columns(
+            [lum_col, scaled_vexp_col, scaled_mdot_col, log_norm_factor]
+        )
+
+        return _grid_outputs
+
+    def scale_models_to_distance():
+        distance_scaled_fluxes = Column(
+            full_grid_params.grid_dusty["col1"]
+            * full_grid_params.scaling_factor_flux_to_distance,
+            name="model_flux_wm2",
+        )
+        return distance_scaled_fluxes
+
+    def scale_models_to_lums(scaled_model_grid, luminosities):
+        # duplicate grid for each luminosity
+        _grid_dusty = vstack(([scaled_model_grid] * len(luminosities)))
+        return _grid_dusty
 
     def reconfigure_nanni_models(_full_outputs):
         """reconfigures model grids to work with DESK framework"""
@@ -118,83 +156,21 @@ def retrieve(full_grid_params):
         _full_outputs.add_columns([scaled_vexp, scaled_mdot])
         return _full_outputs
 
-    def scale_to_full_grid(scaling_factors):
-
-        """
-        Returns the input grid for each luminosity in the form of trial.
-        (scaling factor not including distance; e.g. -12.5, -13.5) specified by trials.
-        Also includeds the scled vexp and mass loss rate.
-
-        Parameters
-        ----------
-        _grid_outputs : astropy table
-            model grid.
-        distance : int or float
-            distance in kpc.
-        trials : array
-            Array of scaling factors that does not include distance.
-
-        Returns
-        -------
-        grid_outputs : astropy table
-            The input astropy table but appeded to itself for each scaling factor.
-            With the added columns for luminosity, scaled mdot, and sclaed vexp
-
-        """
-        _grid_outputs = deepcopy(full_grid_params.grid_outputs)
-        grid_template = deepcopy(_grid_outputs)
-
-        print(
-            "Scaling to full grid ("
-            + "{:,}".format((len(grid_template) * len(scaling_factors)))
-            + " models)"
-        )
-
-        # for each scaling value, create and append a grid
-        for i, trial in enumerate(tqdm(scaling_factors)):
-            appended_trials = Column(np.full(len(grid_template), trial), name="trial")
-            if i == 0:
-                _grid_outputs.add_column(appended_trials)
-            else:
-                add_trials = deepcopy(grid_template)
-                add_trials.add_column(appended_trials)
-                _grid_outputs = vstack((_grid_outputs, add_trials))
-        return _grid_outputs
-
-    def create_full_model_grid(scaling_factors):
-        """
-        Returns model flux grids for each luminosity scaling (scaling_factors).
-
-        Parameters
-        ----------
-        grid_dusty : Astropy table with 1 column with flux grid in each row
-            The (un-trimmed) flux grid in w/m^2 for each model, and for each luminosity
-        scaling_factors : 1D array
-            scaling factors.
-
-        Returns
-        -------
-        type: Astropy table with 1 column with scaled flux grid (w m-2) in each row
-            scaled flux grid
-
-        """
-        scaled_rows = []
-        for val in scaling_factors:
-            for row in full_grid_params.grid_dusty["col1"]:
-                scaled_rows.append(row * np.power(10, val))
-        scaled_grid = Table([scaled_rows])
-        return scaled_grid
-
-    ##################
+    print(
+        "Scaling to full grid ("
+        + "{:,}".format((len(full_grid_params.grid_outputs) * full_grid_params.n))
+        + " models)"
+    )
     if full_grid_params.grid in config.nanni_grids:
-        scaling_factors = generate_scaling_factors(1)
-        scaled_outputs = scale_to_full_grid(scaling_factors)
-        full_outputs = reconfigure_nanni_models(scaled_outputs)
+        full_model_grid = scale_models_to_distance()
+        full_outputs = full_grid_params.grid_outputs
     else:
-        scaling_factors = generate_scaling_factors(full_grid_params.n)
-        scaled_outputs = scale_to_full_grid(scaling_factors)
-        full_outputs = reconfigure_dusty_models(scaled_outputs)
+        # scale DUSTY outputs
+        luminosities = generate_model_luminosities(full_grid_params.n)
+        full_outputs = scale_dusty_outputs(luminosities)
+        full_outputs.remove_columns(["vexp", "mdot"])
 
-    full_model_grid = create_full_model_grid(scaling_factors)
-
+        # scale DUSTY models
+        scaled_model_grid = scale_models_to_distance()
+        full_model_grid = scale_models_to_lums(scaled_model_grid, luminosities)
     return full_outputs, full_model_grid

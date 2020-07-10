@@ -87,7 +87,7 @@ def fit(
     ----------
     source : str
         Name of target in array of strings (or one string).
-    distance : float
+    distance : str, float
         Distance to source(s) in kiloparsecs.
     grid : str
         Name of model grid.
@@ -119,7 +119,7 @@ def fit(
 
     # create class for scaling to full grids
     full_grid_params = full_grid.instantiate(
-        grid, grid_dusty, grid_outputs, distance, int(n)
+        grid, grid_dusty, grid_outputs, float(distance), int(n)
     )
     # scale to full grids and get distance scaling factors
     full_outputs, full_model_grid = full_grid.retrieve(full_grid_params)
