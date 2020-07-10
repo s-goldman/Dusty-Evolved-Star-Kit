@@ -14,7 +14,7 @@ from desk.set_up import (
     full_grid,
 )
 from desk.fitting import dusty_fit
-from desk.outputs import plotting_seds
+from desk.outputs import plotting_seds, interpolate_dusty
 
 desk_path = str(__file__.replace("console_commands.py", ""))
 
@@ -45,6 +45,16 @@ def sed():
 
     """
     plotting_seds.create_fig()
+
+
+def interpolate(grid_name, distance_in_kpc, teff_new, tinner_new, tau_new):
+    interpolate_dusty.interpolate(
+        grid_name,
+        float(distance_in_kpc),
+        float(teff_new),
+        float(tinner_new),
+        float(tau_new),
+    )
 
 
 def single_fig():
@@ -81,7 +91,7 @@ def fit(
         Distance to source(s) in kiloparsecs.
     grid : str
         Name of model grid.
-    n : int
+    n : str or int
         Number of times to scale the grid between the
         lum_min and lum_max specified in the config.py script
         (essentially grid density).
@@ -109,7 +119,7 @@ def fit(
 
     # create class for scaling to full grids
     full_grid_params = full_grid.instantiate(
-        grid, grid_dusty, grid_outputs, distance, n
+        grid, grid_dusty, grid_outputs, distance, int(n)
     )
     # scale to full grids and get distance scaling factors
     full_outputs, full_model_grid = full_grid.retrieve(full_grid_params)

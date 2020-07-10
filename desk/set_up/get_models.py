@@ -148,7 +148,7 @@ def check_models(model_grid):
     return (outputs_file, models_file)
 
 
-def get_model_grid(grid, testing):
+def get_model_grid(grid, testing=False):
     """
     Gets the real model grid name if the defaults were chosen,and runs check_models.
 
