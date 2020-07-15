@@ -30,9 +30,6 @@ This package is designed to easily compare stellar samples and model grids for a
 
 # Figures
 
-<figure>
-  <img src="docs/example.png" height="400" />
-  <figcaption>Figure 1. An example figure of sources fit with an oxygen-rich grid.</figcaption>
-</figure>
+![Figure 1. An example figure of sources fit with an oxygen-rich grid.](docs/example.png)
 
 # References
