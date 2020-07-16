@@ -13,7 +13,7 @@ distribution, as that directory only contains C extension code.
 __author__ = "Steven R. Goldman"
 __email__ = "sgoldman@stsci.edu"
 __title__ = "DESK"
-__version__ = "1.6.22"
+__version__ = "1.6.24"
 __repository__ = "https://github.com/s-goldman/Dusty-Evolved-Star-Kit"
 __date_published = "2020-07-07"
 __licence__ = "BSD"
@@ -25,6 +25,5 @@ __keywords__ = (
     "Mira variable stars",
     "Extreme carbon stars",
 )
-__version__ = "1.6.23"
 
 from desk import fitting, outputs, probabilities, set_up
