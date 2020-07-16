@@ -2,7 +2,7 @@ import ipdb
 import numpy as np
 from astropy.table import Table
 from scipy.interpolate import RegularGridInterpolator
-from desk import set_up
+from desk.set_up import get_models
 
 # Example
 # grid_name = "Oss-Orich-bb"
@@ -11,25 +11,18 @@ from desk import set_up
 # tau_new = 0.146
 
 
-def interpolate(grid_name, teff_new, tinner_new, tau_new):
+def interpolate(grid_name, distance_in_kpc, teff_new, tinner_new, tau_new):
     # checks if grid files available
-    full_path = str(__file__.replace("interpolate_dusty.py", ""))
-    set_up.check_models(grid_name, full_path)
-    try:
-        output_array = Table.read(
-            full_path + "models/" + grid_name + "_outputs.csv", format="csv"
-        )
-        grid_dusty = Table.read(full_path + "models/" + grid_name + "_models.fits")
-        waves = grid_dusty[0][0]
-    except:
-        raise Exception(
-            "Could not find model grid. Please double check input or try another grid. To see available grids use the command: desk grids"
-        )
+    grid_dusty, grid_outputs = get_models.get_model_grid(grid_name)
+    waves = grid_dusty[0][0]
+
+    # test = grid_dusty['col1'] * np.power(10, -distance_norm)
+    # ipdb.set_trace()
 
     # create interpolator
-    tau = np.unique(output_array["odep"])
-    teff = np.unique(output_array["teff"])
-    tinner = np.unique(output_array["tinner"])
+    tau = np.unique(grid_outputs["odep"])
+    teff = np.unique(grid_outputs["teff"])
+    tinner = np.unique(grid_outputs["tinner"])
 
     # checks if new values within range
     if (
@@ -60,13 +53,15 @@ def interpolate(grid_name, teff_new, tinner_new, tau_new):
     if (teff_new in teff) & (tinner_new in tinner) & (tau_new in tau):
         print("Model exists:")
         ind = np.where(
-            (output_array["teff"] == teff_new)
-            & (output_array["tinner"] == tinner_new)
-            & (output_array["odep"] == tau_new)
+            (grid_outputs["teff"] == teff_new)
+            & (grid_outputs["tinner"] == tinner_new)
+            & (grid_outputs["odep"] == tau_new)
         )[0][0]
-        interp_dusty = Table((grid_dusty[ind]["col0"], grid_dusty[ind]["col1"]))
-        expansion_velocity = output_array["vexp"][ind]
-        mass_loss_rate = output_array["mdot"][ind]
+        interp_dusty = Table(
+            (grid_dusty[ind]["wavelength_um"], grid_dusty[ind]["flux_wm2"])
+        )
+        expansion_velocity = grid_outputs["vexp"][ind]
+        mass_loss_rate = grid_outputs["mdot"][ind]
 
     else:
         print("Interpolating model:")
@@ -78,14 +73,14 @@ def interpolate(grid_name, teff_new, tinner_new, tau_new):
             for j, _ in enumerate(tinner):
                 for k, _ in enumerate(tau):
                     mc_index = np.where(
-                        (teff[i] == output_array["teff"])
-                        & (tinner[j] == output_array["tinner"])
-                        & (tau[k] == output_array["odep"])
+                        (teff[i] == grid_outputs["teff"])
+                        & (tinner[j] == grid_outputs["tinner"])
+                        & (tau[k] == grid_outputs["odep"])
                     )
                     if np.any(mc_index):
                         array[i][j][k] = grid_dusty[mc_index[0][0]][1]
-                        mass_loss_array[i][j][k] = output_array["mdot"][mc_index]
-                        expansion_velocity_array[i][j][k] = output_array["vexp"][
+                        mass_loss_array[i][j][k] = grid_outputs["mdot"][mc_index]
+                        expansion_velocity_array[i][j][k] = grid_outputs["vexp"][
                             mc_index
                         ]
         interpolator = RegularGridInterpolator((teff, tinner, tau, waves), array)

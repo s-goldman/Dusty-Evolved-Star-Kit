@@ -24,7 +24,7 @@ def fit_single_source(source_number, fit_params):
     liklihood = np.array(
         [
             fitting_tools.fit.fit_data(
-                data, [fit_params.model_wavelength_grid, x["col0"]]
+                data, [fit_params.model_wavelength_grid, x["flux_wm2"]]
             )
             for x in full_model_grid
         ]
