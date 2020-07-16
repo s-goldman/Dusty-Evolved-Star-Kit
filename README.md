@@ -50,7 +50,7 @@ These additional arguments are the distance (in kpc) and the grid of models you 
 
 `desk grids`
 
-To create a figure showing all of the fits of the SED, use the command:
+To create a figure showing all of the fits of the SED, use the following command in the same directory.
 
 `desk sed`
 
@@ -58,7 +58,7 @@ To create a figure showing all of the fits of the SED, use the command:
 This is an example of the output_sed.png file fitting three massive oxygen-rich AGB stars from the LMC. 
 <img src="docs/example.png"  width="400" height="500">
 
-To produce individual figures for each SED use the command:
+To produce individual figures for each SED instead use the command:
 
 `desk single_fig`
 
