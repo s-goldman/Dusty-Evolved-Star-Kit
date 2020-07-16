@@ -1,9 +1,8 @@
 import ipdb
-import math
 import numpy as np
 from astropy.table import Table
 from scipy.interpolate import RegularGridInterpolator
-from desk.set_up import config, get_models
+from desk.set_up import get_models
 
 # Example
 # grid_name = "Oss-Orich-bb"
