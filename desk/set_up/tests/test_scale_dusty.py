@@ -1,7 +1,5 @@
-import pytest
 import numpy as np
-from astropy.table import Table
-from desk.set_up import scale_dusty, config
+from desk.set_up import scale_dusty
 
 
 def test_scale_vexp():

@@ -1,5 +1,5 @@
 import numpy as np
-from astropy.table import Table, Column, vstack
+from astropy.table import Column, vstack
 from desk.set_up import config
 
 

@@ -1,5 +1,5 @@
 import numpy as np
-from astropy.table import Table, Column, vstack
+from astropy.table import Column, vstack
 
 
 def scale(_outputs, _models, scaling_factor):

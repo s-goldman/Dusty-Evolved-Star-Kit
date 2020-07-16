@@ -1,7 +1,5 @@
-import pytest
 import numpy as np
-from astropy.table import Table
-from desk.set_up import full_grid, config
+from desk.set_up import full_grid
 
 
 def test_generate_model_luminosities():
