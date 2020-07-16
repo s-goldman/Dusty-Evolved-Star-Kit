@@ -58,7 +58,9 @@ def interpolate(grid_name, distance_in_kpc, teff_new, tinner_new, tau_new):
             & (grid_outputs["tinner"] == tinner_new)
             & (grid_outputs["odep"] == tau_new)
         )[0][0]
-        interp_dusty = Table((grid_dusty[ind]["col0"], grid_dusty[ind]["col1"]))
+        interp_dusty = Table(
+            (grid_dusty[ind]["wavelength_um"], grid_dusty[ind]["flux_wm2"])
+        )
         expansion_velocity = grid_outputs["vexp"][ind]
         mass_loss_rate = grid_outputs["mdot"][ind]
 

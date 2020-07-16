@@ -125,7 +125,7 @@ def fit(
     full_outputs, full_model_grid = full_grid.retrieve(full_grid_params)
 
     # get model wavelengths
-    model_wavelength_grid = grid_dusty["col0"][0]
+    model_wavelength_grid = grid_dusty["wavelength_um"][0]
 
     # initialize fitting parameters
     fit_params = get_inputs.fitting_parameters(

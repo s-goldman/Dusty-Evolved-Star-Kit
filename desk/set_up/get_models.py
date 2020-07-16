@@ -5,7 +5,7 @@ import ipdb
 import numpy as np
 import h5py
 import urllib
-from astropy.table import Table
+from astropy.table import Table, Column
 from desk.set_up import config
 
 
@@ -185,6 +185,9 @@ def get_model_grid(grid, testing=False):
     outputs_file_name, models_file_name = check_models(model_grid)
 
     grid_dusty = read_hdf5(models_file_name, testing)
+    grid_dusty.rename_columns(["col0", "col1"], ["wavelength_um", "flux_wm2"])
+
     grid_outputs = read_hdf5(outputs_file_name, testing)
+    grid_outputs.add_column(Column([1] * len(grid_outputs), name="norm"))
 
     return grid_dusty, grid_outputs

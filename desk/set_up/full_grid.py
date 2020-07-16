@@ -16,14 +16,140 @@ class instantiate:
         self.grid = grid
         self.grid_dusty = grid_dusty
         self.grid_outputs = grid_outputs
-        # factor to multiply the model flux by to scale flux to a 1 Lsun star at given distance
+        # factor to multiply the model flux by to scale flux to a 1 Lsun star at
+        # user-given given distance
         # derived using L/Lsun=4*pi*(d/dsun)^2 * F/Fsun
         # Fsun = 1379 W m-2
         self.scaling_factor_flux_to_Lsun = (
             (float(distance) / u.AU.to(u.kpc)) ** 2
-        ) / 1379  #
-        self.scaling_factor_flux_to_distance = 1379 * ((u.AU.to(u.kpc)) / distance) ** 2
+        ) / 1379
         self.n = n
+
+
+def generate_model_luminosities(n):
+    """Creates an array of n luminosities from the lum_min and lum_max specified in
+    the cofig.py script.
+
+    Parameters
+    ----------
+    n : int
+        number of luminosities to scale grid by.
+
+    Returns
+    -------
+    luminosities : array
+        array of luminosity values.
+
+    """
+
+    luminosities = np.logspace(
+        np.log10(config.fitting["lum_min"]), np.log10(config.fitting["lum_max"]), n
+    )
+    return luminosities
+
+
+def scale_vexp(expansion_velocities, luminosities):
+    """Scales expansion velocity by the luminosity and gas-to-dust ratio see:
+    Elitzur & Ivezić 2001, MNRAS, 327, 403
+    (https://ui.adsabs.harvard.edu/abs/2001MNRAS.327..403E/abstract)
+
+    Parameters
+    ----------
+    expansion_velocities : array
+        expansion velocities from original model grid.
+    luminosities : array
+        unique luminosity values created by generate_model_luminosities.
+
+    Returns
+    -------
+    scaled_expansion_velocities: array
+        scaled expansion velocities.
+
+    """
+
+    scaled_expansion_velocities = (
+        np.array(expansion_velocities)
+        * (np.array(luminosities) / 10000) ** 0.25
+        * (config.target["assumed_gas_to_dust_ratio"] / 200) ** (-0.5)
+    )
+    return scaled_expansion_velocities
+
+
+def scale_mdot(mass_loss_rates, luminosities):
+    """Scales mass loss rates by the luminosity and gas-to-dust ratio see:
+    Elitzur & Ivezić 2001, MNRAS, 327, 403
+    (https://ui.adsabs.harvard.edu/abs/2001MNRAS.327..403E/abstract)
+
+    Parameters
+    ----------
+    mass_loss_rates : array
+        mass-loss rates from original model grid.
+    luminosities : array
+        unique luminosity values created by generate_model_luminosities.
+
+    Returns
+    -------
+    scaled_mdot: array
+        scaled mass loss rates.
+
+    """
+    scaled_mdot = (
+        np.array(mass_loss_rates)
+        * ((np.array(luminosities) / 10000) ** 0.75)
+        * (config.target["assumed_gas_to_dust_ratio"] / 200) ** 0.5,
+    )[0]
+    return scaled_mdot
+
+
+def scale_dusty_outputs(luminosities, grid_outputs, scaling_factor):
+    _grid_outputs = vstack(([grid_outputs] * len(luminosities)))
+
+    # create lum col
+    lum_col = Column(
+        np.ndarray.flatten(
+            np.array([np.full(len(grid_outputs), x) for x in luminosities])
+        ),
+        name="lum",
+        dtype="int",
+    )
+
+    # scale mass-loss rate and expansion velocity using functions
+    scaled_vexp_col = Column(scale_vexp(_grid_outputs["vexp"], lum_col), "scaled_vexp")
+    scaled_mdot_col = Column(scale_mdot(_grid_outputs["mdot"], lum_col), "scaled_mdot")
+    _grid_outputs["norm"] = _grid_outputs["norm"] / scaling_factor * lum_col
+    _grid_outputs.add_columns([lum_col, scaled_vexp_col, scaled_mdot_col])
+    _grid_outputs.remove_columns(["vexp", "mdot"])
+    return _grid_outputs
+
+
+def scale_dusty_models(unique_luminosities, _grid, scaling_factor):
+    # scale grid_fluxes
+    full_grid = [
+        (_grid["flux_wm2"] / scaling_factor * lum_val)
+        for lum_val in unique_luminosities
+    ]
+
+    return vstack(full_grid)
+
+
+def scale_model_flux_to_distance(grid_outputs, _grid_fluxes):
+    # used for nanni and dusty models
+    for i in tqdm(range(0, len(grid_outputs["lum"]))):
+        _grid_fluxes[i][0] *= grid_outputs["lum"][i]
+        grid_outputs["norm"][i] *= grid_outputs["lum"][i]
+    return _grid_fluxes
+
+
+def reconfigure_nanni_models(_full_outputs):
+    """reconfigures model grids to work with DESK framework"""
+    # model_id starts at 1
+    _full_outputs.add_column(
+        Column(np.arange(1, len(_full_outputs) + 1), name="model_id"), index=0
+    )
+    _full_outputs.rename_columns(
+        ["L", "vexp", "mdot"], ["lum", "scaled_vexp", "scaled_mdot"]
+    )
+    return _full_outputs
 
 
 def retrieve(full_grid_params):
@@ -43,134 +169,31 @@ def retrieve(full_grid_params):
 
     """
 
-    def generate_model_luminosities(n):
-
-        luminosities = np.logspace(
-            np.log10(config.fitting["lum_min"]), np.log10(config.fitting["lum_max"]), n
-        )
-        return luminosities
-
-    def scale_vexp(expansion_velocities, luminosities):
-        """Scales expansion velocity by the luminosity and gas-to-dust ratio see:
-        Elitzur & Ivezić 2001, MNRAS, 327, 403
-        (https://ui.adsabs.harvard.edu/abs/2001MNRAS.327..403E/abstract)
-        """
-        scaled_expansion_velocities = Column(
-            np.array(expansion_velocities)
-            * (np.array(luminosities) / 10000) ** 0.25
-            * (config.target["assumed_gas_to_dust_ratio"] / 200) ** (-0.5),
-            name="scaled_vexp",
-        )
-        return scaled_expansion_velocities
-
-    def scale_mdot(mass_loss_rates, luminosities):
-        """Scales mass loss rate by the luminosity and gas-to-dust ratio see:
-        Elitzur & Ivezić 2001, MNRAS, 327, 403
-        (https://ui.adsabs.harvard.edu/abs/2001MNRAS.327..403E/abstract)
-        """
-        scaled_mdot = Column(
-            np.array(mass_loss_rates)
-            * ((np.array(luminosities) / 10000) ** 0.75)
-            * (config.target["assumed_gas_to_dust_ratio"] / 200) ** 0.5,
-            name="scaled_mdot",
-        )
-        return scaled_mdot
-
-    def scale_dusty_outputs(luminosities):
-        # norm is for lum not distance
-        # duplicate grid for each luminosity
-        _grid_outputs = vstack(([full_grid_params.grid_outputs] * len(luminosities)))
-
-        # create lum col
-        lum_col = Column(
-            np.ndarray.flatten(
-                np.array(
-                    [
-                        np.full(len(full_grid_params.grid_outputs), x)
-                        for x in luminosities
-                    ]
-                )
-            ),
-            name="lum",
-            dtype="int",
-        )
-        scaled_vexp_col = scale_vexp(_grid_outputs["vexp"], lum_col)
-        scaled_mdot_col = scale_mdot(_grid_outputs["mdot"], lum_col)
-        log_norm_factor = Column(
-            np.log10(
-                lum_col
-                * full_grid_params.scaling_factor_flux_to_Lsun
-                * full_grid_params.scaling_factor_flux_to_distance
-            ),
-            name="norm",
-        )
-
-        _grid_outputs.add_columns(
-            [lum_col, scaled_vexp_col, scaled_mdot_col, log_norm_factor]
-        )
-
-        return _grid_outputs
-
-    def scale_models_to_distance():
-        distance_scaled_fluxes = Column(
-            full_grid_params.grid_dusty["col1"]
-            * full_grid_params.scaling_factor_flux_to_distance,
-            name="model_flux_wm2",
-        )
-        return distance_scaled_fluxes
-
-    def scale_models_to_lums(scaled_model_grid, luminosities):
-        # duplicate grid for each luminosity
-        _grid_dusty = vstack(([scaled_model_grid] * len(luminosities)))
-        return _grid_dusty
-
-    def reconfigure_nanni_models(_full_outputs):
-        """reconfigures model grids to work with DESK framework"""
-        # model_id starts at 1
-        _full_outputs.add_column(
-            Column(np.arange(1, len(_full_outputs) + 1), name="model_id"), index=0
-        )
-        _full_outputs.rename_columns(
-            ["L", "vexp", "mdot"], ["lum", "scaled_vexp", "scaled_mdot"]
-        )
-        return _full_outputs
-
-    def reconfigure_dusty_models(_full_outputs):
-        """recongfigures dusty grids, allowing for cross-use of desk functions
-        with other model grids"""
-        # adds luminosity column
-        luminosity = Column(
-            np.array(
-                np.power(
-                    10.0, full_grid_params.distance_norm - _full_outputs["trial"] * -1
-                )
-            ),
-            name="lum",
-        )
-        _full_outputs.add_column(luminosity.astype(int))
-
-        # scale other values by luminosities
-        scaled_vexp = scale_vexp(_full_outputs["vexp"], _full_outputs["lum"])
-        scaled_mdot = scale_mdot(_full_outputs["mdot"], _full_outputs["lum"])
-        _full_outputs.remove_columns(["vexp", "mdot"])
-        _full_outputs.add_columns([scaled_vexp, scaled_mdot])
-        return _full_outputs
-
     print(
         "Scaling to full grid ("
         + "{:,}".format((len(full_grid_params.grid_outputs) * full_grid_params.n))
         + " models)"
     )
     if full_grid_params.grid in config.nanni_grids:
-        full_model_grid = scale_models_to_distance()
+        full_model_grid = scale_model_fluxes_to_distance(
+            full_grid_params.grid_outputs, full_grid_params.grid_dusty
+        )
         full_outputs = full_grid_params.grid_outputs
     else:
         # scale DUSTY outputs
-        luminosities = generate_model_luminosities(full_grid_params.n)
-        full_outputs = scale_dusty_outputs(luminosities)
-        full_outputs.remove_columns(["vexp", "mdot"])
+        unique_luminosities = generate_model_luminosities(full_grid_params.n)
+        full_outputs = scale_dusty_outputs(
+            unique_luminosities,
+            full_grid_params.grid_outputs,
+            full_grid_params.scaling_factor_flux_to_Lsun,
+        )
 
         # scale DUSTY models
-        scaled_model_grid = scale_models_to_distance()
-        full_model_grid = scale_models_to_lums(scaled_model_grid, luminosities)
-    return full_outputs, full_model_grid
+        expanded_grid = scale_dusty_models(
+            unique_luminosities,
+            full_grid_params.grid_dusty,
+            full_grid_params.scaling_factor_flux_to_Lsun,
+        )
+        # full_model_grid = scale_model_flux_to_distance(full_outputs, expanded_grid)
+    full_outputs["norm"] = np.log10(full_outputs["norm"])
+    return full_outputs, expanded_grid
