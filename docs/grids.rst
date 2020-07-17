@@ -1,9 +1,24 @@
-===== 
+=====
 Grids
 =====
 
-Oxygen-Rich Model Grids
------------------------
+Oxygen-Rich DUSTY Model Grids
+-----------------------------
+
+The DUSTY model grids are 1-D radiative transfer models that exploit
+scaling relations to generate models. The model shape can be scaled
+to any luminosity, expansion velocity, or mass-loss rate so long as the
+combination of these three parameters remains the same. The DESK model grids
+contain 500--2000 unique model shapes. The full grid of models is scaled
+to the desired number of luminosities between 1,000 and 150,000 using the
+command option --n. For example using the following command:
+
+`desk fit --source='example.csv' --grid='Oss-Orich-aringer' --n=10`
+
+will scale 2,000 model shapes to luminosities of at 1000, 17555, 34111, 50666,
+67222,  83777, 100333, 116888, 133444, 150000 solar luminosities, resulting in
+a grid of 20,000 models. 
+
 
 Oss-Orich-aringer (*N*\ =2,000): Uses warm silicates from `Ossenkopf et
 al. 1992`_ and photospheric models from `Aringer et al. 2016`_. Provides
@@ -39,8 +54,8 @@ temperature of 3400 K.
 arnold-palmer (*N*\ =2,000): Same as Oss-Orich-aringer but with 50%
 amorphous carbon grains from `Zubko et al. 1996`_.
 
-Carbon-Rich Model Grids
------------------------
+Carbon-Rich DUSTY Model Grids
+-----------------------------
 
 Zubko-Crich-aringer (*N*\ =2,000): Same as Oss-Orich-aringer but with
 amorphous carbon grains from `Zubko et al. 1996`_.
@@ -68,7 +83,11 @@ J1000-SMC (*N*\ =85,546): A carbon-rich grid for the SMC metallicity
 (1/5 solar) using optical constants from `Jager et al. (1998)`_
 
 
-The GRAMS model grids 
+2-Dimensional model Grids
+-------------------------
+
+
+The GRAMS model grids
 ----------------------
 
 The GRAMS model grids from `Sargent et al. 2011`_ and `Srinivasan et al. 2011`_.
