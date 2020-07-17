@@ -17,9 +17,8 @@ command option --n. For example using the following command:
 
    desk fit --source='example.csv' --grid='Oss-Orich-aringer' --n=10
 
-will scale 2,000 model shapes to luminosities of at 1000, 17555, 34111, 50666,
-67222,  83777, 100333, 116888, 133444, 150000 solar luminosities, resulting in
-a grid of 20,000 models. 
+will scale 2,000 model shapes to luminosities at 1000, 17555, 34111, 50666,
+67222,  83777, 100333, 116888, 133444, and 150000 solar luminosities (20,000 models). 
 
 
 Oss-Orich-aringer (*N*\ =2,000): Uses warm silicates from `Ossenkopf et
