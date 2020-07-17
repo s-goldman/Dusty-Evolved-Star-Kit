@@ -12,7 +12,7 @@ combination of these three parameters remains the same. The DESK model grids
 contain 500--2000 unique model shapes. The full grid of models is scaled
 to the desired number of luminosities between 1,000 and 150,000 using the
 command option `--n`. Using the following command will scale 2,000 model shapes 
-to luminosities at 1000, 17555, 34111, 50666,67222,  83777, 100333, 116888, 
+to luminosities at 1000, 17555, 34111, 50666, 67222, 83777, 100333, 116888, 
 133444, and 150000 solar luminosities (20,000 models).
 
 .. code-block:: language
