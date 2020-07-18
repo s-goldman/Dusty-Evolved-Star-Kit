@@ -1,9 +1,6 @@
 # Licensed under a 3-clause BSD style license - see LICENSE.rst
 """
-The DESK contains python packages that are bundled with the package but
-are external to it, and hence are developed in a separate source tree. Note
-that this package is distinct from the /cextern directory of the source code
-distribution, as that directory only contains C extension code.
+
 """
 
 # -*- coding: utf-8 -*-
@@ -27,3 +24,12 @@ __keywords__ = (
 )
 
 from desk import fitting, outputs, probabilities, set_up
+
+# # to import all submodules
+# import pkgutil
+#
+# __all__ = []
+# for loader, module_name, is_pkg in pkgutil.walk_packages(__path__):
+#     __all__.append(module_name)
+#     _module = loader.find_module(module_name).load_module(module_name)
+#     globals()[module_name] = _module

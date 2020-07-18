@@ -2,29 +2,29 @@
 Grids
 =====
 
-Oxygen-Rich DUSTY Model Grids
------------------------------
+DUSTY model grids
+-----------------
 
+The models currently available with the DESK are created using the DUSTY_ code.
 The DUSTY models are 1-D radiative transfer models that exploit
 scaling relations to generate models. The model shape can be scaled
 to any luminosity, expansion velocity, or mass-loss rate so long as the
 combination of these three parameters remains the same. The DESK model grids
-contain 500--2000 unique model shapes. The full grid of models is scaled
+contain 500--2000 unique model shapes. Theses grids are scaled
 to the desired number of luminosities between 1,000 and 150,000 using the
-command option `--n`. Using the following command will scale 2,000 model shapes 
-to luminosities at 1000, 17555, 34111, 50666, 67222, 83777, 100333, 116888, 
-133444, and 150000 solar luminosities (20,000 models).
-
+command option `--n`.
 
 .. code-block:: console
 
 	> desk fit --source='example.csv' --grid='Oss-Orich-aringer' --n=10
 
-will scale 2,000 model shapes to luminosities of at 1000, 17555, 34111, 50666,
-67222,  83777, 100333, 116888, 133444, 150000 solar luminosities, resulting in
-a grid of 20,000 models.
+This command will scale the 'Oss-Orich-aringer' model grid of 2,000 unique model
+shapes to luminosities at 1000, 17555, 34111, 50666, 67222, 83777, 100333, 116888,
+133444, and 150000 solar luminosities (20,000 models).
 
 
+Oxygen-rich DUSTY model grids
+=============================
 
 Oss-Orich-aringer (*N*\ =2,000): Uses warm silicates from
 `Ossenkopf et al. (1992)`_ and photospheric models from
@@ -61,8 +61,8 @@ temperature of 3400 K.
 arnold-palmer (*N*\ =2,000): Same as Oss-Orich-aringer but with 50%
 amorphous carbon grains from `Zubko et al. (1996)`_.
 
-Carbon-Rich DUSTY Model Grids
------------------------------
+Carbon-rich DUSTY model grids
+=============================
 
 Zubko-Crich-aringer (*N*\ =2,000): Same as Oss-Orich-aringer but with
 amorphous carbon grains from `Zubko et al. (1996)`_.
@@ -73,7 +73,7 @@ black bodies instead of the photospheric models.
 .. _the-dust-growth-model-grids-from-nanni-et-al-2019:
 
 Dust growth grids
------------------
+=================
 
 The dust growth model grids from `Nanni et al. (2019)`_
 
@@ -90,12 +90,12 @@ J1000-SMC (*N*\ =85,546): A carbon-rich grid for the SMC metallicity
 (1/5 solar) using optical constants from `Jaeger et al. (1998)`_
 
 
-2-Dimensional model Grids
+2-D model grids
 -------------------------
 
 
 The GRAMS model grids (Currently in development)
-------------------------------------------------
+================================================
 
 The GRAMS model grids from `Sargent et al. (2011)`_ and `Srinivasan et al. (2011)`_.
 
@@ -109,8 +109,9 @@ code for the LMC metallicity (1/2 solar) using optical constants from
 
 .. code:: diff
 
-   - Warning: results uncertain outside of 20-150 kpc
+   - Warning: results uncertain outside of a distance 20-150 kpc.
 
+.. _DUSTY: https://github.com/ivezic/dusty
 .. _Sargent et al. (2011): https://ui.adsabs.harvard.edu/abs/2011ApJ...728...93S/abstract
 .. _Srinivasan et al. (2011): https://ui.adsabs.harvard.edu/abs/2011A%26A...532A..54S/abstract
 .. _2DUST: https://2dust.stsci.edu/index.cgi

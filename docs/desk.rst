@@ -1,46 +1,40 @@
 desk package
 ============
 
+Subpackages
+-----------
+
+.. toctree::
+
+   desk.fitting
+   desk.outputs
+   desk.probabilities
+   desk.set_up
+
 Submodules
 ----------
 
-desk.fitting module
--------------------
+desk.console\_commands module
+-----------------------------
 
-.. automodule:: desk.fitting
-    :members:
-    :undoc-members:
-    :show-inheritance:
+.. automodule:: desk.console_commands
+   :members:
+   :undoc-members:
+   :show-inheritance:
 
-desk.probabilities module
--------------------------
+desk.main module
+----------------
 
-.. automodule:: desk.probabilities
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-desk.set\_up module
--------------------
-
-.. automodule:: desk.set_up
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-desk.tests module
------------------
-
-.. automodule:: desk.tests
-    :members:
-    :undoc-members:
-    :show-inheritance:
+.. automodule:: desk.main
+   :members:
+   :undoc-members:
+   :show-inheritance:
 
 
 Module contents
 ---------------
 
 .. automodule:: desk
-    :members:
-    :undoc-members:
-    :show-inheritance:
+   :members:
+   :undoc-members:
+   :show-inheritance:
