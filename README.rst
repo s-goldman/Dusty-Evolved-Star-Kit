@@ -33,15 +33,9 @@ please email me (`Dr. Steven Goldman`_) directly for grid requests or for help w
 * Documentation: https://dusty-evolved-star-kit.readthedocs.io.
 
 
-Features
---------
-
 * TODO
 
-Credits
--------
-
-This package was created with Cookiecutter_ and the `audreyr/cookiecutter-pypackage`_ project template.
+**Credits**: This package was created with Cookiecutter_ and the `audreyr/cookiecutter-pypackage`_ project template.
 
 .. _Github: https://github.com/s-goldman/Dusty-Evolved-Star-Kit
 .. _Cookiecutter: https://github.com/audreyr/cookiecutter
