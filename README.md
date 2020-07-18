@@ -23,14 +23,14 @@ Documentation
 The documentation can be found on [readthedocs](http://dusty-evolved-star-kit.readthedocs.io/en/latest/).
 
 Install Using Python
--------------------
+--------------------
 
 1). Install the package with the command `pip install desk`.
 
 ![](docs/pip_install2.gif)
 
 Using the DESK
--------------------
+--------------
 
 2). Go to the directory where your target csv file (or target directory of files) is.  
 
