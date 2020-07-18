@@ -35,7 +35,7 @@ setup(
     package_data={"project": ["desk/models/*", "desk/put_target_data_here/*"]},
     setup_requires=["pytest-runner"],
     test_suite="tests",
-    tests_require="pytest",
+    tests_require=["pytest","sphinx_automodapi"]
     url="https://github.com/s-goldman/Dusty_Evolved_Star_Kit",
     version="1.6.24",
     zip_safe=False,
