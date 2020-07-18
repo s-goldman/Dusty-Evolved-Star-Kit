@@ -2,8 +2,8 @@
 Grids
 =====
 
-DUSTY models
-------------
+DUSTY model grids
+-----------------
 
 The models currently available with the DESK are created using the DUSTY_ code.
 The DUSTY models are 1-D radiative transfer models that exploit
@@ -23,7 +23,7 @@ shapes to luminosities at 1000, 17555, 34111, 50666, 67222, 83777, 100333, 11688
 133444, and 150000 solar luminosities (20,000 models).
 
 
-Oxygen-Rich DUSTY Model Grids
+Oxygen-rich DUSTY model grids
 =============================
 
 Oss-Orich-aringer (*N*\ =2,000): Uses warm silicates from
@@ -61,7 +61,7 @@ temperature of 3400 K.
 arnold-palmer (*N*\ =2,000): Same as Oss-Orich-aringer but with 50%
 amorphous carbon grains from `Zubko et al. (1996)`_.
 
-Carbon-Rich DUSTY Model Grids
+Carbon-rich DUSTY model grids
 =============================
 
 Zubko-Crich-aringer (*N*\ =2,000): Same as Oss-Orich-aringer but with
@@ -90,7 +90,7 @@ J1000-SMC (*N*\ =85,546): A carbon-rich grid for the SMC metallicity
 (1/5 solar) using optical constants from `Jaeger et al. (1998)`_
 
 
-2-D model Grids
+2-D model grids
 -------------------------
 
 
