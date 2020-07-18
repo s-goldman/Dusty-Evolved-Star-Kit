@@ -25,7 +25,7 @@ setup(
     ],
     description="The DESK is an SED-fitting python scripts for fitting data from evolved stars",
     entry_points={"console_scripts": ["desk = desk.main:main"]},
-    install_requires=["astropy", "numpy", "scipy", "tqdm", "ipdb"],
+    install_requires=["astropy", "numpy", "scipy", "tqdm", "ipdb", "sphinx_automodapi"],
     license="BSD license",
     long_description=readme + "\n\n" + history,
     include_package_data=True,
