@@ -7,3 +7,4 @@ sklearn
 h5py
 wheel
 twine
+sphinx_automodapi
