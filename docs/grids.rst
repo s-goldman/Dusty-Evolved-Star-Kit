@@ -11,19 +11,14 @@ to any luminosity, expansion velocity, or mass-loss rate so long as the
 combination of these three parameters remains the same. The DESK model grids
 contain 500--2000 unique model shapes. The full grid of models is scaled
 to the desired number of luminosities between 1,000 and 150,000 using the
-command option `--n`. Using the following command will scale 2,000 model shapes 
-to luminosities at 1000, 17555, 34111, 50666, 67222, 83777, 100333, 116888, 
+command option `--n`. Using the following command will scale 2,000 model shapes
+to luminosities at 1000, 17555, 34111, 50666, 67222, 83777, 100333, 116888,
 133444, and 150000 solar luminosities (20,000 models).
 
 
 .. code-block:: console
 
 	> desk fit --source='example.csv' --grid='Oss-Orich-aringer' --n=10
-
-will scale 2,000 model shapes to luminosities of at 1000, 17555, 34111, 50666,
-67222,  83777, 100333, 116888, 133444, 150000 solar luminosities, resulting in
-a grid of 20,000 models.
-
 
 
 Oss-Orich-aringer (*N*\ =2,000): Uses warm silicates from
