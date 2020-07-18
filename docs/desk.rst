@@ -4,42 +4,34 @@ desk package
 Submodules
 ----------
 
-desk.config module
-------------------
+desk.fitting module
+-------------------
 
-.. automodule:: desk.config
+.. automodule:: desk.fitting
     :members:
     :undoc-members:
     :show-inheritance:
 
-desk.get\_remote\_models module
--------------------------------
+desk.probabilities module
+-------------------------
 
-.. automodule:: desk.get_remote_models
+.. automodule:: desk.probabilities
     :members:
     :undoc-members:
     :show-inheritance:
 
-desk.parameter\_ranges module
------------------------------
+desk.set\_up module
+-------------------
 
-.. automodule:: desk.parameter_ranges
+.. automodule:: desk.set_up
     :members:
     :undoc-members:
     :show-inheritance:
 
-desk.plotting\_seds module
---------------------------
+desk.tests module
+-----------------
 
-.. automodule:: desk.plotting_seds
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-desk.sed\_fit module
---------------------
-
-.. automodule:: desk.sed_fit
+.. automodule:: desk.tests
     :members:
     :undoc-members:
     :show-inheritance:
