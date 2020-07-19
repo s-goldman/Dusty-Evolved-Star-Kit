@@ -38,7 +38,6 @@ extensions = [
     "sphinx.ext.autodoc",
     "sphinx.ext.viewcode",
     "recommonmark",
-#     "sphinx_automodapi.automodapi",
 ]
 numpydoc_show_class_members = False
 
