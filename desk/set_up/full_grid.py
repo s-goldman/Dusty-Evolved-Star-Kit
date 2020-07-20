@@ -14,6 +14,7 @@ class instantiate:
         self.grid = grid
         self.grid_dusty = grid_dusty
         self.grid_outputs = grid_outputs
+        self.distance = distance
         # factor to multiply the model flux by to scale flux to a 1 Lsun star at
         # user-given given distance
         # derived using L/Lsun=4*pi*(d/dsun)^2 * F/Fsun
@@ -63,12 +64,6 @@ def retrieve(full_grid_params):
 
     """
 
-    print(
-        "Scaling to full grid ("
-        + "{:,}".format((len(full_grid_params.grid_outputs) * full_grid_params.n))
-        + " models)"
-    )
-
     if full_grid_params.grid in config.nanni_grids:
         full_outputs, full_model_grid = scale_nanni.scale(
             full_grid_params.grid_outputs,
@@ -77,6 +72,11 @@ def retrieve(full_grid_params):
         )
     else:
         # scale DUSTY outputs
+        print(
+            "Scaling to full grid ("
+            + "{:,}".format((len(full_grid_params.grid_outputs) * full_grid_params.n))
+            + " models)"
+        )
         unique_luminosities = generate_model_luminosities(full_grid_params.n)
         full_outputs, full_model_grid = scale_dusty.scale(
             full_grid_params.grid_outputs,

@@ -39,16 +39,17 @@ def get_model_and_data_for_plotting(counter, target):
     x_model, y_model = grid_dusty[target["model_id"] - 1]  # model_id starts at 1
 
     x_model = x_model[np.where(y_model != 0)]
+    y_model = y_model[np.where(y_model != 0)]
+
     if fnmatch(input_file["grid"][0], "grams*"):
         y_model = y_model * u.Jy
         y_model = y_model.to(
             u.W / (u.m * u.m), equivalencies=u.spectral_density(x_model * u.um)
         )
+
     else:
         y_model = y_model * u.W / (u.m * u.m)
-    y_model = y_model[np.where(y_model != 0)] * np.power(
-        10, input_file[counter]["norm"]
-    )
+        y_model = y_model * np.power(10, input_file[counter]["norm"])
 
     # logscale
     x_model = np.log10(x_model)
@@ -94,7 +95,7 @@ def create_fig():
             counter, target
         )
 
-        # find y limits
+        # find median y_model values in data range
         median = np.median(
             y_model[(x_model > np.min(x_data)) & (x_model < np.max(x_data))]
         )
@@ -108,10 +109,11 @@ def create_fig():
             y_max = y_max + y_diff
         else:
             y_min = y_min - y_diff
+
         # plotting
         if len(input_file) == 1:
             ax1.set_xlim(-0.99, 2.49)
-            ax1.set_ylim(y_min, y_max)
+            # ax1.set_ylim(y_min, y_max)
             ax1.scatter(x_data, y_data, c="blue", label="data")
             ax1.plot(
                 x_model,

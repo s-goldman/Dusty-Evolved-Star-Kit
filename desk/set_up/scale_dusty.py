@@ -57,6 +57,27 @@ def scale_mdot(mass_loss_rates, luminosities):
 
 
 def scale(_outputs, _models, luminosities, scaling_factor):
+    """Scale DUSTY models and outputs.
+
+    Parameters
+    ----------
+    _outputs : astropy table
+        grid outputs.
+    _models : astropy table
+        grid models.
+    luminosities : array
+        1-D array of luminosities
+    scaling_factor : float
+        Scaling factor to scale grids to distance.
+
+    Returns
+    -------
+    full_outputs : astropy table
+        Updated astropy table with scaled vexp, and mdot.
+    full_model_grid : astropy table
+        astropy table with sclaed fluxes
+
+    """
     full_outputs = vstack(([_outputs] * len(luminosities)))
 
     # create lum col
