@@ -38,9 +38,3 @@ jobs:
     - name: Test with pytest
       run: python -m pytest
       # run: python -m pytest --cov=desk desk/tests/
-      with:
-
-        files: ./coverage1.xml,./coverage2.xml # optional
-        flags: unittests # optional
-        name: codecov-umbrella # optional
-        fail_ci_if_error: true # optional (default = false)
