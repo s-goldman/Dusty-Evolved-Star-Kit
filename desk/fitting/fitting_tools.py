@@ -22,16 +22,20 @@ class fit:
 
         Returns
         -------
-        2-D array
-            Trimmed input model in 2-D array of wavelength and flux.
-
+        model_trimmed_wavelengths : array
+            Trimmed model wavelengths in microns
+        model_trimmed_fluxes: array
+            Trimmed model fluxes in W*M^-2
         """
         indexes = np.where(
             np.logical_and(
                 model_trim[0] >= np.min(data[0]), model_trim[0] <= np.max(data[0])
             )
         )
-        return model_trim[0][indexes], model_trim[1][indexes]
+        model_trimmed_wavelengths = model_trim[0][indexes]
+        model_trimmed_fluxes = model_trim[0][indexes]
+
+        return model_trimmed_wavelengths, model_trimmed_fluxes
 
     def find_closest(data_wave, model_wave, model_flux):
 
@@ -50,7 +54,7 @@ class fit:
         Returns
         -------
         closest_model_flux: array
-            subset of model fluxes
+            Subset of model fluxes closest to each wavelength in data.
 
         """
         closest = np.searchsorted(model_wave, data_wave)
@@ -62,6 +66,21 @@ class fit:
         return closest_model_flux
 
     def least2_liklihood(_data, _model):
+        """Finds the least-squares fit of the data and model.
+
+        Parameters
+        ----------
+        _data : array
+            Source data in W*M^-2.
+        _model : array
+            Model fluxes in W*M^-2.
+
+        Returns
+        -------
+        prob : float
+            The probability given the fit.
+
+        """
         # least squares fit
         _stat = np.nansum(np.square(_data - _model) / _model)
         prob = np.exp(-0.5 * np.float128(_stat))

@@ -113,7 +113,7 @@ def create_fig():
         # plotting
         if len(input_file) == 1:
             ax1.set_xlim(-0.99, 2.49)
-            # ax1.set_ylim(y_min, y_max)
+            ax1.set_ylim(y_min, y_max)
             ax1.scatter(x_data, y_data, c="blue", label="data")
             ax1.plot(
                 x_model,
