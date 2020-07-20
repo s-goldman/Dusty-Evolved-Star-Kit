@@ -33,7 +33,7 @@ class fit:
             )
         )
         model_trimmed_wavelengths = model_trim[0][indexes]
-        model_trimmed_fluxes = model_trim[0][indexes]
+        model_trimmed_fluxes = model_trim[1][indexes]
 
         return model_trimmed_wavelengths, model_trimmed_fluxes
 
