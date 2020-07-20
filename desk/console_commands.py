@@ -102,7 +102,7 @@ def fit(
         Maximum wavelength to be fit.
     multiprocessing : bool
         Flag that, if true, uses all but one of the user's
-        available cores for the fitting
+        available cores for the fitting.
     testing : bool
         Flag for testing that uses only the first 3 rows of the mode grids.
     """
