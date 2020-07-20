@@ -8,7 +8,9 @@ dependencies:
     - Cython
     - matplotlib
     - numpy
+    - sphinx
     - sphinx-astropy
     - sphinx_automodapi
+
   # - pip:
   #     - numpy
