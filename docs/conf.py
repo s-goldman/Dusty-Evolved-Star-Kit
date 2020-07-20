@@ -41,6 +41,9 @@ extensions = [
     "recommonmark",
 ]
 numpydoc_show_class_members = False
+napoleon_google_docstring = False
+napoleon_use_param = False
+napoleon_use_ivar = True
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ["_templates"]
