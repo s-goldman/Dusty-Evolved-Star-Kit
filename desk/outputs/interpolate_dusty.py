@@ -12,6 +12,28 @@ from desk.set_up import get_models
 
 
 def interpolate(grid_name, distance_in_kpc, teff_new, tinner_new, tau_new):
+    """A script for returning a model within any grid or returning an interpolated
+    model that fits within the given parameter space.
+
+    Parameters
+    ----------
+    grid_name : str
+        Name of grid used.
+    distance_in_kpc : float
+        Distance in kpc.
+    teff_new : int
+        Effective temperature of desired grid.
+    tinner_new : int
+        Inner dust temperature of desired grid.
+    tau_new : float
+        optical depth specified at 10 microns.
+
+    Returns
+    -------
+    type : csv file
+        File with desired model. Model parameters are printed.
+
+    """
     # checks if grid files available
     grid_dusty, grid_outputs = get_models.get_model_grid(grid_name)
     waves = grid_dusty[0][0]
