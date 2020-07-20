@@ -1,7 +1,5 @@
-import ipdb
-from tqdm import tqdm
 import numpy as np
-from astropy.table import Column, vstack, Table
+from astropy.table import Column, Table
 
 
 def scale(_outputs, _models, scaling_factor):

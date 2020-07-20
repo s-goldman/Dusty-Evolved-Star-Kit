@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from fnmatch import fnmatch
 from astropy.table import Table
-from desk.set_up import get_data, config
+from desk.set_up import get_data
 
 
 def get_model_and_data_for_plotting(counter, target):
