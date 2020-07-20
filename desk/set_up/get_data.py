@@ -17,14 +17,18 @@ def get_values(filename, min_wavelength=0, max_wavelength=0, fitting=False):
     Parameters
     ----------
     filename : str
-        Name of csv file name. The file should have:
-            Column 0: wavelength in um
-            Column 1: flux in Jy
+        Name of csv file name. The file should have: Column 0: wavelength in um, Column 1: flux in Jy
+    max_wavelength:float
+        The maximum wavelength in um to fit the data.
+    min_wavelength:float
+        The maximum wavelength in um to fit the data
 
     Returns
     -------
-    2 1D arrays
-        wavelength (x) and flux (y) in unit specified in config.py (default is w/m2)
+    x: 1D array
+        wavelength in um
+    y: 1D array
+        flux in w/m2
 
     """
 

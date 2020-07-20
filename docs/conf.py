@@ -37,6 +37,7 @@ import desk
 extensions = [
     "sphinx.ext.autodoc",
     "sphinx.ext.viewcode",
+    "sphinx.ext.napoleon",
     "recommonmark",
 ]
 numpydoc_show_class_members = False
