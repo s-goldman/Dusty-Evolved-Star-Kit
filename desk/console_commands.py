@@ -58,7 +58,7 @@ def interpolate(grid_name, distance_in_kpc, teff_new, tinner_new, tau_new):
 
 
 def single_fig():
-    """Creates an individual SED figure for each fit SED using the
+    """Creates an individual SED figure for each SED fit using the
     results in the 'fitting_results.csv' file.
 
     Returns
