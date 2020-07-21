@@ -1,8 +1,9 @@
 import ipdb
 import numpy as np
+import astropy.units as u
 from astropy.table import Table
 from scipy.interpolate import RegularGridInterpolator
-from desk.set_up import get_models
+from desk.set_up import get_models, scale_dusty, config
 
 # Example
 # grid_name = "Oss-Orich-bb"
@@ -11,7 +12,7 @@ from desk.set_up import get_models
 # tau_new = 0.146
 
 
-def interpolate(grid_name, distance_in_kpc, teff_new, tinner_new, tau_new):
+def interpolate(grid_name, distance_in_kpc, luminosity, teff_new, tinner_new, tau_new):
     """A script for returning a model within any grid or returning an interpolated
     model that fits within the given parameter space.
 
@@ -21,6 +22,8 @@ def interpolate(grid_name, distance_in_kpc, teff_new, tinner_new, tau_new):
         Name of grid used.
     distance_in_kpc : float
         Distance in kpc.
+    luminosity :
+        luminosity of model (in solar luminosities)
     teff_new : int
         Effective temperature of desired grid.
     tinner_new : int
@@ -34,12 +37,12 @@ def interpolate(grid_name, distance_in_kpc, teff_new, tinner_new, tau_new):
         File with desired model. Model parameters are printed.
 
     """
+    # scaling factor
+    scaling_factor = ((float(distance_in_kpc) / u.AU.to(u.kpc)) ** 2) / 1379
+
     # checks if grid files available
     grid_dusty, grid_outputs = get_models.get_model_grid(grid_name)
     waves = grid_dusty[0][0]
-
-    # test = grid_dusty['col1'] * np.power(10, -distance_norm)
-    # ipdb.set_trace()
 
     # create interpolator
     tau = np.unique(grid_outputs["odep"])
@@ -56,6 +59,8 @@ def interpolate(grid_name, distance_in_kpc, teff_new, tinner_new, tau_new):
     else:
         raise Exception(
             "Interpolation values outside of range. Try values in range:"
+            "\n\nGrid: "
+            + str(grid_name)
             + "\n\n\tTeff:\t"
             + str(teff.min())
             + " - "
@@ -70,6 +75,7 @@ def interpolate(grid_name, distance_in_kpc, teff_new, tinner_new, tau_new):
             + str(tau.max())
             + "\n"
         )
+    # ipdb.set_trace()
 
     # if model already exists
     if (teff_new in teff) & (tinner_new in tinner) & (tau_new in tau):
@@ -79,11 +85,12 @@ def interpolate(grid_name, distance_in_kpc, teff_new, tinner_new, tau_new):
             & (grid_outputs["tinner"] == tinner_new)
             & (grid_outputs["odep"] == tau_new)
         )[0][0]
-        interp_dusty = Table(
-            (grid_dusty[ind]["wavelength_um"], grid_dusty[ind]["flux_wm2"])
+        mass_loss_rate = scale_dusty.scale_mdot(grid_outputs["mdot"][ind], luminosity)
+        expansion_velocity = scale_dusty.scale_vexp(
+            grid_outputs["vexp"][ind], luminosity
         )
-        expansion_velocity = grid_outputs["vexp"][ind]
-        mass_loss_rate = grid_outputs["mdot"][ind]
+        scaled_fluxes = grid_dusty[ind]["flux_wm2"] * luminosity / scaling_factor
+        scaled_model = Table((grid_dusty[ind]["wavelength_um"], scaled_fluxes))
 
     else:
         print("Interpolating model:")
@@ -114,19 +121,35 @@ def interpolate(grid_name, distance_in_kpc, teff_new, tinner_new, tau_new):
         )
 
         interp_dusty = []
-        y_new = []
 
         for wavelength in waves:
-            y_new.append(interpolator([teff_new, tinner_new, tau_new, wavelength])[0])
-        interp_dusty = Table([waves, y_new])
+            interp_dusty.append(
+                interpolator([teff_new, tinner_new, tau_new, wavelength])[0]
+            )
+
+        # unscaled_values
         mass_loss_rate = mdot_interpolator([teff_new, tinner_new, tau_new])[0]
         expansion_velocity = vexp_interpolator([teff_new, tinner_new, tau_new])[0]
+
+        if grid_name in config.nanni_grids:
+            pass
+        else:
+            # scale dusty models
+            mass_loss_rate = scale_dusty.scale_mdot(mass_loss_rate, luminosity)
+            expansion_velocity = scale_dusty.scale_vexp(expansion_velocity, luminosity)
+            scaled_fluxes = np.array(interp_dusty) * luminosity / scaling_factor
+
+            scaled_model = Table(
+                [waves, scaled_fluxes], names=("wavelength_um", "flux_wm2")
+            )
 
     print("\nExpansion velocity = " + "%.2f" % float(expansion_velocity) + " km/s")
     print("Gas mass-loss rate = " + "%.3E" % float(mass_loss_rate) + " Msun/yr\n")
 
-    interp_dusty.write(
+    scaled_model.write(
         grid_name
+        + "_"
+        + str(luminosity)
         + "_"
         + str(teff_new)
         + "_"
