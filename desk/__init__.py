@@ -10,7 +10,7 @@
 __author__ = "Steven R. Goldman"
 __email__ = "sgoldman@stsci.edu"
 __title__ = "DESK"
-__version__ = "1.6.24"
+__version__ = "1.6.25"
 __repository__ = "https://github.com/s-goldman/Dusty-Evolved-Star-Kit"
 __date_published = "2020-07-07"
 __licence__ = "BSD"
