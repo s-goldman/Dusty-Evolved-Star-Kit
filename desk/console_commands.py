@@ -47,13 +47,16 @@ def sed():
     plotting_seds.create_fig()
 
 
-def save_model(grid_name, distance_in_kpc, teff_new, tinner_new, tau_new):
+def save_model(grid_name, luminosity, teff, tinner, tau, distance_in_kpc):
+    """ See interpolate_dusty.
+    """
     interpolate_dusty.interpolate(
         grid_name,
+        float(luminosity),
+        float(teff),
+        float(tinner),
+        float(tau),
         float(distance_in_kpc),
-        float(teff_new),
-        float(tinner_new),
-        float(tau_new),
     )
 
 
