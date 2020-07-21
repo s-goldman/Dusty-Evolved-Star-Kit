@@ -71,7 +71,7 @@ def check_input_range(
         )
 
 
-def interpolate(grid_name, distance_in_kpc, luminosity, teff_new, tinner_new, tau_new):
+def interpolate(grid_name, luminosity, teff_new, tinner_new, tau_new, distance_in_kpc):
     """A script for returning a model within any grid or returning an interpolated
     model that fits within the given parameter space. The interpolation interpolates
     over the flux at each wavelength in the model grid.
@@ -80,8 +80,6 @@ def interpolate(grid_name, distance_in_kpc, luminosity, teff_new, tinner_new, ta
     ----------
     grid_name : str
         Name of grid used.
-    distance_in_kpc : float
-        Distance in kpc.
     luminosity :
         luminosity of model (in solar luminosities)
     teff_new : int
@@ -90,6 +88,8 @@ def interpolate(grid_name, distance_in_kpc, luminosity, teff_new, tinner_new, ta
         Inner dust temperature of desired grid.
     tau_new : float
         optical depth specified at 10 microns.
+    distance_in_kpc : float
+        Distance in kpc.
 
     Returns
     -------

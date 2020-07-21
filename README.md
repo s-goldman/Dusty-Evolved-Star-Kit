@@ -64,6 +64,15 @@ To produce individual figures for each SED instead use the command:
 
 `desk sed_indiv`
 
+
+Retrieve model
+--------------
+
+To retrieve a model from the DUSTY model grids or to interpolate a model in the grid parameter space, use the *save_model* module with the following options:
+
+`desk save_model grid_name=Oss-Orich-bb  luminosity=10000 teff=2700 tinner=1000 tau=0.4 distance_in_kpc=50`
+
+
 Attribution
 -----------
 
