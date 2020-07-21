@@ -150,7 +150,7 @@ def fit(
         # Multi-core fitting
         pool = Pool(processes=cpu_count() - 1)
         mapfunc = partial(dusty_fit.fit_single_source, fit_params=fit_params)
-        pool.map(mapfunc, range(len(file_names)))
+        pool.map(mapfunc, range(len(file_names)), chunksize=1)
     else:
         # Single-core fitting
         [dusty_fit.fit_single_source(x, fit_params) for x in range(len(file_names))]

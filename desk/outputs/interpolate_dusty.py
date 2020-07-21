@@ -74,7 +74,7 @@ def check_input_range(
 def interpolate(grid_name, distance_in_kpc, luminosity, teff_new, tinner_new, tau_new):
     """A script for returning a model within any grid or returning an interpolated
     model that fits within the given parameter space. The interpolation interpolates
-    over the flux at each wavelength in the model grid. 
+    over the flux at each wavelength in the model grid.
 
     Parameters
     ----------
