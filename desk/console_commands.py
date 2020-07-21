@@ -47,7 +47,7 @@ def sed():
     plotting_seds.create_fig()
 
 
-def interpolate(grid_name, distance_in_kpc, teff_new, tinner_new, tau_new):
+def save_model(grid_name, distance_in_kpc, teff_new, tinner_new, tau_new):
     interpolate_dusty.interpolate(
         grid_name,
         float(distance_in_kpc),
@@ -57,7 +57,7 @@ def interpolate(grid_name, distance_in_kpc, teff_new, tinner_new, tau_new):
     )
 
 
-def single_fig():
+def sed_indiv():
     """Creates an individual SED figure for each SED fit using the
     results in the 'fitting_results.csv' file.
 
