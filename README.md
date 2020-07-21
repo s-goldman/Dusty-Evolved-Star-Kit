@@ -61,7 +61,7 @@ This is an example of the output_sed.png file fitting three massive oxygen-rich 
 
 To produce individual figures for each SED instead use the command:
 
-`desk single_fig`
+`desk sed_indiv`
 
 Attribution
 -----------
