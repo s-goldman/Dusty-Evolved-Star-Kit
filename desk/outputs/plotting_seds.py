@@ -1,4 +1,6 @@
-import math, ipdb
+import os
+import ipdb
+import math
 import astropy.units as u
 import matplotlib.pyplot as plt
 import numpy as np
@@ -7,7 +9,7 @@ from astropy.table import Table
 from desk.set_up import get_data
 
 
-def get_model_and_data_for_plotting(counter, target):
+def get_model_and_data_for_plotting(counter, target, source_path, source_filename):
     """
     Gets data from target.csv file and model from grid file.
 
@@ -17,7 +19,10 @@ def get_model_and_data_for_plotting(counter, target):
         The nth item being fit, starting at 1.
     target : astropy table row
         Results of fit item read from fitting_plotting_outputs.csv.
-
+    source_path: str
+        Path of source
+    source_filename: str
+        Filename of fitting results
     Returns
     -------
     x_data: array
@@ -30,7 +35,7 @@ def get_model_and_data_for_plotting(counter, target):
         log of the flux of the model in w*m^-2
     """
     full_path = str(__file__.replace("outputs/plotting_seds.py", ""))
-    input_file = Table.read("fitting_results.csv")
+    input_file = Table.read(source_path + "/" + source_filename)
     grid_dusty = Table.read(
         full_path + "models/" + str(input_file["grid"][0]) + "_models.hdf5"
     )
@@ -59,18 +64,28 @@ def get_model_and_data_for_plotting(counter, target):
     return x_model, y_model, x_data, y_data
 
 
-def create_fig():
-    """
-    Takes results from fitting_plotting_outputs.csv and plots SED.
+def create_fig(source_path, source_filename, dest_path, save_name):
+    """Creates single SED figure of all fit SEDs using the source_filename file.
+
+    Parameters
+    ----------
+    source_path : str
+        Path to source.
+    source_filename : str
+        fit results filename.
+    dest_path : str
+        Path to save figure.
+    save_name : str
+        Figure filename to be saved.
 
     Returns
     -------
     png
         SED figure with data in blue and model in black.
-
     """
+
     # full_path = str(__file__.replace("outputs/plotting_seds.py", ""))
-    input_file = Table.read("fitting_results.csv")
+    input_file = Table.read(source_path + "/" + source_filename)
     # grid_dusty = Table.read(
     #     full_path + "models/" + str(input_file["grid"][0]) + "_models.fits"
     # )
@@ -92,7 +107,7 @@ def create_fig():
     for counter, target in enumerate(input_file):
         # gets data for plotting
         x_model, y_model, x_data, y_data = get_model_and_data_for_plotting(
-            counter, target
+            counter, target, source_path, source_filename
         )
 
         # find median y_model values in data range
@@ -160,7 +175,7 @@ def create_fig():
 
         # pdb.set_trace()
     plt.subplots_adjust(wspace=0, hspace=0)
-    fig.savefig("output_sed.png", dpi=200, bbox_inches="tight")
+    fig.savefig(dest_path + "/" + save_name, dpi=200, bbox_inches="tight")
     plt.close()
 
 
