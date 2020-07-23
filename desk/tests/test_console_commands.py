@@ -42,7 +42,7 @@ def image_similarity(request, tmpdir):
 
 
 def test_grids(capfd):
-    # checks if characters printed is whats expected (chars)
+    # checks if characters printed is what's expected (chars)
     chars = 223
     console_commands.grids()
     out, _ = capfd.readouterr()
