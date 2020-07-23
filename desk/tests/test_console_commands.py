@@ -31,7 +31,7 @@ def assert_images_equal(image_1: str, image_2: str):
 @pytest.fixture
 def image_similarity(request, tmpdir):
     testname = request.node.name
-    filename = "{}.png".format(testname)
+    # filename = "{}.png".format(testname)
     generated_file = os.path.join(str(tmpdir), "{}.png".format(testname))
 
     yield {"filename": generated_file}
