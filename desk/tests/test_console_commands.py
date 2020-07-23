@@ -159,7 +159,7 @@ def test_single_sed(tmpdir, image_similarity):
     create_sample_data(tmpdir, 1)
     create_sample_data(tmpdir, 2)
     create_sample_data(tmpdir, 3)
-    example_fitting_results = create_fitting_results(tmpdir)
+    create_fitting_results(tmpdir)
     console_commands.sed(
         source_path=tmpdir.strpath,
         source_filename="fitting_results.csv",
@@ -168,10 +168,15 @@ def test_single_sed(tmpdir, image_similarity):
     )
 
 
-def test_multiple_fit(tmpdir):
-    # test for multiple SED fit with SED figure
-    create_sample_data(tmpdir, 1)
-    create_sample_data(tmpdir, 2)
-    create_sample_data(tmpdir, 3)
-    example_fitting_results = create_fitting_results(tmpdir)
-    console_commands.sed_indiv
+# def test_multiple_fit(tmpdir):
+#     # test for multiple SED fit with SED figure
+#     create_sample_data(tmpdir, 1)
+#     create_sample_data(tmpdir, 2)
+#     create_sample_data(tmpdir, 3)
+#     example_fitting_results = create_fitting_results(tmpdir)
+#     console_commands.sed_indiv(
+#         source_path=tmpdir.strpath,
+#         source_filename="fitting_results.csv",
+#         dest_path=tmpdir.strpath,
+#         save_name="test_single_sed.png",
+#     )
