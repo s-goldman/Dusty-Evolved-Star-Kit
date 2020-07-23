@@ -7,8 +7,8 @@ from desk.set_up import config
 from PIL import Image
 
 
-# Care of Jennifer Helsby @redshiftzero
 def assert_images_equal(image_1: str, image_2: str):
+    # Function care of Jennifer Helsby @redshiftzero
     img1 = Image.open(image_1)
     img2 = Image.open(image_2)
 
@@ -42,9 +42,11 @@ def image_similarity(request, tmpdir):
 
 
 def test_grids(capfd):
+    # checks if characters printed is whats expected (chars)
+    chars = 223
     console_commands.grids()
     out, _ = capfd.readouterr()
-    np.testing.assert_allclose(len(out), 223, err_msg=("Print grids error"))
+    np.testing.assert_allclose(len(out), chars, err_msg=("Print grids error"))
 
 
 def create_sample_data(directory, dataset):
