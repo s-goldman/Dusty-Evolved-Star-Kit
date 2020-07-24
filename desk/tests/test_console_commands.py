@@ -154,18 +154,18 @@ def test_single_fit_options(tmpdir):
     )
 
 
-# def test_single_sed(tmpdir, image_similarity):
-#     # test for single SED figure
-#     create_sample_data(tmpdir, 1)
-#     create_sample_data(tmpdir, 2)
-#     create_sample_data(tmpdir, 3)
-#     create_fitting_results(tmpdir)
-#     console_commands.sed(
-#         source_path=tmpdir.strpath,
-#         source_filename="fitting_results.csv",
-#         dest_path=tmpdir.strpath,
-#         save_name="test_single_sed.png",
-#     )
+def test_single_sed(tmpdir, image_similarity):
+    # test for single SED figure
+    create_sample_data(tmpdir, 1)
+    create_sample_data(tmpdir, 2)
+    create_sample_data(tmpdir, 3)
+    create_fitting_results(tmpdir)
+    console_commands.sed(
+        source_path=tmpdir.strpath,
+        source_filename="fitting_results.csv",
+        dest_path=tmpdir.strpath,
+        save_name="test_single_sed.png",
+    )
 
 
 # def test_multiple_fit(tmpdir):
