@@ -18,16 +18,15 @@ properties.
 as flux in Jy. To fit multiple csv files, put them in a directory, and use the
 directory name as the input.
 
-**Output**: Two results files including the best fit model and corresponding
+**Output**: A csv file including the best fit model and corresponding
 stellar parameters, as well as an optional figure of the fit SED.
-Available model grids: Several grids are already available upon installation.
-Descriptions of the model grids can be found in the
-Documentation_.
-You will soon be able to specify the state-of-the-art dust growth models
-by `Nanni et al. (2019)`_ and the 2D GRAMS_ model grid based on the 2DUST_ code,
-which are automatically downloaded and used when selected.
-A module for creating your own DUSTY_ grid is under development, but for now,
-please email me (`Dr. Steven Goldman`_) directly for grid requests or for help with the package.
+
+Available model grids: Several grids are already available upon installation. A range of
+other model grids, including state-of-the-art dust-growth models by `Nanni et al. (2019)`_
+, are downloaded automatically and used when selected. Descriptions of the model
+grids can be found in the Documentation_. A module for creating your own DUSTY_ grid
+is under development, but for now, please email me (`Dr. Steven Goldman`_) directly
+for potential grid requests or for help with the package.
 
 * Free software: BSD license
 * Documentation: https://dusty-evolved-star-kit.readthedocs.io.

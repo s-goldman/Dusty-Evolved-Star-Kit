@@ -109,10 +109,10 @@ Before you submit a pull request, check that it meets these guidelines:
 Tips
 ----
 
-To run a subset of tests::
+To run the tests use the command::
 
+    $ pytest
 
-    $ python -m unittest tests.test_dusty_evolved_star_kit
 
 Deploying
 ---------
