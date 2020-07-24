@@ -22,6 +22,11 @@ This command will scale the 'Oss-Orich-aringer' model grid of 2,000 unique model
 shapes to luminosities at 1000, 17555, 34111, 50666, 67222, 83777, 100333, 116888,
 133444, and 150000 solar luminosities (20,000 models).
 
+The output model parameters of expansion velocity and gas mass-loss rate are
+scaled using the relations from `Elitzur & Ivezic 2001`_. The model flux is scaled
+using the brightness and distance to the sun, and scaling for the luminositiy
+which is already in solar luminosities.
+
 
 Oxygen-rich DUSTY model grids
 =============================
@@ -112,6 +117,7 @@ code for the LMC metallicity (1/2 solar) using optical constants from
    - Warning: results uncertain outside of a distance 20-150 kpc.
 
 .. _DUSTY: https://github.com/ivezic/dusty
+.. _Elitzur & Ivezic 2001: https://ui.adsabs.harvard.edu/abs/2001MNRAS.327..403E/abstract
 .. _Sargent et al. (2011): https://ui.adsabs.harvard.edu/abs/2011ApJ...728...93S/abstract
 .. _Srinivasan et al. (2011): https://ui.adsabs.harvard.edu/abs/2011A%26A...532A..54S/abstract
 .. _2DUST: https://2dust.stsci.edu/index.cgi
