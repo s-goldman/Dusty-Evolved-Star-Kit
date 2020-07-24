@@ -11,12 +11,15 @@ The DESK is an SED-fitting python package for fitting data from evolved stars (p
 
 **Input**: A csv file with the first column as wavelength in um and second column as flux in Jy. To fit multiple csv files, put them in a directory, and use the directory name as the input.
 
-**Output**: Two results files including the best fit model and corresponding stellar parameters, as well as an optional figure of the fit SED.
+**Output**: A csv files with the best fit model and corresponding stellar parameters, as well as an optional figure of the fit SED.
 
 **Available model grids**:
-Several grids are **already available** upon installation. Descriptions of the model grids can be found in the [Documentation](https://dusty-evolved-star-kit.readthedocs.io/en/latest/grids.html). You will soon be able to specify the state-of-the-art dust growth models by [Nanni et al. (2019)](https://ui.adsabs.harvard.edu/abs/2019MNRAS.487..502N/abstract) and the 2D [GRAMS](https://2dust.stsci.edu/grams_models.cgi) model grid based on the [2DUST](https://2dust.stsci.edu/index.cgi) code, which are automatically downloaded and used when selected.
+Several grids are **already available** upon installation. A range of other model grids, including state-of-the-art dust-growth models by [Nanni et al. (2019)](https://ui.adsabs.harvard.edu/abs/2019MNRAS.487..502N/abstract), are downloaded automatically and used when selected. Descriptions of the model grids can be found in the [documentation](https://dusty-evolved-star-kit.readthedocs.io/en/latest/grids.html).
 
-A module for creating your own [DUSTY](https://github.com/ivezic/dusty) grid is under development, but for now, please email me ([Dr. Steven Goldman](http://www.stsci.edu/~sgoldman/)) directly for grid requests or for help with the package.
+<!-- and the 2D [GRAMS](https://2dust.stsci.edu/grams_models.cgi) model grid based on the [2DUST](https://2dust.stsci.edu/index.cgi) code -->
+
+
+A module for creating your own [DUSTY](https://github.com/ivezic/dusty) grid is under development, but for now, please email me ([Dr. Steven Goldman](http://www.stsci.edu/~sgoldman/)) directly for potential grid requests or for help with the package.
 
 Documentation
 -------------
@@ -47,7 +50,7 @@ additional options are:
 
 `desk fit --source='target_name.csv' --distance=50 --grid='Oss-Orich-bb'`
 
-These additional arguments are the distance (in kpc) and the grid of models you would like to use (options listed below). You can select 'oxygen' or 'carbon' to use the default models. To see other available grids use:
+The other important options are the distance (in kpc) and the grid of models you would like to use (options listed below). For other options see the [Usage](https://dusty-evolved-star-kit.readthedocs.io/en/latest/usage.html) page. For the model grids, you can select 'oxygen' or 'carbon' to use the default models. To see other available grids use:
 
 `desk grids`
 
@@ -68,9 +71,9 @@ To produce individual figures for each SED instead use the command:
 Retrieve model
 --------------
 
-To retrieve a model from the DUSTY model grids or to interpolate a model in the grid parameter space, use the *save_model* module with the following options:
+To retrieve a model from the DUSTY model grids or to interpolate a model in the grid parameter space, use the *save_model* module with the grid name, luminosity (solar luminosities), effective temperature (K), inner dust temperature (K), optical depth (specified at 10 microns), and distance (kpc) separated with spaces:
 
-`desk save_model grid_name=Oss-Orich-bb  luminosity=10000 teff=2700 tinner=1000 tau=0.4 distance_in_kpc=50`
+`desk save_model Oss-Orich-bb  10000 2700 1000 0.4 50`
 
 
 Attribution

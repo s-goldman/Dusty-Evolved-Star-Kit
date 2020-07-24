@@ -10,3 +10,4 @@ twine
 sphinx
 sphinx_automodapi
 pytest-cov
+Pillow

@@ -35,16 +35,32 @@ def version():
     print("\n\tDESK version: " + pkg_resources.get_distribution("desk").version + "\n")
 
 
-def sed():
+def sed(
+    source_path=".",
+    source_filename="fitting_results.csv",
+    dest_path=".",
+    save_name="output_sed.png",
+):
     """Creates single SED figure of all fit SEDs using
     the 'fitting_results.csv' file.
+
+    Parameters
+    ----------
+    source_path : str
+        Path to source.
+    source_filename : str
+        fit results filename.
+    dest_path : str
+        Path to save figure.
+    save_name : str
+        Figure filename to be saved.
 
     Returns
     -------
     png
-
+        SED figure with data in blue and model in black.
     """
-    plotting_seds.create_fig()
+    plotting_seds.create_fig(source_path, source_filename, dest_path, save_name)
 
 
 def save_model(grid_name, luminosity, teff, tinner, tau, distance_in_kpc):
