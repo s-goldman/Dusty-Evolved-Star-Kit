@@ -70,6 +70,7 @@ def fit_single_source(source_number, fit_params):
         mdot_best = create_pdf.par_pdf("scaled_mdot", full_outputs, probs)
         vexp_best = create_pdf.par_pdf("scaled_vexp", full_outputs, probs)
         best = [odep_best, lum_best, mdot_best, vexp_best]
+        ipdb.set_trace()
 
     else:
         probs = liklihood
