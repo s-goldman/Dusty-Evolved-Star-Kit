@@ -128,7 +128,7 @@ def fit(
 
     # Set-up ###################################################################
     # bayesian fitting currently in development
-    bayesian_fit = True
+    bayesian_fit = False
 
     # get data filenames
     file_names = get_data.compile_data(source)
