@@ -1,12 +1,3 @@
-"""
-Grid Weights
-============
-The use of a non-uniformly spaced grid complicates the marginalization
-step as the trick of summation instead of integration is used.  But this
-trick only works when the grid is uniformly spaced in all dimensions.
-If the grid is not uniformly spaced, weights can be used to correct
-for the non-uniform spacing.
-"""
 import numpy as np
 import ipdb
 
@@ -27,7 +18,7 @@ def compute_bin_boundaries(tab):
     Note
     ----
     The bin boundaries are defined as the midpoint between each value in tab.
-    At the two edges, 1/2 of the bin width is subtractted/added to the
+    At the two edges, 1/2 of the bin width is subtracted/added to the
     min/max of tab.
     """
     temp = tab[1:] - np.diff(tab) / 2.0
@@ -67,6 +58,23 @@ def compute_weights(mets):
 
 
 def grid_weights(param_array):
+    """The use of a non-uniformly spaced grid complicates the marginalization
+    step as the trick of summation instead of integration is used.  But this
+    trick only works when the grid is uniformly spaced in all dimensions.
+    If the grid is not uniformly spaced, weights can be used to correct
+    for the non-uniform spacing.
+
+    Parameters
+    ----------
+    param_array : class
+        Information needed for generating grid weights.
+
+    Returns
+    -------
+    grid_weights : array
+        1D array of grid weights. 
+
+    """
     grid_weights = np.zeros(len(param_array))
     unique_vals = np.unique(param_array)
     weights = compute_weights(unique_vals)

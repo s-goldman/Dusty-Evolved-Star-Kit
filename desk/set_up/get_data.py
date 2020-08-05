@@ -33,10 +33,11 @@ def get_values(filename, min_wavelength=0, max_wavelength=1000, fitting=False):
     """
 
     table = read(filename, delimiter=",", names=[])
+    table.rename_columns((table.colnames[0], table.colnames[1]), ("wavelength", "flux"))
     if fitting == True:
         table = table[
-            (table["col1"] > float(min_wavelength))
-            & (table["col1"] < float(max_wavelength))
+            (table["wavelength"] > float(min_wavelength))
+            & (table["wavelength"] < float(max_wavelength))
         ]
         if len(table) < 2:
             print(table)
@@ -48,7 +49,7 @@ def get_values(filename, min_wavelength=0, max_wavelength=1000, fitting=False):
                 + " um\n"
             )
     # remove empty fluxes and bad wavelengths
-    real_data = table[(table["col1"] > 0) & (table["col2"] > 0)]
+    real_data = table[(table["wavelength"] > 0) & (table["flux"] > 0)]
     real_data.sort(real_data.colnames[0])
     x = np.array(real_data.columns[0])
     y = np.array(real_data.columns[1])

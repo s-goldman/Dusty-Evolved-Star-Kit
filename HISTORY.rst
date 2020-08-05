@@ -2,7 +2,12 @@
 History
 =======
 
-1.7.1 (2020-07-24)
+1.7.1 (2020-08-05)
+
+Minor bug fixes to the data retrieval script. 
+
+
+1.7.0 (2020-07-24)
 
 First major release of least-squares fitting DESK. The package is stable with
 pytest testing through Github-actions (Ubuntu and OSX: Python 3.6, 3.7, 3.8),
