@@ -11,3 +11,4 @@ sphinx
 sphinx_automodapi
 pytest-cov
 Pillow
+seaborn
