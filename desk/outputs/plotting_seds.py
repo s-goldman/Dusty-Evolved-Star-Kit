@@ -1,12 +1,82 @@
 import os
+import sys
 import ipdb
 import math
+import seaborn as sns
 import astropy.units as u
 import matplotlib.pyplot as plt
 import numpy as np
 from fnmatch import fnmatch
 from astropy.table import Table
 from desk.set_up import get_data
+
+sns.set_palette("colorblind")
+
+
+def plot_phot(x_data, y_data, ax):
+    ax.scatter(x_data, y_data)
+    return ax
+
+
+def plot_model(x_model, y_model, ax):
+    ax.plot(x_model, y_model, c="k", linewidth=0.4, linestyle="--", zorder=2)
+    return ax
+
+
+def source_name_annotation(name, ax):
+    ax.annotate(
+        str(name).replace("_", " "),
+        (0.95, 0.8),
+        xycoords="axes fraction",
+        ha="right",
+        fontsize=14,
+    )
+
+
+def counter_annotations(counter, ax):
+    ax.annotate(
+        str(counter + 1),
+        (0.075, 0.85),
+        ha="left",
+        va="center",
+        xycoords="axes fraction",
+        fontsize=14,
+    )
+    return ax
+
+
+def set_inward_ticks(ax):
+    ax.get_xaxis().set_tick_params(which="both", direction="in", labelsize=12)
+    ax.get_yaxis().set_tick_params(which="both", direction="in", labelsize=12)
+    return ax
+
+
+def set_limits(x_model, y_model, x_data, y_data, ax):
+    # set y_limits using median of model in wavelength range of data
+    median = np.median(y_model[(x_model > np.min(x_data)) & (x_model < np.max(x_data))])
+    y_min = median - 2  # room below
+    y_max = median + 1.75  # room above
+    # addes to range if median data is out of range
+    y_diff = np.median(y_data) - median
+    if y_diff > 0:
+        y_max = y_max + y_diff
+    else:
+        y_min = y_min + y_diff
+    ax.set_xlim(-0.99, 2.49)
+    ax.set_ylim(y_min, y_max)
+    return ax
+
+
+def add_axis_labels(fig, fontsize):
+    # Common figure labels
+    ax = fig.add_subplot(111, frameon=False)
+    ax.tick_params(labelcolor="none", top=False, bottom=False, left=False, right=False)
+    ax.grid(False)
+    ax.set_xlabel(r"log $\lambda$ ($\mu m$)", labelpad=10, fontsize=fontsize)
+    ax.set_ylabel(
+        r"log $\lambda$ F$_{\lambda}$ " + "(W m$^{-2}$)", labelpad=15, fontsize=fontsize
+    )
+    return fig
 
 
 def get_model_and_data_for_plotting(counter, target, source_path, source_filename):
@@ -64,6 +134,46 @@ def get_model_and_data_for_plotting(counter, target, source_path, source_filenam
     return x_model, y_model, x_data, y_data
 
 
+def single_figures(source_path, source_filename, dest_path):
+    """
+    Takes results from fitting_plotting_outputs.csv and plots SEDs.
+    Plots in individual figures.
+
+    Returns
+    -------
+    png's
+        SED figures with data in blue and model in black.
+
+    """
+    input_file = Table.read(source_path + "/" + source_filename)
+
+    for counter, target in enumerate(input_file):
+        # gets data for plotting
+        x_model, y_model, x_data, y_data = get_model_and_data_for_plotting(
+            counter, target, source_path, source_filename
+        )
+
+        # Figure plotting
+        fig, ax1 = plt.subplots(1, 1, sharex=True, sharey=True, figsize=(6, 4))
+        set_limits(x_model, y_model, x_data, y_data, ax1)
+        plot_model(x_model, y_model, ax1)
+        plot_phot(x_data, y_data, ax1)
+        ax1.annotate(
+            str(target["source"]).replace("_", " "),
+            (0.95, 0.9),
+            xycoords="axes fraction",
+            ha="right",
+            fontsize=14,
+        )
+        add_axis_labels(fig, 12)
+        fig.savefig(
+            dest_path + "/" + "output_sed_" + str(target["source"]) + ".png",
+            dpi=200,
+            bbox_inches="tight",
+        )
+        plt.close()
+
+
 def create_fig(source_path, source_filename, dest_path, save_name):
     """Creates single SED figure of all fit SEDs using the source_filename file.
 
@@ -84,25 +194,33 @@ def create_fig(source_path, source_filename, dest_path, save_name):
         SED figure with data in blue and model in black.
     """
 
-    # full_path = str(__file__.replace("outputs/plotting_seds.py", ""))
     input_file = Table.read(source_path + "/" + source_filename)
-    # grid_dusty = Table.read(
-    #     full_path + "models/" + str(input_file["grid"][0]) + "_models.fits"
-    # )
+    n = len(input_file)  # number of fit sources
 
-    # setting axes
-    axislabel = r"log $\lambda$ F$_{\lambda}$ (W m$^{-2}$)"
-    if len(input_file) == 1:
-        fig, ax1 = plt.subplots(1, 1, sharex=True, sharey=True, figsize=(8, 5))
-    elif len(input_file) == 2:
-        fig, axs = plt.subplots(2, 1, sharex=True, sharey=True, figsize=(8, 10))
-    elif len(input_file) == 3:
-        fig, axs = plt.subplots(3, 1, sharex=True, sharey=True, figsize=(8, 10))
+    # setting figure size and axes for different numbers of fit sources
+    if n == 1:
+        single_figures(source_path, source_filename, dest_path)
+        sys.exit()
+    if n == 2:
+        fig, axs = plt.subplots(2, 1, sharex=True, sharey=True, figsize=(6, 7.5))
+    elif n == 3:
+        fig, axs = plt.subplots(3, 1, sharex=True, sharey=True, figsize=(6, 7.5))
+    elif n > 17:
+        print(
+            "\n\n\tToo many sources for combined figure. Use the function `desk sed_indiv` \n\t"
+            + "to create individual figures. You can also retrieve the best-fit model \n\t"
+            + "and create your own SED figure using the `desk save_model` function. \n\n"
+        )
+        sys.exit()
     else:
+        figure_rows = math.ceil(n / 3)
         fig, axs = plt.subplots(
-            math.ceil(len(input_file) / 3), 3, sharex=True, sharey=True, figsize=(8, 10)
+            figure_rows, 3, sharex=True, sharey=True, figsize=(8, (figure_rows * 1.5))
         )
         axs = axs.ravel()
+
+    # axis common labels
+    add_axis_labels(fig, 14)
 
     for counter, target in enumerate(input_file):
         # gets data for plotting
@@ -110,126 +228,35 @@ def create_fig(source_path, source_filename, dest_path, save_name):
             counter, target, source_path, source_filename
         )
 
-        # find median y_model values in data range
-        median = np.median(
-            y_model[(x_model > np.min(x_data)) & (x_model < np.max(x_data))]
-        )
-
-        y_min = median - 2
-        y_max = median + 2
-
-        y_diff = np.median(y_data) - median
-
-        if y_diff > 0:
-            y_max = y_max + y_diff
-        else:
-            y_min = y_min - y_diff
-
         # plotting
-        if len(input_file) == 1:
-            ax1.set_xlim(-0.99, 2.49)
-            ax1.set_ylim(y_min, y_max)
-            ax1.scatter(x_data, y_data, c="blue", label="data")
-            ax1.plot(
-                x_model,
-                y_model,
-                c="k",
-                linewidth=0.5,
-                linestyle="--",
-                zorder=2,
-                label="model",
-            )
-            ax1.annotate(
-                str(target["source"]).replace("_", ""),
-                (0.07, 0.85),
-                xycoords="axes fraction",
-                fontsize=14,
-            )
-            ax1.get_xaxis().set_tick_params(which="both", direction="in", labelsize=15)
-            ax1.get_yaxis().set_tick_params(which="both", direction="in", labelsize=15)
-            ax1.set_xlabel(r"log $\lambda$ ($\mu m$)", labelpad=10)
-            ax1.set_ylabel(
-                r"log $\lambda$ F$_{\lambda}$ " + "(W m$^{-2}$)", labelpad=10
-            )
-        else:
-            axs[counter].set_xlim(-0.99, 2.49)
-            axs[counter].set_ylim(y_min, y_max)
-            axs[counter].plot(
-                x_model, y_model, c="k", linewidth=0.4, linestyle="--", zorder=2
-            )
-            axs[counter].scatter(x_data, y_data, c="blue")
-            axs[counter].annotate(
-                str(target["source"]).replace("_", ""),
-                (0.7, 0.8),
-                xycoords="axes fraction",
-                fontsize=14,
-            )
-            axs[counter].get_xaxis().set_tick_params(
-                which="both", direction="in", labelsize=15
-            )
-            axs[counter].get_yaxis().set_tick_params(
-                which="both", direction="in", labelsize=15
-            )
-            axs[counter].set_xlabel(r"log $\lambda$ ($\mu m$)", labelpad=10)
-            axs[counter].set_ylabel(axislabel, labelpad=10)
+        plot_model(x_model, y_model, axs[counter])
+        plot_phot(x_data, y_data, axs[counter])
 
-        # pdb.set_trace()
+        # set axis limits
+        if counter == 0:
+            set_limits(x_model, y_model, x_data, y_data, axs[counter])
+
+        # annotations
+        if len(input_file) < 4:
+            source_name_annotation(target["source"], axs[counter])
+        else:
+            counter_annotations(counter, axs[counter])
+
+        # ticks
+        set_inward_ticks(axs[counter])
+
+    # set ticks for empty cells
+    n_empty_cells = len(axs.ravel()) % len(input_file)
+    if n_empty_cells == 1:
+        set_inward_ticks(axs.ravel()[-1])
+    elif n_empty_cells == 2:
+        set_inward_ticks(axs.ravel()[-1])
+        set_inward_ticks(axs.ravel()[-2])
+
+    # save figure
     plt.subplots_adjust(wspace=0, hspace=0)
     fig.savefig(dest_path + "/" + save_name, dpi=200, bbox_inches="tight")
     plt.close()
-
-
-def single_figures():
-    """
-    Takes results from fitting_plotting_outputs.csv and plots SEDs.
-    Plots in individual figures.
-
-    Returns
-    -------
-    png's
-        SED figures with data in blue and model in black.
-
-    """
-    # full_path = str(__file__.replace("outputs/plotting_seds.py", ""))
-    input_file = Table.read("fitting_results.csv")
-    # grid_dusty = Table.read(
-    #     full_path + "models/" + str(input_file["grid"][0]) + "_models.fits"
-    # )
-
-    for counter, target in enumerate(input_file):
-        # gets data for plotting
-        x_model, y_model, x_data, y_data = get_model_and_data_for_plotting(
-            counter, target
-        )
-
-        # Figure plotting
-        fig, ax1 = plt.subplots(1, 1, sharex=True, sharey=True, figsize=(8, 5))
-        ax1.set_xlim(-0.99, 2.49)
-        ax1.set_ylim(np.median(y_model) - 3, np.median(y_model) + 3)
-        ax1.scatter(x_data, y_data, c="blue", label="data")
-        ax1.plot(
-            x_model,
-            y_model,
-            c="k",
-            linewidth=0.5,
-            linestyle="--",
-            zorder=2,
-            label="model",
-        )
-        ax1.annotate(
-            str(target["source"]).replace("_", " "),
-            (0.07, 0.85),
-            xycoords="axes fraction",
-            fontsize=14,
-        )
-        ax1.get_xaxis().set_tick_params(which="both", direction="in", labelsize=15)
-        ax1.get_yaxis().set_tick_params(which="both", direction="in", labelsize=15)
-        ax1.set_xlabel(r"log $\lambda$ ($\mu m$)", labelpad=10)
-        ax1.set_ylabel(r"log $\lambda$ F$_{\lambda}$ " + "(W m$^{-2}$)", labelpad=10)
-        fig.savefig(
-            "output_sed_" + str(target["source"]) + ".png", dpi=200, bbox_inches="tight"
-        )
-        plt.close()
 
 
 if __name__ == "__main__":

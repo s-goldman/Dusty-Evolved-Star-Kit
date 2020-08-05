@@ -2,9 +2,16 @@
 History
 =======
 
+1.7.2 (2020-08-05)
+
+Updates plots with now 17 source maximum for single SED figure. The sed and
+sed_indivscripts now use a common set of functions to minimize duplicated code,
+and ensure consistency. 
+
+
 1.7.1 (2020-08-05)
 
-Minor bug fixes to the data retrieval script. 
+Minor bug fixes to the data retrieval script.
 
 
 1.7.0 (2020-07-24)

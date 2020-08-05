@@ -63,6 +63,29 @@ def sed(
     plotting_seds.create_fig(source_path, source_filename, dest_path, save_name)
 
 
+def sed_indiv(source_path=".", source_filename="fitting_results.csv", dest_path="."):
+    """Creates individual SED figures for all fit SEDs using
+    the 'fitting_results.csv' file.
+
+    Parameters
+    ----------
+    source_path : str
+        Path to source.
+    source_filename : str
+        fit results filename.
+    dest_path : str
+        Path to save figure.
+    save_name : str
+        Figure filename to be saved.
+
+    Returns
+    -------
+    png
+        SED figure with data in blue and model in black.
+    """
+    plotting_seds.single_figures(source_path, source_filename, dest_path)
+
+
 def save_model(grid_name, luminosity, teff, tinner, tau, distance_in_kpc):
     """ See interpolate_dusty.
     """
@@ -74,18 +97,6 @@ def save_model(grid_name, luminosity, teff, tinner, tau, distance_in_kpc):
         float(tau),
         float(distance_in_kpc),
     )
-
-
-def sed_indiv():
-    """Creates an individual SED figure for each SED fit using the
-    results in the 'fitting_results.csv' file.
-
-    Returns
-    -------
-    multiple pngs
-
-    """
-    plotting_seds.single_figures()
 
 
 def fit(

@@ -179,5 +179,4 @@ def test_single_fit_options(tmpdir):
 #         source_path=tmpdir.strpath,
 #         source_filename="fitting_results.csv",
 #         dest_path=tmpdir.strpath,
-#         save_name="test_single_sed.png",
 #     )
