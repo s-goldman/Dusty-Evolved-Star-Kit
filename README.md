@@ -46,6 +46,10 @@ or if you have a folder of csv files
 
   `desk fit --source='folder_of_csvs'`
 
+To fit the example sources use the command
+
+  `desk fit`
+
 additional options are:
 
 `desk fit --source='target_name.csv' --distance=50 --grid='Oss-Orich-bb'`

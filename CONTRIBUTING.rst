@@ -76,14 +76,11 @@ Ready to contribute? Here's how to set up `dusty_evolved_star_kit` for local dev
 
    Now you can make your changes locally.
 
-5. When you're done making changes, check that your changes pass flake8 and the
-   tests, including testing other Python versions with tox::
+5. When you're done making changes, check that your changes pass the
+   tests, including testing other Python versions and operating systems::
 
-    $ flake8 dusty_evolved_star_kit tests
-    $ python setup.py test or py.test
-    $ tox
+    $ pytest
 
-   To get flake8 and tox, just pip install them into your virtualenv.
 
 6. Commit your changes and push your branch to GitHub::
 
@@ -112,17 +109,3 @@ Tips
 To run the tests use the command::
 
     $ pytest
-
-
-Deploying
----------
-
-A reminder for the maintainers on how to deploy.
-Make sure all your changes are committed (including an entry in HISTORY.rst).
-Then run::
-
-$ bumpversion patch # possible: major / minor / patch
-$ git push
-$ git push --tags
-
-Travis will then deploy to PyPI if tests pass.
