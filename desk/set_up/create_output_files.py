@@ -1,5 +1,6 @@
 # Steve Goldman, Space Telescope Science Institute, sgoldman@stsci.edu
 import os
+import ipdb
 from desk.set_up import config
 
 
@@ -12,6 +13,7 @@ def remove_old_output_files():
 def make_output_files_dusty(fit_params):
     # Removes and then creates output file for run
     remove_old_output_files()
+
     if fit_params.grid in config.nanni_grids:
         with open("fitting_results.csv", "w") as f:
             f.write(
@@ -22,6 +24,11 @@ def make_output_files_dusty(fit_params):
     else:
         with open("fitting_results.csv", "w") as f:
             f.write(
-                "source, grid, teff, tinner, model_id, odep, norm, L, vexp,mdot, file_name\n"
+                "source, "
+                + (", ".join(fit_params.full_outputs.colnames))
+                + ", file_name\n"
             )
             f.close()
+
+
+# "source, grid, teff, tinner, model_id, odep, norm, L, vexp,mdot, file_name\n"
