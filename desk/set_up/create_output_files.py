@@ -1,6 +1,5 @@
 # Steve Goldman, Space Telescope Science Institute, sgoldman@stsci.edu
 import os
-import ipdb
 from desk.set_up import config
 
 
