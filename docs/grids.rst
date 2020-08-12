@@ -31,6 +31,13 @@ which is already in solar luminosities.
 Oxygen-rich DUSTY model grids
 =============================
 
+desk-mix (*N*\ = XX,XXX): Uses a mixture of olivine grains (MgFeSiO4) from `Dorschner
+et al. 1995`_), corundum grains (AlOx; amorphous porous Al2O3) from
+`Begemann et al. (1997)`_, and iron grains (FeO) from `Henning et al. (1995)`_. The
+ grain ratios of olivine-to-corundum ratios span from
+1:1 to 2:1 in incrememnt of 10\%, and assume 1\% iron grains. The grid also uses MARCS
+atmospheric models from `Gustafsson et al. 2008`_.
+
 Oss-Orich-aringer (*N*\ =2,000): Uses warm silicates from
 `Ossenkopf et al. (1992)`_ and photospheric models from
 `Aringer et al. (2016)`_. Provides ranges in effective temperature
@@ -116,19 +123,21 @@ code for the LMC metallicity (1/2 solar) using optical constants from
 
    - Warning: results uncertain outside of a distance 20-150 kpc.
 
+.. _2DUST: https://2dust.stsci.edu/index.cgi
+.. _Aringer et al. (2016): https://ui.adsabs.harvard.edu/abs/2016MNRAS.457.3611A/abstract
+.. _Begemann et al. (1997): https://ui.adsabs.harvard.edu/abs/1997ApJ...476..199B/abstract
+.. _Dorschner et al. 1995: https://ui.adsabs.harvard.edu/abs/1995A%26A...300..503D/abstract
 .. _DUSTY: https://github.com/ivezic/dusty
 .. _Elitzur & Ivezic 2001: https://ui.adsabs.harvard.edu/abs/2001MNRAS.327..403E/abstract
-.. _Sargent et al. (2011): https://ui.adsabs.harvard.edu/abs/2011ApJ...728...93S/abstract
-.. _Srinivasan et al. (2011): https://ui.adsabs.harvard.edu/abs/2011A%26A...532A..54S/abstract
-.. _2DUST: https://2dust.stsci.edu/index.cgi
-.. _Zubko et al. (1996): https://ui.adsabs.harvard.edu/abs/1996MNRAS.282.1321Z/abstract
-.. _Ossenkopf et al. (1992): https://ui.adsabs.harvard.edu/abs/1992A%26A...261..567O/abstract
-.. _Aringer et al. (2016): https://ui.adsabs.harvard.edu/abs/2016MNRAS.457.3611A/abstract
-.. _MRN: https://ui.adsabs.harvard.edu/abs/1977ApJ...217..425M/abstract
+.. _Groenewegen 2012: https://ui.adsabs.harvard.edu/abs/2012A%26A...543A..36G/abstract
+.. _Gustafsson et al. 2008: https://ui.adsabs.harvard.edu/abs/2008A%26A...486..951G/abstract
+.. _Hanner et al. (1988): https://ui.adsabs.harvard.edu/abs/1988ioch.rept.....H/abstract
+.. _Henning et al. (1995): https://ui.adsabs.harvard.edu/abs/1995A%26AS..112..143H/abstract
 .. _Jaeger et al. (1994): https://ui.adsabs.harvard.edu/abs/1994A%26A...292..641J/abstract
 .. _Jaeger et al. (1998): https://ui.adsabs.harvard.edu/abs/1998A%26A...332..291J%2F/abstract
-.. _Begemann et al. (1997): https://ui.adsabs.harvard.edu/abs/1997ApJ...476..199B/abstract
-.. _Henning et al. (1995): https://ui.adsabs.harvard.edu/abs/1995A%26AS..112..143H/abstract
-.. _Zubko et al. (1996): https://ui.adsabs.harvard.edu/abs/1996MNRAS.282.1321Z/abstract
+.. _MRN: https://ui.adsabs.harvard.edu/abs/1977ApJ...217..425M/abstract
 .. _Nanni et al. (2019): https://ui.adsabs.harvard.edu/abs/2019MNRAS.487..502N/abstract
-.. _Hanner et al. (1988): https://ui.adsabs.harvard.edu/abs/1988ioch.rept.....H/abstract
+.. _Ossenkopf et al. (1992): https://ui.adsabs.harvard.edu/abs/1992A%26A...261..567O/abstract
+.. _Sargent et al. (2011): https://ui.adsabs.harvard.edu/abs/2011ApJ...728...93S/abstract
+.. _Srinivasan et al. (2011): https://ui.adsabs.harvard.edu/abs/2011A%26A...532A..54S/abstract
+.. _Zubko et al. (1996): https://ui.adsabs.harvard.edu/abs/1996MNRAS.282.1321Z/abstract
