@@ -34,9 +34,9 @@ Oxygen-rich DUSTY model grids
 desk-mix (*N*\ = XX,XXX): Uses a mixture of olivine grains (MgFeSiO4) from `Dorschner
 et al. 1995`_), corundum grains (AlOx; amorphous porous Al2O3) from
 `Begemann et al. (1997)`_, and iron grains (FeO) from `Henning et al. (1995)`_. The
- grain ratios of olivine-to-corundum ratios span from
-1:1 to 2:1 in incrememnt of 10\%, and assume 1\% iron grains. The grid also uses MARCS
-atmospheric models from `Gustafsson et al. 2008`_.
+ relative percentages of olivine and corundum range from 50-90\% olivine in increments
+ of 10\% and assume 4\% iron grains. The grid uses oxygen-rich atmospheric MARCS models 
+ from `Gustafsson et al. 2008`_.
 
 Oss-Orich-aringer (*N*\ =2,000): Uses warm silicates from
 `Ossenkopf et al. (1992)`_ and photospheric models from
