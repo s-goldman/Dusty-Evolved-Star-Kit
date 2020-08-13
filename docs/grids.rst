@@ -23,7 +23,7 @@ shapes to luminosities at 1000, 17555, 34111, 50666, 67222, 83777, 100333, 11688
 133444, and 150000 solar luminosities (20,000 models).
 
 The output model parameters of expansion velocity and gas mass-loss rate are
-scaled using the relations from `Elitzur & Ivezic 2001`_. The model flux is scaled
+scaled using the relations from `Elitzur & Ivezić 2001`_. The model flux is scaled
 using the brightness and distance to the sun, and scaling for the luminositiy
 which is already in solar luminosities.
 
@@ -32,7 +32,7 @@ Oxygen-rich DUSTY model grids
 =============================
 
 desk-mix (*N*\ = XX,XXX): Uses a grain mixture inspired by the More Of Dusty (MOD)
-code (`Groenewegen 2012`_). The dust grains assume a mixture of olivine grains
+code (`Groenewegen 2012`_) based on the DUSTY code (`Elitzur & Ivezić 2001`_). The dust grains assume a mixture of olivine grains
 (MgFeSiO4) from `Dorschner et al. 1995`_), corundum grains
 (AlOx; amorphous porous Al2O3) from `Begemann et al. (1997)`_, and
 iron grains (FeO) from `Henning et al. (1995)`_. The relative percentages of
@@ -130,7 +130,7 @@ code for the LMC metallicity (1/2 solar) using optical constants from
 .. _Begemann et al. (1997): https://ui.adsabs.harvard.edu/abs/1997ApJ...476..199B/abstract
 .. _Dorschner et al. 1995: https://ui.adsabs.harvard.edu/abs/1995A%26A...300..503D/abstract
 .. _DUSTY: https://github.com/ivezic/dusty
-.. _Elitzur & Ivezic 2001: https://ui.adsabs.harvard.edu/abs/2001MNRAS.327..403E/abstract
+.. _Elitzur & Ivezić 2001: https://ui.adsabs.harvard.edu/abs/2001MNRAS.327..403E/abstract
 .. _Groenewegen 2012: https://ui.adsabs.harvard.edu/abs/2012A%26A...543A..36G/abstract
 .. _Gustafsson et al. 2008: https://ui.adsabs.harvard.edu/abs/2008A%26A...486..951G/abstract
 .. _Hanner et al. (1988): https://ui.adsabs.harvard.edu/abs/1988ioch.rept.....H/abstract
