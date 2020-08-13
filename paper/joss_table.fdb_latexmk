@@ -1,5 +1,5 @@
 # Fdb version 3
-["pdflatex"] 1597345284 "joss_table.tex" "joss_table.pdf" "joss_table" 1597345286
+["pdflatex"] 1597345991 "joss_table.tex" "joss_table.pdf" "joss_table" 1597345994
   "/sw/share/texmf-dist/fonts/map/fontname/texfonts.map" 1272929888 3287 e6b82fe08f5336d4d5ebc73fb1152e87 ""
   "/sw/share/texmf-dist/fonts/tfm/adobe/helvetic/phvr.tfm" 1136768653 2504 ba6584b616b92101c768b6c4ffb32dd0 ""
   "/sw/share/texmf-dist/fonts/tfm/adobe/zapfding/pzdr.tfm" 1136768653 1528 f853c4d1b4e0550255e02831fdc8496f ""
@@ -73,11 +73,11 @@
   "/sw/share/texmf-dist/web2c/texmf.cnf" 1420588735 31807 7e9f33a3c7a3c5c82c5f35a47751fa28 ""
   "/sw/var/lib/texmf/web2c/xetex/xelatex.fmt" 1505520486 3170059 87e3f22726442a04747246b3667201c1 ""
   "aastex63.cls" 1577741545 223700 8eb0a92b64442e58ece894a8eb23d46a ""
-  "joss_table.aux" 1597345285 684 8655925d1e8add6def838b9377910cf7 ""
-  "joss_table.out" 1597345285 0 d41d8cd98f00b204e9800998ecf8427e ""
-  "joss_table.tex" 1597345283 2584 e606d9499275acb643969f4ace73632e ""
+  "joss_table.aux" 1597345993 684 8655925d1e8add6def838b9377910cf7 ""
+  "joss_table.out" 1597345993 0 d41d8cd98f00b204e9800998ecf8427e ""
+  "joss_table.tex" 1597345990 2575 377ca24dfead67b22bdfa5169b2d061a ""
   (generated)
-  "joss_table.aux"
-  "joss_table.out"
   "joss_table.log"
+  "joss_table.out"
   "joss_table.pdf"
+  "joss_table.aux"

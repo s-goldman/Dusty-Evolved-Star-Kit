@@ -1,4 +1,4 @@
-PWD /Users/sgoldman/Desktop/joss_table
+PWD /Users/sgoldman/Documents/GitHub/development/Dusty-Evolved-Star-Kit/paper
 INPUT /sw/share/texmf-dist/web2c/texmf.cnf
 INPUT /sw/var/lib/texmf/web2c/xetex/xelatex.fmt
 INPUT joss_table.tex
