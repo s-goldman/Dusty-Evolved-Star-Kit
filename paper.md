@@ -30,6 +30,6 @@ This package is designed to easily compare stellar samples and model grids for a
 
 # Figures
 
-![An example figure of sources fit with an oxygen-rich grid.](docs/example.png)
+![An example figure of three massive oxygen-rich AGB stars in the LMC fit with the default oxygen-rich model grid (Oss-Orich-bb). The figure can be created (after fitting your sources with the `desk fit` command) using the command `desk sed`.  ](docs/example.png)
 
 # References
