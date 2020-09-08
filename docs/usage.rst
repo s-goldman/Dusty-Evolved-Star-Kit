@@ -38,13 +38,15 @@ takes the initial grid and scales it n times (default: 50) to create a larger
 denser grid of sources within the luinosity limits (default: 1,000 - 150,000 Msun).
 As the shape of the model is the same for each scaling of the grid, the distance to
 the source(s) is important for an accurate results. A more realistic Bayesian method
-of fitting is under development. 
+of fitting is under development.
 
 
 The user may also specify a wavelength minimum and maximum. This will still show
 the full photometry in the final SED figure, but fit only the wavelength region
 specified. Lastly, the user can specify whether to fit using multiprocessing
-(using all but 1 computer cores) or single core fitting (multiprocessing=False):
+(using all but 1 computer cores) or single core fitting (multiprocessing=False).
+Multiprocessing uses a core per source, and will have little affect on small samples
+or individual sources:
 
 .. code-block:: console
 
