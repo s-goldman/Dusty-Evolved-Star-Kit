@@ -37,6 +37,15 @@ def read_hdf5(filename, testing):
 
 
 def get_remote_models(model_grid_name):
+    """Downloads models and model results files (HDF5) from BOX.
+
+    Parameters
+    ----------
+    model_grid_name : str
+        Name of model grid to download.
+
+    """
+
     def reporthook(blocknum, blocksize, totalsize):
         readsofar = blocknum * blocksize
         if totalsize > 0:

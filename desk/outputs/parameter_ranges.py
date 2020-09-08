@@ -6,6 +6,15 @@ from astropy.table import Table
 
 
 def create_par():
+    """Creates a figure showing the range of sampling of the used model grid. The
+    inputs are taken from the results file after fitting. 
+
+    Returns
+    -------
+    png
+        Figure showing range and sampling of each parameter in grid by row.
+
+    """
     counter = 0
     input_file = Table.read("fitting_plotting_outputs.csv")
     model = input_file["grid_name"][0]
