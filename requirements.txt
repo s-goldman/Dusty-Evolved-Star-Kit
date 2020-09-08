@@ -1,7 +1,8 @@
 astropy
 numpy
-ipdb
+scipy
 tqdm
+ipdb
 matplotlib
 sklearn
 h5py
