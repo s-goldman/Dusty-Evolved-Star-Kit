@@ -172,7 +172,7 @@ texinfo_documents = [
         u"Dusty-Evolved-Star-Kit Documentation",
         author,
         "dusty_evolved_star_kit",
-        "One line description of project.",
+        "Sed-fitting package for evolved stars.",
         "Miscellaneous",
     )
 ]

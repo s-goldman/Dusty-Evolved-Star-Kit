@@ -10,7 +10,7 @@ from desk.probabilities import create_prior, resample_prior_to_model_grid
 
 
 def fit_single_source(source_number, fit_params):
-    """Short summary.
+    """Fits a single source with the data and models included in class fit_params.
 
     Parameters
     ----------
