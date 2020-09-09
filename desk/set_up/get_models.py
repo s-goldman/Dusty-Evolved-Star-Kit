@@ -124,7 +124,33 @@ def get_remote_models(model_grid_name):
     print("Download Complete!")
 
 
-def check_models(model_grid):
+def check_file_size(model_grid, full_path_filename, sizes):
+    """Checks if model grid the correct size using csv table in models directory.
+    This avoids error if download was interupted and model files are incomplete.
+    If discrepancy, the models are re-downloaded.
+
+    Parameters
+    ----------
+    model_grid : str
+        Name of model grid to use.
+    full_path_filename : str
+        Full path to filename being checked.
+    sizes : astropy table
+        Table of model_grid files and their associated filesizes.
+
+    """
+    filename = full_path_filename.split("/")[-1][:-5]  # removes .hdf5 extension
+    remote_size = sizes[sizes["filename"] == filename]["size"][0]
+    user_size = os.path.getsize(full_path_filename)
+    if remote_size != user_size:
+        print(
+            "Warning: The download of the model grid was previously interupted. "
+            + "Redownloading model grid.\n"
+        )
+        get_remote_models(model_grid)
+
+
+def check_models(model_grid, size_filename="desk_model_grid_sizes.csv"):
 
     """
     Checks if model grids are available and returns the full path to the model.
@@ -146,10 +172,14 @@ def check_models(model_grid):
 
     outputs_file = config.path + "models/" + model_grid + "_outputs.hdf5"
     models_file = config.path + "models/" + model_grid + "_models.hdf5"
+    sizes = Table.read(config.path + "models/" + size_filename, format="csv")
 
     # Checks if grid is available
     if os.path.isfile(outputs_file) and os.path.isfile(models_file):
         print("\nYou already have the grid!\n")
+        check_file_size(model_grid, models_file, sizes)
+        check_file_size(model_grid, outputs_file, sizes)
+
     else:
         # asks if you want to download the models
         print("Models not found locally")
