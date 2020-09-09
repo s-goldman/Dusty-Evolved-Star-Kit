@@ -64,3 +64,26 @@ AGB stars from the LMC. To produce individual figures subsequently run the comma
 .. code-block:: console
 
 	> desk sed_indiv
+
+
+Use in Python Environment
+-------------------------
+
+SED-fitting can be done with the DESK within the python environment. To do this
+simply import the package and use the 'fit' function in a similar manner as the
+console commands.
+
+
+.. code-block:: console
+
+	>>> import desk
+	>>> fit(source="target.csv", distance=3, grid="oxygen")
+
+One can also use the sed, save_model, and grids in a similar fashion.
+
+.. code-block:: console
+
+	>>> sed()
+	>>> grids()
+	>>> save_model("Oss-Orich-bb", 10000, 2700, 1000, 0.4, 50)
+	>>> save_model(grid_name="Oss-Orich-bb", luminosity=10000, teff=2700, tinner=1000, tau=0.4, distance_in_kpc=50)

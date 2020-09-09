@@ -24,6 +24,7 @@ __keywords__ = (
 )
 
 from desk import fitting, outputs, probabilities, set_up
+from desk.console_commands import *
 
 # # to import all submodules
 # import pkgutil
