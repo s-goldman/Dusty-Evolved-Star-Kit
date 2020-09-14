@@ -87,3 +87,16 @@ One can also use the sed, save_model, and grids in a similar fashion.
 	>>> grids()
 	>>> save_model("Oss-Orich-bb", 10000, 2700, 1000, 0.4, 50)
 	>>> save_model(grid_name="Oss-Orich-bb", luminosity=10000, teff=2700, tinner=1000, tau=0.4, distance_in_kpc=50)
+
+
+Package Testing
+---------------
+The desk uses continuous integration testing through Github actions. This
+automatically runs the package tests for several commonly used operating systems
+and python versions, before every change that is made to the code.
+The current status of the `tests`_ and `coverage`_.
+are available online. To run the tests locally, download/clone the package and
+use the command 'pytest' within the pacakge directory.
+
+.. _tests: https://github.com/s-goldman/Dusty-Evolved-Star-Kit/actions?query=workflow%3A%22Python+package%22
+.. _coverage: https://codecov.io/gh/s-goldman/Dusty-Evolved-Star-Kit
