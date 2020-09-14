@@ -176,14 +176,41 @@ def fit(
     # remove old / create new output files
     create_output_files.make_output_files_dusty(fit_params)
 
-    if multiprocessing == True:
-        # Multi-core fitting
-        pool = Pool(processes=cpu_count() - 1)
-        mapfunc = partial(dusty_fit.fit_single_source, fit_params=fit_params)
-        pool.map(mapfunc, range(len(file_names)), chunksize=1)
-    else:
+    # Get number of cores to use
+    try:
+        n_cores = int(multiprocessing)
+        # check if too many cores specificed
+        if n_cores > cpu_count():
+            raise ValueError(
+                "Invalid multiprocessing options: Insufficient cores "
+                + "\n Available cores: "
+                + str(cpu_count())
+            )
+    # if bool either 1, or max cores - 1
+    except:
+        if (multiprocessing == "True") | (multiprocessing == True):
+            n_cores = cpu_count() - 1
+        elif (multiprocessing == "False") | (multiprocessing == False):
+            n_cores = 1
+        else:
+            raise ValueError(
+                "Multiprocessing error: Invalid option: " + str(multiprocessing)
+            )
+
+    # ignore n_cores and replace with 1 if in testing mode
+    if testing == True:
+        n_cores = 1
+
+    # Fitting
+    if n_cores == 1:
         # Single-core fitting
         [dusty_fit.fit_single_source(x, fit_params) for x in range(len(file_names))]
+
+    else:
+        # Multi-core fitting
+        pool = Pool(n_cores)
+        mapfunc = partial(dusty_fit.fit_single_source, fit_params=fit_params)
+        pool.map(mapfunc, range(len(file_names)), chunksize=1)
 
     # automatically create sed figure
     # plotting_seds.create_fig()

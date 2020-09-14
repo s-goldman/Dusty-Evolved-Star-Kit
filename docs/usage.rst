@@ -31,8 +31,22 @@ or specify a directory with multiple csv files:
 
 	> desk fit --source='folder_of_csvs' --distance=30 --grid='Oss-Orich-bb'
 
-Additional options include the density of the model grid (n) a fitting range in
-wavelength and whether to use python multiprocessing. The strength of the 1D
+
+Additional options
+------------------
+
+Users can also specify any-and-all of the following additional options. Requests
+for more additional features can be submitted through the `issues`_ tab on the
+`Github`_ page.
+
+Grid density
+============
+
+.. code-block:: console
+
+	> desk fit --source='target_name.csv' --n=200
+
+The strength of the 1D
 DUSTY models is that they can be scaled to create more luminous models. The DESK
 takes the initial grid and scales it n times (default: 50) to create a larger
 denser grid of sources within the luinosity limits (default: 1,000 - 150,000 Msun).
@@ -40,17 +54,27 @@ As the shape of the model is the same for each scaling of the grid, the distance
 the source(s) is important for an accurate results. A more realistic Bayesian method
 of fitting is under development.
 
+Wavelength range
+================
+.. code-block:: console
 
+	> desk fit --source='target_name.csv' --min_wavelength=0.1 --max_wavelength=30
 The user may also specify a wavelength minimum and maximum. This will still show
-the full photometry in the final SED figure, but fit only the wavelength region
-specified. Lastly, the user can specify whether to fit using multiprocessing
-(using all but 1 computer cores) or single core fitting (multiprocessing=False).
+the full photometry in the final SED figure, but fit only the wavelength range
+specified.
+
+
+Multiprocessing
+===============
+The user can specify whether to fit using multiprocessing
+(using all but 1 computer cores), single core fitting (multiprocessing=False), or
+specify the number of cores to use (multiprocessing=6).
 Multiprocessing uses a core per source, and will have little affect on small samples
 or individual sources:
 
 .. code-block:: console
 
-	> desk fit --source='target_name.csv' --distance=50 --grid='oxygen' --n=20 --min_wavelength=3.5 --max_wavelength=23 --multiprocessing=False
+	> desk fit --source='target_name.csv' --multiprocessing=True
 
 Outputs
 -------
@@ -98,5 +122,7 @@ The current status of the `tests`_ and `coverage`_.
 are available online. To run the tests locally, download/clone the package and
 use the command 'pytest' within the pacakge directory.
 
+.. _github: https://github.com/s-goldman/Dusty-Evolved-Star-Kit/
+.. _issues: https://github.com/s-goldman/Dusty-Evolved-Star-Kit/issues
 .. _tests: https://github.com/s-goldman/Dusty-Evolved-Star-Kit/actions?query=workflow%3A%22Python+package%22
 .. _coverage: https://codecov.io/gh/s-goldman/Dusty-Evolved-Star-Kit
