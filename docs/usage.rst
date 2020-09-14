@@ -68,7 +68,7 @@ Multiprocessing
 ===============
 The user can specify whether to fit using multiprocessing
 (using all but 1 computer cores), single core fitting (multiprocessing=False), or
-specify the numbber of cores to use (multiprocessing=6).
+specify the number of cores to use (multiprocessing=6).
 Multiprocessing uses a core per source, and will have little affect on small samples
 or individual sources:
 
