@@ -26,7 +26,7 @@ The ``DESK`` is a python package that fits photometry or spectra of evolved star
 
 Results from these grids (e.g. luminosity, mass-loss rate) can vary dramatically as a result of the unknown properties of evolved stars, especially the oxygen-rich Asymptotic Giant Branch (AGB) stars [@Srinivasan:2011; @Goldman:2017]. It is also a challenge to compare results as they are calculated based on measured values of the dust (optical constants) which can not be interpolated over. To understand the ranges and estimated errors of fitted results, they must be compared to results from different model grids.
 
-This package is designed to easily compare stellar samples and model grids for a better understanding of the results and their uncertainties. The package can be installed using `pip` and, using "entrypoints", can be accessed from any terminal prompt once installed. The fitting method uses a brute-force technique to ensure a true best fit. Grids of radiative transfer models can easily be created and added to the model grid library.
+This package is designed to easily compare stellar samples and model grids for a better understanding of the results and their uncertainties. The package can be installed using `pip` and, using "entrypoints", can be accessed from any terminal prompt once installed. The fitting method uses a brute-force technique to ensure a true best fit. New grids of multi-dimensional radiative transfer models will be added to the model grid library as they are developed. 
 
 # Figures
 
