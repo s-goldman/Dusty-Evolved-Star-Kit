@@ -24,12 +24,19 @@ One of the few ways that we can understand the environment around dusty stars an
 
 The ``DESK`` is a python package that fits photometry or spectra of evolved stars, or the Spectral Energy Distribution (SED), to grids of radiative transfer models using a least-squares method. The package includes newly created grids using a variety of different dust species, and state-of-the-art dust growth grids [@Nanni:2019].
 
-Results from these grids (e.g. luminosity, mass-loss rate) can vary dramatically as a result of the unknown properties of evolved stars, especially the oxygen-rich Asymptotic Giant Branch (AGB) stars [@Srinivasan:2011; @Goldman:2017]. It is also a challenge to compare results as they are calculated based on measured values of the dust (optical constants) which can not be interpolated over. To understand the ranges and estimated errors of fitted results, they must be compared to results from different model grids.
+# Statement of need
 
-This package is designed to easily compare stellar samples and model grids for a better understanding of the results and their uncertainties. The package can be installed using `pip` and, using "entrypoints", can be accessed from any terminal prompt once installed. The fitting method uses a brute-force technique to ensure a true best fit. New grids of multi-dimensional radiative transfer models will be added to the model grid library as they are developed. 
+Results from these grids (e.g. luminosity, mass-loss rate) can vary dramatically as a result of the unknown properties of evolved stars, especially the oxygen-rich Asymptotic Giant Branch (AGB) stars [@Srinivasan:2011; @Goldman:2017]. It is also a challenge to compare results as they are calculated based on measured values of the dust (optical constants) which can not be interpolated over. To understand the ranges and estimated errors of fitted results, they must be compared to results from different model grids. This is particularly important given the wealth of infrared data to come from the James Webb Space Telescope (JWST).
+
+
+# User interface
+
+This package is designed to easily compare stellar samples and model grids for a better understanding of the results and their uncertainties. The package can be installed using `pip` and, using "entrypoints", can be accessed from any terminal prompt once installed. The fitting method uses a brute-force technique to ensure a true best fit. New grids of multi-dimensional radiative transfer models will be added to the model grid library as they are developed. The available model grids for this version are listed in Table 1.
 
 # Figures
 
-![An example figure of sources fit with an oxygen-rich grid.](docs/example.png)
+![An example of three massive oxygen-rich AGB stars in the Large Magellanic Cloud (LMC) galaxy fit with the default oxygen-rich model grid (Oss-Orich-bb). These three example sources can be fit, and this figure can be created, using the command `desk fit` and then the command `desk sed`.  ](docs/example.png)
+![](paper/joss_table.png)
+
 
 # References

@@ -1,0 +1,50 @@
+This is BibTeX, Version 0.99d (TeX Live 2014/Fink)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: joss_table.aux
+The style file: aasjournal.bst
+Database file #1: references_2020.bib
+Warning--I didn't find a database entry for "Jager1994"
+Warning--I didn't find a database entry for "Begemann1997"
+Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
+You've used 2 entries,
+            3222 wiz_defined-function locations,
+            677 strings with 4858 characters,
+and the built_in function-call counts, 997 in all, are:
+= -- 82
+> -- 76
+< -- 0
++ -- 26
+- -- 30
+* -- 85
+:= -- 183
+add.period$ -- 2
+call.type$ -- 2
+change.case$ -- 14
+chr.to.int$ -- 2
+cite$ -- 2
+duplicate$ -- 36
+empty$ -- 58
+format.name$ -- 30
+if$ -- 197
+int.to.chr$ -- 1
+int.to.str$ -- 0
+missing$ -- 2
+newline$ -- 11
+num.names$ -- 8
+pop$ -- 20
+preamble$ -- 1
+purify$ -- 14
+quote$ -- 0
+skip$ -- 28
+stack$ -- 0
+substring$ -- 37
+swap$ -- 0
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 18
+warning$ -- 0
+while$ -- 8
+width$ -- 0
+write$ -- 24
+(There were 2 warnings)
