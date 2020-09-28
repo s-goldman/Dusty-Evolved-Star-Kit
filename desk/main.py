@@ -1,7 +1,7 @@
 import argparse
 import inspect
 import ipdb
-import os
+import sys
 
 from desk import console_commands
 
@@ -34,7 +34,8 @@ def main():
             func(**funcargs)
             break  # drop out immediately, which skips the "else" below
     else:
-        os.system('desk --help')
+        parser.print_help()
+        sys.exit(0)
 
 if __name__ == "__main__":
     main()
