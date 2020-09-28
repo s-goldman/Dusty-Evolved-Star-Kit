@@ -177,16 +177,11 @@ def fit(
     create_output_files.make_output_files_dusty(fit_params)
 
     # Get number of cores to use
+    # trys (moves to except if not int(bool))
     try:
         n_cores = int(multiprocessing)
-        # check if too many cores specificed
-        if n_cores > cpu_count():
-            raise ValueError(
-                "Invalid multiprocessing options: Insufficient cores "
-                + "\n Available cores: "
-                + str(cpu_count())
-            )
-    # if bool either 1, or max cores - 1
+
+    # if True: max cores - 1, if False: 1 core
     except:
         if (multiprocessing == "True") | (multiprocessing == True):
             n_cores = cpu_count() - 1
@@ -196,6 +191,19 @@ def fit(
             raise ValueError(
                 "Multiprocessing error: Invalid option: " + str(multiprocessing)
             )
+
+    # check if too many cores specificed
+    if n_cores > cpu_count():
+        raise ValueError(
+            "Invalid multiprocessing options: Insufficient cores "
+            + "\n Available cores: "
+            + str(cpu_count())
+        )
+    # check if less than 1
+    elif n_cores < 1:
+        raise ValueError("Invalid multiprocessing options. Value must be positive: "
+        + str(multiprocessing))
+
 
     # ignore n_cores and replace with 1 if in testing mode
     if testing == True:
