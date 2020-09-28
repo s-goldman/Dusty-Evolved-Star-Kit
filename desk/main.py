@@ -1,6 +1,7 @@
 import argparse
 import inspect
-import pdb
+import ipdb
+import os
 
 from desk import console_commands
 
@@ -33,8 +34,7 @@ def main():
             func(**funcargs)
             break  # drop out immediately, which skips the "else" below
     else:
-        assert False, "Invalid subparser! This should be impossible..."
-
+        os.system('desk --help')
 
 if __name__ == "__main__":
     main()
