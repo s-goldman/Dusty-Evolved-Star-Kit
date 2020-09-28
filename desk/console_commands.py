@@ -210,7 +210,7 @@ def fit(
         # ignore n_cores and replace with 1 if in testing mode
         n_cores = 1
     else:
-        raise ValueError("Invalid testing options:" + str(testing))
+        raise ValueError("Invalid testing options: " + str(testing))
 
     # Fitting
     if n_cores == 1:
