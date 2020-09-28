@@ -1,6 +1,5 @@
 import argparse
 import inspect
-import ipdb
 import sys
 
 from desk import console_commands
