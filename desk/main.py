@@ -6,7 +6,7 @@ from desk import console_commands
 
 
 def main():
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(formatter_class=argparse.RawTextHelpFormatter)
     subparsers = parser.add_subparsers(dest="subparser_name", help="sub-command help")
 
     # create the subparsers and populate them with the correct arguments

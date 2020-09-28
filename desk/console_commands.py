@@ -130,9 +130,9 @@ def fit(
         in the output SED.
     max_wavelength : float
         Maximum wavelength to be fit.
-    multiprocessing : bool
-        Flag that, if true, uses all but one of the user's
-        available cores for the fitting.
+    multiprocessing : bool or int
+        Uses all but one core if True, only one core if False, or uses the
+        number of cores specified as an integer. 
     testing : bool
         Flag for testing that uses only the first 3 rows of the mode grids.
     """
