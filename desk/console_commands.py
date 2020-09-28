@@ -176,38 +176,41 @@ def fit(
     # remove old / create new output files
     create_output_files.make_output_files_dusty(fit_params)
 
-    # Get number of cores to use
-    # trys (moves to except if not int(bool))
-    try:
-        n_cores = int(multiprocessing)
 
-    # if True: max cores - 1, if False: 1 core
-    except:
-        if (multiprocessing == "True") | (multiprocessing == True):
-            n_cores = cpu_count() - 1
-        elif (multiprocessing == "False") | (multiprocessing == False):
-            n_cores = 1
-        else:
+    if testing==False:
+        # Get number of cores to use
+        # trys (moves to except if not int(bool))
+        try:
+            n_cores = int(multiprocessing)
+
+        # if True: max cores - 1, if False: 1 core
+        except:
+            if (multiprocessing == "True") | (multiprocessing == True):
+                n_cores = cpu_count() - 1
+            elif (multiprocessing == "False") | (multiprocessing == False):
+                n_cores = 1
+            else:
+                raise ValueError(
+                    "Multiprocessing error: Invalid option: " + str(multiprocessing)
+                )
+
+        # check if too many cores specificed
+        if n_cores > cpu_count():
             raise ValueError(
-                "Multiprocessing error: Invalid option: " + str(multiprocessing)
+                "Invalid multiprocessing options: Insufficient cores "
+                + "\n Available cores: "
+                + str(cpu_count())
             )
+        # check if less than 1
+        elif n_cores < 1:
+            raise ValueError("Invalid multiprocessing options. Value must be positive: "
+            + str(multiprocessing))
 
-    # check if too many cores specificed
-    if n_cores > cpu_count():
-        raise ValueError(
-            "Invalid multiprocessing options: Insufficient cores "
-            + "\n Available cores: "
-            + str(cpu_count())
-        )
-    # check if less than 1
-    elif n_cores < 1:
-        raise ValueError("Invalid multiprocessing options. Value must be positive: "
-        + str(multiprocessing))
-
-
-    # ignore n_cores and replace with 1 if in testing mode
-    if testing == True:
+    elif testing==True:
+        # ignore n_cores and replace with 1 if in testing mode
         n_cores = 1
+    else:
+        raise ValueError("Invalid testing options:" + str(testing))
 
     # Fitting
     if n_cores == 1:
