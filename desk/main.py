@@ -1,12 +1,12 @@
 import argparse
 import inspect
-import pdb
+import sys
 
 from desk import console_commands
 
 
 def main():
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(formatter_class=argparse.RawTextHelpFormatter)
     subparsers = parser.add_subparsers(dest="subparser_name", help="sub-command help")
 
     # create the subparsers and populate them with the correct arguments
@@ -33,8 +33,8 @@ def main():
             func(**funcargs)
             break  # drop out immediately, which skips the "else" below
     else:
-        assert False, "Invalid subparser! This should be impossible..."
-
+        parser.print_help()
+        sys.exit(0)
 
 if __name__ == "__main__":
     main()
