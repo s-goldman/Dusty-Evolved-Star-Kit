@@ -198,65 +198,65 @@ def create_fig(source_path, source_filename, dest_path, save_name):
     n = len(input_file)  # number of fit sources
 
     # setting figure size and axes for different numbers of fit sources
-    if n == 1:
-        single_figures(source_path, source_filename, dest_path)
-        sys.exit()
-    if n == 2:
-        fig, axs = plt.subplots(2, 1, sharex=True, sharey=True, figsize=(6, 7.5))
-    elif n == 3:
-        fig, axs = plt.subplots(3, 1, sharex=True, sharey=True, figsize=(6, 7.5))
-    elif n > 17:
-        print(
-            "\n\n\tToo many sources for combined figure. Use the function `desk sed_indiv` \n\t"
-            + "to create individual figures. You can also retrieve the best-fit model \n\t"
-            + "and create your own SED figure using the `desk save_model` function. \n\n"
-        )
-        sys.exit()
-    else:
-        figure_rows = math.ceil(n / 3)
-        fig, axs = plt.subplots(
-            figure_rows, 3, sharex=True, sharey=True, figsize=(8, (figure_rows * 1.5))
-        )
-        axs = axs.ravel()
-
-    # axis common labels
-    add_axis_labels(fig, 14)
-
-    for counter, target in enumerate(input_file):
-        # gets data for plotting
-        x_model, y_model, x_data, y_data = get_model_and_data_for_plotting(
-            counter, target, source_path, source_filename
-        )
-
-        # plotting
-        plot_model(x_model, y_model, axs[counter])
-        plot_phot(x_data, y_data, axs[counter])
-
-        # set axis limits
-        if counter == 0:
-            set_limits(x_model, y_model, x_data, y_data, axs[counter])
-
-        # annotations
-        if len(input_file) < 4:
-            source_name_annotation(target["source"], axs[counter])
+    if n != 1:
+        if n == 2:
+            fig, axs = plt.subplots(2, 1, sharex=True, sharey=True, figsize=(6, 7.5))
+        elif n == 3:
+            fig, axs = plt.subplots(3, 1, sharex=True, sharey=True, figsize=(6, 7.5))
+        elif n > 17:
+            print(
+                "\n\n\tToo many sources for combined figure. Use the function `desk sed_indiv` \n\t"
+                + "to create individual figures. You can also retrieve the best-fit model \n\t"
+                + "and create your own SED figure using the `desk save_model` function. \n\n"
+            )
+            sys.exit()
         else:
-            counter_annotations(counter, axs[counter])
+            figure_rows = math.ceil(n / 3)
+            fig, axs = plt.subplots(
+                figure_rows, 3, sharex=True, sharey=True, figsize=(8, (figure_rows * 1.5))
+            )
+            axs = axs.ravel()
 
-        # ticks
-        set_inward_ticks(axs[counter])
+        # axis common labels
+        add_axis_labels(fig, 14)
 
-    # set ticks for empty cells
-    n_empty_cells = len(axs.ravel()) % len(input_file)
-    if n_empty_cells == 1:
-        set_inward_ticks(axs.ravel()[-1])
-    elif n_empty_cells == 2:
-        set_inward_ticks(axs.ravel()[-1])
-        set_inward_ticks(axs.ravel()[-2])
+        for counter, target in enumerate(input_file):
+            # gets data for plotting
+            x_model, y_model, x_data, y_data = get_model_and_data_for_plotting(
+                counter, target, source_path, source_filename
+            )
 
-    # save figure
-    plt.subplots_adjust(wspace=0, hspace=0)
-    fig.savefig(dest_path + "/" + save_name, dpi=200, bbox_inches="tight")
-    plt.close()
+            # plotting
+            plot_model(x_model, y_model, axs[counter])
+            plot_phot(x_data, y_data, axs[counter])
+
+            # set axis limits
+            if counter == 0:
+                set_limits(x_model, y_model, x_data, y_data, axs[counter])
+
+            # annotations
+            if len(input_file) < 4:
+                source_name_annotation(target["source"], axs[counter])
+            else:
+                counter_annotations(counter, axs[counter])
+
+            # ticks
+            set_inward_ticks(axs[counter])
+
+        # set ticks for empty cells
+        n_empty_cells = len(axs.ravel()) % len(input_file)
+        if n_empty_cells == 1:
+            set_inward_ticks(axs.ravel()[-1])
+        elif n_empty_cells == 2:
+            set_inward_ticks(axs.ravel()[-1])
+            set_inward_ticks(axs.ravel()[-2])
+
+        # save figure
+        plt.subplots_adjust(wspace=0, hspace=0)
+        fig.savefig(dest_path + "/" + save_name, dpi=200, bbox_inches="tight")
+        plt.close()
+    else:
+        single_figures(source_path, source_filename, dest_path)
 
 
 if __name__ == "__main__":
