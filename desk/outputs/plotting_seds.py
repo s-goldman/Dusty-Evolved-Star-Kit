@@ -145,7 +145,10 @@ def single_figures(source_path, source_filename, dest_path):
         SED figures with data in blue and model in black.
 
     """
-    input_file = Table.read(source_path + "/" + source_filename)
+    try:
+        input_file = Table.read(source_path + "/" + source_filename)
+    except:
+        raise FileNotFoundError("fitting_results.csv missing. Make sure you have run the ``fit'' command.")
 
     for counter, target in enumerate(input_file):
         # gets data for plotting
@@ -194,7 +197,11 @@ def create_fig(source_path, source_filename, dest_path, save_name):
         SED figure with data in blue and model in black.
     """
 
-    input_file = Table.read(source_path + "/" + source_filename)
+    try:
+        input_file = Table.read(source_path + "/" + source_filename)
+    except:
+        raise FileNotFoundError("fitting_results.csv missing. Make sure you have run the ``fit'' command.")
+
     n = len(input_file)  # number of fit sources
 
     # setting figure size and axes for different numbers of fit sources
