@@ -39,24 +39,9 @@ This package is designed to easily compare stellar samples and model grids for a
 
 ![](paper/joss_table.png)
 
-| Grid name | Size | Type | Atmospheric model | Optical constants | References |
-|-|-|-|-|-|-|
-| Oss-Orich-aringer | 2,000 | O | COMARCS | Warm silicates | @Ossenkopf:1992; @Aringer:2016 |
-| Oss-Orich-bb | 2,000 | O | Black body (BB) | Warm silicates | @Ossenkopf:1992; @Aringer:2016 |
-| Crystalline-20-bb | 2,000 | O | BB | 80% warm silicates 20% crystalline silicates | @Ossenkopf:1992; @Aringer:2016 |
-| corundum-20-bb | 2,000 | O | BB | 80% warm silicates 20% corundum silicates | @Ossenkopf:1992; @Aringer:2016 |
-| big-grain | 2,000 | O | BB | Warm silicates with higher maximum dust grain size of 0.35 | @Ossenkopf:1992; @Aringer:2016 |
-| fifth-iron | 500 | O | BB | 80% warm silicates 20% iron grains | @Ossenkopf:1992; @Aringer:2016 |
-| half-iron | 500 | O | BB | 50% warm silicates 50% iron grains | @Ossenkopf:1992; @Aringer:2016 |
-| one-fifth-carbon | 500 | O | BB | 80% warm silicates 20% carbonaceous grains | @Ossenkopf:1992; @Aringer:2016 |
-| arnold-palmer | 500 | O | BB | 50% warm silicates 50% carbonaceous grains | @Ossenkopf:1992; @Aringer:2016 |
-| desk-mix | xx,xxx | O | MARCS | Mixture of olivine(48-88%), corundum(8-48%), and iron (4%) | @Ossenkopf:1992; @Aringer:2016 |
-| Zubko-Crich-aringer | 2,000 | C | COMARCS | amorphous carbon grains |  |
-| Zubko-Crich-bb | 2,000 | C | BB | amorphous carbon grains |  |
-| H11-LMC | 90,899 | C | COMARCS | Dust-growth grid with 1/2 solar metallicity |  |
-| H11-SMC | 91,058 | C | COMARCS | Dust-growth grid with 1/5 solar metallicity |  |
-| J1000-LMC | 85,392 | C | COMARCS | Dust-growth grid with 1/2 solar metallicity |  |
-| J1000-SMC | 85,546 | C | COMARCS | Dust-growth grid with 1/5 solar metallicity |  |
-
+---
+nocite: |
+  @Aringer:2016, @Begemann:1997, @Henning:1995, @Jaeger:1998, @Ossenkopf:1992, @Zubko:1996
+---
 
 # References
