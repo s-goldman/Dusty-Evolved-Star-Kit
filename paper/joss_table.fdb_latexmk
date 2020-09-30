@@ -1,9 +1,9 @@
 # Fdb version 3
-["xdvipdfmx"] 1601507493 "joss_table.xdv" "joss_table.pdf" "joss_table" 1601507493
-  "joss_table.xdv" 1601507492 15928 232f106b9bf7caa8f21abfe3d964e5ee "xelatex"
+["xdvipdfmx"] 1601509308 "joss_table.xdv" "joss_table.pdf" "joss_table" 1601509309
+  "joss_table.xdv" 1601509308 15940 513007ebd1582ca6076df9c9d59fee0e "xelatex"
   (generated)
   "joss_table.pdf"
-["xelatex"] 1601507492 "joss_table.tex" "joss_table.xdv" "joss_table" 1601507493
+["xelatex"] 1601509308 "joss_table.tex" "joss_table.xdv" "joss_table" 1601509309
   "/usr/local/texlive/2020/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2020/texmf-dist/fonts/tfm/adobe/helvetic/phvr.tfm" 1136768653 2504 ba6584b616b92101c768b6c4ffb32dd0 ""
   "/usr/local/texlive/2020/texmf-dist/fonts/tfm/adobe/zapfding/pzdr.tfm" 1136768653 1528 f853c4d1b4e0550255e02831fdc8496f ""
@@ -93,11 +93,11 @@
   "/usr/local/texlive/2020/texmf-var/web2c/xetex/xelatex.fmt" 1586288269 4769632 cea4f80911e5df070b1f6d7834d4faf8 ""
   "/usr/local/texlive/2020/texmf.cnf" 1586288231 577 d60164b4589a341208aff7a667fbbdcb ""
   "aastex63.cls" 1601320738 223700 8eb0a92b64442e58ece894a8eb23d46a ""
-  "joss_table.aux" 1601507492 684 8655925d1e8add6def838b9377910cf7 "xelatex"
-  "joss_table.out" 1601507492 0 d41d8cd98f00b204e9800998ecf8427e "xelatex"
-  "joss_table.tex" 1601507492 2404 c01fe3cb5f7383b44ba214790a26b0a2 ""
+  "joss_table.aux" 1601509308 684 8655925d1e8add6def838b9377910cf7 "xelatex"
+  "joss_table.out" 1601509308 0 d41d8cd98f00b204e9800998ecf8427e "xelatex"
+  "joss_table.tex" 1601509307 2404 c07d4256899f5985d87b0d994965a8a4 ""
   (generated)
   "joss_table.log"
+  "joss_table.xdv"
   "joss_table.aux"
   "joss_table.out"
-  "joss_table.xdv"

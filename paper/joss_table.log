@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999992 (TeX Live 2020) (preloaded format=xelatex 2020.4.7)  30 SEP 2020 19:11
+This is XeTeX, Version 3.14159265-2.6-0.999992 (TeX Live 2020) (preloaded format=xelatex 2020.4.7)  30 SEP 2020 19:41
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -528,15 +528,15 @@ LaTeX Info: Redefining \nameref on input line 11.
 * layout: <same size as paper>
 * layoutoffset:(h,v)=(0.0pt,0.0pt)
 * modes: twoside asymmetric 
-* h-part:(L,W,R)=(42.67912pt, 546.4352pt, 7.11317pt)
-* v-part:(T,H,B)=(59.75095pt, 250.78285pt, -14.22636pt)
-* \paperwidth=596.2275pt
-* \paperheight=296.30743pt
-* \textwidth=546.4352pt
-* \textheight=250.78285pt
-* \oddsidemargin=-29.59087pt
-* \evensidemargin=-29.59087pt
-* \topmargin=-59.4941pt
+* h-part:(L,W,R)=(28.45274pt, 531.75401pt, 7.11317pt)
+* v-part:(T,H,B)=(71.13188pt, 304.44447pt, -14.22636pt)
+* \paperwidth=567.31993pt
+* \paperheight=361.34999pt
+* \textwidth=531.75401pt
+* \textheight=304.44447pt
+* \oddsidemargin=-43.81725pt
+* \evensidemargin=-43.81725pt
+* \topmargin=-48.11316pt
 * \headheight=10.84006pt
 * \headsep=36.135pt
 * \topskip=12.5pt
@@ -566,12 +566,9 @@ LaTeX Font Info:    Trying to load font information for U+msb on input line 19.
  (/usr/local/texlive/2020/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-Overfull \hbox (6.29697pt too wide) in paragraph at lines 19--41
+Overfull \hbox (20.97815pt too wide) in paragraph at lines 19--41
  []$ 
  []
-
-
-LaTeX Warning: Float too large for page by 47.46214pt on input line 45.
 
 (/usr/local/texlive/2020/texmf-dist/tex/generic/stringenc/se-ascii-print.def
 File: se-ascii-print.def 2019/11/29 v1.12 stringenc: Printable ASCII characters
@@ -586,10 +583,10 @@ Package rerunfilecheck Info: File `joss_table.out' has not changed.
 Here is how much of TeX's memory you used:
  13333 strings out of 479418
  183626 string characters out of 5884586
- 496769 words of memory out of 5000000
+ 496777 words of memory out of 5000000
  30682 multiletter control sequences out of 15000+600000
  537389 words of font info for 47 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  42i,8n,41p,314b,380s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on joss_table.xdv (1 page, 15928 bytes).
+Output written on joss_table.xdv (1 page, 15940 bytes).
