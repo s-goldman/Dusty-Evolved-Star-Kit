@@ -31,15 +31,6 @@ which is already in solar luminosities.
 Oxygen-rich DUSTY model grids
 =============================
 
-desk-mix (*N*\ = XX,XXX): Uses a grain mixture inspired by the More Of Dusty (MOD)
-code (`Groenewegen 2012`_) based on the DUSTY code (`Elitzur & Ivezić 2001`_). The dust grains assume a mixture of olivine grains
-(MgFeSiO4) from `Dorschner et al. 1995`_), corundum grains
-(AlOx; amorphous porous Al2O3) from `Begemann et al. (1997)`_, and
-iron grains (FeO) from `Henning et al. (1995)`_. The relative percentages of
-olivine and corundum range from 50-90\% olivine in increments of 10\% and assume
-4\% iron grains. The grid uses oxygen-rich atmospheric MARCS models from
-`Gustafsson et al. 2008`_.
-
 Oss-Orich-aringer (*N*\ =2,000): Uses warm silicates from
 `Ossenkopf et al. (1992)`_ and photospheric models from
 `Aringer et al. (2016)`_. Provides ranges in effective temperature
