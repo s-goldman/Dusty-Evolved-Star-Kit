@@ -24,7 +24,7 @@ def scale(_outputs, _models, scaling_factor):
     """
     # scale fluxes and normalization value
     _outputs.add_column(
-        Column(np.arange(1, len(_outputs) + 1), name="model_id"), index=0
+        Column(np.arange(1, len(_outputs) + 1), name="number"), index=0
     )
     _outputs.rename_columns(
         ["L", "vexp", "mdot"], ["lum", "scaled_vexp", "scaled_mdot"]

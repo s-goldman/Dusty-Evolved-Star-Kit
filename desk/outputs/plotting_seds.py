@@ -107,16 +107,16 @@ def get_model_and_data_for_plotting(counter, target, source_path, source_filenam
     full_path = str(__file__.replace("outputs/plotting_seds.py", ""))
     input_file = Table.read(source_path + "/" + source_filename)
     grid_dusty = Table.read(
-        full_path + "models/" + str(input_file["grid"][0]) + "_models.hdf5"
+        full_path + "models/" + str(input_file["grid_name"][0]) + "_models.hdf5"
     )
 
     x_data, y_data = get_data.get_values(target["file_name"])
-    x_model, y_model = grid_dusty[target["model_id"] - 1]  # model_id starts at 1
+    x_model, y_model = grid_dusty[target["number"] - 1]  # model_id starts at 1
 
     x_model = x_model[np.where(y_model != 0)]
     y_model = y_model[np.where(y_model != 0)]
 
-    if fnmatch(input_file["grid"][0], "grams*"):
+    if fnmatch(input_file["grid_name"][0], "grams*"):
         y_model = y_model * u.Jy
         y_model = y_model.to(
             u.W / (u.m * u.m), equivalencies=u.spectral_density(x_model * u.um)
