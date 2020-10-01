@@ -131,7 +131,7 @@ code for the LMC metallicity (1/2 solar) using optical constants from
 .. _Aringer et al. (2016): https://ui.adsabs.harvard.edu/abs/2016MNRAS.457.3611A/abstract
 .. _MRN: https://ui.adsabs.harvard.edu/abs/1977ApJ...217..425M/abstract
 .. _Jaeger et al. (1994): https://ui.adsabs.harvard.edu/abs/1994A%26A...292..641J/abstract
-.. _Jaeger et al. (1998): https://ui.adsabs.harvard.edu/abs/1998A%26A...332..291J%2F/abstract
+.. _Jaeger et al. (1998): https://ui.adsabs.harvard.edu/abs/1998A%26A...339..904J/abstract
 .. _Begemann et al. (1997): https://ui.adsabs.harvard.edu/abs/1997ApJ...476..199B/abstract
 .. _Henning et al. (1995): https://ui.adsabs.harvard.edu/abs/1995A%26AS..112..143H/abstract
 .. _Zubko et al. (1996): https://ui.adsabs.harvard.edu/abs/1996MNRAS.282.1321Z/abstract
