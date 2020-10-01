@@ -27,12 +27,12 @@ The ``DESK`` is a python package designed to compare the best fits of different 
 
 # Statement of need
 
-To understand the ranges and estimated errors of fitted results, they must be compared to results from different model grids. Results from these grids (e.g. luminosity, mass-loss rate) can vary dramatically as a result of the unknown properties of evolved stars, especially the oxygen-rich Asymptotic Giant Branch (AGB) stars [@Srinivasan:2011; @Goldman:2017]. It is also a challenge to compare results that are calculated based on measured values of the dust (optical constants) which can not be interpolated over. This is particularly important given the wealth of infrared data to come from the James Webb Space Telescope (JWST).
+To understand the ranges and estimated errors of fitted results, they must be compared to results from different model grids. Results from these grids (e.g. luminosity, mass-loss rate) can vary dramatically as a result of the unknown dust properties and geometry of evolved stars [@Srinivasan:2011; @Wiegert:2020]. This is especially true of the oxygen-rich Asymptotic Giant Branch (AGB) stars. Adding to this challenge is the fact that models are calculated based on measured values of the dust (optical constants) which can not be interpolated over. A robust method for testing different model grids will be particularly important given the wealth of infrared data to come from the James Webb Space Telescope (JWST).
 
 
 # User interface
 
-The package can be installed using `pip` and, using "entrypoints", can be accessed from any terminal prompt once installed. The fitting method uses a brute-force technique to ensure a true best fit. New grids of multi-dimensional radiative transfer models will be added to the model grid library as they are developed. The available model grids for this version are listed in Table 1.
+The package can be installed using `pip` and imported within python. Using "entrypoints", the package can be accessed from any terminal prompt once installed. The fitting method uses a brute-force technique to ensure a true best fit. New grids of multi-dimensional radiative transfer models will be added to the model grid library as they are developed. The available model grids for this version are listed in Table 1.
 
 # Figures
 
