@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999992 (TeX Live 2020) (preloaded format=xelatex 2020.4.7)  30 SEP 2020 19:41
+This is XeTeX, Version 3.14159265-2.6-0.999992 (TeX Live 2020) (preloaded format=xelatex 2020.4.7)  30 SEP 2020 20:26
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -462,47 +462,94 @@ Package: multirow 2019/05/31 v2.5 Span multiple rows of a table
 \multirow@cntb=\count324
 \multirow@dima=\skip73
 \bigstrutjot=\dimen179
+) (/usr/local/texlive/2020/texmf-dist/tex/latex/makecell/makecell.sty
+Package: makecell 2009/08/03 V0.1e Managing of Tab Column Heads and Cells
+\rotheadsize=\dimen180
+\c@nlinenum=\count325
+\TeXr@lab=\toks29
+) (/usr/local/texlive/2020/texmf-dist/tex/latex/caption/caption.sty
+Package: caption 2020/01/03 v3.4h Customizing captions (AR)
+ (/usr/local/texlive/2020/texmf-dist/tex/latex/caption/caption3.sty
+Package: caption3 2020/01/03 v1.8h caption3 kernel (AR)
+Package caption3 Info: TeX engine: e-TeX on input line 61.
+\captionmargin=\dimen181
+\captionmargin@=\dimen182
+\captionwidth=\dimen183
+\caption@tempdima=\dimen184
+\caption@indent=\dimen185
+\caption@parindent=\dimen186
+\caption@hangindent=\dimen187
+Package caption Info: Unknown document class (or package),
+(caption)             standard defaults will be used.
+Package caption Info: \@makecaption = \long macro:#1#2->\vskip \abovecaptionskip \sbox \@tempboxa {\small \let \added \relax \let \deleted \relax \let \replaced \relax {\bf #1.} #2}\ifdim \wd \@tempboxa >\hsize \small {\bf #1.} #2\par \else \global \@minipagefalse \hb@xt@ \hsize {\hfill \box \@tempboxa \hfill }\fi \vskip \belowcaptionskip  on input line 1082.
 )
-Class revtex4-1 Info: Unrecognized array package. Please update this document class! (Proceeding with fingers crossed.) on input line 11.
-Class revtex4-1 Info: Patching unrecognized longtable package. (Proceeding with fingers crossed) on input line 11.
-Class revtex4-1 Info: cite was not loaded (OK!) on input line 11.
-Class revtex4-1 Info: mcite was not loaded (OK!) on input line 11.
-Class revtex4-1 Info: multicol was not loaded (OK!) on input line 11.
- (/usr/local/texlive/2020/texmf-dist/tex/latex/l3backend/l3backend-xdvipdfmx.def
+
+Package caption Warning: Unknown document class (or package),
+(caption)                standard defaults will be used.
+See the caption package documentation for explanation.
+
+\c@caption@flags=\count326
+\c@continuedfloat=\count327
+Package caption Info: hyperref package is loaded.
+Package caption Info: longtable package is loaded.
+(/usr/local/texlive/2020/texmf-dist/tex/latex/caption/ltcaption.sty
+Package: ltcaption 2018/08/26 v1.4a longtable captions (AR)
+))
+Class revtex4-1 Info: Unrecognized array package. Please update this document class! (Proceeding with fingers crossed.) on input line 15.
+Class revtex4-1 Info: Patching unrecognized longtable package. (Proceeding with fingers crossed) on input line 15.
+
+
+./joss_table.tex:15: LaTeX Error: Command \longtable* already defined.
+               Or name \end... illegal, see p.192 of the manual.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.15 \begin{document}
+                     
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+Class revtex4-1 Info: cite was not loaded (OK!) on input line 15.
+Class revtex4-1 Info: mcite was not loaded (OK!) on input line 15.
+Class revtex4-1 Info: multicol was not loaded (OK!) on input line 15.
+(/usr/local/texlive/2020/texmf-dist/tex/latex/l3backend/l3backend-xdvipdfmx.def
 File: l3backend-xdvipdfmx.def 2020-03-12 L3 backend support: xdvipdfmx
-\g__graphics_track_int=\count325
+\g__graphics_track_int=\count328
 \l__pdf_internal_box=\box82
-\g__pdf_backend_object_int=\count326
-\g__pdf_backend_annotation_int=\count327
+\g__pdf_backend_object_int=\count329
+\g__pdf_backend_annotation_int=\count330
 ) (./joss_table.aux)
 \openout1 = `joss_table.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 11.
-LaTeX Font Info:    ... okay on input line 11.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 11.
-LaTeX Font Info:    ... okay on input line 11.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 11.
-LaTeX Font Info:    ... okay on input line 11.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 11.
-LaTeX Font Info:    ... okay on input line 11.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 11.
-LaTeX Font Info:    Trying to load font information for TS1+cmr on input line 11.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 15.
+LaTeX Font Info:    Trying to load font information for TS1+cmr on input line 15.
  (/usr/local/texlive/2020/texmf-dist/tex/latex/base/ts1cmr.fd
 File: ts1cmr.fd 2019/12/16 v2.5j Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 11.
-LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 11.
-LaTeX Font Info:    ... okay on input line 11.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 11.
-LaTeX Font Info:    ... okay on input line 11.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 11.
-LaTeX Font Info:    ... okay on input line 11.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 11.
-LaTeX Font Info:    ... okay on input line 11.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 11.
-LaTeX Font Info:    ... okay on input line 11.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
 \AtBeginShipoutBox=\box83
-Package hyperref Info: Link coloring ON on input line 11.
+Package hyperref Info: Link coloring ON on input line 15.
  (/usr/local/texlive/2020/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2019/09/16 v2.46 Cross-referencing by name of section
  (/usr/local/texlive/2020/texmf-dist/tex/latex/refcount/refcount.sty
@@ -510,11 +557,11 @@ Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
 ) (/usr/local/texlive/2020/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
-\c@section@level=\count328
+\c@section@level=\count331
 )
-LaTeX Info: Redefining \ref on input line 11.
-LaTeX Info: Redefining \pageref on input line 11.
-LaTeX Info: Redefining \nameref on input line 11.
+LaTeX Info: Redefining \ref on input line 15.
+LaTeX Info: Redefining \pageref on input line 15.
+LaTeX Info: Redefining \nameref on input line 15.
  (./joss_table.out) (./joss_table.out)
 \@outlinefile=\write4
 \openout4 = `joss_table.out'.
@@ -529,14 +576,14 @@ LaTeX Info: Redefining \nameref on input line 11.
 * layoutoffset:(h,v)=(0.0pt,0.0pt)
 * modes: twoside asymmetric 
 * h-part:(L,W,R)=(28.45274pt, 531.75401pt, 7.11317pt)
-* v-part:(T,H,B)=(71.13188pt, 304.44447pt, -14.22636pt)
+* v-part:(T,H,B)=(56.9055pt, 318.67085pt, -14.22636pt)
 * \paperwidth=567.31993pt
 * \paperheight=361.34999pt
 * \textwidth=531.75401pt
-* \textheight=304.44447pt
+* \textheight=318.67085pt
 * \oddsidemargin=-43.81725pt
 * \evensidemargin=-43.81725pt
-* \topmargin=-48.11316pt
+* \topmargin=-62.33954pt
 * \headheight=10.84006pt
 * \headsep=36.135pt
 * \topskip=12.5pt
@@ -554,39 +601,44 @@ LaTeX Info: Redefining \nameref on input line 11.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-LaTeX Font Info:    Trying to load font information for U+lasy on input line 19.
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: End \AtBeginDocument code.
+LaTeX Font Info:    Trying to load font information for U+lasy on input line 22.
 (/usr/local/texlive/2020/texmf-dist/tex/latex/base/ulasy.fd
 File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
 )
-LaTeX Font Info:    Trying to load font information for U+msa on input line 19.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 22.
  (/usr/local/texlive/2020/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 19.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 22.
  (/usr/local/texlive/2020/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-Overfull \hbox (20.97815pt too wide) in paragraph at lines 19--41
+Overfull \hbox (6.84811pt too wide) in paragraph at lines 22--60
  []$ 
  []
+
+
+LaTeX Warning: Float too large for page by 48.1563pt on input line 64.
 
 (/usr/local/texlive/2020/texmf-dist/tex/generic/stringenc/se-ascii-print.def
 File: se-ascii-print.def 2019/11/29 v1.12 stringenc: Printable ASCII characters
 ) [1]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 50.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 69.
  (./joss_table.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 50.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 50.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 69.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 69.
 Package rerunfilecheck Info: File `joss_table.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 13333 strings out of 479418
- 183626 string characters out of 5884586
- 496777 words of memory out of 5000000
- 30682 multiletter control sequences out of 15000+600000
- 537389 words of font info for 47 fonts, out of 8000000 for 9000
+ 14595 strings out of 479418
+ 205672 string characters out of 5884586
+ 521349 words of memory out of 5000000
+ 31928 multiletter control sequences out of 15000+600000
+ 537405 words of font info for 49 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 42i,8n,41p,314b,380s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 42i,8n,42p,346b,389s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on joss_table.xdv (1 page, 15940 bytes).
+Output written on joss_table.xdv (1 page, 16504 bytes).

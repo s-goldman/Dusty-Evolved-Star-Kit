@@ -124,6 +124,14 @@ INPUT /usr/local/texlive/2020/texmf-dist/tex/latex/amsmath/amsopn.sty
 INPUT /usr/local/texlive/2020/texmf-dist/tex/latex/amsmath/amsopn.sty
 INPUT /usr/local/texlive/2020/texmf-dist/tex/latex/multirow/multirow.sty
 INPUT /usr/local/texlive/2020/texmf-dist/tex/latex/multirow/multirow.sty
+INPUT /usr/local/texlive/2020/texmf-dist/tex/latex/makecell/makecell.sty
+INPUT /usr/local/texlive/2020/texmf-dist/tex/latex/makecell/makecell.sty
+INPUT /usr/local/texlive/2020/texmf-dist/tex/latex/caption/caption.sty
+INPUT /usr/local/texlive/2020/texmf-dist/tex/latex/caption/caption.sty
+INPUT /usr/local/texlive/2020/texmf-dist/tex/latex/caption/caption3.sty
+INPUT /usr/local/texlive/2020/texmf-dist/tex/latex/caption/caption3.sty
+INPUT /usr/local/texlive/2020/texmf-dist/tex/latex/caption/ltcaption.sty
+INPUT /usr/local/texlive/2020/texmf-dist/tex/latex/caption/ltcaption.sty
 INPUT /usr/local/texlive/2020/texmf-dist/tex/latex/l3backend/l3backend-xdvipdfmx.def
 INPUT /usr/local/texlive/2020/texmf-dist/tex/latex/l3backend/l3backend-xdvipdfmx.def
 INPUT joss_table.aux

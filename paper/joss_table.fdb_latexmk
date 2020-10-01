@@ -1,9 +1,9 @@
 # Fdb version 3
-["xdvipdfmx"] 1601509308 "joss_table.xdv" "joss_table.pdf" "joss_table" 1601509309
-  "joss_table.xdv" 1601509308 15940 513007ebd1582ca6076df9c9d59fee0e "xelatex"
+["xdvipdfmx"] 1601511991 "joss_table.xdv" "joss_table.pdf" "joss_table" 1601511992
+  "joss_table.xdv" 1601511991 16504 5dc8b62184f64a3101865e8b92e31937 "xelatex"
   (generated)
   "joss_table.pdf"
-["xelatex"] 1601509308 "joss_table.tex" "joss_table.xdv" "joss_table" 1601509309
+["xelatex"] 1601511990 "joss_table.tex" "joss_table.xdv" "joss_table" 1601511992
   "/usr/local/texlive/2020/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2020/texmf-dist/fonts/tfm/adobe/helvetic/phvr.tfm" 1136768653 2504 ba6584b616b92101c768b6c4ffb32dd0 ""
   "/usr/local/texlive/2020/texmf-dist/fonts/tfm/adobe/zapfding/pzdr.tfm" 1136768653 1528 f853c4d1b4e0550255e02831fdc8496f ""
@@ -57,6 +57,9 @@
   "/usr/local/texlive/2020/texmf-dist/tex/latex/base/latexsym.sty" 1580683321 2854 12555a1cadee722c56d2816ab5a895f5 ""
   "/usr/local/texlive/2020/texmf-dist/tex/latex/base/ts1cmr.fd" 1580683321 2431 b6cead9f069ed55f4fba0c637aa047b6 ""
   "/usr/local/texlive/2020/texmf-dist/tex/latex/base/ulasy.fd" 1580683321 2234 46373e8269e9960c9a311c7c046a0877 ""
+  "/usr/local/texlive/2020/texmf-dist/tex/latex/caption/caption.sty" 1578175482 57350 70b0c251b0022f1db12ad7dd4c1aa547 ""
+  "/usr/local/texlive/2020/texmf-dist/tex/latex/caption/caption3.sty" 1578175482 62012 5e9d40ecd926a6f500919e4c7e1480de ""
+  "/usr/local/texlive/2020/texmf-dist/tex/latex/caption/ltcaption.sty" 1578175482 7020 a2061dd3662af1fc726ee63bf983f939 ""
   "/usr/local/texlive/2020/texmf-dist/tex/latex/geometry/geometry.sty" 1578002852 41601 9cf6c5257b1bc7af01a58859749dd37a ""
   "/usr/local/texlive/2020/texmf-dist/tex/latex/graphics-cfg/color.cfg" 1459978653 1213 620bba36b25224fa9b7e1ccb4ecb76fd ""
   "/usr/local/texlive/2020/texmf-dist/tex/latex/graphics-cfg/graphics.cfg" 1465944070 1224 978390e9c2234eab29404bc21b268d1e ""
@@ -74,6 +77,7 @@
   "/usr/local/texlive/2020/texmf-dist/tex/latex/kvoptions/kvoptions.sty" 1575152344 22520 c4c2dab203104295e1e618be7e5c0f5b ""
   "/usr/local/texlive/2020/texmf-dist/tex/latex/l3backend/l3backend-xdvipdfmx.def" 1584044900 24122 2811f916663c7ee4dc89a3107086b073 ""
   "/usr/local/texlive/2020/texmf-dist/tex/latex/letltxmacro/letltxmacro.sty" 1575499565 5766 13a9e8766c47f30327caf893ece86ac8 ""
+  "/usr/local/texlive/2020/texmf-dist/tex/latex/makecell/makecell.sty" 1249334690 15773 2dd7dde1ec1c2a3d0c85bc3b273e04d8 ""
   "/usr/local/texlive/2020/texmf-dist/tex/latex/multirow/multirow.sty" 1559339157 5486 a1d954b09782ba0acd8a8abfd98e1028 ""
   "/usr/local/texlive/2020/texmf-dist/tex/latex/natbib/natbib.sty" 1291685959 45456 1c8843383c0bd05870c45fa0ebea6cc2 ""
   "/usr/local/texlive/2020/texmf-dist/tex/latex/pdftexcmds/pdftexcmds.sty" 1574631863 19963 36fd8e818f9f0f32e2db8413d4970122 ""
@@ -93,11 +97,11 @@
   "/usr/local/texlive/2020/texmf-var/web2c/xetex/xelatex.fmt" 1586288269 4769632 cea4f80911e5df070b1f6d7834d4faf8 ""
   "/usr/local/texlive/2020/texmf.cnf" 1586288231 577 d60164b4589a341208aff7a667fbbdcb ""
   "aastex63.cls" 1601320738 223700 8eb0a92b64442e58ece894a8eb23d46a ""
-  "joss_table.aux" 1601509308 684 8655925d1e8add6def838b9377910cf7 "xelatex"
-  "joss_table.out" 1601509308 0 d41d8cd98f00b204e9800998ecf8427e "xelatex"
-  "joss_table.tex" 1601509307 2404 c07d4256899f5985d87b0d994965a8a4 ""
+  "joss_table.aux" 1601511991 992 b4121219f02f604789432c0b02473cd0 "xelatex"
+  "joss_table.out" 1601511991 0 d41d8cd98f00b204e9800998ecf8427e "xelatex"
+  "joss_table.tex" 1601511990 3001 cec3bf1178900158d482edbc3dc53f34 ""
   (generated)
   "joss_table.log"
-  "joss_table.xdv"
-  "joss_table.aux"
   "joss_table.out"
+  "joss_table.aux"
+  "joss_table.xdv"
