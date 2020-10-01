@@ -32,7 +32,7 @@ To understand the ranges and estimated errors of fitted results, they must be co
 
 # User interface
 
-The package can be installed using `pip` and imported within python. Using "entrypoints", the package can be accessed from any terminal prompt once installed. The fitting method uses a brute-force technique to ensure a true best fit. New grids of multi-dimensional radiative transfer models will be added to the model grid library as they are developed. The available model grids for this version are listed in Table 1.
+The package can be installed using `pip` and imported within python. Using "entrypoints", the package can also be accessed from any terminal prompt once installed. The fitting method uses a brute-force technique to ensure a true best fit. New grids of multi-dimensional radiative transfer models will be added to the model grid library as they are developed. The available model grids for this version are listed in Table 1.
 
 # Figures
 
