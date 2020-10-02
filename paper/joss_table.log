@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999992 (TeX Live 2020) (preloaded format=xelatex 2020.4.7)  30 SEP 2020 20:26
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  2 OCT 2020 14:53
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -33,17 +33,17 @@ Class revtex4-1 Info: Repairing broken LaTeX eqnarray on input line 358.
 \eqncolsep=\skip48
 Class revtex4-1 Info: Repairing hyperref-unfriendly LaTeX definition of \mpfootnote on input line 433.
 Class revtex4-1 Info: Repairing broken LateX \@sect on input line 755.
-\intertabularlinepenalty=\count163
-\@tbpen=\count164
+\intertabularlinepenalty=\count167
+\@tbpen=\count168
 \@arstrutbox@hline=\box45
 Class revtex4-1 Info: Repairing broken LaTeX \@xbitor on input line 1786.
 Class revtex4-1 Info: Making \typeout \long on input line 2046.
 ltxfront[2010/07/25/20:33:00 4.1r frontmatter package (AO,DPC)]
-\c@affil=\count165
-\c@collab=\count166
+\c@affil=\count169
+\c@collab=\count170
 \absbox=\box46
 ltxgrid[2010/07/25/20:33:00 4.1r page grid package (portions licensed from W. E. Baxter web at superscript.com)]
-\c@linecount=\count167
+\c@linecount=\count171
 \output@latex=\toks15
 \box@size@1=\box47
 \box@size@2=\box48
@@ -54,23 +54,23 @@ ltxgrid[2010/07/25/20:33:00 4.1r page grid package (portions licensed from W. E.
 \column@recovered=\box52
 \pagesofar=\box53
 \footsofar=\box54
-\pagegrid@col=\count168
+\pagegrid@col=\count172
 
 Class revtex4-1 Warning: Failed to recognize \@vspace, \@vspacer, \@no@pgbk, \@newline, and \\; no patches applied. Please get a more up-to-date class, .
 
-\c@part=\count169
-\c@section=\count170
-\c@subsection=\count171
-\c@subsubsection=\count172
-\c@paragraph=\count173
-\c@subparagraph=\count174
+\c@part=\count173
+\c@section=\count174
+\c@subsection=\count175
+\c@subsubsection=\count176
+\c@paragraph=\count177
+\c@subparagraph=\count178
 \abovecaptionskip=\skip49
 \belowcaptionskip=\skip50
-\c@figure=\count175
+\c@figure=\count179
 \fbox@1=\box55
-\c@table=\count176
+\c@table=\count180
 \fbox@2=\box56
-\c@video=\count177
+\c@video=\count181
 \fbox@4=\box57
 \@bibdataout=\write3
 \widetext@top=\box58
@@ -95,7 +95,7 @@ Package: natbib 2010/09/13 8.31b (PWD, AO)
 \bibhang=\skip51
 \bibsep=\skip52
 LaTeX Info: Redefining \cite on input line 694.
-\c@NAT@ctr=\count178
+\c@NAT@ctr=\count182
 )
 Class revtex4-1 Info: Repairing natbib's \BibitemShut on input line 7549.
  (/usr/local/texlive/2020/texmf-dist/tex/latex/revtex/revsymb4-1.sty
@@ -118,9 +118,9 @@ Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
 ) (/usr/local/texlive/2020/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
 File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
 )
-Package graphics Info: Driver file: xetex.def on input line 105.
- (/usr/local/texlive/2020/texmf-dist/tex/latex/graphics-def/xetex.def
-File: xetex.def 2017/06/24 v5.0h Graphics/color driver for xetex
+Package graphics Info: Driver file: pdftex.def on input line 105.
+ (/usr/local/texlive/2020/texmf-dist/tex/latex/graphics-def/pdftex.def
+File: pdftex.def 2018/01/08 v1.0l Graphics/color driver for pdftex
 ))
 \Gin@req@height=\dimen134
 \Gin@req@width=\dimen135
@@ -149,57 +149,58 @@ This is `epsf.tex' v2.7.4 <14 February 2011>
 \epsfysize=\dimen142
 \pspoints=\dimen143
 )
-\rptnum=\count179
-\rptloopnum=\count180
-\fncount=\count181
-\endfncount=\count182
-\c@front@matter@foot@note=\count183
+\rptnum=\count183
+\rptloopnum=\count184
+\fncount=\count185
+\endfncount=\count186
+\c@front@matter@foot@note=\count187
 \keys@width=\skip53
-\c@lastfootnote=\count184
-\tempsectnum=\count185
+\c@lastfootnote=\count188
+\tempsectnum=\count189
 \ackbox=\box60
-\c@remember@figure@num=\count186
-\c@remember@table@num=\count187
+\c@remember@figure@num=\count190
+\c@remember@table@num=\count191
 \bibskip=\skip54
 \bibindent=\dimen144
 \plot@width=\skip55
-\c@table@save=\count188
+\c@table@save=\count192
 \@abovenoteskip=\dimen145
 \table@note@skip=\skip56
 \deluxe@table@width=\skip57
 \@d@t@a=\skip58
-\c@deluxe@table@num=\count189
+\c@deluxe@table@num=\count193
 \LTcapwidth=\dimen146
 \abovedeluxetableskip=\skip59
 \belowdeluxetableskip=\skip60
 \lastrowheight=\dimen147
 \DT@p@ftn=\toks19
-\pt@column=\count190
-\pt@ncol=\count191
+\pt@column=\count194
+\pt@ncol=\count195
  (/usr/local/texlive/2020/texmf-dist/tex/latex/tools/longtable.sty
 Package: longtable 2020/01/07 v4.13 Multi-page Table package (DPC)
 \LTleft=\skip61
 \LTright=\skip62
 \LTpre=\skip63
 \LTpost=\skip64
-\LTchunksize=\count192
+\LTchunksize=\count196
 \LTcapwidth=\dimen148
 \LT@head=\box61
 \LT@firsthead=\box62
 \LT@foot=\box63
 \LT@lastfoot=\box64
-\LT@cols=\count193
-\LT@rows=\count194
-\c@LT@tables=\count195
-\c@LT@chunks=\count196
+\LT@cols=\count197
+\LT@rows=\count198
+\c@LT@tables=\count199
+\c@LT@chunks=\count266
 \LT@p@ftn=\toks20
 ) (/usr/local/texlive/2020/texmf-dist/tex/latex/xcolor/xcolor.sty
 Package: xcolor 2016/05/11 v2.12 LaTeX color extensions (UK)
  (/usr/local/texlive/2020/texmf-dist/tex/latex/graphics-cfg/color.cfg
 File: color.cfg 2016/01/02 v1.6 sample color configuration
 )
-Package xcolor Info: Driver file: xetex.def on input line 225.
+Package xcolor Info: Driver file: pdftex.def on input line 225.
 Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1348.
+Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1352.
 Package xcolor Info: Model `RGB' extended on input line 1364.
 Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1366.
 Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1367.
@@ -220,7 +221,7 @@ Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
 )
 Package pdftexcmds Info: \pdf@primitive is available.
 Package pdftexcmds Info: \pdf@ifprimitive is available.
-Package pdftexcmds Info: \pdfdraftmode not found.
+Package pdftexcmds Info: \pdfdraftmode found.
 ) (/usr/local/texlive/2020/texmf-dist/tex/generic/kvsetkeys/kvsetkeys.sty
 Package: kvsetkeys 2019/12/15 v1.18 Key value parser (HO)
 ) (/usr/local/texlive/2020/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty
@@ -238,16 +239,18 @@ Package: auxhook 2019-12-17 v1.6 Hooks for auxiliary files (HO)
 Package: kvoptions 2019/11/29 v3.13 Key value format for package options (HO)
 )
 \@linkdim=\dimen149
-\Hy@linkcounter=\count197
-\Hy@pagecounter=\count198
+\Hy@linkcounter=\count267
+\Hy@pagecounter=\count268
  (/usr/local/texlive/2020/texmf-dist/tex/latex/hyperref/pd1enc.def
 File: pd1enc.def 2020/01/14 v7.00d Hyperref: PDFDocEncoding definition (HO)
+Now handling font encoding PD1 ...
+... no UTF-8 mapping file for font encoding PD1
 ) (/usr/local/texlive/2020/texmf-dist/tex/generic/intcalc/intcalc.sty
 Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
 ) (/usr/local/texlive/2020/texmf-dist/tex/generic/etexcmds/etexcmds.sty
 Package: etexcmds 2019/12/15 v1.7 Avoid name clashes with e-TeX commands (HO)
 )
-\Hy@SavedSpaceFactor=\count199
+\Hy@SavedSpaceFactor=\count269
 Package hyperref Info: Option `bookmarks' set `true' on input line 4421.
 Package hyperref Info: Option `pdfnewwindow' set `true' on input line 4421.
 Package hyperref Info: Option `colorlinks' set `true' on input line 4421.
@@ -260,7 +263,7 @@ Package hyperref Info: Backreferencing OFF on input line 4567.
 Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
 Package hyperref Info: Bookmarks ON on input line 4800.
 LaTeX Info: Redefining \href on input line 5070.
-\c@Hy@tempcnt=\count266
+\c@Hy@tempcnt=\count270
 LaTeX Info: Redefining \url on input line 5159.
 \XeTeXLinkMargin=\dimen150
  (/usr/local/texlive/2020/texmf-dist/tex/generic/bitset/bitset.sty
@@ -268,7 +271,7 @@ Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
  (/usr/local/texlive/2020/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty
 Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO)
 ))
-\Fld@menulength=\count267
+\Fld@menulength=\count271
 \Field@Width=\dimen151
 \Fld@charsize=\dimen152
 Package hyperref Info: Hyper figures OFF on input line 6430.
@@ -283,28 +286,21 @@ LaTeX Info: Redefining \pageref on input line 6504.
  (/usr/local/texlive/2020/texmf-dist/tex/generic/atbegshi/atbegshi.sty
 Package: atbegshi 2019/12/05 v1.19 At begin shipout hook (HO)
 )
-\Hy@abspage=\count268
-\c@Item=\count269
-\c@Hfootnote=\count270
+\Hy@abspage=\count272
+\c@Item=\count273
+\c@Hfootnote=\count274
 )
-Package hyperref Info: Driver (autodetected): hxetex.
- (/usr/local/texlive/2020/texmf-dist/tex/latex/hyperref/hxetex.def
-File: hxetex.def 2020/01/14 v7.00d Hyperref driver for XeTeX
- (/usr/local/texlive/2020/texmf-dist/tex/latex/hyperref/puenc.def
-File: puenc.def 2020/01/14 v7.00d Hyperref: PDF Unicode definition (HO)
-) (/usr/local/texlive/2020/texmf-dist/tex/generic/stringenc/stringenc.sty
-Package: stringenc 2019/11/29 v1.12 Convert strings between diff. encodings (HO)
-)
-\pdfm@box=\box65
-\c@Hy@AnnotLevel=\count271
-\HyField@AnnotCount=\count272
-\Fld@listcount=\count273
-\c@bookmark@seq@number=\count274
- (/usr/local/texlive/2020/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
-Package: rerunfilecheck 2019/12/05 v1.9 Rerun checks for auxiliary files (HO)
+Package hyperref Info: Driver (autodetected): hpdftex.
+ (/usr/local/texlive/2020/texmf-dist/tex/latex/hyperref/hpdftex.def
+File: hpdftex.def 2020/01/14 v7.00d Hyperref driver for pdfTeX
  (/usr/local/texlive/2020/texmf-dist/tex/latex/atveryend/atveryend.sty
 Package: atveryend 2019-12-11 v1.11 Hooks at the very end of document (HO)
-) (/usr/local/texlive/2020/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty
+)
+\Fld@listcount=\count275
+\c@bookmark@seq@number=\count276
+ (/usr/local/texlive/2020/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
+Package: rerunfilecheck 2019/12/05 v1.9 Rerun checks for auxiliary files (HO)
+ (/usr/local/texlive/2020/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty
 Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
 )
 Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 286.
@@ -313,80 +309,80 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 28
 ) (/usr/local/texlive/2020/texmf-dist/tex/latex/tools/array.sty
 Package: array 2019/08/31 v2.4l Tabular extension package (FMi)
 \col@sep=\dimen153
-\ar@mcellbox=\box66
+\ar@mcellbox=\box65
 \extrarowheight=\dimen154
 \NC@list=\toks21
 \extratabsurround=\skip66
 \backup@length=\skip67
-\ar@cellbox=\box67
+\ar@cellbox=\box66
 )
-\colcount=\count275
-\firstcolcount=\count276
-\secondcolcount=\count277
-\thirdcolcount=\count278
-\columncount=\count279
-\howmanyDs=\count280
-\firsthowmanyDs=\count281
-\secondhowmanyDs=\count282
-\PartsOfTable=\count283
-\columnoneandtwo=\count284
-\colnumsused=\count285
-\loopnum=\count286
-\totalcolumncount=\count287
-\totalcolumns=\count288
-\firsttablebox=\box68
-\secondtablebox=\box69
-\thirdtablebox=\box70
-\longtablebox=\box71
-\splitbox=\box72
+\colcount=\count277
+\firstcolcount=\count278
+\secondcolcount=\count279
+\thirdcolcount=\count280
+\columncount=\count281
+\howmanyDs=\count282
+\firsthowmanyDs=\count283
+\secondhowmanyDs=\count284
+\PartsOfTable=\count285
+\columnoneandtwo=\count286
+\colnumsused=\count287
+\loopnum=\count288
+\totalcolumncount=\count289
+\totalcolumns=\count290
+\firsttablebox=\box67
+\secondtablebox=\box68
+\thirdtablebox=\box69
+\longtablebox=\box70
+\splitbox=\box71
 \movetabledown=\dimen155
 \maxtablewidth=\dimen156
 \savetabskip=\dimen157
-\tempcounter=\count289
-\colheadcount=\count290
-\rotatetablebox=\box73
-\colorcount=\count291
-\refchangenumber=\count292
-\listchangenum=\count293
-
-(/usr/local/texlive/2020/texmf-dist/tex/generic/ulem/ulem.sty
-\UL@box=\box74
-\UL@hyphenbox=\box75
+\tempcounter=\count291
+\colheadcount=\count292
+\rotatetablebox=\box72
+\colorcount=\count293
+\refchangenumber=\count294
+\listchangenum=\count295
+ (/usr/local/texlive/2020/texmf-dist/tex/generic/ulem/ulem.sty
+\UL@box=\box73
+\UL@hyphenbox=\box74
 \UL@skip=\skip68
 \UL@hook=\toks22
 \UL@height=\dimen158
-\UL@pe=\count294
+\UL@pe=\count296
 \UL@pixel=\dimen159
-\ULC@box=\box76
+\ULC@box=\box75
 Package: ulem 2019/11/18
 \ULdepth=\dimen160
 )
-\entriesinthiscollab=\count295
-\allentries=\count296
-\AuthorCollaborationLimit=\count297
-\largestAffilNum=\count298
-\totalentries=\count299
-\docollabnum=\count300
-\tempauthornumber=\count301
-\countauthors=\count302
-\testnum=\count303
-\tempauthorminusone=\count304
-\affilnum=\count305
-\c@affilcount=\count306
-\numauthors=\count307
-\collabnum=\count308
-\collabnamebox=\box77
-\widetext@top=\box78
-\widetext@bot=\box79
+\entriesinthiscollab=\count297
+\allentries=\count298
+\AuthorCollaborationLimit=\count299
+\largestAffilNum=\count300
+\totalentries=\count301
+\docollabnum=\count302
+\tempauthornumber=\count303
+\countauthors=\count304
+\testnum=\count305
+\tempauthorminusone=\count306
+\affilnum=\count307
+\c@affilcount=\count308
+\numauthors=\count309
+\collabnum=\count310
+\collabnamebox=\box76
+\widetext@top=\box77
+\widetext@bot=\box78
 \movetableright=\dimen161
 ) (/usr/local/texlive/2020/texmf-dist/tex/latex/geometry/geometry.sty
 Package: geometry 2020/01/02 v5.9 Page Geometry
- (/usr/local/texlive/2020/texmf-dist/tex/generic/iftex/ifvtex.sty
+
+(/usr/local/texlive/2020/texmf-dist/tex/generic/iftex/ifvtex.sty
 Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
 )
-\Gm@cnth=\count309
-\Gm@cntv=\count310
-\c@Gm@tempcnt=\count311
+\Gm@cnth=\count311
+\Gm@cntv=\count312
+\c@Gm@tempcnt=\count313
 \Gm@bindingoffset=\dimen162
 \Gm@wd@mp=\dimen163
 \Gm@odd@mp=\dimen164
@@ -419,30 +415,30 @@ Package: amsbsy 1999/11/29 v1.2d Bold Symbols
 ) (/usr/local/texlive/2020/texmf-dist/tex/latex/amsmath/amsopn.sty
 Package: amsopn 2016/03/08 v2.02 operator names
 )
-\inf@bad=\count312
+\inf@bad=\count314
 LaTeX Info: Redefining \frac on input line 227.
-\uproot@=\count313
-\leftroot@=\count314
+\uproot@=\count315
+\leftroot@=\count316
 LaTeX Info: Redefining \overline on input line 389.
-\classnum@=\count315
-\DOTSCASE@=\count316
+\classnum@=\count317
+\DOTSCASE@=\count318
 LaTeX Info: Redefining \ldots on input line 486.
 LaTeX Info: Redefining \dots on input line 489.
 LaTeX Info: Redefining \cdots on input line 610.
-\Mathstrutbox@=\box80
-\strutbox@=\box81
+\Mathstrutbox@=\box79
+\strutbox@=\box80
 \big@size=\dimen172
 LaTeX Font Info:    Redeclaring font encoding OML on input line 733.
 LaTeX Font Info:    Redeclaring font encoding OMS on input line 734.
-\macc@depth=\count317
-\c@MaxMatrixCols=\count318
+\macc@depth=\count319
+\c@MaxMatrixCols=\count320
 \dotsspace@=\muskip17
-\c@parentequation=\count319
-\dspbrk@lvl=\count320
+\c@parentequation=\count321
+\dspbrk@lvl=\count322
 \tag@help=\toks25
-\row@=\count321
-\column@=\count322
-\maxfields@=\count323
+\row@=\count323
+\column@=\count324
+\maxfields@=\count325
 \andhelp@=\toks26
 \eqnshift@=\dimen173
 \alignsep@=\dimen174
@@ -459,13 +455,13 @@ LaTeX Info: Redefining \] on input line 2860.
 ) (/usr/local/texlive/2020/texmf-dist/tex/latex/multirow/multirow.sty
 Package: multirow 2019/05/31 v2.5 Span multiple rows of a table
 \multirow@colwidth=\skip72
-\multirow@cntb=\count324
+\multirow@cntb=\count326
 \multirow@dima=\skip73
 \bigstrutjot=\dimen179
 ) (/usr/local/texlive/2020/texmf-dist/tex/latex/makecell/makecell.sty
 Package: makecell 2009/08/03 V0.1e Managing of Tab Column Heads and Cells
 \rotheadsize=\dimen180
-\c@nlinenum=\count325
+\c@nlinenum=\count327
 \TeXr@lab=\toks29
 ) (/usr/local/texlive/2020/texmf-dist/tex/latex/caption/caption.sty
 Package: caption 2020/01/03 v3.4h Customizing captions (AR)
@@ -488,8 +484,8 @@ Package caption Warning: Unknown document class (or package),
 (caption)                standard defaults will be used.
 See the caption package documentation for explanation.
 
-\c@caption@flags=\count326
-\c@continuedfloat=\count327
+\c@caption@flags=\count328
+\c@continuedfloat=\count329
 Package caption Info: hyperref package is loaded.
 Package caption Info: longtable package is loaded.
 (/usr/local/texlive/2020/texmf-dist/tex/latex/caption/ltcaption.sty
@@ -515,12 +511,10 @@ or  <return>  to continue without it.
 Class revtex4-1 Info: cite was not loaded (OK!) on input line 15.
 Class revtex4-1 Info: mcite was not loaded (OK!) on input line 15.
 Class revtex4-1 Info: multicol was not loaded (OK!) on input line 15.
-(/usr/local/texlive/2020/texmf-dist/tex/latex/l3backend/l3backend-xdvipdfmx.def
-File: l3backend-xdvipdfmx.def 2020-03-12 L3 backend support: xdvipdfmx
-\g__graphics_track_int=\count328
-\l__pdf_internal_box=\box82
-\g__pdf_backend_object_int=\count329
-\g__pdf_backend_annotation_int=\count330
+(/usr/local/texlive/2020/texmf-dist/tex/latex/l3backend/l3backend-pdfmode.def
+File: l3backend-pdfmode.def 2020-03-12 L3 backend support: PDF mode
+\l__kernel_color_stack_int=\count330
+\l__pdf_internal_box=\box81
 ) (./joss_table.aux)
 \openout1 = `joss_table.aux'.
 
@@ -533,12 +527,6 @@ LaTeX Font Info:    ... okay on input line 15.
 LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 15.
 LaTeX Font Info:    ... okay on input line 15.
 LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 15.
-LaTeX Font Info:    Trying to load font information for TS1+cmr on input line 15.
- (/usr/local/texlive/2020/texmf-dist/tex/latex/base/ts1cmr.fd
-File: ts1cmr.fd 2019/12/16 v2.5j Standard LaTeX font definitions
-)
-LaTeX Font Info:    ... okay on input line 15.
-LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 15.
 LaTeX Font Info:    ... okay on input line 15.
 LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 15.
 LaTeX Font Info:    ... okay on input line 15.
@@ -546,8 +534,25 @@ LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 15.
 LaTeX Font Info:    ... okay on input line 15.
 LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 15.
 LaTeX Font Info:    ... okay on input line 15.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 15.
-LaTeX Font Info:    ... okay on input line 15.
+ (/usr/local/texlive/2020/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count331
+\scratchdimen=\dimen188
+\scratchbox=\box82
+\nofMPsegments=\count332
+\nofMParguments=\count333
+\everyMPshowfont=\toks30
+\MPscratchCnt=\count334
+\MPscratchDim=\dimen189
+\MPnumerator=\count335
+\makeMPintoPDFobject=\count336
+\everyMPtoPDFconversion=\toks31
+) (/usr/local/texlive/2020/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
+Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
+ (/usr/local/texlive/2020/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
+))
 \AtBeginShipoutBox=\box83
 Package hyperref Info: Link coloring ON on input line 15.
  (/usr/local/texlive/2020/texmf-dist/tex/latex/hyperref/nameref.sty
@@ -557,7 +562,7 @@ Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
 ) (/usr/local/texlive/2020/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
-\c@section@level=\count331
+\c@section@level=\count337
 )
 LaTeX Info: Redefining \ref on input line 15.
 LaTeX Info: Redefining \pageref on input line 15.
@@ -568,9 +573,9 @@ LaTeX Info: Redefining \nameref on input line 15.
 
 
 *geometry* driver: auto-detecting
-*geometry* detected driver: xetex
+*geometry* detected driver: pdftex
 *geometry* verbose mode - [ preamble ] result:
-* driver: xetex
+* driver: pdftex
 * paper: custom
 * layout: <same size as paper>
 * layoutoffset:(h,v)=(0.0pt,0.0pt)
@@ -615,30 +620,34 @@ LaTeX Font Info:    Trying to load font information for U+msb on input line 22.
  (/usr/local/texlive/2020/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-Overfull \hbox (6.84811pt too wide) in paragraph at lines 22--60
+Overfull \hbox (6.81723pt too wide) in paragraph at lines 22--60
  []$ 
  []
 
 
-LaTeX Warning: Float too large for page by 48.1563pt on input line 64.
+LaTeX Warning: Float too large for page by 48.16531pt on input line 64.
 
-(/usr/local/texlive/2020/texmf-dist/tex/generic/stringenc/se-ascii-print.def
-File: se-ascii-print.def 2019/11/29 v1.12 stringenc: Printable ASCII characters
-) [1]
+[1{/usr/local/texlive/2020/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 69.
  (./joss_table.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 69.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 69.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 69.
 Package rerunfilecheck Info: File `joss_table.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 14595 strings out of 479418
- 205672 string characters out of 5884586
- 521349 words of memory out of 5000000
- 31928 multiletter control sequences out of 15000+600000
- 537405 words of font info for 49 fonts, out of 8000000 for 9000
- 1348 hyphenation exceptions out of 8191
- 42i,8n,42p,346b,389s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 11511 strings out of 480608
+ 165606 string characters out of 5903631
+ 490525 words of memory out of 5000000
+ 27220 multiletter control sequences out of 15000+600000
+ 538204 words of font info for 47 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 42i,8n,42p,364b,387s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmss9.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb>
+Output written on joss_table.pdf (1 page, 39011 bytes).
+PDF statistics:
+ 26 PDF objects out of 1000 (max. 8388607)
+ 19 compressed objects within 1 object stream
+ 3 named destinations out of 1000 (max. 500000)
+ 1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
-Output written on joss_table.xdv (1 page, 16504 bytes).
