@@ -38,7 +38,7 @@ The package can be installed using `pip` and imported within python. Using "entr
 
 ![An example of three massive oxygen-rich AGB stars in the Large Magellanic Cloud (LMC) galaxy fit with the default oxygen-rich model grid (Oss-Orich-bb). These three example sources can be fit, and this figure can be created, using the command `desk fit` and then the command `desk sed`.  ](docs/example.png)
 
-![](paper/joss_table.png)
+![](docs/paper/joss_table.png)
 
 ---
 nocite: |
