@@ -1,0 +1,4 @@
+PWD /Users/sgoldman/Documents/GitHub/joss_review/Dusty-Evolved-Star-Kit/paper
+INPUT /usr/local/texlive/2020/texmf.cnf
+INPUT /usr/local/texlive/2020/texmf-dist/web2c/texmf.cnf
+INPUT /usr/local/texlive/2020/texmf-var/web2c/xetex/xelatex.fmt

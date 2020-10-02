@@ -1,0 +1,14 @@
+\begin{thebibliography}{}
+\expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
+\providecommand{\url}[1]{\href{#1}{#1}}
+
+\bibitem[{{Aringer} {et~al.}(2016){Aringer}, {Girardi}, {Nowotny}, {Marigo}, \&
+  {Bressan}}]{Aringer2016}
+{Aringer}, B., {Girardi}, L., {Nowotny}, W., {Marigo}, P., \& {Bressan}, A.
+  2016, \mnras, 457, 3611
+
+\bibitem[{{Ossenkopf} {et~al.}(1992){Ossenkopf}, {Henning}, \&
+  {Mathis}}]{Ossenkopf1992}
+{Ossenkopf}, V., {Henning}, T., \& {Mathis}, J.~S. 1992, \aap, 261, 567
+
+\end{thebibliography}

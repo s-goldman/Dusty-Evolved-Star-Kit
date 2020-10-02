@@ -1,0 +1,69 @@
+%% using aastex version 6.3
+\documentclass[onecolumn]{aastex63}
+% \usepackage[papersize={10in,7in}, left=0.1in,right=0.1in,top=1in,bottom=0.1in]{geometry}
+\usepackage[papersize={7.85in,5.0in}, top=2.0cm, bottom=-0.5cm, left=1.0cm, right=0.25cm]{geometry}
+\usepackage{graphicx}
+\usepackage{ascii}
+\usepackage{amsmath}
+\usepackage{multirow}
+\usepackage{makecell}
+\usepackage{caption}
+\renewcommand{\familydefault}{\sfdefault}
+% \newcommand{\sup}[1]{\textsuperscript{\textbf{}}}
+\captionsetup{font=sf}
+
+\begin{document}
+
+\vspace{3cm}
+\begin{table*}
+    \centering
+    \caption{The model grids available with this version. Shown is the name, size, atmospheric model chemical type of either oxygen (O) or carbon (C), the atmospheric model, and a brief description. \vspace{0.2cm}}
+    % \setlength{\tabcolsep}{0.76em}
+    \begin{tabular}{ l r c c c c c}
+    \hline
+    \textbf{Grid name} & \textbf{Size} & \textbf{Type} & \textbf{Atmospheric model} & \textbf{Optical constants} & \textbf{References} \\
+    \Xhline{3\arrayrulewidth} \\
+    \vspace{0.1cm}
+    Oss-Orich-aringer & 2,000 & O & COMARCS & Warm silicates & 1, 6 \\
+    \vspace{0.1cm}
+    Oss-Orich-bb & 2,000 & O & Black body (BB) & Warm silicates & 6\\
+    \vspace{0.1cm}
+    Crystalline-20-bb & 2,000 & O & BB & 80\% warm silicates, 20\% crystalline silicates & 4, 6\\
+    \vspace{0.1cm}
+    corundum-20-bb & 2,000 & O & BB & 80\% warm silicates, 20\% corundum silicates &  2, 6\\
+    \vspace{0.1cm}
+    big-grain & 2,000 & O & BB & Warm silicates with higher maximum dust grain size of 0.35 &  6\\
+    \vspace{0.1cm}
+    fifth-iron & 500 & O & BB & 80\% warm silicates, 20\% iron grains &  3, 6\\
+    \vspace{0.1cm}
+    half-iron & 500 & O & BB & 50\% warm silicates, 50\% iron grains &  3, 6 \\
+    \vspace{0.1cm}
+    one-fifth-carbon & 500 & O & BB & 80\% warm silicates, 20\% carbonaceous grains &  6, 7\\
+    \vspace{0.1cm}
+    arnold-palmer & 500 & O & BB & 50\% warm silicates, 50\% carbonaceous grains &  6, 7\\
+    \vspace{0.1cm}
+    Zubko-Crich-aringer & 2,000 & C & COMARCS & Amorphous carbon grains &  1, 7\\
+    \vspace{0.1cm}
+    Zubko-Crich-bb & 2,000 & C & BB & Amorphous carbon grains &  7\\
+    \vspace{0.1cm}
+    H11-LMC & 90,899 & C & COMARCS & Dust-growth grid with 1/2 solar metallicity &  5\\
+    \vspace{0.1cm}
+    H11-SMC & 91,058 & C & COMARCS & Dust-growth grid with 1/5 solar metallicity &  5\\
+    \vspace{0.1cm}
+    J1000-LMC & 85,392 & C & COMARCS & Dust-growth grid with 1/2 solar metallicity &  5\\
+    \vspace{0.1cm}
+    J1000-SMC & 85,546 & C & COMARCS & Dust-growth grid with 1/5 solar metallicity & 5\\
+    \\
+    \hline
+    \vspace{-0.3cm}
+    \end{tabular}
+    \begin{flushleft}
+    {{References}: \textbf{1}:\,Aringer et al. (2016), \textbf{2}:\,Begemann et al. (1997), \textbf{3}:\,Henning et al. (1995), \textbf{4}:\,Jaeger et al. (1998), \textbf{5}:\,Nanni et al. (2019), \textbf{6}:\,Ossenkopf et al. (1992), \textbf{7}:\,Zubko et al. (1996)}
+    \end{flushleft}
+
+\end{table*}
+
+\thispagestyle{empty}
+
+
+\end{document}
