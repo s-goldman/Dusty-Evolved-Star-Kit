@@ -81,12 +81,25 @@ To retrieve a model from the DUSTY model grids or to interpolate a model in the 
 `desk save_model Oss-Orich-bb  10000 2700 1000 0.4 50`
 
 
-Attribution
+Citation
 -----------
 
-The method used is similar to that of [Goldman et al. 2017](https://ui.adsabs.harvard.edu/abs/2017MNRAS.465..403G/abstract); a more in-depth publication is in prep. If used please add the following to your acknowledgements:
+Goldman, S. R. 2020, Journal of Open Source Software, 5, 2554, doi: 10.21105/joss.02554
 
-This research has made use of the Dusty Evolved Star Kit (DESK; <https://github.com/s-goldman/Dusty-Evolved-Star-Kit>).
+or with bibtex:
+
+<pre>@article{Goldman2020,
+  doi = {10.21105/joss.02554},
+  url = {https://doi.org/10.21105/joss.02554},
+  year = {2020},
+  publisher = {The Open Journal},
+  volume = {5},
+  number = {54},
+  pages = {2554},
+  author = {Steven R. Goldman},
+  title = {The Dusty Evolved Star Kit (DESK): A Python package for fitting the Spectral Energy Distribution of Evolved Stars},
+  journal = {Journal of Open Source Software}
+}</pre>
 
 Please also specify the options selected and make the data publicly available for reproducibility.
 
