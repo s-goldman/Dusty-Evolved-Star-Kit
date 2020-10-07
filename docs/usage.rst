@@ -100,7 +100,7 @@ console commands.
 
 .. code-block:: console
 
-	>>> import desk
+	>>> from desk import *
 	>>> fit(source="target.csv", distance=3, grid="oxygen")
 
 One can also use the sed, save_model, and grids in a similar fashion.
