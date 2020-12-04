@@ -72,6 +72,8 @@ To produce individual figures for each SED instead use the command:
 
 `desk sed_indiv`
 
+The package can also be used within python (see the [docs](https://dusty-evolved-star-kit.readthedocs.io/en/latest/usage.html#use-in-python-environment)).
+
 
 Retrieve model
 --------------
