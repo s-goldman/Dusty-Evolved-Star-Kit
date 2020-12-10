@@ -111,6 +111,16 @@ One can also use the sed, save_model, and grids in a similar fashion.
 	>>> grids()
 	>>> save_model("Oss-Orich-bb", 10000, 2700, 1000, 0.4, 50)
 	>>> save_model(grid_name="Oss-Orich-bb", luminosity=10000, teff=2700, tinner=1000, tau=0.4, distance_in_kpc=50)
+	
+	
+How reliable in SED-fitting
+---------------------------
+The DESK is a tool designed to allow for the easy comparison of samples and model grids. Taken at face value, the results for a given sample or model grid may give incorrect results. For example, recent work by `Wiegert et al. 2019`_ has shown that the assumed geometry can affect measured mass loss rates by several orders of magnitude. It is up to the user to interpret the results, and I would urge those interested in using the DESK to also take a look at the excellent `recent review`_ by Leen Decin.
+
+
+Using Multi-epoch data
+----------------------------
+The continuum shape of an SED is very useful in constraining values like luminosity and mass-loss rate. For variable evolved stars, however, fluxes can change by orders of magnitude on scales of 200-2000 days. Data taken at different times can alter the observed shape dramtically, and thus using multi-epoch data is discouraged. If a user has a large sample with data in many overlapping bands, the DESK can attempt to fit the median SEDs giving an idea of the properties of the sample as a whole.  
 
 
 Package Testing
@@ -126,3 +136,5 @@ use the command 'pytest' within the pacakge directory.
 .. _issues: https://github.com/s-goldman/Dusty-Evolved-Star-Kit/issues
 .. _tests: https://github.com/s-goldman/Dusty-Evolved-Star-Kit/actions?query=workflow%3A%22Python+package%22
 .. _coverage: https://codecov.io/gh/s-goldman/Dusty-Evolved-Star-Kit
+.. _recent review: https://ui.adsabs.harvard.edu/abs/2020arXiv201113472D/abstract
+.. _Wiegert et al. 2019: https://ui.adsabs.harvard.edu/abs/2020A%26A...642A.142W/abstract
