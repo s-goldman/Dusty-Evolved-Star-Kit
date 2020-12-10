@@ -113,13 +113,13 @@ One can also use the sed, save_model, and grids in a similar fashion.
 	>>> save_model(grid_name="Oss-Orich-bb", luminosity=10000, teff=2700, tinner=1000, tau=0.4, distance_in_kpc=50)
 	
 	
-How reliable in SED-fitting
+How reliable in SED-fitting?
 ---------------------------
 The DESK is a tool designed to allow for the easy comparison of samples and model grids. Taken at face value, the results for a given sample or model grid may give incorrect results. For example, recent work by `Wiegert et al. 2019`_ has shown that the assumed geometry can affect measured mass loss rates by several orders of magnitude. It is up to the user to interpret the results, and I would urge those interested in using the DESK to also take a look at the excellent `recent review`_ by Leen Decin.
 
 
 Using Multi-epoch data
-----------------------------
+-----------------------
 The continuum shape of an SED is very useful in constraining values like luminosity and mass-loss rate. For variable evolved stars, however, fluxes can change by orders of magnitude on scales of 200-2000 days. Data taken at different times can alter the observed shape dramtically, and thus using multi-epoch data is discouraged. If a user has a large sample with data in many overlapping bands, the DESK can attempt to fit the median SEDs giving an idea of the properties of the sample as a whole.  
 
 
