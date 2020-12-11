@@ -47,6 +47,7 @@ def get_remote_models(model_grid_name):
 
     """
     repository = 4310340
+
     fname_dld_outputs = download_file(
         "https://zenodo.org/record/"
         + str(repository)
@@ -133,7 +134,7 @@ def get_model_grid(grid, testing=False):
     elif grid == "oxygen":
         model_grid = "Oss-Orich-bb"
     else:
-        if grid in config.grids:
+        if (grid in config.grids) | (grid in config.nanni_grids):
             model_grid = grid
         else:
             raise ValueError(

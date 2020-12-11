@@ -17,7 +17,7 @@ class instantiate:
         self.distance = distance
         # factor to multiply the model flux by to scale flux to a 1 Lsun star at
         # user-given given distance
-        # derived using L/Lsun=4*pi*(d/dsun)^2 * F/Fsun
+        # derived using L/Lsun=(d/dsun)^2 * F/Fsun
         # Fsun = 1379 W m-2
         self.scaling_factor_flux_to_Lsun = (
             (float(distance) / u.AU.to(u.kpc)) ** 2

@@ -12,6 +12,3 @@ dependencies:
     - sphinx-astropy
     - sphinx_automodapi
     - Pillow
-
-  # - pip:
-  #     - numpy
