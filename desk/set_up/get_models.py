@@ -46,13 +46,18 @@ def get_remote_models(model_grid_name):
         Name of model grid to download.
 
     """
+    repository = 4310340
     fname_dld_outputs = download_file(
-        "https://zenodo.org/record/4310340/files/"
+        "https://zenodo.org/record/"
+        + str(repository)
+        + "/files/"
         + model_grid_name
         + "_outputs.hdf5?download=1"
     )
     fname_dld_models = download_file(
-        "https://zenodo.org/record/4310340/files/"
+        "https://zenodo.org/record/"
+        + str(repository)
+        + "/files/"
         + model_grid_name
         + "_models.hdf5?download=1"
     )
