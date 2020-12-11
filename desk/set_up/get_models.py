@@ -4,8 +4,6 @@ import sys
 import ipdb
 import numpy as np
 import h5py
-
-# import urllib
 from shutil import copyfile
 from astropy.table import Table, Column
 from astropy.utils.data import download_file
@@ -48,57 +46,17 @@ def get_remote_models(model_grid_name):
         Name of model grid to download.
 
     """
-
-    models = {
-        "arnold-palmer": "https://stsci.box.com/shared/static/5uw23xy6dzrjeb012tw8250r6zfquq1d.hdf5",
-        "big-grains": "https://stsci.box.com/shared/static/iwd1wi62rosqhxps2m5ebl8jmv7edx1z.hdf5",
-        "corundum-20-bb": "https://stsci.box.com/shared/static/y4ayifjft106j9qbnrc1nl7gly9ajsof.hdf5",
-        "Crystalline-20-bb": "https://stsci.box.com/shared/static/9dnzbkhlfvwsfoocelkfop49wpo3ahig.hdf5",
-        "fifth-iron": "https://stsci.box.com/shared/static/xtqkm8htmr3xe1n0mcl2p27smtan93a2.hdf5",
-        "grams-carbon": "https://stsci.box.com/shared/static/bb8em53lug4a3alggndcqro6cxxv4rkk.hdf5",
-        "grams-oxygen": "https://stsci.box.com/shared/static/12oqk52b52sghzo9zb6smxcvwm0zsxqf.hdf5",
-        "H11-LMC": "https://stsci.box.com/shared/static/hgnmd8jwem3pm3ewjazdpssu9fst60hl.hdf5",
-        "H11-SMC": "https://stsci.box.com/shared/static/ofes4gsscf0y8g8fu72alu5cx40lry58.hdf5",
-        "half-iron": "https://stsci.box.com/shared/static/q5j9ey5ci5vtu2nnl6qf76entxt3xsr5.hdf5",
-        "J1000-LMC": "https://stsci.box.com/shared/static/3ed8e7ulpu30cbyri3ex7m08g5jztk6m.hdf5",
-        "J1000-SMC": "https://stsci.box.com/shared/static/a7j1z18sz4mr3k2dxqj5cob6wqutfcad.hdf5",
-        "one-fifth-carbon": "https://stsci.box.com/shared/static/olpt7phvjd4kin6wn0w9y1wez9037f73.hdf5",
-        "Oss-Orich-aringer": "https://stsci.box.com/shared/static/xytr8t139h8zuanwtf773a8bzt32bxcc.hdf5",
-        "Oss-Orich-bb": "https://stsci.box.com/shared/static/arczjrc25xi601rlwxco08b14vabpp52.hdf5",
-        "Zubko-Crich-aringer": "https://stsci.box.com/shared/static/yq8vbohgybuo7nmkwu0w535q6tjeyw1v.hdf5",
-        "Zubko-Crich-bb": "https://stsci.box.com/shared/static/4ocskl59q8tvrhxbpcvpo26qm1wy9ytg.hdf5",
-    }
-    outputs = {
-        "arnold-palmer": "https://stsci.box.com/shared/static/bc8up4ra3b1a8crpebnjvhl9bxnhws52.hdf5",
-        "big-grains": "https://stsci.box.com/shared/static/apiwiek17yjjey6hx7b87w5oeupnxbq7.hdf5",
-        "corundum-20-bb": "https://stsci.box.com/shared/static/o6bx04qfbs4nof93e16jr0gl0lt04vmi.hdf5",
-        "Crystalline-20-bb": "https://stsci.box.com/shared/static/aee6evhqfp6m8p8wsqnj6finsxj022bq.hdf5",
-        "fifth-iron": "https://stsci.box.com/shared/static/4jkhznyw1566wprc4w3og0ps2e6pyk60.hdf5",
-        "grams-carbon": "https://stsci.box.com/shared/static/m0gc3eils06b0zcy1t75l8x6h8ftpij1.hdf5",
-        "grams-oxygen": "https://stsci.box.com/shared/static/mc6h7hhew918du9nudez1w2obja1ydqy.hdf5",
-        "H11-LMC": "https://stsci.box.com/shared/static/ndzqw7s6yr8kmmkq71hnvi10gb42fx6k.hdf5",
-        "H11-SMC": "https://stsci.box.com/shared/static/9q7yh6mawezxbt5ipvmqrui2r0gld4f0.hdf5",
-        "half-iron": "https://stsci.box.com/shared/static/r26hehfxy92cb5cweihkl9159xr9a7fe.hdf5",
-        "J1000-LMC": "https://stsci.box.com/shared/static/242covljjj7iri59tjsd9ah80rbgsptg.hdf5",
-        "J1000-SMC": "https://stsci.box.com/shared/static/ampoqu2a9azpmrql09b51lv8rch2ubmb.hdf5",
-        "one-fifth-carbon": "https://stsci.box.com/shared/static/vfg9ab4gs1y5zsvmrd8qd1g3xhfno4nz.hdf5",
-        "Oss-Orich-aringer": "https://stsci.box.com/shared/static/t75dvs50380lpffsjh2f4yjrvgoi8r4y.hdf5",
-        "Oss-Orich-bb": "https://stsci.box.com/shared/static/ov83sjmx69ddgy8bahg5p8yu2c2gxfqo.hdf5",
-        "Zubko-Crich-aringer": "https://stsci.box.com/shared/static/0nrjesla9jgxh8ioatnmrmrc5tkcf3pf.hdf5",
-        "Zubko-Crich-bb": "https://stsci.box.com/shared/static/d0651w7ztavoiir7341lda8xzbwrfq9g.hdf5",
-    }
-
-    if model_grid_name in models:
-        url_outputs = outputs[model_grid_name]
-        url_models = models[model_grid_name]
-    else:
-        raise ValueError(
-            "ERROR: Model name not an option. \nCurrent downloadable options: \n \t Zubko-Crich-aringer \n \t Oss-Orich-bb \n \t Oss-Orich-aringer \n \t Crystalline-20-bb \n \t corundum-20-bb \n \t arnold-palmer \n \t big-grains \n \t fifth-iron \n \t one-fifth-carbon"
-        )
-
-    fname_dld_outputs = download_file(url_outputs)
-    fname_dld_models = download_file(url_models)
-
+    fname_dld_outputs = download_file(
+        "https://zenodo.org/record/4310340/files/"
+        + model_grid_name
+        + "_outputs.hdf5?download=1"
+    )
+    fname_dld_models = download_file(
+        "https://zenodo.org/record/4310340/files/"
+        + model_grid_name
+        + "_models.hdf5?download=1"
+    )
+    ipdb.set_trace()
     copyfile(
         fname_dld_outputs, config.path + "models/" + model_grid_name + "_outputs.hdf5"
     )
@@ -106,34 +64,6 @@ def get_remote_models(model_grid_name):
         fname_dld_models, config.path + "models/" + model_grid_name + "_models.hdf5"
     )
     # \n Padova options: J400, J1000, H11, R12, R13'
-
-    print("Download Complete!")
-
-
-def check_file_size(model_grid, full_path_filename, sizes):
-    """Checks if model grid the correct size using csv table in models directory.
-    This avoids error if download was interupted and model files are incomplete.
-    If discrepancy, the models are re-downloaded.
-
-    Parameters
-    ----------
-    model_grid : str
-        Name of model grid to use.
-    full_path_filename : str
-        Full path to filename being checked.
-    sizes : astropy table
-        Table of model_grid files and their associated filesizes.
-
-    """
-    filename = full_path_filename.split("/")[-1][:-5]  # removes .hdf5 extension
-    remote_size = sizes[sizes["filename"] == filename]["size"][0]
-    user_size = os.path.getsize(full_path_filename)
-    if remote_size != user_size:
-        print(
-            "Warning: The download of the model grid was previously interupted. "
-            + "Redownloading model grid.\n"
-        )
-        get_remote_models(model_grid)
 
 
 def check_models(model_grid, size_filename="desk_model_grid_sizes.csv"):
@@ -158,13 +88,10 @@ def check_models(model_grid, size_filename="desk_model_grid_sizes.csv"):
 
     outputs_file = config.path + "models/" + model_grid + "_outputs.hdf5"
     models_file = config.path + "models/" + model_grid + "_models.hdf5"
-    sizes = Table.read(config.path + "models/" + size_filename, format="csv")
 
     # Checks if grid is available
     if os.path.isfile(outputs_file) and os.path.isfile(models_file):
         print("\nYou already have the grid!\n")
-        check_file_size(model_grid, models_file, sizes)
-        check_file_size(model_grid, outputs_file, sizes)
 
     else:
         # asks if you want to download the models
