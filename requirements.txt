@@ -1,5 +1,4 @@
 astropy
-numpy
 scipy
 tqdm
 ipdb
