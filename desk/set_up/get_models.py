@@ -56,7 +56,7 @@ def get_remote_models(model_grid_name):
         + model_grid_name
         + "_models.hdf5?download=1"
     )
-    ipdb.set_trace()
+
     copyfile(
         fname_dld_outputs, config.path + "models/" + model_grid_name + "_outputs.hdf5"
     )
