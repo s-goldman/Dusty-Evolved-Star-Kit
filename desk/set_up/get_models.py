@@ -4,8 +4,11 @@ import sys
 import ipdb
 import numpy as np
 import h5py
-import urllib
+
+# import urllib
+from shutil import copyfile
 from astropy.table import Table, Column
+from astropy.utils.data import download_file
 from desk.set_up import config
 
 
@@ -45,22 +48,6 @@ def get_remote_models(model_grid_name):
         Name of model grid to download.
 
     """
-
-    def reporthook(blocknum, blocksize, totalsize):
-        readsofar = blocknum * blocksize
-        if totalsize > 0:
-            percent = readsofar * 1e2 / totalsize
-            s = "\r%5.0f%% %*d / %d KB" % (
-                percent,
-                len(str(totalsize)),
-                readsofar / 1e3,
-                totalsize / 1e3,
-            )
-            sys.stderr.write(s)
-            if readsofar >= totalsize:  # near the end
-                sys.stderr.write("\n")
-        else:  # total size is unknown
-            sys.stderr.write("read %d\n" % (readsofar,))
 
     models = {
         "arnold-palmer": "https://stsci.box.com/shared/static/5uw23xy6dzrjeb012tw8250r6zfquq1d.hdf5",
@@ -109,18 +96,17 @@ def get_remote_models(model_grid_name):
             "ERROR: Model name not an option. \nCurrent downloadable options: \n \t Zubko-Crich-aringer \n \t Oss-Orich-bb \n \t Oss-Orich-aringer \n \t Crystalline-20-bb \n \t corundum-20-bb \n \t arnold-palmer \n \t big-grains \n \t fifth-iron \n \t one-fifth-carbon"
         )
 
+    fname_dld_outputs = download_file(url_outputs)
+    fname_dld_models = download_file(url_models)
+
+    copyfile(
+        fname_dld_outputs, config.path + "models/" + model_grid_name + "_outputs.hdf5"
+    )
+    copyfile(
+        fname_dld_models, config.path + "models/" + model_grid_name + "_models.hdf5"
+    )
     # \n Padova options: J400, J1000, H11, R12, R13'
 
-    # Download files
-    print(". . . Downloading model: " + model_grid_name + " . . .")
-    urllib.request.urlretrieve(
-        url_outputs, config.path + "/models/" + model_grid_name + "_outputs.hdf5"
-    )
-    urllib.request.urlretrieve(
-        url_models,
-        config.path + "/models/" + model_grid_name + "_models.hdf5",
-        reporthook,
-    )
     print("Download Complete!")
 
 
