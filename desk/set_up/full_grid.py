@@ -4,7 +4,7 @@ import ipdb
 from tqdm import tqdm
 import numpy as np
 import astropy.units as u
-from desk.set_up import config, scale_dusty, scale_nanni
+from desk.set_up import config, scale_dusty, scale_external
 
 
 class instantiate:
@@ -17,7 +17,7 @@ class instantiate:
         self.distance = distance
         # factor to multiply the model flux by to scale flux to a 1 Lsun star at
         # user-given given distance
-        # derived using L/Lsun=4*pi*(d/dsun)^2 * F/Fsun
+        # derived using L/Lsun=(d/dsun)^2 * F/Fsun
         # Fsun = 1379 W m-2
         self.scaling_factor_flux_to_Lsun = (
             (float(distance) / u.AU.to(u.kpc)) ** 2
@@ -64,8 +64,8 @@ def retrieve(full_grid_params):
 
     """
 
-    if full_grid_params.grid in config.nanni_grids:
-        full_outputs, full_model_grid = scale_nanni.scale(
+    if full_grid_params.grid in config.external_grids:
+        full_outputs, full_model_grid = scale_external.scale_by_distance(
             full_grid_params.grid_outputs,
             full_grid_params.grid_dusty,
             full_grid_params.scaling_factor_flux_to_Lsun,

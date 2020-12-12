@@ -23,8 +23,11 @@ def grids():
     """Prints the model grids available for fitting.
 
     """
-    print("\nGrids:")
+    print("\nDUSTY Grids:")
     for item in config.grids:
+        print("\t" + str(item))
+    print("\nExternal Grids:")
+    for item in config.external_grids:
         print("\t" + str(item))
     print("\n")
 
@@ -176,8 +179,7 @@ def fit(
     # remove old / create new output files
     create_output_files.make_output_files_dusty(fit_params)
 
-
-    if testing==False:
+    if testing == False:
         # Get number of cores to use
         # trys (moves to except if not int(bool))
         try:
@@ -203,10 +205,12 @@ def fit(
             )
         # check if less than 1
         elif n_cores < 1:
-            raise ValueError("Invalid multiprocessing options. Value must be positive: "
-            + str(multiprocessing))
+            raise ValueError(
+                "Invalid multiprocessing options. Value must be positive: "
+                + str(multiprocessing)
+            )
 
-    elif testing==True:
+    elif testing == True:
         # ignore n_cores and replace with 1 if in testing mode
         n_cores = 1
     else:

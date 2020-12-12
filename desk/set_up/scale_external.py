@@ -2,8 +2,8 @@ import numpy as np
 from astropy.table import Column, Table
 
 
-def scale(_outputs, _models, scaling_factor):
-    """Scale nanni et al models.
+def scale_by_distance(_outputs, _models, scaling_factor):
+    """Scale external model fluxes and normalization value.
 
     Parameters
     ----------
@@ -22,20 +22,12 @@ def scale(_outputs, _models, scaling_factor):
         astropy table with sclaed fluxes
 
     """
-    # scale fluxes and normalization value
-    _outputs.add_column(
-        Column(np.arange(1, len(_outputs) + 1), name="number"), index=0
-    )
-    _outputs.rename_columns(
-        ["L", "vexp", "mdot"], ["lum", "scaled_vexp", "scaled_mdot"]
-    )
-
     # get log normalization for model
     _outputs["norm"] = np.log10(_outputs["norm"] / scaling_factor * _outputs["lum"])
 
     # scale grid_fluxes
     scaled_models = []
-    print("Scaling model grid to distance (" + str(len(_models)) + " models)")
+    print("Scaling model grid by distance (" + str(len(_models)) + " models)")
 
     for i, lum_val in enumerate(_outputs["lum"]):
         scaled_flux_array = np.multiply(
