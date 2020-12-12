@@ -25,7 +25,7 @@ grids = [
     "half-iron",
     "one-fifth-carbon",
 ]
-nanni_grids = [
+external_grids = [
     "H11-LMC",
     "H11-SMC",
     "J1000-LMC",

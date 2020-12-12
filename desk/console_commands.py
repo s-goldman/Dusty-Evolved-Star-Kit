@@ -27,7 +27,7 @@ def grids():
     for item in config.grids:
         print("\t" + str(item))
     print("\nExternal Grids:")
-    for item in config.nanni_grids:
+    for item in config.external_grids:
         print("\t" + str(item))
     print("\n")
 

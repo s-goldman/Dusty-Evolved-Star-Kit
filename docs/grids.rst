@@ -104,8 +104,8 @@ J1000-SMC (*N*\ =85,546; 724 MB): A carbon-rich grid for the SMC metallicity
 -------------------------
 
 
-The GRAMS model grids (Currently in development)
-================================================
+The GRAMS model grids
+=====================
 
 The GRAMS model grids from `Sargent et al. (2011)`_ and `Srinivasan et al. (2011)`_.
 

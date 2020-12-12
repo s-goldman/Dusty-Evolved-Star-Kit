@@ -134,7 +134,7 @@ def get_model_grid(grid, testing=False):
     elif grid == "oxygen":
         model_grid = "Oss-Orich-bb"
     else:
-        if (grid in config.grids) | (grid in config.nanni_grids):
+        if (grid in config.grids) | (grid in config.external_grids):
             model_grid = grid
         else:
             raise ValueError(

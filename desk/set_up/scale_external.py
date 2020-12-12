@@ -3,8 +3,8 @@ import numpy as np
 from astropy.table import Column, Table
 
 
-def scale(_outputs, _models, scaling_factor):
-    """Scale nanni et al model fluxes and normalization value.
+def scale_by_distance(_outputs, _models, scaling_factor):
+    """Scale external model fluxes and normalization value.
 
     Parameters
     ----------
