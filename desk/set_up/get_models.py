@@ -119,10 +119,9 @@ def get_model_grid(grid, testing=False):
 
     Returns
     -------
-    grid_dusty : 2 column astropy table with array of wavelengths and array of
-    fluxes in each column of each row
-        The (intial) model grid wavelengths and fluxes. This is not the full model
-        grid with appended scaled models.
+    grid_dusty : 2 column astropy table with array of wavelengths (um) and array of
+    fluxes (Wm^2) in each column of each row. The (intial) model grid wavelengths and fluxes. 
+    This is not the full model grid with appended scaled models.
 
     grid_outputs : astropy table
         The model grid parameters corresponding to the grid_dusty model grids
