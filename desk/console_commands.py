@@ -109,7 +109,7 @@ def fit(
     n=config.fitting["default_number_of_times_to_scale_models"],
     min_wavelength=config.fitting["default_wavelength_min"],
     max_wavelength=config.fitting["default_wavelength_max"],
-    multiprocessing=True,
+    multiprocessing=cpu_count() - 1,
     testing=False,
 ):
     """
