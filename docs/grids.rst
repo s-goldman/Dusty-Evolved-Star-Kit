@@ -2,11 +2,13 @@
 Grids
 =====
 
+The DESK_ downloads and fits both new and commonly-used model grids, automatically.
+The grids are also available for download on Zenodo_.
+
 DUSTY model grids
 -----------------
 
-The models currently available with the DESK are created using the DUSTY_ code.
-The DUSTY models are 1-D radiative transfer models that exploit
+The DUSTY_ models are 1-D radiative transfer models that exploit
 scaling relations to generate models. The model shape can be scaled
 to any luminosity, expansion velocity, or mass-loss rate so long as the
 combination of these three parameters remains the same. The DESK model grids
@@ -131,6 +133,8 @@ code for the LMC metallicity (1/2 solar) using optical constants from
 
    - Warning: results uncertain outside of a distance 20-150 kpc.
 
+.. _DESK: https://github.com/s-goldman/Dusty-Evolved-Star-Kit
+.. _Zenodo: https://zenodo.org/record/4574453
 .. _DUSTY: https://github.com/ivezic/dusty
 .. _Elitzur & Ivezić 2001: https://ui.adsabs.harvard.edu/abs/2001MNRAS.327..403E/abstract
 .. _Sargent et al. (2011): https://ui.adsabs.harvard.edu/abs/2011ApJ...728...93S/abstract
