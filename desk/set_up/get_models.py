@@ -46,7 +46,8 @@ def get_remote_models(model_grid_name):
         Name of model grid to download.
 
     """
-    repository = 4317932
+    # update if zeonodo repository updated
+    repository = 4574453
 
     fname_dld_outputs = download_file(
         "https://zenodo.org/record/"
@@ -120,7 +121,7 @@ def get_model_grid(grid, testing=False):
     Returns
     -------
     grid_dusty : 2 column astropy table with array of wavelengths (um) and array of
-    fluxes (Wm^2) in each column of each row. The (intial) model grid wavelengths and fluxes. 
+    fluxes (Wm^2) in each column of each row. The (intial) model grid wavelengths and fluxes.
     This is not the full model grid with appended scaled models.
 
     grid_outputs : astropy table
