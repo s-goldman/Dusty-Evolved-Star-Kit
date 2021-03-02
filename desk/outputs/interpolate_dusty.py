@@ -99,7 +99,7 @@ def interpolate(grid_name, luminosity, teff_new, tinner_new, tau_new, distance_i
     """
 
     # Not available yet for external model grids (grids too large)
-    if grid_name in config.external_grids:
+    if (grid_name in config.external_grids) | (grid_name == "desk-mix"):
         raise Exception("Currently unavailable for external model grids.")
 
     # scaling factor

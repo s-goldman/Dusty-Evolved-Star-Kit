@@ -155,6 +155,7 @@ def fit(
         grid, grid_dusty, grid_outputs, float(distance), int(n)
     )
     # scale to full grids and get distance scaling factors
+
     full_outputs, full_model_grid = full_grid.retrieve(full_grid_params)
 
     # get model wavelengths
@@ -183,7 +184,7 @@ def fit(
         # Get number of cores to use
         # trys (moves to except if not int(bool))
         try:
-            n_cores = int(multiprocessing)
+            n_cores = isinstance(int(multiprocessing), int)
 
         # if True: max cores - 1, if False: 1 core
         except:
@@ -210,7 +211,7 @@ def fit(
                 + str(multiprocessing)
             )
 
-    elif testing == True:
+    elif (testing == True) | (grid == "desk-mix"):
         # ignore n_cores and replace with 1 if in testing mode
         n_cores = 1
     else:
