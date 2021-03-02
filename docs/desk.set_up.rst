@@ -68,10 +68,10 @@ desk.set\_up.scale\_dusty module
    :undoc-members:
    :show-inheritance:
 
-desk.set\_up.scale\_nanni module
---------------------------------
+desk.set\_up.scale\_external module
+-----------------------------------
 
-.. automodule:: desk.set_up.scale_nanni
+.. automodule:: desk.set_up.scale_external
    :members:
    :undoc-members:
    :show-inheritance:

@@ -1,23 +1,31 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>desk &mdash; Dusty-Evolved-Star-Kit 1.6.24 documentation</title>
+  <title>desk &mdash; Dusty-Evolved-Star-Kit 1.8.1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
   
 
   
   
-  
+
   
 
   
-  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -29,10 +37,6 @@
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="desk package" href="desk.html" />
@@ -63,7 +67,7 @@
             
             
               <div class="version">
-                1.6.24
+                1.8.1
               </div>
             
           
@@ -80,6 +84,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -89,6 +94,7 @@
             
               <p class="caption"><span class="caption-text">Installation:</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="readme.html">Dusty-Evolved-Star-Kit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 </ul>
 <p class="caption"><span class="caption-text">User Documentation:</span></p>
@@ -106,6 +112,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -140,18 +147,20 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="index.html">Docs</a> &raquo;</li>
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
       <li>desk</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="_sources/modules.rst.txt" rel="nofollow"> View page source</a>
           
         
@@ -170,11 +179,51 @@
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="desk.html">desk package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="desk.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="desk.fitting.html">desk.fitting package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="desk.fitting.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="desk.fitting.html#module-desk.fitting.dusty_fit">desk.fitting.dusty_fit module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="desk.fitting.html#module-desk.fitting.fitting_tools">desk.fitting.fitting_tools module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="desk.fitting.html#module-desk.fitting">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="desk.outputs.html">desk.outputs package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="desk.outputs.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="desk.outputs.html#module-desk.outputs.interpolate_dusty">desk.outputs.interpolate_dusty module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="desk.outputs.html#module-desk.outputs.parameter_ranges">desk.outputs.parameter_ranges module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="desk.outputs.html#module-desk.outputs.plot_pdf">desk.outputs.plot_pdf module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="desk.outputs.html#module-desk.outputs.plotting_seds">desk.outputs.plotting_seds module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="desk.outputs.html#module-desk.outputs">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="desk.probabilities.html">desk.probabilities package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="desk.probabilities.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="desk.probabilities.html#module-desk.probabilities.compute_grid_weights">desk.probabilities.compute_grid_weights module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="desk.probabilities.html#module-desk.probabilities.create_pdf">desk.probabilities.create_pdf module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="desk.probabilities.html#module-desk.probabilities.create_prior">desk.probabilities.create_prior module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="desk.probabilities.html#module-desk.probabilities.resample_prior_to_model_grid">desk.probabilities.resample_prior_to_model_grid module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="desk.probabilities.html#module-desk.probabilities">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="desk.set_up.html">desk.set_up package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="desk.set_up.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="desk.set_up.html#module-desk.set_up.config">desk.set_up.config module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="desk.set_up.html#module-desk.set_up.create_output_files">desk.set_up.create_output_files module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="desk.set_up.html#module-desk.set_up.error_messages">desk.set_up.error_messages module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="desk.set_up.html#module-desk.set_up.full_grid">desk.set_up.full_grid module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="desk.set_up.html#module-desk.set_up.get_data">desk.set_up.get_data module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="desk.set_up.html#module-desk.set_up.get_inputs">desk.set_up.get_inputs module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="desk.set_up.html#module-desk.set_up.get_models">desk.set_up.get_models module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="desk.set_up.html#module-desk.set_up.scale_dusty">desk.set_up.scale_dusty module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="desk.set_up.html#desk-set-up-scale-nanni-module">desk.set_up.scale_nanni module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="desk.set_up.html#module-desk.set_up">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="desk.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="desk.html#module-desk.fitting">desk.fitting module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="desk.html#module-desk.probabilities">desk.probabilities module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="desk.html#module-desk.set_up">desk.set_up module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="desk.html#module-desk.tests">desk.tests module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="desk.html#module-desk.console_commands">desk.console_commands module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="desk.html#module-desk.main">desk.main module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="desk.html#module-desk">Module contents</a></li>
 </ul>
 </li>
@@ -187,29 +236,29 @@
            
           </div>
           <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="desk.html" class="btn btn-neutral float-right" title="desk package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="grids.html" class="btn btn-neutral float-left" title="Grids" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+        <a href="desk.html" class="btn btn-neutral float-right" title="desk package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="grids.html" class="btn btn-neutral float-left" title="Grids" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2019, Steven R. Goldman
+        &#169; Copyright 2019, Steven R. Goldman.
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 
@@ -217,7 +266,6 @@
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {
