@@ -2,7 +2,6 @@ astropy
 scipy
 tqdm
 ipdb
-time
 matplotlib
 sklearn
 h5py
