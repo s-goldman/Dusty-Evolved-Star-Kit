@@ -218,6 +218,12 @@ def fit(
         raise ValueError("Invalid testing options: " + str(testing))
 
     # Fitting
+    print("\nFit parameters\n--------------")
+    print("Grid: \t\t" + grid)
+    print("Distance: \t" + str(distance) + " kpc")
+    print("Grid density: \t" + str(n))
+    print("Cores: \t\t" + str(multiprocessing))
+
     if n_cores == 1:
         # Single-core fitting
         [dusty_fit.fit_single_source(x, fit_params) for x in range(len(file_names))]
@@ -228,6 +234,7 @@ def fit(
         mapfunc = partial(dusty_fit.fit_single_source, fit_params=fit_params)
         pool.map(mapfunc, range(len(file_names)), chunksize=1)
 
+    print("See fitting_results.csv for more information.")
     # automatically create sed figure
     # plotting_seds.create_fig()
 

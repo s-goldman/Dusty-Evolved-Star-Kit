@@ -138,7 +138,7 @@ def get_model_grid(grid, testing=False):
             model_grid = grid
         else:
             raise ValueError(
-                "\n\nUnknown grid. Please make another model selection.\n\n To see options use: desk grids\n"
+                "\n\nUnknown grid. Please make another model selection.\n\n To see options use: desk grids or desk.grids() in python"
             )
     outputs_file_name, models_file_name = check_models(model_grid)
 
