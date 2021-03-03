@@ -1,5 +1,45 @@
 import ipdb
 import numpy as np
+from astropy.table import Table
+
+
+def trim_grid(data, fit_params):
+    """Trims model grid wavelengths and fluxes before fitting.
+
+    Parameters
+    ----------
+    data : 2-D array
+        input data in 2-D array of wavelength and flux.
+    fit_params : Class
+        fit parameters.
+
+    Returns
+    -------
+    trimmed_model_wavelength : array
+        Trimmed model wavelengths in microns
+    trimmed_model_fluxes: astropy Table (1 column, array in each row)
+        Trimmed model fluxes in W*M^-2
+
+    """
+    data_wavelength_min = np.amin(data[0])
+    data_wavelength_max = np.amax(data[0])
+    lower_trim_model_index = np.where(
+        fit_params.model_wavelength_grid < data_wavelength_min
+    )[0][-1]
+    upper_trim_model_index = (
+        np.where(fit_params.model_wavelength_grid > data_wavelength_max)[0][0] + 1
+    )
+    trimmed_model_wavelength = fit_params.model_wavelength_grid[
+        lower_trim_model_index:upper_trim_model_index
+    ]
+    trimmed_model_fluxes = Table(
+        [
+            fit_params.full_model_grid["flux_wm2"][
+                :, lower_trim_model_index:upper_trim_model_index
+            ]
+        ]
+    )
+    return trimmed_model_wavelength, trimmed_model_fluxes
 
 
 class fit:
@@ -7,35 +47,6 @@ class fit:
     """
     Fitting tools for least square fit.
     """
-
-    def trim(data, model_trim):
-
-        """
-        Removes data outside of wavelegth range of model grid.
-
-        Parameters
-        ----------
-        data : 2-D array
-            input data in 2-D array of wavelength and flux.
-        model_trim : type
-            input model in 2-D array of wavelength and flux.
-
-        Returns
-        -------
-        model_trimmed_wavelengths : array
-            Trimmed model wavelengths in microns
-        model_trimmed_fluxes: array
-            Trimmed model fluxes in W*M^-2
-        """
-        indexes = np.where(
-            np.logical_and(
-                model_trim[0] >= np.min(data[0]), model_trim[0] <= np.max(data[0])
-            )
-        )
-        model_trimmed_wavelengths = model_trim[0][indexes]
-        model_trimmed_fluxes = model_trim[1][indexes]
-
-        return model_trimmed_wavelengths, model_trimmed_fluxes
 
     def find_closest(data_wave, model_wave, model_flux):
 
@@ -104,10 +115,8 @@ class fit:
             chi square value.
 
         """
-        trimmed_model_wave, trimmed_model_flux = fit.trim(data, model)
-        matched_model = fit.find_closest(
-            data[0], trimmed_model_wave, trimmed_model_flux
-        )
+
+        matched_model = fit.find_closest(data[0], model[0], model[1])
         liklihood = fit.least2_liklihood(data[1], matched_model)
-        # ipdb.set_trace()
+
         return liklihood

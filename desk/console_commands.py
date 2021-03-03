@@ -15,6 +15,7 @@ from desk.set_up import (
 )
 from desk.fitting import dusty_fit
 from desk.outputs import plotting_seds, interpolate_dusty
+import time
 
 desk_path = str(__file__.replace("console_commands.py", ""))
 
@@ -141,6 +142,9 @@ def fit(
     """
 
     # Set-up ###################################################################
+    # timer
+    startTime = time.time()
+
     # bayesian fitting currently in development
     bayesian_fit = False
 
@@ -235,8 +239,18 @@ def fit(
         pool.map(mapfunc, range(len(file_names)), chunksize=1)
 
     print("See fitting_results.csv for more information.")
+
     # automatically create sed figure
     # plotting_seds.create_fig()
+
+    # Print execution time
+    executionTime = time.time() - startTime
+    if executionTime < 200:
+        print("Execution time: " + str("{:.2f}".format(executionTime)) + " s")
+    elif (executionTime > 200) & (executionTime < 3600):
+        print("Execution time: " + str("{:.2f}".format(executionTime / 60)) + " m")
+    else:
+        print("Execution time: " + str("{:.2f}".format(executionTime / 60 / 60)) + " h")
 
 
 if __name__ == "__main__":
