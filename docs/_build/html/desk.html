@@ -1,23 +1,31 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>desk package &mdash; Dusty-Evolved-Star-Kit 1.6.24 documentation</title>
+  <title>desk package &mdash; Dusty-Evolved-Star-Kit 1.8.1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
   
 
   
   
-  
+
   
 
   
-  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -29,13 +37,9 @@
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Contributing" href="contributing.html" />
+    <link rel="next" title="desk.fitting package" href="desk.fitting.html" />
     <link rel="prev" title="desk" href="modules.html" /> 
 </head>
 
@@ -63,7 +67,7 @@
             
             
               <div class="version">
-                1.6.24
+                1.8.1
               </div>
             
           
@@ -80,6 +84,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -89,6 +94,7 @@
             
               <p class="caption"><span class="caption-text">Installation:</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="readme.html">Dusty-Evolved-Star-Kit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 </ul>
 <p class="caption"><span class="caption-text">User Documentation:</span></p>
@@ -97,11 +103,16 @@
 <li class="toctree-l1"><a class="reference internal" href="grids.html">Grids</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">desk</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">desk package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="desk.fitting.html">desk.fitting package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="desk.outputs.html">desk.outputs package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="desk.probabilities.html">desk.probabilities package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="desk.set_up.html">desk.set_up package</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#module-desk.fitting">desk.fitting module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#module-desk.probabilities">desk.probabilities module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#module-desk.set_up">desk.set_up module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#module-desk.tests">desk.tests module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-desk.console_commands">desk.console_commands module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-desk.main">desk.main module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-desk">Module contents</a></li>
 </ul>
 </li>
@@ -114,6 +125,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -148,11 +160,13 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="index.html">Docs</a> &raquo;</li>
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="modules.html">desk</a> &raquo;</li>
         
@@ -161,7 +175,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="_sources/desk.rst.txt" rel="nofollow"> View page source</a>
           
         
@@ -177,27 +191,156 @@
             
   <div class="section" id="desk-package">
 <h1>desk package<a class="headerlink" href="#desk-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="desk.fitting.html">desk.fitting package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="desk.fitting.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="desk.fitting.html#module-desk.fitting.dusty_fit">desk.fitting.dusty_fit module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="desk.fitting.html#module-desk.fitting.fitting_tools">desk.fitting.fitting_tools module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="desk.fitting.html#module-desk.fitting">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="desk.outputs.html">desk.outputs package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="desk.outputs.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="desk.outputs.html#module-desk.outputs.interpolate_dusty">desk.outputs.interpolate_dusty module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="desk.outputs.html#module-desk.outputs.parameter_ranges">desk.outputs.parameter_ranges module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="desk.outputs.html#module-desk.outputs.plot_pdf">desk.outputs.plot_pdf module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="desk.outputs.html#module-desk.outputs.plotting_seds">desk.outputs.plotting_seds module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="desk.outputs.html#module-desk.outputs">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="desk.probabilities.html">desk.probabilities package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="desk.probabilities.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="desk.probabilities.html#module-desk.probabilities.compute_grid_weights">desk.probabilities.compute_grid_weights module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="desk.probabilities.html#module-desk.probabilities.create_pdf">desk.probabilities.create_pdf module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="desk.probabilities.html#module-desk.probabilities.create_prior">desk.probabilities.create_prior module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="desk.probabilities.html#module-desk.probabilities.resample_prior_to_model_grid">desk.probabilities.resample_prior_to_model_grid module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="desk.probabilities.html#module-desk.probabilities">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="desk.set_up.html">desk.set_up package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="desk.set_up.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="desk.set_up.html#module-desk.set_up.config">desk.set_up.config module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="desk.set_up.html#module-desk.set_up.create_output_files">desk.set_up.create_output_files module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="desk.set_up.html#module-desk.set_up.error_messages">desk.set_up.error_messages module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="desk.set_up.html#module-desk.set_up.full_grid">desk.set_up.full_grid module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="desk.set_up.html#module-desk.set_up.get_data">desk.set_up.get_data module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="desk.set_up.html#module-desk.set_up.get_inputs">desk.set_up.get_inputs module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="desk.set_up.html#module-desk.set_up.get_models">desk.set_up.get_models module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="desk.set_up.html#module-desk.set_up.scale_dusty">desk.set_up.scale_dusty module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="desk.set_up.html#module-desk.set_up.scale_external">desk.set_up.scale_external module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="desk.set_up.html#module-desk.set_up">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="module-desk.fitting">
-<span id="desk-fitting-module"></span><h2>desk.fitting module<a class="headerlink" href="#module-desk.fitting" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-desk.console_commands">
+<span id="desk-console-commands-module"></span><h2>desk.console_commands module<a class="headerlink" href="#module-desk.console_commands" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="desk.console_commands.fit">
+<code class="sig-prename descclassname">desk.console_commands.</code><code class="sig-name descname">fit</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">source</span><span class="o">=</span><span class="default_value">'/Users/sgoldman/Documents/GitHub/development/desk/put_target_data_here'</span></em>, <em class="sig-param"><span class="n">distance</span><span class="o">=</span><span class="default_value">50</span></em>, <em class="sig-param"><span class="n">grid</span><span class="o">=</span><span class="default_value">'oxygen'</span></em>, <em class="sig-param"><span class="n">n</span><span class="o">=</span><span class="default_value">50</span></em>, <em class="sig-param"><span class="n">min_wavelength</span><span class="o">=</span><span class="default_value">0.01</span></em>, <em class="sig-param"><span class="n">max_wavelength</span><span class="o">=</span><span class="default_value">1000</span></em>, <em class="sig-param"><span class="n">multiprocessing</span><span class="o">=</span><span class="default_value">15</span></em>, <em class="sig-param"><span class="n">testing</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/desk/console_commands.html#fit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#desk.console_commands.fit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fits the seds of sources with specified grid.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>source</strong> (<em>str</em>) – Name of target in array of strings (or one string).</p></li>
+<li><p><strong>distance</strong> (<em>str, float</em>) – Distance to source(s) in kiloparsecs.</p></li>
+<li><p><strong>grid</strong> (<em>str</em>) – Name of model grid.</p></li>
+<li><p><strong>n</strong> (<em>str or int</em>) – Number of times to scale the grid between the
+lum_min and lum_max specified in the config.py script
+(essentially grid density).</p></li>
+<li><p><strong>min_wavelength</strong> (<em>float</em>) – Minimum wavelength to fit, the other data will still be shown
+in the output SED.</p></li>
+<li><p><strong>max_wavelength</strong> (<em>float</em>) – Maximum wavelength to be fit.</p></li>
+<li><p><strong>multiprocessing</strong> (<em>bool or int</em>) – Uses all but one core if True, only one core if False, or uses the
+number of cores specified as an integer.</p></li>
+<li><p><strong>testing</strong> (<em>bool</em>) – Flag for testing that uses only the first 3 rows of the mode grids.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="desk.console_commands.grids">
+<code class="sig-prename descclassname">desk.console_commands.</code><code class="sig-name descname">grids</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/desk/console_commands.html#grids"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#desk.console_commands.grids" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prints the model grids available for fitting.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="desk.console_commands.save_model">
+<code class="sig-prename descclassname">desk.console_commands.</code><code class="sig-name descname">save_model</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">grid_name</span></em>, <em class="sig-param"><span class="n">luminosity</span></em>, <em class="sig-param"><span class="n">teff</span></em>, <em class="sig-param"><span class="n">tinner</span></em>, <em class="sig-param"><span class="n">tau</span></em>, <em class="sig-param"><span class="n">distance_in_kpc</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/desk/console_commands.html#save_model"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#desk.console_commands.save_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>See interpolate_dusty.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="desk.console_commands.sed">
+<code class="sig-prename descclassname">desk.console_commands.</code><code class="sig-name descname">sed</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">source_path</span><span class="o">=</span><span class="default_value">'.'</span></em>, <em class="sig-param"><span class="n">source_filename</span><span class="o">=</span><span class="default_value">'fitting_results.csv'</span></em>, <em class="sig-param"><span class="n">dest_path</span><span class="o">=</span><span class="default_value">'.'</span></em>, <em class="sig-param"><span class="n">save_name</span><span class="o">=</span><span class="default_value">'output_sed.png'</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/desk/console_commands.html#sed"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#desk.console_commands.sed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates single SED figure of all fit SEDs using
+the ‘fitting_results.csv’ file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>source_path</strong> (<em>str</em>) – Path to source.</p></li>
+<li><p><strong>source_filename</strong> (<em>str</em>) – fit results filename.</p></li>
+<li><p><strong>dest_path</strong> (<em>str</em>) – Path to save figure.</p></li>
+<li><p><strong>save_name</strong> (<em>str</em>) – Figure filename to be saved.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>SED figure with data in blue and model in black.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>png</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="desk.console_commands.sed_indiv">
+<code class="sig-prename descclassname">desk.console_commands.</code><code class="sig-name descname">sed_indiv</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">source_path</span><span class="o">=</span><span class="default_value">'.'</span></em>, <em class="sig-param"><span class="n">source_filename</span><span class="o">=</span><span class="default_value">'fitting_results.csv'</span></em>, <em class="sig-param"><span class="n">dest_path</span><span class="o">=</span><span class="default_value">'.'</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/desk/console_commands.html#sed_indiv"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#desk.console_commands.sed_indiv" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates individual SED figures for all fit SEDs using
+the ‘fitting_results.csv’ file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>source_path</strong> (<em>str</em>) – Path to source.</p></li>
+<li><p><strong>source_filename</strong> (<em>str</em>) – fit results filename.</p></li>
+<li><p><strong>dest_path</strong> (<em>str</em>) – Path to save figure.</p></li>
+<li><p><strong>save_name</strong> (<em>str</em>) – Figure filename to be saved.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>SED figure with data in blue and model in black.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>png</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="desk.console_commands.version">
+<code class="sig-prename descclassname">desk.console_commands.</code><code class="sig-name descname">version</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/desk/console_commands.html#version"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#desk.console_commands.version" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns DESK version.</p>
+</dd></dl>
+
 </div>
-<div class="section" id="module-desk.probabilities">
-<span id="desk-probabilities-module"></span><h2>desk.probabilities module<a class="headerlink" href="#module-desk.probabilities" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="module-desk.set_up">
-<span id="desk-set-up-module"></span><h2>desk.set_up module<a class="headerlink" href="#module-desk.set_up" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="module-desk.tests">
-<span id="desk-tests-module"></span><h2>desk.tests module<a class="headerlink" href="#module-desk.tests" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-desk.main">
+<span id="desk-main-module"></span><h2>desk.main module<a class="headerlink" href="#module-desk.main" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="desk.main.main">
+<code class="sig-prename descclassname">desk.main.</code><code class="sig-name descname">main</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/desk/main.html#main"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#desk.main.main" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </div>
 <div class="section" id="module-desk">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-desk" title="Permalink to this headline">¶</a></h2>
-<p>The DESK contains python packages that are bundled with the package but
-are external to it, and hence are developed in a separate source tree. Note
-that this package is distinct from the /cextern directory of the source code
-distribution, as that directory only contains C extension code.</p>
 </div>
 </div>
 
@@ -206,29 +349,29 @@ distribution, as that directory only contains C extension code.</p>
            
           </div>
           <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="contributing.html" class="btn btn-neutral float-right" title="Contributing" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="modules.html" class="btn btn-neutral float-left" title="desk" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+        <a href="desk.fitting.html" class="btn btn-neutral float-right" title="desk.fitting package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="modules.html" class="btn btn-neutral float-left" title="desk" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2019, Steven R. Goldman
+        &#169; Copyright 2019, Steven R. Goldman.
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 
@@ -236,7 +379,6 @@ distribution, as that directory only contains C extension code.</p>
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

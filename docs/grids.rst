@@ -2,11 +2,13 @@
 Grids
 =====
 
+The DESK_ downloads and fits both new and commonly-used model grids, automatically.
+The grids are also available for download on Zenodo_.
+
 DUSTY model grids
 -----------------
 
-The models currently available with the DESK are created using the DUSTY_ code.
-The DUSTY models are 1-D radiative transfer models that exploit
+The DUSTY_ models are 1-D radiative transfer models that exploit
 scaling relations to generate models. The model shape can be scaled
 to any luminosity, expansion velocity, or mass-loss rate so long as the
 combination of these three parameters remains the same. The DESK model grids
@@ -71,6 +73,16 @@ temperature of 3400 K.
 arnold-palmer (*N*\ =2,000; 137 MB): Same as Oss-Orich-aringer but with 50%
 amorphous carbon grains from `Zubko et al. (1996)`_.
 
+desk-mix (*N*\ = 19,200; 177 MB): Uses a grain mixture inspired by the More Of Dusty (MOD)
+code (`Groenewegen 2012`_) based on the DUSTY code (`Elitzur & Ivezić 2001`_).
+The dust grains assume a mixture of olivine grains
+(MgFeSiO4) from `Dorschner et al. (1995)`_, corundum grains
+(AlOx; amorphous porous Al2O3) from `Begemann et al. (1997)`_, and
+iron grains (FeO) from `Henning et al. (1995)`_. The relative percentages of
+olivine and corundum range from 48-98\% olivine in increments of 10\% and include either
+2\% or 4\% iron grains. The grid uses oxygen-rich atmospheric MARCS models from
+`Gustafsson et al. (2008)`_.
+
 Carbon-rich DUSTY model grids
 =============================
 
@@ -121,6 +133,8 @@ code for the LMC metallicity (1/2 solar) using optical constants from
 
    - Warning: results uncertain outside of a distance 20-150 kpc.
 
+.. _DESK: https://github.com/s-goldman/Dusty-Evolved-Star-Kit
+.. _Zenodo: https://zenodo.org/record/4574453
 .. _DUSTY: https://github.com/ivezic/dusty
 .. _Elitzur & Ivezić 2001: https://ui.adsabs.harvard.edu/abs/2001MNRAS.327..403E/abstract
 .. _Sargent et al. (2011): https://ui.adsabs.harvard.edu/abs/2011ApJ...728...93S/abstract
@@ -137,3 +151,6 @@ code for the LMC metallicity (1/2 solar) using optical constants from
 .. _Zubko et al. (1996): https://ui.adsabs.harvard.edu/abs/1996MNRAS.282.1321Z/abstract
 .. _Nanni et al. (2019): https://ui.adsabs.harvard.edu/abs/2019MNRAS.487..502N/abstract
 .. _Hanner et al. (1988): https://ui.adsabs.harvard.edu/abs/1988ioch.rept.....H/abstract
+.. _Groenewegen 2012: https://ui.adsabs.harvard.edu/abs/2012A&A...543A..36G/abstract
+.. _Dorschner et al. (1995): https://ui.adsabs.harvard.edu/abs/1995A&A...300..503D/abstract
+.. _Gustafsson et al. (2008): https://ui.adsabs.harvard.edu/abs/2008A%26A...486..951G/abstract

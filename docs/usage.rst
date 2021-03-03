@@ -36,7 +36,7 @@ Additional options
 ------------------
 
 Users can also specify any-and-all of the following additional options. Requests
-for more additional features can be submitted through the `issues`_ tab on the
+for more additional features can be submitted through the `Issues`_ tab on the
 `Github`_ page.
 
 Grid density
@@ -133,7 +133,7 @@ are available online. To run the tests locally, download/clone the package and
 use the command 'pytest' within the pacakge directory.
 
 .. _github: https://github.com/s-goldman/Dusty-Evolved-Star-Kit/
-.. _issues: https://github.com/s-goldman/Dusty-Evolved-Star-Kit/issues
+.. _Issues: https://github.com/s-goldman/Dusty-Evolved-Star-Kit/issues
 .. _tests: https://github.com/s-goldman/Dusty-Evolved-Star-Kit/actions?query=workflow%3A%22Python+package%22
 .. _coverage: https://codecov.io/gh/s-goldman/Dusty-Evolved-Star-Kit
 .. _recent review: https://ui.adsabs.harvard.edu/abs/2020arXiv201113472D/abstract
