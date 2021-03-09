@@ -187,11 +187,11 @@ def fit(
     if testing == False:
         # Get number of cores to use
         # trys (moves to except if not int(bool))
-        try:
-            n_cores = isinstance(int(multiprocessing), int)
+        if type(multiprocessing) == int:
+            n_cores = multiprocessing
 
         # if True: max cores - 1, if False: 1 core
-        except:
+        else:
             if (multiprocessing == "True") | (multiprocessing == True):
                 n_cores = cpu_count() - 1
             elif (multiprocessing == "False") | (multiprocessing == False):
@@ -226,7 +226,7 @@ def fit(
     print("Grid: \t\t" + grid)
     print("Distance: \t" + str(distance) + " kpc")
     print("Grid density: \t" + str(n))
-    print("Cores: \t\t" + str(multiprocessing))
+    print("Cores: \t\t" + str(n_cores))
 
     if n_cores == 1:
         # Single-core fitting
