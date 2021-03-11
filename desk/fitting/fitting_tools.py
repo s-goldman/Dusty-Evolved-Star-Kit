@@ -115,7 +115,6 @@ class fit:
             chi square value.
 
         """
-
         matched_model = fit.find_closest(data[0], model[0], model[1])
         liklihood = fit.least2_liklihood(data[1], matched_model)
 
