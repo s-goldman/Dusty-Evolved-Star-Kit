@@ -108,6 +108,7 @@ class fit:
         matched_model = fit.find_closest(
             data[0], trimmed_model_wave, trimmed_model_flux
         )
+        ipdb.set_trace()
         liklihood = fit.least2_liklihood(data[1], matched_model)
         # ipdb.set_trace()
         return liklihood
