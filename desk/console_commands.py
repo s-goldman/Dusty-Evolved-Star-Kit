@@ -14,6 +14,7 @@ from desk.set_up import (
 )
 from desk.fitting import dusty_fit
 from desk.outputs import plotting_seds, interpolate_dusty
+import time
 
 desk_path = str(__file__.replace("console_commands.py", ""))
 
@@ -140,6 +141,9 @@ def fit(
     """
 
     # Set-up ###################################################################
+    # timer
+    startTime = time.time()
+
     # bayesian fitting currently in development
     bayesian_fit = False
 
@@ -182,11 +186,11 @@ def fit(
     if testing == False:
         # Get number of cores to use
         # trys (moves to except if not int(bool))
-        try:
-            n_cores = isinstance(int(multiprocessing), int)
+        if type(multiprocessing) == int:
+            n_cores = multiprocessing
 
         # if True: max cores - 1, if False: 1 core
-        except:
+        else:
             if (multiprocessing == "True") | (multiprocessing == True):
                 n_cores = cpu_count() - 1
             elif (multiprocessing == "False") | (multiprocessing == False):
@@ -221,7 +225,7 @@ def fit(
     print("Grid: \t\t" + grid)
     print("Distance: \t" + str(distance) + " kpc")
     print("Grid density: \t" + str(n))
-    print("Cores: \t\t" + str(multiprocessing))
+    print("Cores: \t\t" + str(n_cores))
 
     if n_cores == 1:
         # Single-core fitting
@@ -234,8 +238,18 @@ def fit(
         pool.map(mapfunc, range(len(file_names)), chunksize=1)
 
     print("See fitting_results.csv for more information.")
+
     # automatically create sed figure
     # plotting_seds.create_fig()
+
+    # Print execution time
+    executionTime = time.time() - startTime
+    if executionTime < 200:
+        print("Execution time: " + str("{:.2f}".format(executionTime)) + " s")
+    elif (executionTime > 200) & (executionTime < 3600):
+        print("Execution time: " + str("{:.2f}".format(executionTime / 60)) + " m")
+    else:
+        print("Execution time: " + str("{:.2f}".format(executionTime / 60 / 60)) + " h")
 
 
 if __name__ == "__main__":

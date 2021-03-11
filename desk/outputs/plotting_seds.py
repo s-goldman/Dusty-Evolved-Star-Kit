@@ -1,6 +1,4 @@
-import os
 import sys
-import ipdb
 import math
 import seaborn as sns
 import astropy.units as u
@@ -148,7 +146,9 @@ def single_figures(source_path, source_filename, dest_path):
     try:
         input_file = Table.read(source_path + "/" + source_filename)
     except:
-        raise FileNotFoundError("fitting_results.csv missing. Make sure you have run the ``fit'' command.")
+        raise FileNotFoundError(
+            "fitting_results.csv missing. Make sure you have run the ``fit'' command."
+        )
 
     for counter, target in enumerate(input_file):
         # gets data for plotting
@@ -200,7 +200,9 @@ def create_fig(source_path, source_filename, dest_path, save_name):
     try:
         input_file = Table.read(source_path + "/" + source_filename)
     except:
-        raise FileNotFoundError("fitting_results.csv missing. Make sure you have run the ``fit'' command.")
+        raise FileNotFoundError(
+            "fitting_results.csv missing. Make sure you have run the ``fit'' command."
+        )
 
     n = len(input_file)  # number of fit sources
 
@@ -220,7 +222,11 @@ def create_fig(source_path, source_filename, dest_path, save_name):
         else:
             figure_rows = math.ceil(n / 3)
             fig, axs = plt.subplots(
-                figure_rows, 3, sharex=True, sharey=True, figsize=(8, (figure_rows * 1.5))
+                figure_rows,
+                3,
+                sharex=True,
+                sharey=True,
+                figsize=(8, (figure_rows * 1.5)),
             )
             axs = axs.ravel()
 
@@ -266,5 +272,5 @@ def create_fig(source_path, source_filename, dest_path, save_name):
         single_figures(source_path, source_filename, dest_path)
 
 
-if __name__ == "__main__":
-    create_fig()
+# if __name__ == "__main__":
+#     create_fig()

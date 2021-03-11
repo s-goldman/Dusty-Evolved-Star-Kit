@@ -2,19 +2,6 @@ import numpy as np
 from desk.fitting import fitting_tools
 
 
-def test_trim():
-    """
-    Test: trim model outside of wavelength range of data
-    """
-    data = np.array([[1, 5, 10, 20], [0.5, 0.2, 0.1, 0.4]])
-    model = np.array([[0.1, 1, 6, 20, 100], [0.5, 0.6, 0.2, 0.3, 0.4]])
-    trimmed_model = fitting_tools.fit.trim(data, model)
-    expected_model = np.array([[1, 6, 20], [0.6, 0.2, 0.3]])
-    np.testing.assert_allclose(
-        trimmed_model, expected_model, err_msg=("Modeling trimming error")
-    )
-
-
 def test_find_closest():
     """
     Test: find model flux closest in wavelength to data
@@ -43,7 +30,7 @@ def test_fit_data():
     )
     data = np.array([[2, 3, 6.5, 8.9, 9.9], [0.1, 0.2, 0.3, 0.4, 0.5]])
     chi_sq = fitting_tools.fit.fit_data(data, model)
-    expected_chi_sq = 0.6813152493490744522
+    expected_chi_sq = 0.6571511212387309428
     np.testing.assert_allclose(
         chi_sq, expected_chi_sq, err_msg=("Fitting routine error")
     )
