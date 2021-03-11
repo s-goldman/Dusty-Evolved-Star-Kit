@@ -4,7 +4,6 @@ import pkg_resources
 
 from multiprocessing import Pool, cpu_count
 from functools import partial
-import numpy as np
 from desk.set_up import (
     get_inputs,
     get_data,
