@@ -222,10 +222,13 @@ def fit(
 
     # Fitting
     print("\nFit parameters\n--------------")
-    print("Grid: \t\t" + grid)
-    print("Distance: \t" + str(distance) + " kpc")
-    print("Grid density: \t" + str(n))
-    print("Cores: \t\t" + str(n_cores))
+    print("Grid:\t\t" + grid)
+    print("Distance:\t" + str(distance) + " kpc")
+    if fit_params.grid in config.external_grids:
+        print("Grid density:\t" + str(n) + " (ignored as it is an external grids)")
+    else:
+        print("Grid density:\t" + str(n))
+    print("# of cores:\t" + str(n_cores))
 
     if n_cores == 1:
         # Single-core fitting
