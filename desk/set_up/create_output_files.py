@@ -28,6 +28,9 @@ def make_output_files_dusty(fit_params):
 
     with open("fitting_results.csv", "w") as f:
         f.write(
-            "source, " + (", ".join(fit_params.full_outputs.colnames)) + ", file_name\n"
+            "source, "
+            + (", ".join(fit_params.full_outputs.colnames))
+            + ", file_name"
+            + ", distance\n"
         )
         f.close()

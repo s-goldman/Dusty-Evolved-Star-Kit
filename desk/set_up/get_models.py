@@ -3,6 +3,7 @@ import os
 import ipdb
 import numpy as np
 import h5py
+from fnmatch import fnmatch
 from shutil import copyfile
 from astropy.table import Table, Column
 from astropy.utils.data import download_file

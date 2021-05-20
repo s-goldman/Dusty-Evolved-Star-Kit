@@ -1,5 +1,6 @@
 import sys
 import math
+import ipdb
 import seaborn as sns
 import astropy.units as u
 import matplotlib.pyplot as plt
@@ -113,20 +114,11 @@ def get_model_and_data_for_plotting(counter, target, source_path, source_filenam
 
     x_model = x_model[np.where(y_model != 0)]
     y_model = y_model[np.where(y_model != 0)]
-
-    if fnmatch(input_file["grid_name"][0], "grams*"):
-        y_model = y_model * u.Jy
-        y_model = y_model.to(
-            u.W / (u.m * u.m), equivalencies=u.spectral_density(x_model * u.um)
-        )
-
-    else:
-        y_model = y_model * u.W / (u.m * u.m)
-        y_model = y_model * np.power(10, input_file[counter]["norm"])
+    y_model = y_model * np.power(10, input_file[counter]["norm"])
 
     # logscale
     x_model = np.log10(x_model)
-    y_model = np.log10(y_model.value)
+    y_model = np.log10(y_model)
     x_data = np.log10(x_data)
     y_data = np.log10(y_data)
     return x_model, y_model, x_data, y_data
