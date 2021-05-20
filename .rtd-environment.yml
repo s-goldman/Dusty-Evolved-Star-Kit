@@ -1,13 +1,16 @@
 name: desk
 
 channels:
-    - astropy
+    - conda-forge
 
 dependencies:
     - astropy
+    - scipy
+    - numpy
     - Cython
     - matplotlib
     - sphinx
     - sphinx-astropy
     - sphinx_automodapi
     - Pillow
+    - pip
