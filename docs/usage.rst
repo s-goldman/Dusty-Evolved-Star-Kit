@@ -83,12 +83,24 @@ Outputs
 	:alt: SED example
 
 This is an example of the output_sed.png file fitting three massive oxygen-rich
-AGB stars from the LMC. To produce individual figures subsequently run the command:
+AGB stars from the LMC created using
+
+.. code-block:: console
+
+	> desk sed
+
+To produce individual figures subsequently run the command:
 
 .. code-block:: console
 
 	> desk sed_indiv
 
+Additionally you can specify whether you want the output flux in the figure to
+be in W/m2 or Jy (W/m2 is the default).
+
+.. code-block:: console
+
+	> desk sed --flux='Jy'
 
 Use in Python Environment
 -------------------------
@@ -108,6 +120,7 @@ One can also use the sed, save_model, and grids in a similar fashion.
 .. code-block:: console
 
 	>>> sed()
+	>>> sed(flux='Jy')
 	>>> grids()
 	>>> save_model("Oss-Orich-bb", 10000, 2700, 1000, 0.4, 50)
 	>>> save_model(grid_name="Oss-Orich-bb", luminosity=10000, teff=2700, tinner=1000, tau=0.4, distance_in_kpc=50)

@@ -1,4 +1,5 @@
 import sys
+import ipdb
 import math
 import seaborn as sns
 import astropy.units as u
@@ -19,6 +20,14 @@ def plot_phot(x_data, y_data, ax):
 def plot_model(x_model, y_model, ax):
     ax.plot(x_model, y_model, c="k", linewidth=0.4, linestyle="--", zorder=2)
     return ax
+
+
+def wm2_to_Jy(wave_in_microns, wm2):
+    wm2_w_units = (wm2 * u.W / (u.m * u.m)) / (
+        (wave_in_microns * u.um).to(u.Hz, equivalencies=u.spectral())
+    )
+    jy = wm2_w_units.to(u.Jy).value
+    return jy
 
 
 def source_name_annotation(name, ax):
@@ -65,19 +74,26 @@ def set_limits(x_model, y_model, x_data, y_data, ax):
     return ax
 
 
-def add_axis_labels(fig, fontsize):
+def add_axis_labels(fig, fontsize, _flux):
     # Common figure labels
     ax = fig.add_subplot(111, frameon=False)
     ax.tick_params(labelcolor="none", top=False, bottom=False, left=False, right=False)
     ax.grid(False)
     ax.set_xlabel(r"log $\lambda$ ($\mu m$)", labelpad=10, fontsize=fontsize)
-    ax.set_ylabel(
-        r"log $\lambda$ F$_{\lambda}$ " + "(W m$^{-2}$)", labelpad=15, fontsize=fontsize
-    )
+    if _flux == "Jy":
+        ax.set_ylabel(r"log F$_{\nu}$ " + "(Jy)", labelpad=15, fontsize=fontsize)
+    else:
+        ax.set_ylabel(
+            r"log $\lambda$ F$_{\lambda}$ " + "(W m$^{-2}$)",
+            labelpad=15,
+            fontsize=fontsize,
+        )
     return fig
 
 
-def get_model_and_data_for_plotting(counter, target, source_path, source_filename):
+def get_model_and_data_for_plotting(
+    counter, target, source_path, source_filename, flux
+):
     """
     Gets data from target.csv file and model from grid file.
 
@@ -91,6 +107,8 @@ def get_model_and_data_for_plotting(counter, target, source_path, source_filenam
         Path of source
     source_filename: str
         Filename of fitting results
+    flux: str
+        flux type (Wm2 or Jy)
     Returns
     -------
     x_data: array
@@ -109,21 +127,32 @@ def get_model_and_data_for_plotting(counter, target, source_path, source_filenam
     )
 
     x_data, y_data = get_data.get_values(target["file_name"])
-    x_model, y_model = grid_dusty[target["number"] - 1]  # model_id starts at 1
+    x_model_init, y_model_init = grid_dusty[
+        target["number"] - 1
+    ]  # model_id starts at 1
 
-    x_model = x_model[np.where(y_model != 0)]
-    y_model = y_model[np.where(y_model != 0)]
-    y_model = y_model * np.power(10, input_file[counter]["norm"])
+    x_model_select = x_model_init[np.where(y_model_init != 0)]
+    y_model_select = y_model_init[np.where(y_model_init != 0)]
+    y_model_scaled = y_model_select * np.power(10, input_file[counter]["norm"])
 
-    # logscale
-    x_model = np.log10(x_model)
-    y_model = np.log10(y_model)
-    x_data = np.log10(x_data)
-    y_data = np.log10(y_data)
-    return x_model, y_model, x_data, y_data
+    if flux == "Jy":
+        y_model_plot = wm2_to_Jy(x_model_select, y_model_scaled)
+        y_data_plot = wm2_to_Jy(x_data, y_data)
+    else:
+        # wm2
+        y_model_plot = y_model_scaled
+        y_data_plot = y_data
+
+    x_model_log = np.log10(x_model_select)
+    y_model_log = np.log10(y_model_plot)
+
+    x_data_log = np.log10(x_data)
+    y_data_log = np.log10(y_data_plot)
+
+    return x_model_log, y_model_log, x_data_log, y_data_log
 
 
-def single_figures(source_path, source_filename, dest_path):
+def single_figures(source_path, source_filename, dest_path, flux):
     """
     Takes results from fitting_plotting_outputs.csv and plots SEDs.
     Plots in individual figures.
@@ -144,7 +173,7 @@ def single_figures(source_path, source_filename, dest_path):
     for counter, target in enumerate(input_file):
         # gets data for plotting
         x_model, y_model, x_data, y_data = get_model_and_data_for_plotting(
-            counter, target, source_path, source_filename
+            counter, target, source_path, source_filename, flux=flux
         )
 
         # Figure plotting
@@ -159,7 +188,7 @@ def single_figures(source_path, source_filename, dest_path):
             ha="right",
             fontsize=14,
         )
-        add_axis_labels(fig, 12)
+        add_axis_labels(fig, 12, flux)
         fig.savefig(
             dest_path + "/" + "output_sed_" + str(target["source"]) + ".png",
             dpi=200,
@@ -168,7 +197,7 @@ def single_figures(source_path, source_filename, dest_path):
         plt.close()
 
 
-def create_fig(source_path, source_filename, dest_path, save_name):
+def create_fig(source_path, source_filename, dest_path, save_name, flux):
     """Creates single SED figure of all fit SEDs using the source_filename file.
 
     Parameters
@@ -181,6 +210,8 @@ def create_fig(source_path, source_filename, dest_path, save_name):
         Path to save figure.
     save_name : str
         Figure filename to be saved.
+    flux: str
+        flux type (Wm2 or Jy)
 
     Returns
     -------
@@ -193,6 +224,17 @@ def create_fig(source_path, source_filename, dest_path, save_name):
     except:
         raise FileNotFoundError(
             "fitting_results.csv missing. Make sure you have run the ``fit'' command."
+        )
+
+    if flux == "Wm2":
+        print("Using Wm2\n")
+    elif flux == "Jy":
+        print("Using Jy\n")
+    else:
+        print(
+            "Unidentified option: "
+            + str(flux)
+            + "\nUsing Wm2. Alternative option is Jy."
         )
 
     n = len(input_file)  # number of fit sources
@@ -222,12 +264,12 @@ def create_fig(source_path, source_filename, dest_path, save_name):
             axs = axs.ravel()
 
         # axis common labels
-        add_axis_labels(fig, 14)
+        add_axis_labels(fig, 14, flux)
 
         for counter, target in enumerate(input_file):
             # gets data for plotting
             x_model, y_model, x_data, y_data = get_model_and_data_for_plotting(
-                counter, target, source_path, source_filename
+                counter, target, source_path, source_filename, flux
             )
 
             # plotting
