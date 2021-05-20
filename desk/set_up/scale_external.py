@@ -1,4 +1,3 @@
-import ipdb
 import numpy as np
 from fnmatch import fnmatch
 from astropy.table import Column, Table

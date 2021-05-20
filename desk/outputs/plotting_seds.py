@@ -1,6 +1,5 @@
 import sys
 import math
-import ipdb
 import seaborn as sns
 import astropy.units as u
 import matplotlib.pyplot as plt
