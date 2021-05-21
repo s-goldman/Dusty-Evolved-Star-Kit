@@ -151,7 +151,7 @@ def get_model_and_data_for_plotting(
     return x_model_log, y_model_log, x_data_log, y_data_log
 
 
-def single_figures(source_path, source_filename, dest_path, save_name, flux):
+def single_figures(source_path, source_filename, dest_path, flux):
     """
     Takes results from fitting_plotting_outputs.csv and plots SEDs.
     Plots in individual figures.
@@ -188,13 +188,10 @@ def single_figures(source_path, source_filename, dest_path, save_name, flux):
             fontsize=14,
         )
         add_axis_labels(fig, 12, flux)
-        if save_name == "Default":
-            out_name = "output_sed_" + str(target["source"]) + ".png"
-        else:
-            out_name = save_name
-
         fig.savefig(
-            dest_path + "/" + out_name, dpi=200, bbox_inches="tight",
+            dest_path + "/" + "output_sed_" + str(target["source"]) + ".png",
+            dpi=200,
+            bbox_inches="tight",
         )
         plt.close()
 
@@ -304,7 +301,7 @@ def create_fig(source_path, source_filename, dest_path, save_name, flux):
         fig.savefig(dest_path + "/" + save_name, dpi=200, bbox_inches="tight")
         plt.close()
     else:
-        single_figures(source_path, source_filename, save_name, dest_path)
+        single_figures(source_path, source_filename, dest_path)
 
 
 # if __name__ == "__main__":
