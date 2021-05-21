@@ -26,7 +26,6 @@ def fit_single_source(source_number, fit_params):
 
     """
     source_file_name = fit_params.file_names[source_number]
-    full_model_grid = fit_params.full_model_grid
     full_outputs = fit_params.full_outputs
     data = get_data.get_values(
         source_file_name,
@@ -35,13 +34,16 @@ def fit_single_source(source_number, fit_params):
         fitting=True,
     )
 
+    # trim models
+    trimmed_model_wavelength, trimmed_model_fluxes = fitting_tools.trim_grid(
+        data, fit_params
+    )
+
     # calculate chi squared values for each model
     liklihood = np.array(
         [
-            fitting_tools.fit.fit_data(
-                data, [fit_params.model_wavelength_grid, x["flux_wm2"]]
-            )
-            for x in full_model_grid
+            fitting_tools.fit.fit_data(data, [trimmed_model_wavelength, x["flux_wm2"]])
+            for x in trimmed_model_fluxes
         ]
     )
 
@@ -82,7 +84,12 @@ def fit_single_source(source_number, fit_params):
     # creates results file
     with open("fitting_results.csv", "a") as f:
         writer = csv.writer(f, delimiter=",", lineterminator="\n")
-        writer.writerow([target_name] + [str(x) for x in out[0]] + [source_file_name])
+        writer.writerow(
+            [target_name]
+            + [str(x) for x in out[0]]
+            + [source_file_name]
+            + [fit_params.distance]
+        )
         f.close()
 
     # printed output

@@ -7,7 +7,7 @@ from astropy.table import Table
 
 def create_par():
     """Creates a figure showing the range of sampling of the used model grid. The
-    inputs are taken from the results file after fitting. 
+    inputs are taken from the results file after fitting.
 
     Returns
     -------

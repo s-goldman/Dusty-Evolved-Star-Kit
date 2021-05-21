@@ -4,7 +4,6 @@ import pkg_resources
 
 from multiprocessing import Pool, cpu_count
 from functools import partial
-import numpy as np
 from desk.set_up import (
     get_inputs,
     get_data,
@@ -15,6 +14,7 @@ from desk.set_up import (
 )
 from desk.fitting import dusty_fit
 from desk.outputs import plotting_seds, interpolate_dusty
+import time
 
 desk_path = str(__file__.replace("console_commands.py", ""))
 
@@ -43,6 +43,7 @@ def sed(
     source_filename="fitting_results.csv",
     dest_path=".",
     save_name="output_sed.png",
+    flux="Wm2",
 ):
     """Creates single SED figure of all fit SEDs using
     the 'fitting_results.csv' file.
@@ -57,16 +58,21 @@ def sed(
         Path to save figure.
     save_name : str
         Figure filename to be saved.
-
+    flux: str
+        flux type (Wm2 or Jy)
     Returns
     -------
     png
         SED figure with data in blue and model in black.
     """
-    plotting_seds.create_fig(source_path, source_filename, dest_path, save_name)
+    plotting_seds.create_fig(
+        source_path, source_filename, dest_path, save_name, flux=flux
+    )
 
 
-def sed_indiv(source_path=".", source_filename="fitting_results.csv", dest_path="."):
+def sed_indiv(
+    source_path=".", source_filename="fitting_results.csv", dest_path=".", flux="Wm2"
+):
     """Creates individual SED figures for all fit SEDs using
     the 'fitting_results.csv' file.
 
@@ -80,13 +86,14 @@ def sed_indiv(source_path=".", source_filename="fitting_results.csv", dest_path=
         Path to save figure.
     save_name : str
         Figure filename to be saved.
-
+    flux: str
+        flux type (Wm2 or Jy)
     Returns
     -------
     png
         SED figure with data in blue and model in black.
     """
-    plotting_seds.single_figures(source_path, source_filename, dest_path)
+    plotting_seds.single_figures(source_path, source_filename, dest_path, flux=flux)
 
 
 def save_model(grid_name, luminosity, teff, tinner, tau, distance_in_kpc):
@@ -109,7 +116,7 @@ def fit(
     n=config.fitting["default_number_of_times_to_scale_models"],
     min_wavelength=config.fitting["default_wavelength_min"],
     max_wavelength=config.fitting["default_wavelength_max"],
-    multiprocessing=True,
+    multiprocessing=cpu_count() - 1,
     testing=False,
 ):
     """
@@ -141,6 +148,9 @@ def fit(
     """
 
     # Set-up ###################################################################
+    # timer
+    startTime = time.time()
+
     # bayesian fitting currently in development
     bayesian_fit = False
 
@@ -155,6 +165,7 @@ def fit(
         grid, grid_dusty, grid_outputs, float(distance), int(n)
     )
     # scale to full grids and get distance scaling factors
+
     full_outputs, full_model_grid = full_grid.retrieve(full_grid_params)
 
     # get model wavelengths
@@ -182,11 +193,11 @@ def fit(
     if testing == False:
         # Get number of cores to use
         # trys (moves to except if not int(bool))
-        try:
-            n_cores = int(multiprocessing)
+        if type(multiprocessing) == int:
+            n_cores = multiprocessing
 
         # if True: max cores - 1, if False: 1 core
-        except:
+        else:
             if (multiprocessing == "True") | (multiprocessing == True):
                 n_cores = cpu_count() - 1
             elif (multiprocessing == "False") | (multiprocessing == False):
@@ -210,13 +221,22 @@ def fit(
                 + str(multiprocessing)
             )
 
-    elif testing == True:
+    elif (testing == True) | (grid == "desk-mix"):
         # ignore n_cores and replace with 1 if in testing mode
         n_cores = 1
     else:
         raise ValueError("Invalid testing options: " + str(testing))
 
     # Fitting
+    print("\nFit parameters\n--------------")
+    print("Grid:\t\t" + grid)
+    print("Distance:\t" + str(distance) + " kpc")
+    if fit_params.grid in config.external_grids:
+        print("Grid density:\t" + str(n) + " (ignored as it is an external grids)")
+    else:
+        print("Grid density:\t" + str(n))
+    print("# of cores:\t" + str(n_cores))
+
     if n_cores == 1:
         # Single-core fitting
         [dusty_fit.fit_single_source(x, fit_params) for x in range(len(file_names))]
@@ -227,8 +247,19 @@ def fit(
         mapfunc = partial(dusty_fit.fit_single_source, fit_params=fit_params)
         pool.map(mapfunc, range(len(file_names)), chunksize=1)
 
+    print("See fitting_results.csv for more information.")
+
     # automatically create sed figure
     # plotting_seds.create_fig()
+
+    # Print execution time
+    executionTime = time.time() - startTime
+    if executionTime < 200:
+        print("Execution time: " + str("{:.2f}".format(executionTime)) + " s")
+    elif (executionTime > 200) & (executionTime < 3600):
+        print("Execution time: " + str("{:.2f}".format(executionTime / 60)) + " m")
+    else:
+        print("Execution time: " + str("{:.2f}".format(executionTime / 60 / 60)) + " h")
 
 
 if __name__ == "__main__":

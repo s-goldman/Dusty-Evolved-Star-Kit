@@ -36,7 +36,7 @@ Additional options
 ------------------
 
 Users can also specify any-and-all of the following additional options. Requests
-for more additional features can be submitted through the `issues`_ tab on the
+for more additional features can be submitted through the `Issues`_ tab on the
 `Github`_ page.
 
 Grid density
@@ -83,12 +83,24 @@ Outputs
 	:alt: SED example
 
 This is an example of the output_sed.png file fitting three massive oxygen-rich
-AGB stars from the LMC. To produce individual figures subsequently run the command:
+AGB stars from the LMC created using
+
+.. code-block:: console
+
+	> desk sed
+
+To produce individual figures subsequently run the command:
 
 .. code-block:: console
 
 	> desk sed_indiv
 
+Additionally you can specify whether you want the output flux in the figure to
+be in W/m2 or Jy (W/m2 is the default).
+
+.. code-block:: console
+
+	> desk sed --flux='Jy'
 
 Use in Python Environment
 -------------------------
@@ -108,6 +120,7 @@ One can also use the sed, save_model, and grids in a similar fashion.
 .. code-block:: console
 
 	>>> sed()
+	>>> sed(flux='Jy')
 	>>> grids()
 	>>> save_model("Oss-Orich-bb", 10000, 2700, 1000, 0.4, 50)
 	>>> save_model(grid_name="Oss-Orich-bb", luminosity=10000, teff=2700, tinner=1000, tau=0.4, distance_in_kpc=50)
@@ -133,7 +146,7 @@ are available online. To run the tests locally, download/clone the package and
 use the command 'pytest' within the pacakge directory.
 
 .. _github: https://github.com/s-goldman/Dusty-Evolved-Star-Kit/
-.. _issues: https://github.com/s-goldman/Dusty-Evolved-Star-Kit/issues
+.. _Issues: https://github.com/s-goldman/Dusty-Evolved-Star-Kit/issues
 .. _tests: https://github.com/s-goldman/Dusty-Evolved-Star-Kit/actions?query=workflow%3A%22Python+package%22
 .. _coverage: https://codecov.io/gh/s-goldman/Dusty-Evolved-Star-Kit
 .. _recent review: https://ui.adsabs.harvard.edu/abs/2020arXiv201113472D/abstract

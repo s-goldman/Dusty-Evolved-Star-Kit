@@ -1,7 +1,6 @@
 import os
 import pytest
 import numpy as np
-from astropy.table import Table
 from desk import console_commands
 from desk.set_up import config
 from PIL import Image
@@ -43,7 +42,7 @@ def image_similarity(request, tmpdir):
 
 def test_grids(capfd):
     # checks if characters printed is what is expected (chars).
-    chars = 274
+    chars = 284
     console_commands.grids()
     out, _ = capfd.readouterr()
     np.testing.assert_allclose(len(out), chars, err_msg=("Print grids error"))

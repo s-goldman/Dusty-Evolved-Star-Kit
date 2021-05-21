@@ -1,6 +1,5 @@
 # Steve Goldman, Space Telescope Science Institute, sgoldman@stsci.edu
 import os
-import sys
 import ipdb
 import numpy as np
 import h5py
@@ -46,7 +45,8 @@ def get_remote_models(model_grid_name):
         Name of model grid to download.
 
     """
-    repository = 4317932
+    # update if zeonodo repository updated
+    repository = 4776833
 
     fname_dld_outputs = download_file(
         "https://zenodo.org/record/"
@@ -120,7 +120,7 @@ def get_model_grid(grid, testing=False):
     Returns
     -------
     grid_dusty : 2 column astropy table with array of wavelengths (um) and array of
-    fluxes (Wm^2) in each column of each row. The (intial) model grid wavelengths and fluxes. 
+    fluxes (Wm^2) in each column of each row. The (intial) model grid wavelengths and fluxes.
     This is not the full model grid with appended scaled models.
 
     grid_outputs : astropy table
@@ -137,7 +137,7 @@ def get_model_grid(grid, testing=False):
             model_grid = grid
         else:
             raise ValueError(
-                "\n\nUnknown grid. Please make another model selection.\n\n To see options use: desk grids\n"
+                "\n\nUnknown grid. Please make another model selection.\n\n To see options use: desk grids or desk.grids() in python"
             )
     outputs_file_name, models_file_name = check_models(model_grid)
 

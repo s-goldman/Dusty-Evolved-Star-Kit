@@ -10,9 +10,9 @@
 __author__ = "Steven R. Goldman"
 __email__ = "sgoldman@stsci.edu"
 __title__ = "DESK"
-__version__ = "1.8.1"
+__version__ = "1.8.3"
 __repository__ = "https://github.com/s-goldman/Dusty-Evolved-Star-Kit"
-__date_published = "2020-07-07"
+__date_published = "2021-04-13"
 __licence__ = "BSD"
 __keywords__ = (
     "Asymptotic giant branch stars",

@@ -6,7 +6,7 @@ import numpy as np
 import astropy.units as u
 from astropy.io.ascii import read
 from fnmatch import fnmatch
-from desk.set_up import config, error_messages
+from desk.set_up import error_messages
 
 
 def get_values(filename, min_wavelength=0, max_wavelength=1000, fitting=False):
