@@ -84,7 +84,12 @@ def fit_single_source(source_number, fit_params):
     # creates results file
     with open("fitting_results.csv", "a") as f:
         writer = csv.writer(f, delimiter=",", lineterminator="\n")
-        writer.writerow([target_name] + [str(x) for x in out[0]] + [source_file_name])
+        writer.writerow(
+            [target_name]
+            + [str(x) for x in out[0]]
+            + [source_file_name]
+            + [fit_params.distance]
+        )
         f.close()
 
     # printed output

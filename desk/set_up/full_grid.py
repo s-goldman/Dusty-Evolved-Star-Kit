@@ -66,9 +66,11 @@ def retrieve(full_grid_params):
 
     if full_grid_params.grid in config.external_grids:
         full_outputs, full_model_grid = scale_external.scale_by_distance(
+            full_grid_params.grid,
             full_grid_params.grid_outputs,
             full_grid_params.grid_dusty,
             full_grid_params.scaling_factor_flux_to_Lsun,
+            full_grid_params.distance,
         )
     else:
         # scale DUSTY outputs

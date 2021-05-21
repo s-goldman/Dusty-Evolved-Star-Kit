@@ -43,6 +43,7 @@ def sed(
     source_filename="fitting_results.csv",
     dest_path=".",
     save_name="output_sed.png",
+    flux="Wm2",
 ):
     """Creates single SED figure of all fit SEDs using
     the 'fitting_results.csv' file.
@@ -57,16 +58,21 @@ def sed(
         Path to save figure.
     save_name : str
         Figure filename to be saved.
-
+    flux: str
+        flux type (Wm2 or Jy)
     Returns
     -------
     png
         SED figure with data in blue and model in black.
     """
-    plotting_seds.create_fig(source_path, source_filename, dest_path, save_name)
+    plotting_seds.create_fig(
+        source_path, source_filename, dest_path, save_name, flux=flux
+    )
 
 
-def sed_indiv(source_path=".", source_filename="fitting_results.csv", dest_path="."):
+def sed_indiv(
+    source_path=".", source_filename="fitting_results.csv", dest_path=".", flux="Wm2"
+):
     """Creates individual SED figures for all fit SEDs using
     the 'fitting_results.csv' file.
 
@@ -80,13 +86,14 @@ def sed_indiv(source_path=".", source_filename="fitting_results.csv", dest_path=
         Path to save figure.
     save_name : str
         Figure filename to be saved.
-
+    flux: str
+        flux type (Wm2 or Jy)
     Returns
     -------
     png
         SED figure with data in blue and model in black.
     """
-    plotting_seds.single_figures(source_path, source_filename, dest_path)
+    plotting_seds.single_figures(source_path, source_filename, dest_path, flux=flux)
 
 
 def save_model(grid_name, luminosity, teff, tinner, tau, distance_in_kpc):
@@ -222,10 +229,13 @@ def fit(
 
     # Fitting
     print("\nFit parameters\n--------------")
-    print("Grid: \t\t" + grid)
-    print("Distance: \t" + str(distance) + " kpc")
-    print("Grid density: \t" + str(n))
-    print("Cores: \t\t" + str(n_cores))
+    print("Grid:\t\t" + grid)
+    print("Distance:\t" + str(distance) + " kpc")
+    if fit_params.grid in config.external_grids:
+        print("Grid density:\t" + str(n) + " (ignored as it is an external grids)")
+    else:
+        print("Grid density:\t" + str(n))
+    print("# of cores:\t" + str(n_cores))
 
     if n_cores == 1:
         # Single-core fitting
