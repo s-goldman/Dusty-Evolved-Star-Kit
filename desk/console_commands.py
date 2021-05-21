@@ -71,7 +71,11 @@ def sed(
 
 
 def sed_indiv(
-    source_path=".", source_filename="fitting_results.csv", dest_path=".", flux="Wm2"
+    source_path=".",
+    source_filename="fitting_results.csv",
+    dest_path=".",
+    save_name="Default",
+    flux="Wm2",
 ):
     """Creates individual SED figures for all fit SEDs using
     the 'fitting_results.csv' file.
@@ -93,7 +97,9 @@ def sed_indiv(
     png
         SED figure with data in blue and model in black.
     """
-    plotting_seds.single_figures(source_path, source_filename, dest_path, flux=flux)
+    plotting_seds.single_figures(
+        source_path, source_filename, dest_path, save_name, flux
+    )
 
 
 def save_model(grid_name, luminosity, teff, tinner, tau, distance_in_kpc):
