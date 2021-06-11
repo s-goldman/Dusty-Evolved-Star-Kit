@@ -127,24 +127,59 @@ def get_model_grid(grid, testing=False):
         The model grid parameters corresponding to the grid_dusty model grids
     """
 
+    def return_model_grid(_model_grid_name, testing):
+        """Checks models and returns model grid and outputs.
+
+        Parameters
+        ----------
+        _model_grid_name : str
+            Name of model grid.
+        testing : Bool
+            Whether this is a test.
+
+        Returns
+        -------
+        type
+            Description of returned object.
+
+        """
+        outputs_file_name, models_file_name = check_models(_model_grid_name)
+
+        _grid_dusty = read_hdf5(models_file_name, testing)
+        _grid_dusty.rename_columns(["col0", "col1"], ["wavelength_um", "flux_wm2"])
+
+        _grid_outputs = read_hdf5(outputs_file_name, testing)
+        _grid_outputs.add_column(Column([1] * len(_grid_outputs), name="norm"))
+        return _grid_dusty, _grid_outputs
+
     # User input for models
     if grid == "carbon":
-        model_grid = "Zubko-Crich-bb"
+        grid_dusty, grid_outputs = return_model_grid("Zubko-Crich-bb", testing)
     elif grid == "oxygen":
-        model_grid = "Oss-Orich-bb"
+        grid_dusty, grid_outputs = return_model_grid("Oss-Orich-bb", testing)
+    elif grid == "grams":
+        from astropy.table import vstack
+
+        # combine grams
+        grid_dusty_a, grid_outputs_a = return_model_grid("grams-oxygen", testing)
+        grid_dusty_b, grid_outputs_b = return_model_grid("grams-carbon", testing)
+
+        grid_dusty_a["wavelength_um"] = Column(
+            np.pad(grid_dusty_a["wavelength_um"], [(0, 0), (0, 19)])
+        )
+        grid_dusty_a["flux_wm2"] = Column(
+            np.pad(grid_dusty_a["flux_wm2"], [(0, 0), (0, 19)])
+        )
+
+        grid_dusty = vstack((grid_dusty_a, grid_dusty_b))
+        grid_outputs = vstack((grid_outputs_a, grid_outputs_b))
+
     else:
         if (grid in config.grids) | (grid in config.external_grids):
-            model_grid = grid
+            grid_dusty, grid_outputs = return_model_grid(grid, testing)
         else:
             raise ValueError(
                 "\n\nUnknown grid. Please make another model selection.\n\n To see options use: desk grids or desk.grids() in python"
             )
-    outputs_file_name, models_file_name = check_models(model_grid)
-
-    grid_dusty = read_hdf5(models_file_name, testing)
-    grid_dusty.rename_columns(["col0", "col1"], ["wavelength_um", "flux_wm2"])
-
-    grid_outputs = read_hdf5(outputs_file_name, testing)
-    grid_outputs.add_column(Column([1] * len(grid_outputs), name="norm"))
 
     return grid_dusty, grid_outputs

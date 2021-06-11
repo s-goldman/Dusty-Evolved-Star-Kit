@@ -129,6 +129,8 @@ grams-oxygen (*N*\ =68,601; 200 MB): A 2D oxygen-rich grid using the `2DUST`_
 code for the LMC metallicity (1/2 solar) using optical constants from
 `Ossenkopf et al. (1992)`_.
 
+grams: Both Grams datasets combined
+
 .. code:: diff
 
    - Warning: results uncertain outside of a distance 20-150 kpc.

@@ -27,7 +27,7 @@ def grids():
     for item in config.grids:
         print("\t" + str(item))
     print("\nExternal Grids:")
-    for item in config.external_grids:
+    for item in config.external_grids + ["grams"]:
         print("\t" + str(item))
     print("\n")
 
@@ -164,8 +164,8 @@ def fit(
     full_grid_params = full_grid.instantiate(
         grid, grid_dusty, grid_outputs, float(distance), int(n)
     )
-    # scale to full grids and get distance scaling factors
 
+    # scale to full grids and get distance scaling factors
     full_outputs, full_model_grid = full_grid.retrieve(full_grid_params)
 
     # get model wavelengths

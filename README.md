@@ -28,7 +28,7 @@ The documentation can be found on [readthedocs](http://dusty-evolved-star-kit.re
 Install Using Python
 --------------------
 
-1). Install the package with the command `pip install desk`.
+1). Install the package from [source](https://dusty-evolved-star-kit.readthedocs.io/en/latest/installation.html) or with [pip](https://pypi.org/project/pip/) using the command `pip install desk`.
 
 ![](docs/pip_install2.gif)
 

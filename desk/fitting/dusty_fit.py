@@ -34,18 +34,37 @@ def fit_single_source(source_number, fit_params):
         fitting=True,
     )
 
-    # trim models
-    trimmed_model_wavelength, trimmed_model_fluxes = fitting_tools.trim_grid(
-        data, fit_params
-    )
+    if fit_params.grid == "grams":
+        # models are not trimmed as the two grids are uneven. They are kept
+        # the same size for speed.
+        liklihood = np.array(
+            [
+                fitting_tools.fit.fit_data(
+                    data,
+                    [
+                        fit_params.full_model_grid["wavelength_um"][i],
+                        fit_params.full_model_grid["flux_wm2"][i],
+                    ],
+                )
+                for i in range(0, len(fit_params.full_model_grid["flux_wm2"]))
+            ]
+        )
 
-    # calculate chi squared values for each model
-    liklihood = np.array(
-        [
-            fitting_tools.fit.fit_data(data, [trimmed_model_wavelength, x["flux_wm2"]])
-            for x in trimmed_model_fluxes
-        ]
-    )
+    else:
+        # trim models
+        trimmed_model_wavelength, trimmed_model_fluxes = fitting_tools.trim_grid(
+            data, fit_params
+        )
+
+        # calculate chi squared values for each model
+        liklihood = np.array(
+            [
+                fitting_tools.fit.fit_data(
+                    data, [trimmed_model_wavelength, x["flux_wm2"]]
+                )
+                for x in trimmed_model_fluxes
+            ]
+        )
 
     if fit_params.bayesian_fit == True:
         # liklihood /= np.sum(liklihood)  # normalized
