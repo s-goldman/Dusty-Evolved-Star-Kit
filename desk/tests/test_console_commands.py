@@ -126,7 +126,10 @@ def create_fitting_results(directory):
 
 
 @pytest.mark.parametrize("dataset", [1, 2, 3])
-@pytest.mark.parametrize("testing_grid", config.grids + config.external_grids)
+@pytest.mark.parametrize(
+    "testing_grid",
+    config.grids + config.external_grids + ["grams"] + ["oxygen"] + ["carbon"],
+)
 def test_single_fit(tmpdir, testing_grid, dataset):
     # tests single fit for each sample dataset and each grid
     example_filename = create_sample_data(tmpdir, dataset)
