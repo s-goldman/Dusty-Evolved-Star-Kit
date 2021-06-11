@@ -42,7 +42,7 @@ def image_similarity(request, tmpdir):
 
 def test_grids(capfd):
     # checks if characters printed is what is expected (chars).
-    chars = 284
+    chars = 291
     console_commands.grids()
     out, _ = capfd.readouterr()
     np.testing.assert_allclose(len(out), chars, err_msg=("Print grids error"))
