@@ -64,7 +64,9 @@ def retrieve(full_grid_params):
 
     """
 
-    if full_grid_params.grid in config.external_grids:
+    if (
+        full_grid_params.grid in config.external_grids
+    ) or full_grid_params.grid == "grams":
         full_outputs, full_model_grid = scale_external.scale_by_distance(
             full_grid_params.grid,
             full_grid_params.grid_outputs,
