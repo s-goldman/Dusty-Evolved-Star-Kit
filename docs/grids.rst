@@ -3,7 +3,7 @@ Grids
 =====
 
 The DESK_ downloads and fits both new and commonly-used model grids, automatically.
-The grids are also available for download on Zenodo_.
+The grids are also available for download on Zenodo_. Columns are in wavelength (um) and flux density (W*m-2).
 
 DUSTY model grids
 -----------------
