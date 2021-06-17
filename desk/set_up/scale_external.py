@@ -46,6 +46,11 @@ def scale_by_distance(_grid_name, _outputs, _models, scaling_factor, distance):
                 + "This may result in unrealistic geometries.\n\n"
                 + "=" * 75
             )
+    elif fnmatch(_grid_name, "comarcs*"):
+        _outputs["norm"] = np.log10(
+            _outputs["norm"] * np.square(50) / np.square(distance)
+        )
+        scaled_models = _models["flux_wm2"] * np.power(10, _outputs["norm"][0])
 
     else:
         # Norm is the log normalization for plotting Nanni et al. models

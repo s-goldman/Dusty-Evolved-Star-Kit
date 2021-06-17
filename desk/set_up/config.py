@@ -33,4 +33,5 @@ external_grids = [
     "J1000-SMC",
     "grams-oxygen",
     "grams-carbon",
+    "comarcs",
 ]

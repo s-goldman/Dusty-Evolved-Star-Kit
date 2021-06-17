@@ -23,12 +23,23 @@ def trim_grid(data, fit_params):
     """
     data_wavelength_min = np.amin(data[0])
     data_wavelength_max = np.amax(data[0])
-    lower_trim_model_index = np.where(
-        fit_params.model_wavelength_grid < data_wavelength_min
-    )[0][-1]
-    upper_trim_model_index = (
-        np.where(fit_params.model_wavelength_grid > data_wavelength_max)[0][0] + 1
-    )
+
+    # if model goes lower than data, capture index just below it
+    if np.min(fit_params.model_wavelength_grid) < data_wavelength_min:
+        lower_trim_model_index = np.where(
+            fit_params.model_wavelength_grid < data_wavelength_min
+        )[0][-1]
+    else:
+        lower_trim_model_index = 0
+
+    # if model goes above than data, trim model just above
+    if np.min(fit_params.model_wavelength_grid) > data_wavelength_max:
+        upper_trim_model_index = (
+            np.where(fit_params.model_wavelength_grid > data_wavelength_max)[0][0] + 1
+        )
+    else:
+        upper_trim_model_index = len(fit_params.model_wavelength_grid) - 1
+
     trimmed_model_wavelength = fit_params.model_wavelength_grid[
         lower_trim_model_index:upper_trim_model_index
     ]
