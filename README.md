@@ -84,6 +84,11 @@ or
 `desk vizier_sed '(83.15482600, -67.11567600)'`
 
 
+Afterwords, you can fit that data with the command:
+
+`desk fit --source='MSX_LMC_807_sed.csv'`
+
+
 Retrieve model
 --------------
 
