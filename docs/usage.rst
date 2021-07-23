@@ -32,8 +32,8 @@ or specify a directory with multiple csv files:
 	> desk fit --source='folder_of_csvs' --distance=30 --grid='Oss-Orich-bb'
 
 
-Additional options
-------------------
+Additional fitting options
+--------------------------
 
 Users can also specify any-and-all of the following additional options. Requests
 for more additional features can be submitted through the `Issues`_ tab on the
@@ -76,8 +76,9 @@ or individual sources:
 
 	> desk fit --source='target_name.csv' --multiprocessing=True
 
-Outputs
--------
+Output Figures
+--------------
+
 .. image:: ./example.png
 	:width: 400
 	:alt: SED example
@@ -101,6 +102,28 @@ be in W/m2 or Jy (W/m2 is the default).
 .. code-block:: console
 
 	> desk sed --flux='Jy'
+
+
+Retrieve photometry
+-------------------
+Users can retrieve all of the photometry hosted on `Vizier`_ for a given source name
+or coordinates. Retrieving photometry using a source name is as simple as:
+
+	> desk vizier_sed 'MSX LMC 807'
+
+In order to return photometry using a source position (RA and Decl. in degrees), use
+the command:
+
+	> desk vizier_sed (83.15482600, -67.11567600)
+
+Additionally, you can specify the radius (in arcseconds) you would like to
+search for photometry using. To specify a 5 arcsecond radius use:
+
+	> desk vizier_sed 'MSX LMC 807' 5
+
+or
+
+	> desk vizier_sed (083.15482600, -67.11567600) 5
 
 Use in Python Environment
 -------------------------
@@ -145,6 +168,7 @@ The current status of the `tests`_ and `coverage`_.
 are available online. To run the tests locally, download/clone the package and
 use the command 'pytest' within the pacakge directory.
 
+.. _Vizier: http://vizier.cfa.harvard.edu/
 .. _github: https://github.com/s-goldman/Dusty-Evolved-Star-Kit/
 .. _Issues: https://github.com/s-goldman/Dusty-Evolved-Star-Kit/issues
 .. _tests: https://github.com/s-goldman/Dusty-Evolved-Star-Kit/actions?query=workflow%3A%22Python+package%22

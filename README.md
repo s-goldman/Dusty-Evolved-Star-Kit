@@ -72,6 +72,17 @@ To produce individual figures for each SED instead use the command:
 
 The package can also be used within python (see the [docs](https://dusty-evolved-star-kit.readthedocs.io/en/latest/usage.html#use-in-python-environment)).
 
+Retrieve Photometry
+-------------------
+
+Don't have the photometry? You can retrieve them from vizier using the [vizier_sed](https://dusty-evolved-star-kit.readthedocs.io/en/latest/usage.html#use-in-python-environment) command if you have the source name or position in degrees:
+
+`desk vizier_sed 'MSX LMC 807'`
+
+or
+
+`desk vizier_sed (83.15482600, -67.11567600)`
+
 
 Retrieve model
 --------------

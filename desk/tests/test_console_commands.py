@@ -4,6 +4,7 @@ import numpy as np
 from desk import console_commands
 from desk.set_up import config
 from PIL import Image
+from pathlib import Path
 
 
 def assert_images_equal(image_1: str, image_2: str):
@@ -154,6 +155,13 @@ def test_single_fit_options(tmpdir):
         max_wavelength=100,
         testing=True,
     )
+
+
+@pytest.mark.parametrize(
+    "target_name", ["MSX LMC 807", (295.4879586347, 16.7446716483)]
+)
+def test_vizier_sed(tmpdir, target_name):
+    console_commands.vizier_sed(target_name, source_path=str(tmpdir))
 
 
 # test working locally but not on github-actions

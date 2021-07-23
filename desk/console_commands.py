@@ -93,7 +93,7 @@ def sed_indiv(
     plotting_seds.single_figures(source_path, source_filename, dest_path, flux=flux)
 
 
-def vizier_sed(target_name, r=5):
+def vizier_sed(target_name, r=5, source_path="."):
     from astropy.coordinates import get_icrs_coordinates
     from desk.set_up.vizier_sed import query_sed
     from astropy.table import Table
@@ -148,7 +148,7 @@ def vizier_sed(target_name, r=5):
     )
     output_table.sort("wave_um")
 
-    output_table.write(csv_name, overwrite=True)
+    output_table.write(source_path + "/" + csv_name, overwrite=True)
     print("\nPhotometry saved as '" + csv_name + "'")
     print(
         "\n\tTo explore photometry further, go to:\n\t http://vizier.unistra.fr/vizier/sed/"
