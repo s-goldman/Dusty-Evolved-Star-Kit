@@ -32,8 +32,8 @@ or specify a directory with multiple csv files:
 	> desk fit --source='folder_of_csvs' --distance=30 --grid='Oss-Orich-bb'
 
 
-Additional options
-------------------
+Additional fitting options
+--------------------------
 
 Users can also specify any-and-all of the following additional options. Requests
 for more additional features can be submitted through the `Issues`_ tab on the
@@ -59,6 +59,7 @@ Wavelength range
 .. code-block:: console
 
 	> desk fit --source='target_name.csv' --min_wavelength=0.1 --max_wavelength=30
+
 The user may also specify a wavelength minimum and maximum. This will still show
 the full photometry in the final SED figure, but fit only the wavelength range
 specified.
@@ -76,8 +77,9 @@ or individual sources:
 
 	> desk fit --source='target_name.csv' --multiprocessing=True
 
-Outputs
--------
+Output Figures
+--------------
+
 .. image:: ./example.png
 	:width: 400
 	:alt: SED example
@@ -102,6 +104,36 @@ be in W/m2 or Jy (W/m2 is the default).
 
 	> desk sed --flux='Jy'
 
+
+Retrieve photometry
+-------------------
+Users can retrieve all of the photometry hosted on `Vizier`_ for a given source name
+or coordinates. Retrieving photometry using a source name is as simple as:
+
+.. code-block:: console
+
+	> desk vizier_sed 'MSX LMC 807'
+
+In order to return photometry using a source position (RA and Decl. in degrees), use
+the command:
+
+.. code-block:: console
+
+	> desk vizier_sed '(83.15482600, -67.11567600)'
+
+Additionally, you can specify the radius (in arcseconds) you would like to
+search for photometry using. To specify a 5 arcsecond radius use:
+
+.. code-block:: console
+
+	> desk vizier_sed 'MSX LMC 807' --r=5
+
+or
+
+.. code-block:: console
+
+	> desk vizier_sed '(083.15482600, -67.11567600)' --r=5
+
 Use in Python Environment
 -------------------------
 
@@ -115,20 +147,26 @@ console commands.
 	>>> from desk import *
 	>>> fit(source="target.csv", distance=3, grid="oxygen")
 
-One can also use the sed, save_model, and grids in a similar fashion.
+One can also use the sed, save_model, vizier_sed, and grids in a similar fashion.
 
 .. code-block:: console
 
 	>>> sed()
 	>>> sed(flux='Jy')
 	>>> grids()
+	>>> vizier_sed('MSX LMC 807', 5)
 	>>> save_model("Oss-Orich-bb", 10000, 2700, 1000, 0.4, 50)
 	>>> save_model(grid_name="Oss-Orich-bb", luminosity=10000, teff=2700, tinner=1000, tau=0.4, distance_in_kpc=50)
 
 
 How reliable in SED-fitting?
----------------------------
-The DESK is a tool designed to allow for the easy comparison of samples and model grids. Taken at face value, the results for a given sample or model grid may give incorrect results. For example, recent work by `Wiegert et al. 2019`_ has shown that the assumed geometry can affect measured mass loss rates by several orders of magnitude. It is up to the user to interpret the results, and I would urge those interested in using the DESK to also take a look at the excellent `recent review`_ by Leen Decin.
+----------------------------
+The DESK is a tool designed to allow for the easy comparison of samples and model
+grids. Taken at face value, the results for a given sample or model grid may give
+incorrect results. For example, recent work by `Wiegert et al. 2019`_ has shown
+that the assumed geometry can affect measured mass loss rates by several orders
+of magnitude. It is up to the user to interpret the results, and I would urge those
+interested in using the DESK to also take a look at the excellent `recent review`_ by Leen Decin.
 
 
 Using Multi-epoch data
@@ -145,6 +183,7 @@ The current status of the `tests`_ and `coverage`_.
 are available online. To run the tests locally, download/clone the package and
 use the command 'pytest' within the pacakge directory.
 
+.. _Vizier: http://vizier.cfa.harvard.edu/
 .. _github: https://github.com/s-goldman/Dusty-Evolved-Star-Kit/
 .. _Issues: https://github.com/s-goldman/Dusty-Evolved-Star-Kit/issues
 .. _tests: https://github.com/s-goldman/Dusty-Evolved-Star-Kit/actions?query=workflow%3A%22Python+package%22
