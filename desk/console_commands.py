@@ -116,9 +116,19 @@ def vizier_sed(target_name, r=5, source_path="."):
     """
     # Checks if name
     if isinstance(target_name, str):
-        coords = get_icrs_coordinates(target_name)
-        results = query_sed([coords.ra.value, coords.dec.value], radius=r)
-        csv_name = target_name.replace(" ", "_") + "_sed.csv"
+        if "(" in target_name:  # command line passes tuple as string
+            results = query_sed(eval(target_name), radius=float(r))
+            csv_name = (
+                "vizier_phot_"
+                + str(eval(target_name)[0])
+                + "_"
+                + str(eval(target_name)[1])
+                + ".csv"
+            )
+        else:
+            coords = get_icrs_coordinates(target_name)
+            results = query_sed([coords.ra.value, coords.dec.value], radius=float(r))
+            csv_name = target_name.replace(" ", "_") + "_sed.csv"
 
     # Checks if tuple of ra and dec in deg
     elif isinstance(target_name, tuple):
@@ -149,9 +159,9 @@ def vizier_sed(target_name, r=5, source_path="."):
     output_table.sort("wave_um")
 
     output_table.write(source_path + "/" + csv_name, overwrite=True)
-    print("\nPhotometry saved as '" + csv_name + "'")
+    print("\nPhotometry saved as: '" + csv_name + "'")
     print(
-        "\n\tTo explore photometry further, go to:\n\t http://vizier.unistra.fr/vizier/sed/"
+        "\n\tTo explore photometry further, go to:\n\t http://vizier.unistra.fr/vizier/sed/ \n"
     )
 
 

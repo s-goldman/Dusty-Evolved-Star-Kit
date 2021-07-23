@@ -81,7 +81,7 @@ Don't have the photometry? You can retrieve them from vizier using the [vizier_s
 
 or
 
-`desk vizier_sed (83.15482600, -67.11567600)`
+`desk vizier_sed '(83.15482600, -67.11567600)'`
 
 
 Retrieve model
