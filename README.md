@@ -75,7 +75,7 @@ The package can also be used within python (see the [docs](https://dusty-evolved
 Retrieve Photometry
 -------------------
 
-Don't have the photometry? You can retrieve them from vizier using the [vizier_sed](https://dusty-evolved-star-kit.readthedocs.io/en/latest/usage.html#use-in-python-environment) command if you have the source name or position in degrees:
+Don't have the photometry? You can retrieve them from *Vizier* using the [vizier_sed](https://dusty-evolved-star-kit.readthedocs.io/en/latest/usage.html#use-in-python-environment) command if you have the source name or position in degrees:
 
 `desk vizier_sed 'MSX LMC 807'`
 
