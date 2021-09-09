@@ -34,6 +34,12 @@ are downloaded during installation. Additional grids are downloaded when selecte
 The number of unique models and the filesize of each grid are specified next to
 the grid names below.
 
+The models assume a standard `MRN`_ grain size distribution from
+0.005 - 0.25 microns. The DUSTY code uses an exact calculation of the wind density
+distribution by solving the hydrodynamics equations as a set coupled to radiative
+transfer. This calculation extends to a distance of 10,000 times the inner radius (density type = 3,
+within the DUSTY code).
+
 
 Oxygen-rich DUSTY model grids
 =============================
@@ -53,8 +59,7 @@ Oss-Orich-aringer (*N*\ =2,000; 14 MB): Uses warm silicates from
 `Aringer et al. (2016)`_. Provides ranges in effective temperature
 (2600-3400 K: 200 K interval) inner dust
 temperature (600-1200K: 200 K interval) and optical depth (0.1 - 50: 100
-spaced logarithmicly). Standard `MRN`_ grain size distribution from
-0.005 - 0.25 microns.
+spaced logarithmicly).
 
 Oss-Orich-bb (*N*\ =2,000; 14 MB): Same as Oss-Orich-aringer but using black
 bodies instead of the photospheric models.
@@ -120,6 +125,9 @@ The GRAMS model grids
 =====================
 
 The GRAMS model grids from `Sargent et al. (2011)`_ and `Srinivasan et al. (2011)`_.
+These models assume a density distribution of 1/r\ :sup:`2`, a modified KMH dust grain
+distribution, and an assumed expansion velocity of 10 km/s.
+
 
 grams-carbon (*N*\ =12,244; 41.3 MB): A 2D carbon-rich grid using the `2DUST`_
 code for the LMC metallicity (1/2 solar) using optical constants from
