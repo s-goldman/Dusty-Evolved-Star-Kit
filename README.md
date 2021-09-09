@@ -72,8 +72,24 @@ To produce individual figures for each SED instead use the command:
 
 The package can also be used within python (see the [docs](https://dusty-evolved-star-kit.readthedocs.io/en/latest/usage.html#use-in-python-environment)).
 
+Retrieve Photometry
+-------------------
 
-Retrieve model
+Don't have the photometry? You can retrieve them from *Vizier* using the [vizier_sed](https://dusty-evolved-star-kit.readthedocs.io/en/latest/usage.html#use-in-python-environment) command if you have the source name or position in degrees:
+
+`desk vizier_sed 'MSX LMC 807'`
+
+or
+
+`desk vizier_sed '(83.15482600, -67.11567600)'`
+
+
+Afterwords, you can fit that data with the command:
+
+`desk fit --source='MSX_LMC_807_sed.csv'`
+
+
+Retrieve Model
 --------------
 
 To retrieve a model from the DUSTY model grids or to interpolate a model in the grid parameter space, use the *save_model* module with the grid name, luminosity (solar luminosities), effective temperature (K), inner dust temperature (K), optical depth (specified at 10 microns), and distance (kpc) separated with spaces:

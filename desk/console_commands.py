@@ -20,9 +20,7 @@ desk_path = str(__file__.replace("console_commands.py", ""))
 
 
 def grids():
-    """Prints the model grids available for fitting.
-
-    """
+    """Prints the model grids available for fitting."""
     print("\nDUSTY Grids:")
     for item in config.grids:
         print("\t" + str(item))
@@ -33,8 +31,7 @@ def grids():
 
 
 def version():
-    """Returns DESK version.
-    """
+    """Returns DESK version."""
     print("\n\tDESK version: " + pkg_resources.get_distribution("desk").version + "\n")
 
 
@@ -96,9 +93,80 @@ def sed_indiv(
     plotting_seds.single_figures(source_path, source_filename, dest_path, flux=flux)
 
 
-def save_model(grid_name, luminosity, teff, tinner, tau, distance_in_kpc):
-    """ See interpolate_dusty.
+def vizier_sed(target_name, r=5, source_path="."):
+    from astropy.coordinates import get_icrs_coordinates
+    from desk.set_up.vizier_sed import query_sed
+    from astropy.table import Table
+    import astropy.units as u
+
+    """Obtains SED using Morgan Fouesneau's vizier_sed script
+    (https://gist.github.com/mfouesneau/6caaae8651a926516a0ada4f85742c95).
+    Package then is parsed into a version usable by the DESK.
+
+    Parameters
+    ----------
+    target : str or tuple
+        Name of target to be resolved by Vizier
+        or tuple with ra and dec in degrees.
+    r : float
+        Cone radius to search for photometry within vizier.
+    returns:
+        csv file with photometry in wavelength (um),
+        flux (Jy), and instrument filter.
     """
+    # Checks if name
+    if isinstance(target_name, str):
+        if "(" in target_name:  # command line passes tuple as string
+            results = query_sed(eval(target_name), radius=float(r))
+            csv_name = (
+                "vizier_phot_"
+                + str(eval(target_name)[0])
+                + "_"
+                + str(eval(target_name)[1])
+                + ".csv"
+            )
+        else:
+            coords = get_icrs_coordinates(target_name)
+            results = query_sed([coords.ra.value, coords.dec.value], radius=float(r))
+            csv_name = target_name.replace(" ", "_") + "_sed.csv"
+
+    # Checks if tuple of ra and dec in deg
+    elif isinstance(target_name, tuple):
+        results = query_sed(target_name, radius=r)
+        csv_name = (
+            "vizier_phot_" + str(target_name[0]) + "_" + str(target_name[1]) + ".csv"
+        )
+
+    else:
+        raise ValueError(
+            "Input format not understood: "
+            + str(target_name)
+            + "\n Examples: "
+            + "\n\t desk.vizier_sed('HM Sge')"
+            + "\n\t desk.vizier_sed('HMSge', 5)"
+            + "\n\t desk.vizier_sed((295.4879586347,16.7446716483))"
+            + "\n\t desk.vizier_sed((295.4879586347,16.7446716483), 4)"
+        )
+
+    output_table = Table(
+        (
+            results["sed_freq"].to(u.um, equivalencies=u.spectral()).value,
+            results["sed_flux"],
+            results["sed_filter"],
+        ),
+        names=("wave_um", "flux_jy", "filter"),
+    )
+    output_table.sort("wave_um")
+
+    output_table.write(source_path + "/" + csv_name, overwrite=True)
+    print("\nPhotometry saved as: '" + csv_name + "'")
+    print(
+        "\n\tTo explore photometry further, go to:\n\t http://vizier.unistra.fr/vizier/sed/ \n"
+    )
+
+
+def save_model(grid_name, luminosity, teff, tinner, tau, distance_in_kpc):
+    """See interpolate_dusty."""
     interpolate_dusty.interpolate(
         grid_name,
         float(luminosity),
