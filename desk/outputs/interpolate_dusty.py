@@ -71,7 +71,16 @@ def check_input_range(
         )
 
 
-def interpolate(grid_name, luminosity, teff_new, tinner_new, tau_new, distance_in_kpc):
+def interpolate(
+    grid_name,
+    luminosity,
+    teff_new,
+    tinner_new,
+    tau_new,
+    distance_in_kpc,
+    custom_output_name,
+    print_outputs,
+):
     """A script for returning a model within any grid or returning an interpolated
     model that fits within the given parameter space. The interpolation interpolates
     over the flux at each wavelength in the model grid.
@@ -90,6 +99,10 @@ def interpolate(grid_name, luminosity, teff_new, tinner_new, tau_new, distance_i
         optical depth specified at 10 microns.
     distance_in_kpc : float
         Distance in kpc.
+    custom_output_name: str
+        Custom name for output in save_model_spectrum.
+    print_outputs : bool
+        Whether to print output expansion velocities and mass loss rates.
 
     Returns
     -------
@@ -182,11 +195,14 @@ def interpolate(grid_name, luminosity, teff_new, tinner_new, tau_new, distance_i
             [waves, scaled_fluxes], names=("wavelength_um", "flux_wm2")
         )
 
-    print("\nExpansion velocity = " + "%.2f" % float(expansion_velocity) + " km/s")
-    print("Gas mass-loss rate = " + "%.3E" % float(mass_loss_rate) + " Msun/yr\n")
+    if print_outputs == True:
+        print("\nExpansion velocity = " + "%.2f" % float(expansion_velocity) + " km/s")
+        print("Gas mass-loss rate = " + "%.3E" % float(mass_loss_rate) + " Msun/yr\n")
 
     scaled_model.write(
-        grid_name
+        custom_output_name
+        + "_"
+        + grid_name
         + "_"
         + str(luminosity)
         + "_"
@@ -195,6 +211,8 @@ def interpolate(grid_name, luminosity, teff_new, tinner_new, tau_new, distance_i
         + str(tinner_new)
         + "_"
         + str(tau_new)
+        + "_"
+        + str(distance_in_kpc)
         + ".csv",
         overwrite=True,
     )
