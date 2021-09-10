@@ -119,7 +119,7 @@ def interpolate(
     scaling_factor = ((float(distance_in_kpc) / u.AU.to(u.kpc)) ** 2) / 1379
 
     # gets models
-    grid_dusty, grid_outputs = get_models.get_model_grid(grid_name)
+    grid_dusty, grid_outputs = get_models.get_model_grid(grid_name, respond=False)
     waves = grid_dusty[0][0]
 
     # create interpolator
@@ -131,7 +131,8 @@ def interpolate(
 
     # if model already exists
     if (teff_new in teff) & (tinner_new in tinner) & (tau_new in tau):
-        print("Model exists:")
+        if print_outputs == True:
+            print("Model exists:")
         ind = np.where(
             (grid_outputs["teff"] == teff_new)
             & (grid_outputs["tinner"] == tinner_new)
@@ -204,15 +205,15 @@ def interpolate(
         + "_"
         + grid_name
         + "_"
-        + str(luminosity)
+        + str(int(luminosity))
         + "_"
-        + str(teff_new)
+        + str(int(teff_new))
         + "_"
-        + str(tinner_new)
+        + str(int(tinner_new))
         + "_"
         + str(tau_new)
         + "_"
-        + str(distance_in_kpc)
+        + str(int(distance_in_kpc))
         + ".csv",
         overwrite=True,
     )

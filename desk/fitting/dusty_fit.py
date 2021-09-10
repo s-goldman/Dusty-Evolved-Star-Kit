@@ -66,8 +66,6 @@ def fit_single_source(source_number, fit_params):
             ]
         )
 
-    probs = liklihood
-
     best_fit = full_outputs[np.argmax(liklihood)]
     out = Table(best_fit)
 
@@ -107,14 +105,19 @@ def fit_single_source(source_number, fit_params):
     print("-" * 56)
 
     if fit_params.save_model_spectrum == True:
-        print("Saving output model spectrum")
-        desk.console_commands.save_model(
-            fit_params.grid,
-            best_fit["lum"],
-            best_fit["teff"],
-            best_fit["tinner"],
-            best_fit["odep"],
-            fit_params.distance,
-            custom_output_name=target_name + "_model",
-            print_outputs=False,
-        )
+        if fit_params.grid not in config.grids:
+            print(
+                "Saving output model spectrum still in development for external grids"
+            )
+        else:
+            print("Saving output model spectrum.")
+            desk.console_commands.save_model(
+                fit_params.grid,
+                best_fit["lum"],
+                best_fit["teff"],
+                best_fit["tinner"],
+                best_fit["odep"],
+                fit_params.distance,
+                custom_output_name=target_name + "_model",
+                print_outputs=False,
+            )

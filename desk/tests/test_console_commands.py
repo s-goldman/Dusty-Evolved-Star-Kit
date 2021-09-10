@@ -126,19 +126,20 @@ def create_fitting_results(directory):
     return target_file_path
 
 
+@pytest.mark.parametrize("multiprocessing", [True, False, 5])
 @pytest.mark.parametrize("dataset", [1, 2, 3])
 @pytest.mark.parametrize(
     "testing_grid",
     config.grids + config.external_grids + ["grams"] + ["oxygen"] + ["carbon"],
 )
-def test_single_fit(tmpdir, testing_grid, dataset):
+def test_single_fit(tmpdir, testing_grid, dataset, multiprocessing):
     # tests single fit for each sample dataset and each grid
     example_filename = create_sample_data(tmpdir, dataset)
     console_commands.fit(
         source=str(example_filename),
         grid=testing_grid,
         n=2,
-        multiprocessing=False,
+        multiprocessing=multiprocessing,
         testing=True,
     )
 
