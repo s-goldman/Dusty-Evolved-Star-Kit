@@ -289,12 +289,14 @@ def fit(
                 + str(multiprocessing)
             )
 
-    elif (testing == True) | (grid == "desk-mix"):
+    elif testing == True:
         # ignore n_cores and replace with 1 if in testing mode
         n_cores = 1
     else:
         raise ValueError("Invalid testing options: " + str(testing))
-
+    if grid == "desk-mix":
+        # grid too big for multi-processing
+        n_cores = 1
     # Fitting
     print("\nFit parameters\n--------------")
     print("Grid:\t\t" + grid)
