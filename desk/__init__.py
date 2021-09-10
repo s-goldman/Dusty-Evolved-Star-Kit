@@ -23,7 +23,7 @@ __keywords__ = (
     "Extreme carbon stars",
 )
 
-from desk import fitting, outputs, probabilities, set_up
+from desk import fitting, outputs, set_up
 from desk.console_commands import *
 
 # # to import all submodules

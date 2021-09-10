@@ -231,9 +231,6 @@ def fit(
     # timer
     startTime = time.time()
 
-    # bayesian fitting currently in development
-    bayesian_fit = False
-
     # get data filenames
     file_names = get_data.compile_data(source)
 
@@ -263,7 +260,6 @@ def fit(
         full_outputs,
         min_wavelength,
         max_wavelength,
-        bayesian_fit,
         save_model_spectrum,
         testing,
     )
