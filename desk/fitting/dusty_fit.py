@@ -4,6 +4,8 @@ import ipdb
 import numpy as np
 from desk.set_up import config, get_data
 from astropy.table import Table
+
+import desk.console_commands
 from desk.fitting import fitting_tools
 from desk.probabilities import compute_grid_weights, create_pdf
 from desk.probabilities import create_prior, resample_prior_to_model_grid
@@ -132,3 +134,16 @@ def fit_single_source(source_number, fit_params):
         + " Msun/yr"
     )
     print("-" * 56)
+
+    if fit_params.save_model_spectrum == True:
+        print("Saving output model spectrum")
+        desk.console_commands.save_model(
+            fit_params.grid,
+            best_fit["lum"],
+            best_fit["teff"],
+            best_fit["tinner"],
+            best_fit["odep"],
+            fit_params.distance,
+            custom_output_name=target_name + "_model",
+            print_outputs=False,
+        )

@@ -165,7 +165,16 @@ def vizier_sed(target_name, r=5, source_path="."):
     )
 
 
-def save_model(grid_name, luminosity, teff, tinner, tau, distance_in_kpc):
+def save_model(
+    grid_name,
+    luminosity,
+    teff,
+    tinner,
+    tau,
+    distance_in_kpc,
+    custom_output_name="model",
+    print_outputs=True,
+):
     """See interpolate_dusty."""
     interpolate_dusty.interpolate(
         grid_name,
@@ -174,6 +183,8 @@ def save_model(grid_name, luminosity, teff, tinner, tau, distance_in_kpc):
         float(tinner),
         float(tau),
         float(distance_in_kpc),
+        custom_output_name,
+        print_outputs,
     )
 
 
@@ -185,6 +196,7 @@ def fit(
     min_wavelength=config.fitting["default_wavelength_min"],
     max_wavelength=config.fitting["default_wavelength_max"],
     multiprocessing=cpu_count() - 1,
+    save_model_spectrum=False,
     testing=False,
 ):
     """
@@ -252,6 +264,7 @@ def fit(
         min_wavelength,
         max_wavelength,
         bayesian_fit,
+        save_model_spectrum,
         testing,
     )
 
