@@ -65,7 +65,6 @@ def fit_single_source(source_number, fit_params):
                 for x in trimmed_model_fluxes
             ]
         )
-
     best_fit = full_outputs[np.argmax(liklihood)]
     out = Table(best_fit)
 

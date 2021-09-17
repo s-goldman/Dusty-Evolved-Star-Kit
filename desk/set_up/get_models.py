@@ -152,7 +152,6 @@ def get_model_grid(grid, testing=False, respond=True):
 
         """
         outputs_file_name, models_file_name = check_models(_model_grid_name, respond)
-
         _grid_dusty = read_hdf5(models_file_name, testing)
         _grid_dusty.rename_columns(["col0", "col1"], ["wavelength_um", "flux_wm2"])
 
