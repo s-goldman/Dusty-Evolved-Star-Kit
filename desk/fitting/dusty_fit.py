@@ -104,7 +104,7 @@ def fit_single_source(source_number, fit_params):
     print("-" * 56)
 
     if fit_params.save_model_spectrum == True:
-        if fit_params.grid not in config.grids:
+        if fit_params.grid in config.external_grids:
             print(
                 "Saving output model spectrum still in development for external grids"
             )
