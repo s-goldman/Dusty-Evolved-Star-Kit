@@ -117,5 +117,8 @@ class fit:
         """
 
         matched_model = fit.find_closest(data[0], model[0], model[1])
-        liklihood = fit.least2_liklihood(data[1], matched_model)
+        liklihood = fit.least2_liklihood(
+            data[1][matched_model != 0],
+            matched_model[matched_model != 0],  # removes empty flux data in models
+        )
         return liklihood
