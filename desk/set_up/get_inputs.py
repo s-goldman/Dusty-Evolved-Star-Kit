@@ -14,7 +14,6 @@ class fitting_parameters(object):
         full_outputs,
         min_wavelength,
         max_wavelength,
-        bayesian_fit,
         save_model_spectrum,
         testing,
     ):
@@ -45,8 +44,6 @@ class fitting_parameters(object):
             Minimum wavelength to fit (um).
         max_wavelength : float
             Maximum wavelength to fit (um).
-        bayesian_fit : bool
-            Flag for baysian fitting.
         save_model_spectrum : bool
             Whether to use save_model function on fit results.
         testing : bool
@@ -69,6 +66,5 @@ class fitting_parameters(object):
         self.full_outputs = full_outputs
         self.min_wavelength = min_wavelength
         self.max_wavelength = max_wavelength
-        self.bayesian_fit = bayesian_fit
         self.save_model_spectrum = save_model_spectrum
         self.testing = testing

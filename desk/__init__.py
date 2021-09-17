@@ -10,7 +10,7 @@
 __author__ = "Steven R. Goldman"
 __email__ = "sgoldman@stsci.edu"
 __title__ = "DESK"
-__version__ = "1.8.3"
+__version__ = "1.8.6"
 __repository__ = "https://github.com/s-goldman/Dusty-Evolved-Star-Kit"
 __date_published = "2021-04-13"
 __licence__ = "BSD"
@@ -23,7 +23,7 @@ __keywords__ = (
     "Extreme carbon stars",
 )
 
-from desk import fitting, outputs, probabilities, set_up
+from desk import fitting, outputs, set_up
 from desk.console_commands import *
 
 # # to import all submodules

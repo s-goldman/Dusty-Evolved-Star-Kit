@@ -7,8 +7,6 @@ from astropy.table import Table
 
 import desk.console_commands
 from desk.fitting import fitting_tools
-from desk.probabilities import compute_grid_weights, create_pdf
-from desk.probabilities import create_prior, resample_prior_to_model_grid
 
 
 def fit_single_source(source_number, fit_params):
@@ -67,36 +65,6 @@ def fit_single_source(source_number, fit_params):
                 for x in trimmed_model_fluxes
             ]
         )
-
-    if fit_params.bayesian_fit == True:
-        # liklihood /= np.sum(liklihood)  # normalized
-        # compute grid weights
-        grid_weights_odep = compute_grid_weights.grid_weights(full_outputs["odep"])
-
-        # priors
-        lmc_data = Table.read(
-            config.path + "probabilities/priors/LMC_tables_H11_all.dat", format="ascii"
-        )
-        create_prior.prior(lmc_data, "dmdt", 2e-6)
-        create_prior.prior(lmc_data, "L", 1000)
-
-        p_dmdt = resample_prior_to_model_grid.resamp(
-            full_outputs, "scaled_mdot", "dmdt"
-        )
-        p_lum = resample_prior_to_model_grid.resamp(full_outputs, "lum", "L")
-        # combined_grid_weights, priors, and liklihoods
-        probs = grid_weights_odep * liklihood * p_dmdt * p_lum
-
-        ## most likly values
-        odep_best = create_pdf.par_pdf("odep", full_outputs, probs)
-        lum_best = create_pdf.par_pdf("lum", full_outputs, probs)
-        mdot_best = create_pdf.par_pdf("scaled_mdot", full_outputs, probs)
-        vexp_best = create_pdf.par_pdf("scaled_vexp", full_outputs, probs)
-        best = [odep_best, lum_best, mdot_best, vexp_best]
-
-    else:
-        probs = liklihood
-
     best_fit = full_outputs[np.argmax(liklihood)]
     out = Table(best_fit)
 
@@ -136,14 +104,19 @@ def fit_single_source(source_number, fit_params):
     print("-" * 56)
 
     if fit_params.save_model_spectrum == True:
-        print("Saving output model spectrum")
-        desk.console_commands.save_model(
-            fit_params.grid,
-            best_fit["lum"],
-            best_fit["teff"],
-            best_fit["tinner"],
-            best_fit["odep"],
-            fit_params.distance,
-            custom_output_name=target_name + "_model",
-            print_outputs=False,
-        )
+        if fit_params.grid not in config.grids:
+            print(
+                "Saving output model spectrum still in development for external grids"
+            )
+        else:
+            print("Saving output model spectrum.")
+            desk.console_commands.save_model(
+                fit_params.grid,
+                best_fit["lum"],
+                best_fit["teff"],
+                best_fit["tinner"],
+                best_fit["odep"],
+                fit_params.distance,
+                custom_output_name=target_name + "_model",
+                print_outputs=False,
+            )

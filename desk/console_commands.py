@@ -196,7 +196,7 @@ def fit(
     min_wavelength=config.fitting["default_wavelength_min"],
     max_wavelength=config.fitting["default_wavelength_max"],
     multiprocessing=cpu_count() - 1,
-    save_model_spectrum=False,
+    save_model_spectrum=True,
     testing=False,
 ):
     """
@@ -223,6 +223,8 @@ def fit(
     multiprocessing : bool or int
         Uses all but one core if True, only one core if False, or uses the
         number of cores specified as an integer.
+    save_model_spectrum:
+        Whether to save the model sprcetum as csv file.
     testing : bool
         Flag for testing that uses only the first 3 rows of the mode grids.
     """
@@ -230,9 +232,6 @@ def fit(
     # Set-up ###################################################################
     # timer
     startTime = time.time()
-
-    # bayesian fitting currently in development
-    bayesian_fit = False
 
     # get data filenames
     file_names = get_data.compile_data(source)
@@ -263,7 +262,6 @@ def fit(
         full_outputs,
         min_wavelength,
         max_wavelength,
-        bayesian_fit,
         save_model_spectrum,
         testing,
     )
@@ -305,11 +303,13 @@ def fit(
     elif testing == True:
         # ignore n_cores and replace with 1 if in testing mode
         n_cores = 1
+        fit_params.save_model_spectrum = False
     else:
         raise ValueError("Invalid testing options: " + str(testing))
     if grid == "desk-mix":
         # grid too big for multi-processing
         n_cores = 1
+        fit_params.save_model_spectrum = False
     # Fitting
     print("\nFit parameters\n--------------")
     print("Grid:\t\t" + grid)

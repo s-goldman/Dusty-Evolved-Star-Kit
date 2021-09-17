@@ -4,7 +4,7 @@ from astropy.table import Table
 
 
 def trim_grid(data, fit_params):
-    """Trims model grid wavelengths and fluxes before fitting.
+    """Trims model grid wavelengths and fluxes. USED BEFORE FITTING.
 
     Parameters
     ----------
@@ -115,7 +115,10 @@ class fit:
             chi square value.
 
         """
-        matched_model = fit.find_closest(data[0], model[0], model[1])
-        liklihood = fit.least2_liklihood(data[1], matched_model)
 
+        matched_model = fit.find_closest(data[0], model[0], model[1])
+        liklihood = fit.least2_liklihood(
+            data[1][matched_model != 0],
+            matched_model[matched_model != 0],  # removes empty flux data in models
+        )
         return liklihood

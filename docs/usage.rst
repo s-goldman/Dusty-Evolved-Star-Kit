@@ -77,8 +77,14 @@ or individual sources:
 
 	> desk fit --source='target_name.csv' --multiprocessing=True
 
-Output Figures
---------------
+Output Figures and Model Spectra
+--------------------------------
+
+For the DUSTY grids, the code automatically outputs the best-fit model spectrum as
+a csv file named as the target name, grid name, luminosity, effective temperature,
+inner dust temperature, optical depth, and distance, all separated by underscores.
+You also have the option of creating a figure with the data and best-fit SED using
+the following commands.
 
 .. image:: ./example.png
 	:width: 400

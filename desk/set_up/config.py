@@ -14,9 +14,7 @@ fitting = dict(
 output = dict(printed_output="True", output_unit="Wm^-2", create_figure="yes")
 grids = [
     "Crystalline-20-bb",
-    "Oss-Orich-aringer",
     "Oss-Orich-bb",
-    "Zubko-Crich-aringer",
     "Zubko-Crich-bb",
     "arnold-palmer",
     "big-grains",

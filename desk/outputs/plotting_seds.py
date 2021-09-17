@@ -124,11 +124,25 @@ def get_model_and_data_for_plotting(
     grid_dusty = Table.read(
         full_path + "models/" + str(input_file["grid_name"][0]) + "_models.hdf5"
     )
-
+    grid_outputs = Table.read(
+        full_path + "models/" + str(input_file["grid_name"][0]) + "_outputs.hdf5"
+    )
     x_data, y_data = get_data.get_values(target["file_name"])
-    x_model_init, y_model_init = grid_dusty[
-        target["number"] - 1
-    ]  # model_id starts at 1
+
+    if target["grid_name"] != "desk-mix":
+        correct_index = np.where(
+            (grid_outputs["number"] == target["number"])
+            & (grid_outputs["teff"] == target["teff"])
+            & (grid_outputs["tinner"] == target["tinner"])
+        )[0]
+    else:
+        correct_index = np.where(
+            (grid_outputs["number"] == target["number"])
+            & (grid_outputs["grid_idx"] == target["grid_idx"])
+        )[0]
+    if len(correct_index) > 1:
+        raise ValueError("Multiple models that match that criteria")
+    x_model_init, y_model_init = grid_dusty[correct_index[0]]
 
     x_model_select = x_model_init[np.where(y_model_init != 0)]
     y_model_select = y_model_init[np.where(y_model_init != 0)]
