@@ -12,17 +12,17 @@ The DUSTY_ models are 1-D radiative transfer models that exploit
 scaling relations to generate models. The model shape can be scaled
 to any luminosity, expansion velocity, or mass-loss rate so long as the
 combination of these three parameters remains the same. The DESK model grids
-contain 500--2000 unique model shapes. Theses grids are scaled
+contain 2,000--32,000 unique model shapes. Theses grids are scaled
 to the desired number of luminosities between 1,000 and 150,000 using the
 command option `--n`.
 
 .. code-block:: console
 
-	> desk fit --source='example.csv' --grid='Oss-Orich-aringer' --n=10
+	> desk fit --source='example.csv' --grid='corundum-mix' --n=10
 
-This command will scale the 'Oss-Orich-aringer' model grid of 2,000 unique model
+This command will scale the 'corundum-mix' model grid of 3,000 unique model
 shapes to luminosities at 1000, 17555, 34111, 50666, 67222, 83777, 100333, 116888,
-133444, and 150000 solar luminosities (20,000 models).
+133444, and 150000 solar luminosities (30,000 models).
 
 The output model parameters of expansion velocity and gas mass-loss rate are
 scaled using the relations from `Elitzur & Ivezić 2001`_. The model flux is scaled
@@ -37,15 +37,15 @@ the grid names below.
 The models assume a standard `MRN`_ grain size distribution from
 0.005 - 0.25 microns. The DUSTY code uses an analytical approximation of the wind density
 distribution. This calculation extends to a distance of 10,000 times the inner
-radius (density type = 3, within the DUSTY code).
+radius (density type = 4, within the DUSTY code).
 
 
 Oxygen-rich DUSTY model grids
 =============================
 
 silicates (*N*\ =2,000; 3.4 MB): Uses oxygen-rich warm silicates from
-`Ossenkopf et al. (1992)`_ and a black body of the effective temperature specified.
-Provides ranges in effective temperature (2600-3400 K: 200 K interval) inner dust
+`Ossenkopf et al. (1992)`_ and a black body. This grid provides ranges in
+effective temperature (2600-3400 K: 200 K interval) inner dust
 temperature (600-1200K: 200 K interval) and optical depth (0.1 - 30: 100
 spaced logarithmically).
 
@@ -65,7 +65,7 @@ grains from from `Jaeger et al. (1994)`_.
 
 
 draine-mix (*N*\ =3,000; 5 MB): Same as corundum-mix but with astronomical silicate
-grains from from `_Draine & Lee (1984)`_.
+grains from from `Draine & Lee (1984)`_.
 
 
 iron-mix (*N*\ =2,960; 5 MB): Same as corundum-mix but with iron grains from
@@ -78,8 +78,8 @@ grains from `Zubko et al. (1996)`_.
 
 silicate-mix (*N*\ =31,880; 56 MB): Same temperatures and optical depth as
 corundum-mix but with 4% iron grains from `Henning et al. (1995)`_, and different
-fractions of the oxygen-rich,
-oxygen-deficient from `Ossenkopf et al. (1992)`_ and crystalline silicates from
+fractions of the oxygen-rich and
+oxygen-deficient grains from `Ossenkopf et al. (1992)`_ and crystalline silicates from
 `Jaeger et al. (1994)`_. The fractions for each grain type are 0, 16, 24, 38, 42,
 56, 64, 80%
 for the oxygen-rich and oxygen-deficient silicates with the remainder filled with
@@ -99,7 +99,7 @@ amorphous carbon grains from `Zubko et al. (1996)`_.
 Dust growth grids
 =================
 
-The dust growth model grids from `Nanni et al. (2019)`_
+The dust growth model grids from `Nanni et al. (2019)`_.
 
 H11-LMC (*N*\ =90,899; 770 MB): A carbon-rich grid for the LMC metallicity (1/2
 solar) using optical constants from `Hanner et al. (1988)`_.
@@ -136,7 +136,7 @@ grams-oxygen (*N*\ =68,601; 200 MB): A 2D oxygen-rich grid using the `2DUST`_
 code for the LMC metallicity (1/2 solar) using optical constants from
 `Ossenkopf et al. (1992)`_.
 
-grams: Both Grams datasets combined
+grams: Both GRAMS datasets combined
 
 .. code:: diff
 
