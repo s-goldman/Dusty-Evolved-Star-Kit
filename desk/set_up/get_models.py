@@ -196,3 +196,39 @@ def get_model_grid(grid, testing=False, respond=True):
             )
 
     return grid_dusty, grid_outputs
+
+
+def get_model_index_using_number(
+    grid_name, grid_outputs, requested_grid_number, requested_grid_index=0
+):
+    """Returns the model_outputs index of a grid or external grid given.
+
+    Parameters
+    ----------
+    grid_name : str
+        Name of the desk grid for which you want a model.
+    grid_outputs : astropy table
+        outputs table read from the `*model*_outfits.hdf5` file.
+    requested_grid_number : int
+        `number` which is a column in the model_outputs. Number is unique for
+        external grids but not for regular grids.
+    requested_grid_index : int
+        `grid_idx` which is a column in the model_outputs. For grids, number and
+        grid_idx create unique identifier.
+
+    Returns
+    -------
+    correct_index: int
+        grid outputs index of correct model.
+
+    """
+    if grid_name in config.external_grids:
+        correct_index = np.where(grid_outputs["number"] == requested_grid_number)[0]
+    else:
+        correct_index = np.where(
+            (grid_outputs["number"] == requested_grid_number)
+            & (grid_outputs["grid_idx"] == requested_grid_index)
+        )[0]
+    if len(correct_index) > 1:
+        raise ValueError("Multiple models that match that criteria")
+    return correct_index
