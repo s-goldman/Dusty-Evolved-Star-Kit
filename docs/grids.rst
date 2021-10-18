@@ -126,7 +126,9 @@ The GRAMS model grids
 
 The GRAMS model grids from `Sargent et al. (2011)`_ and `Srinivasan et al. (2011)`_.
 These models assume a density distribution of 1/r\ :sup:`2`, a modified KMH dust grain
-distribution, and an assumed expansion velocity of 10 km/s.
+distribution, and an assumed expansion velocity of 10 km/s. Compared to the 1D DUSTY models, 
+the optical depths for the GRAMS models are more limited, with  optical depths at 10 microns 
+ranging from 0.001-0.4 for the carbon-rich grid, to 0.0001-26 for the oxygen-rich grid.
 
 
 grams-carbon (*N*\ =12,244; 41.3 MB): A 2D carbon-rich grid using the `2DUST`_
