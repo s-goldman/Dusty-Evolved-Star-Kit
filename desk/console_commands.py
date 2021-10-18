@@ -165,27 +165,27 @@ def vizier_sed(target_name, r=5, source_path="."):
     )
 
 
-def save_model(
-    grid_name,
-    luminosity,
-    teff,
-    tinner,
-    tau,
-    distance_in_kpc,
-    custom_output_name="model",
-    print_outputs=True,
-):
-    """See interpolate_dusty."""
-    interpolate_dusty.interpolate(
-        grid_name,
-        float(luminosity),
-        float(teff),
-        float(tinner),
-        float(tau),
-        float(distance_in_kpc),
-        custom_output_name,
-        print_outputs,
-    )
+# def save_model(
+#     grid_name,
+#     luminosity,
+#     teff,
+#     tinner,
+#     tau,
+#     distance_in_kpc,
+#     custom_output_name="model",
+#     print_outputs=True,
+# ):
+#     """See interpolate_dusty."""
+#     interpolate_dusty.interpolate(
+#         grid_name,
+#         float(luminosity),
+#         float(teff),
+#         float(tinner),
+#         float(tau),
+#         float(distance_in_kpc),
+#         custom_output_name,
+#         print_outputs,
+#     )
 
 
 def fit(

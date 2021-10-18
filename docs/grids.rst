@@ -26,76 +26,73 @@ shapes to luminosities at 1000, 17555, 34111, 50666, 67222, 83777, 100333, 11688
 
 The output model parameters of expansion velocity and gas mass-loss rate are
 scaled using the relations from `Elitzur & Ivezić 2001`_. The model flux is scaled
-using the brightness and distance to the sun, and scaling for the luminositiy
+using the brightness and distance to the sun, and scaling for the luminosity
 which is already in solar luminosities.
 
-Only the default carbon (Zubko-Crich-bb) and oxygen-rich (Oss-Orich-bb) model grids
+Only the default carbon (amorphous-carbon) and oxygen-rich (silicates) model grids
 are downloaded during installation. Additional grids are downloaded when selected.
-The number of unique models and the filesize of each grid are specified next to
+The number of unique models and the file size of each grid are specified next to
 the grid names below.
 
 The models assume a standard `MRN`_ grain size distribution from
-0.005 - 0.25 microns. The DUSTY code uses an exact calculation of the wind density
-distribution by solving the hydrodynamics equations as a set coupled to radiative
-transfer. This calculation extends to a distance of 10,000 times the inner radius (density type = 3,
-within the DUSTY code).
+0.005 - 0.25 microns. The DUSTY code uses an analytical approximation of the wind density
+distribution. This calculation extends to a distance of 10,000 times the inner
+radius (density type = 3, within the DUSTY code).
 
 
 Oxygen-rich DUSTY model grids
 =============================
 
-desk-mix (*N*\ = 19,200; 177 MB): Uses a grain mixture inspired by the More Of Dusty (MOD)
-code (`Groenewegen 2012`_) based on the DUSTY code (`Elitzur & Ivezić 2001`_).
-The dust grains assume a mixture of olivine grains
-(MgFeSiO4) from `Dorschner et al. (1995)`_, corundum grains
-(AlOx; amorphous porous Al2O3) from `Begemann et al. (1997)`_, and
-iron grains (FeO) from `Henning et al. (1995)`_. The relative percentages of
-olivine and corundum range from 48-98\% olivine in increments of 10\% and include either
-2\% or 4\% iron grains. The grid uses oxygen-rich atmospheric MARCS models from
-`Gustafsson et al. (2008)`_.
+silicates (*N*\ =2,000; 3.4 MB): Uses oxygen-rich warm silicates from
+`Ossenkopf et al. (1992)`_ and a black body of the effective temperature specified.
+Provides ranges in effective temperature (2600-3400 K: 200 K interval) inner dust
+temperature (600-1200K: 200 K interval) and optical depth (0.1 - 30: 100
+spaced logarithmically).
 
-Oss-Orich-aringer (*N*\ =2,000; 14 MB): Uses warm silicates from
-`Ossenkopf et al. (1992)`_ and photospheric models from
-`Aringer et al. (2016)`_. Provides ranges in effective temperature
-(2600-3400 K: 200 K interval) inner dust
-temperature (600-1200K: 200 K interval) and optical depth (0.1 - 50: 100
-spaced logarithmicly).
+o-def-silicates (*N*\ =2,000; 3.4 MB): Same as the silicates grid but using
+oxygen-deficient warm silicates from `Ossenkopf et al. (1992)`_.
 
-Oss-Orich-bb (*N*\ =2,000; 14 MB): Same as Oss-Orich-aringer but using black
-bodies instead of the photospheric models.
 
-Crystalline-20-bb (*N*\ =2,000; 14 MB): Same as Oss-Orich-bb but using 20%
-crystalline silicate grains from `Jaeger et al. (1994)`_.
+corundum-mix (*N*\ =3,000; 5 MB): Same temperature range as the silicates grid
+but with with more limited density of optical depths (0.1 - 30: 50 spaced
+logarithmically) created for three scenarios of different fractions of warm
+silicates and corundum grains from `Begemann et al. (1997)`_. The fractions
+included are 70:30, 80:20, 90:10 for the warm silicates:corundum grain ratio.
 
-corundum-20-bb (*N*\ =2,000; 14 MB): Same as Oss-Orich-bb but using 20%
-corundum grains from `Begemann et al. (1997)`_.
 
-big-grain (*N*\ =2,000; 14 MB): Same as Oss-Orich-aringer but using a higher
-maximum dust grain size of 0.35.
+crystalline-mix (*N*\ =3,000; 5 MB): Same as corundum-mix but with crystalline silicate
+grains from from `Jaeger et al. (1994)`_.
 
-fifth-iron (*N*\ =500; 3 MB): Same as Oss-Orich-aringer but with 20% iron
-grains from `Henning et al. (1995)`_, and an effective temperature of 3400
-K.
 
-half-iron (*N*\ =500; 3 MB): Same as Oss-Orich-aringer but with 50% iron
-grains from `Henning et al. (1995)`_, and an effective temperature of 3400
-K.
+draine-mix (*N*\ =3,000; 5 MB): Same as corundum-mix but with astronomical silicate
+grains from from `_Draine & Lee (1984)`_.
 
-one-fifth-carbon (*N*\ =500; 3 MB): Same as Oss-Orich-aringer but with 20%
-amorphous carbon grains from `Zubko et al. (1996)`_, and an effective
-temperature of 3400 K.
 
-arnold-palmer (*N*\ =2,000; 137 MB): Same as Oss-Orich-aringer but with 50%
-amorphous carbon grains from `Zubko et al. (1996)`_.
+iron-mix (*N*\ =2,960; 5 MB): Same as corundum-mix but with iron grains from
+`Henning et al. (1995)`_,.
+
+
+carbon-mix (*N*\ =3,000; 5 MB): Same as corundum-mix but with amorphous carbon
+grains from `Zubko et al. (1996)`_.
+
+
+silicate-mix (*N*\ =31,880; 56 MB): Same temperatures and optical depth as
+corundum-mix but with 4% iron grains from `Henning et al. (1995)`_, and different
+fractions of the oxygen-rich,
+oxygen-deficient from `Ossenkopf et al. (1992)`_ and crystalline silicates from
+`Jaeger et al. (1994)`_. The fractions for each grain type are 0, 16, 24, 38, 42,
+56, 64, 80%
+for the oxygen-rich and oxygen-deficient silicates with the remainder filled with
+the crystalline silicates and 4% iron grains.
+
+
 
 Carbon-rich DUSTY model grids
 =============================
 
-Zubko-Crich-aringer (*N*\ =2,000; 145 MB): Same as Oss-Orich-aringer but with
+amorphous-carbon (*N*\ =1,340; 145 MB): Same as silicates but with
 amorphous carbon grains from `Zubko et al. (1996)`_.
 
-Zubko-Crich-bb (*N*\ =2,000; 123 MB): Same as Zubko-Crich-aringer but using
-black bodies instead of the photospheric models.
 
 .. _the-dust-growth-model-grids-from-nanni-et-al-2019:
 
@@ -126,8 +123,8 @@ The GRAMS model grids
 
 The GRAMS model grids from `Sargent et al. (2011)`_ and `Srinivasan et al. (2011)`_.
 These models assume a density distribution of 1/r\ :sup:`2`, a modified KMH dust grain
-distribution, and an assumed expansion velocity of 10 km/s. Compared to the 1D DUSTY models, 
-the optical depths for the GRAMS models are more limited, with  optical depths at 10 microns 
+distribution, and an assumed expansion velocity of 10 km/s. Compared to the 1D DUSTY models,
+the optical depths for the GRAMS models are more limited, with  optical depths at 10 microns
 ranging from 0.001-0.4 for the carbon-rich grid, to 0.0001-26 for the oxygen-rich grid.
 
 
@@ -166,3 +163,4 @@ grams: Both Grams datasets combined
 .. _Groenewegen 2012: https://ui.adsabs.harvard.edu/abs/2012A&A...543A..36G/abstract
 .. _Dorschner et al. (1995): https://ui.adsabs.harvard.edu/abs/1995A&A...300..503D/abstract
 .. _Gustafsson et al. (2008): https://ui.adsabs.harvard.edu/abs/2008A%26A...486..951G/abstract
+.. _Draine & Lee (1984): https://ui.adsabs.harvard.edu/abs/1984ApJ...285...89D/abstract

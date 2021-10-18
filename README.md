@@ -89,13 +89,6 @@ Afterwords, you can fit that data with the command:
 `desk fit --source='MSX_LMC_807_sed.csv'`
 
 
-Retrieve Model
---------------
-
-To retrieve a model from the DUSTY model grids or to interpolate a model in the grid parameter space, use the *save_model* module with the grid name, luminosity (solar luminosities), effective temperature (K), inner dust temperature (K), optical depth (specified at 10 microns), and distance (kpc) separated with spaces:
-
-`desk save_model Oss-Orich-bb  10000 2700 1000 0.4 50`
-
 
 Citation
 -----------
