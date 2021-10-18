@@ -142,6 +142,8 @@ def test_single_fit(tmpdir, testing_grid, dataset, multiprocessing):
         multiprocessing=multiprocessing,
         testing=True,
     )
+    console_commands.sed_indiv()
+    console_commands.sed()
 
 
 def test_single_fit_options(tmpdir):

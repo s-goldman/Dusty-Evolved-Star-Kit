@@ -183,7 +183,6 @@ def get_model_grid(grid, testing=False, respond=True):
         grid_dusty_a["flux_wm2"] = Column(
             np.pad(grid_dusty_a["flux_wm2"], [(0, 0), (0, 19)])
         )
-
         grid_dusty = vstack((grid_dusty_a, grid_dusty_b))
         grid_outputs = vstack((grid_outputs_a, grid_outputs_b))
 
