@@ -29,7 +29,7 @@ or specify a directory with multiple csv files:
 
 .. code-block:: console
 
-	> desk fit --source='folder_of_csvs' --distance=30 --grid='Oss-Orich-bb'
+	> desk fit --source='folder_of_csvs' --distance=30 --grid='silicates'
 
 
 Additional fitting options
@@ -153,7 +153,7 @@ console commands.
 	>>> from desk import *
 	>>> fit(source="target.csv", distance=3, grid="oxygen")
 
-One can also use the sed, save_model, vizier_sed, and grids in a similar fashion.
+One can also use the sed, vizier_sed, and grids in a similar fashion.
 
 .. code-block:: console
 
@@ -161,9 +161,6 @@ One can also use the sed, save_model, vizier_sed, and grids in a similar fashion
 	>>> sed(flux='Jy')
 	>>> grids()
 	>>> vizier_sed('MSX LMC 807', 5)
-	>>> save_model("Oss-Orich-bb", 10000, 2700, 1000, 0.4, 50)
-	>>> save_model(grid_name="Oss-Orich-bb", luminosity=10000, teff=2700, tinner=1000, tau=0.4, distance_in_kpc=50)
-
 
 How reliable in SED-fitting?
 ----------------------------

@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from fnmatch import fnmatch
 from astropy.table import Table
-from desk.set_up import get_data
+from desk.set_up import get_data, config, get_models
 
 sns.set_palette("colorblind")
 
@@ -129,19 +129,17 @@ def get_model_and_data_for_plotting(
     )
     x_data, y_data = get_data.get_values(target["file_name"])
 
-    if target["grid_name"] != "desk-mix":
-        correct_index = np.where(
-            (grid_outputs["number"] == target["number"])
-            & (grid_outputs["teff"] == target["teff"])
-            & (grid_outputs["tinner"] == target["tinner"])
-        )[0]
+    if target["grid_name"] in config.external_grids:
+        correct_index = get_models.get_model_index_using_number(
+            target["grid_name"], grid_outputs, target["number"]
+        )
     else:
-        correct_index = np.where(
-            (grid_outputs["number"] == target["number"])
-            & (grid_outputs["grid_idx"] == target["grid_idx"])
-        )[0]
+        correct_index = get_models.get_model_index_using_number(
+            target["grid_name"], grid_outputs, target["number"], target["grid_idx"]
+        )
     if len(correct_index) > 1:
         raise ValueError("Multiple models that match that criteria")
+
     x_model_init, y_model_init = grid_dusty[correct_index[0]]
 
     x_model_select = x_model_init[np.where(y_model_init != 0)]
@@ -315,7 +313,7 @@ def create_fig(source_path, source_filename, dest_path, save_name, flux):
         fig.savefig(dest_path + "/" + save_name, dpi=200, bbox_inches="tight")
         plt.close()
     else:
-        single_figures(source_path, source_filename, dest_path)
+        single_figures(source_path, source_filename, dest_path, flux)
 
 
 # if __name__ == "__main__":

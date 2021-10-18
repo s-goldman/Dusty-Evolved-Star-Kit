@@ -56,8 +56,6 @@ tqdm
 
 matplotlib
 
-sklearn
-
 h5py
 
 wheel
@@ -69,7 +67,5 @@ sphinx
 sphinx_automodapi
 
 pytest-cov
-
-Pillow
 
 seaborn
