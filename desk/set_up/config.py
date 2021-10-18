@@ -13,16 +13,15 @@ fitting = dict(
 )
 output = dict(printed_output="True", output_unit="Wm^-2", create_figure="yes")
 grids = [
-    "Crystalline-20-bb",
-    "Oss-Orich-bb",
-    "Zubko-Crich-bb",
-    "arnold-palmer",
-    "big-grains",
-    "corundum-20-bb",
-    "fifth-iron",
-    "half-iron",
-    "one-fifth-carbon",
-    "desk-mix",
+    "amorphous-carbon",
+    "silicates",
+    "carbon-mix",
+    "corundum-mix",
+    "crystalline-mix",
+    "draine-mix",
+    "iron-mix",
+    "o-def-silicates",
+    "silicate-mix",
 ]
 external_grids = [
     "H11-LMC",

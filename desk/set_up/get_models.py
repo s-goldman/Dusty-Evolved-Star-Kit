@@ -46,7 +46,7 @@ def get_remote_models(model_grid_name):
 
     """
     # update if zeonodo repository updated
-    repository = 4776833
+    repository = 5574616
 
     fname_dld_outputs = download_file(
         "https://zenodo.org/record/"
@@ -161,9 +161,11 @@ def get_model_grid(grid, testing=False, respond=True):
 
     # User input for models
     if grid == "carbon":
-        grid_dusty, grid_outputs = return_model_grid("Zubko-Crich-bb", testing, respond)
+        grid_dusty, grid_outputs = return_model_grid(
+            "amorphous-carbon", testing, respond
+        )
     elif grid == "oxygen":
-        grid_dusty, grid_outputs = return_model_grid("Oss-Orich-bb", testing, respond)
+        grid_dusty, grid_outputs = return_model_grid("silicates", testing, respond)
     elif grid == "grams":
         from astropy.table import vstack
 

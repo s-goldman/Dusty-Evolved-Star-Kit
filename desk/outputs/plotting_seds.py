@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from fnmatch import fnmatch
 from astropy.table import Table
-from desk.set_up import get_data
+from desk.set_up import get_data, config
 
 sns.set_palette("colorblind")
 
@@ -129,12 +129,8 @@ def get_model_and_data_for_plotting(
     )
     x_data, y_data = get_data.get_values(target["file_name"])
 
-    if target["grid_name"] != "desk-mix":
-        correct_index = np.where(
-            (grid_outputs["number"] == target["number"])
-            & (grid_outputs["teff"] == target["teff"])
-            & (grid_outputs["tinner"] == target["tinner"])
-        )[0]
+    if target["grid_name"] in config.external_grids:
+        correct_index = np.where(grid_outputs["number"] == target["number"])[0]
     else:
         correct_index = np.where(
             (grid_outputs["number"] == target["number"])
