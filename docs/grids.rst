@@ -76,13 +76,14 @@ carbon-mix (*N*\ =3,000; 5 MB): Same as corundum-mix but with amorphous carbon
 grains from `Zubko et al. (1996)`_.
 
 
-silicate-mix (*N*\ =31,880; 56 MB): Same temperatures and optical depth as
-corundum-mix but with 4% iron grains from `Henning et al. (1995)`_, and different
+silicate-mix (*N*\ =71,435; 127 MB): This grid provides ranges in
+effective temperature (2600-3400 K: 200 K interval) inner dust
+temperature (600-1200K: 100 K interval) and optical depth (0.1 - 30: 100
+spaced linearally). We set 4% iron grains from `Henning et al. (1995)`_, and different
 fractions of the oxygen-rich and
 oxygen-deficient grains from `Ossenkopf et al. (1992)`_ and crystalline silicates from
 `Jaeger et al. (1994)`_. The fractions for each grain type are 0, 16, 24, 38, 42,
-56, 64, 80%
-for the oxygen-rich and oxygen-deficient silicates with the remainder filled with
+56, 64, 80% for the oxygen-rich and oxygen-deficient silicates with the remainder filled with
 the crystalline silicates and 4% iron grains.
 
 
