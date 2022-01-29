@@ -112,11 +112,9 @@ def fit_single_source(source_number, fit_params):
             print("Saving output model spectrum.")
             desk.console_commands.save_model(
                 fit_params.grid,
+                best_fit["number"],
+                best_fit["grid_idx"],
                 best_fit["lum"],
-                best_fit["teff"],
-                best_fit["tinner"],
-                best_fit["odep"],
                 fit_params.distance,
-                custom_output_name=target_name + "_model",
-                print_outputs=False,
+                custom_output_name='dusty_'+target_name + "_model_",
             )
