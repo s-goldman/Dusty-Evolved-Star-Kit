@@ -168,8 +168,41 @@ def vizier_sed(target_name, r=5, source_path="."):
 
 
 def save_model(
-    grid_name, requested_grid_number, requested_grid_index, luminosity, distance_in_kpc, custom_output_name=''
+    grid_name,
+    requested_grid_number,
+    requested_grid_index,
+    luminosity,
+    distance_in_kpc,
+    custom_output_name="",
 ):
+    """A function for returning a dusty grid model wavelength and flux with the
+    grid_index, and grid_number, the luminosity, and the distance. File is output
+    as csv in the current directory. Can add custom name in front of output,
+    for if the model is generated with an associated target (i.e.) via the
+    dusty_fit function with the save_model flag set to true.
+
+    Parameters
+    ----------
+    grid_name : str
+        Name of grid used.
+    requested_grid_number : int
+        Description of parameter `requested_grid_number`.
+    requested_grid_index : int
+        Description of parameter `requested_grid_index`.
+    luminosity : int
+        luminosity of model (in solar luminosities)
+    distance_in_kpc : float
+        Distance in kpc.
+    custom_output_name: str
+        Custom name for output in save_model_spectrum.
+
+    Returns
+    -------
+    type : csv file
+        File with desired model wavelengtn and flux, scaled by user-set
+        distance and luminosity.
+
+    """
     # identify and return correct dusty model
     grid_dusty, grid_outputs = get_models.get_model_grid(grid_name)
     correct_ind = get_models.get_model_index_using_number(
@@ -199,6 +232,7 @@ def save_model(
         + ".csv",
         overwrite=True,
     )
+
 
 def fit(
     source=desk_path + "put_target_data_here",
