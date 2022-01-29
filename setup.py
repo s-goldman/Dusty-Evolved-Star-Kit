@@ -51,6 +51,6 @@ setup(
     test_suite="tests",
     tests_require=["pytest", "sphinx_automodapi"],
     url="https://github.com/s-goldman/Dusty_Evolved_Star_Kit",
-    version="1.8.12",
+    version="1.8.13",
     zip_safe=False,
 )
