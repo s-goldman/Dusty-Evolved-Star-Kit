@@ -99,7 +99,7 @@ or with bibtex:
 
 <pre>@article{Goldman2020,
   doi = {10.21105/joss.02554},
-  url = {https://doi.org/10.21105/joss.02554},
+  url = {https://joss.theoj.org/papers/10.21105/joss.02554},
   year = {2020},
   publisher = {The Open Journal},
   volume = {5},

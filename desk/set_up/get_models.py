@@ -230,4 +230,4 @@ def get_model_index_using_number(
         )[0]
     if len(correct_index) > 1:
         raise ValueError("Multiple models that match that criteria")
-    return correct_index
+    return correct_index[0]

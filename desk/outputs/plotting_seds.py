@@ -137,10 +137,8 @@ def get_model_and_data_for_plotting(
         correct_index = get_models.get_model_index_using_number(
             target["grid_name"], grid_outputs, target["number"], target["grid_idx"]
         )
-    if len(correct_index) > 1:
-        raise ValueError("Multiple models that match that criteria")
 
-    x_model_init, y_model_init = grid_dusty[correct_index[0]]
+    x_model_init, y_model_init = grid_dusty[correct_index]
 
     x_model_select = x_model_init[np.where(y_model_init != 0)]
     y_model_select = y_model_init[np.where(y_model_init != 0)]
