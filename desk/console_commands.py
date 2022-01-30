@@ -204,7 +204,7 @@ def save_model(
 
     """
     # identify and return correct dusty model
-    grid_dusty, grid_outputs = get_models.get_model_grid(grid_name)
+    grid_dusty, grid_outputs = get_models.get_model_grid(grid_name, respond=False)
     correct_ind = get_models.get_model_index_using_number(
         grid_name, grid_outputs, requested_grid_number, requested_grid_index
     )
