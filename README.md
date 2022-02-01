@@ -37,7 +37,7 @@ Using the DESK
 
 2). Go to the directory where your target csv file (or target directory of files) is.  
 
-3). Use the command (without starting python)
+3). Use the following command in any terminal (or use the [instructions for python](https://dusty-evolved-star-kit.readthedocs.io/en/latest/usage.html#use-in-python-environment))
 
   `desk fit --source='target_name.csv'`
 
