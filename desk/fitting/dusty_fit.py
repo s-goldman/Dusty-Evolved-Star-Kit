@@ -104,7 +104,7 @@ def fit_single_source(source_number, fit_params):
     print("-" * 56)
 
     if fit_params.save_model_spectrum == True:
-        if fit_params.grid in config.external_grids:
+        if (fit_params.grid in config.external_grids) | (fit_params.grid == "grams"):
             print(
                 "Saving output model spectrum still in development for external grids"
             )
@@ -116,5 +116,5 @@ def fit_single_source(source_number, fit_params):
                 best_fit["grid_idx"],
                 best_fit["lum"],
                 fit_params.distance,
-                custom_output_name='dusty_'+target_name + "_model_",
+                custom_output_name="dusty_" + target_name + "_model_",
             )
