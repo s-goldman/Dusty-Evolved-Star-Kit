@@ -3,12 +3,11 @@
 
 name: Python package
 
-on: [push]
-# on:
-#   push:
-#     branches: [ main]
-#   pull_request:
-#     branches: [ main ]
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: '30 15 18 * *'
 
 jobs:
   build:
