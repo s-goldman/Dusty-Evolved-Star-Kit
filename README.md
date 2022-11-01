@@ -115,5 +115,4 @@ Please also specify the options selected and make the data publicly available fo
 License
 -------
 
-This project is Copyright (c) [Dr. Steven Goldman](https://s-goldman.github.io/) and licensed under
-the terms of the BSD 3-Clause license.
+This project is Copyright (c) [Dr. Steven Goldman](https://s-goldman.github.io/) and licensed under the terms of the BSD 3-Clause license.
