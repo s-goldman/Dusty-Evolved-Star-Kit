@@ -6,7 +6,7 @@ Dusty-Evolved-Star-Kit<img align="left" width="100" height="100" src="docs/the_d
 [![codecov](https://codecov.io/gh/s-goldman/Dusty-Evolved-Star-Kit/branch/master/graph/badge.svg)](https://codecov.io/gh/s-goldman/Dusty-Evolved-Star-Kit)
 [![pypi](https://img.shields.io/badge/pypi-DESK-blue.svg)](https://pypi.org/project/desk/)
 [![status](https://joss.theoj.org/papers/b78c206113fdb59a7a8839649786e9d8/status.svg)](https://joss.theoj.org/papers/b78c206113fdb59a7a8839649786e9d8)
-[![Steve Goldman](https://img.shields.io/badge/STScI-Steve%20Goldman-blue.svg)](http://www.stsci.edu/~sgoldman/)
+[![Steve Goldman](https://img.shields.io/badge/STScI-Steve%20Goldman-blue.svg)](https://s-goldman.github.io/)
 
 The DESK is an SED-fitting python package for fitting data from evolved stars (photometry or spectra) with radiative transfer model grids. The package is currently in development and all contributions are welcomed. For current progress, see the Issues tab at the top of the page. The package is ideal for fitting small samples of dusty evolved stars. It will soon utilize a bayesian-fitting strategy with mass-loss rate and luminosity distributions as inputs (priors), and will provide a better fit  to these broader sample properties.
 
@@ -37,7 +37,7 @@ Using the DESK
 
 2). Go to the directory where your target csv file (or target directory of files) is.  
 
-3). Use the command (without starting python)
+3). Use the following command in any terminal (or use the [instructions for python](https://dusty-evolved-star-kit.readthedocs.io/en/latest/usage.html#use-in-python-environment))
 
   `desk fit --source='target_name.csv'`
 
