@@ -11,3 +11,6 @@ dependencies:
     - sphinx-astropy
     - sphinx_automodapi
     - Pillow
+
+- name: Codecov
+  uses: codecov/codecov-action@v3.1.1
