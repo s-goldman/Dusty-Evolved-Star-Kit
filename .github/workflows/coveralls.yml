@@ -1,2 +1,4 @@
 - name: Coveralls GitHub Action
   uses: coverallsapp/github-action@1.1.3
+  with:
+    github-token: ${{ secrets.COVERALLS_GITHUB_TOKEN }}
