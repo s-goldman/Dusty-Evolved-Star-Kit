@@ -1,6 +1,16 @@
-steps:
-- uses: actions/checkout@master
-- uses: codecov/codecov-action@v3
-  with:
-    fail_ci_if_error: true # optional (default = false)
-    verbose: true # optional (default = false)
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-n-publish:
+    name: Codecov
+    runs-on: ubuntu-18.04
+
+    steps:
+      - uses: actions/checkout@master
+      - uses: codecov/codecov-action@v3
+      with:
+        fail_ci_if_error: true # optional (default = false)
+        verbose: true # optional (default = false)
