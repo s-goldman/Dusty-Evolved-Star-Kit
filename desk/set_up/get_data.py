@@ -23,7 +23,7 @@ def get_values(filename, min_wavelength=0, max_wavelength=1000, fitting=False):
     min_wavelength:float
         The maximum wavelength in um to fit the data
     fitting: bool
-        Whether fitting or displaying data. If fitting, function will trim
+        Whether fitting or displaying data. If fitting=True, function will trim
         data using min_wavelength and max_wavelength.
 
     Returns
