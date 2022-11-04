@@ -8,9 +8,9 @@
 # Top-level package for Dusty-Evolved-Star-Kit.
 
 __author__ = "Steven R. Goldman"
-__email__ = "sgoldman@stsci.edu"
+__email__ = "sgoldman@usra.edu"
 __title__ = "DESK"
-__version__ = "1.8.15"
+__version__ = "1.8.16"
 __repository__ = "https://github.com/s-goldman/Dusty-Evolved-Star-Kit"
 __date_published = "2021-09-17"
 __licence__ = "BSD"
