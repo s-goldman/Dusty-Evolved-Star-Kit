@@ -19,7 +19,7 @@ After installation with pip, in any command line prompt, use the command:
 	> desk grids
 
 This will display the available grids for fitting. Next you need to point the
-package to your csv file, and specify the distance and grid of choice:
+package to your csv file, and specify the distance (in kpc) and grid of choice:
 
 .. code-block:: console
 
