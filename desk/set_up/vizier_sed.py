@@ -1,3 +1,4 @@
+from typing import Union
 try:  # python 3
     from io import BytesIO
     from http.client import HTTPConnection
@@ -8,7 +9,7 @@ except ImportError:  # python 2
 from astropy.table import Table
 
 
-def query_sed(pos, radius):
+def query_sed(pos : Union[str, tuple], radius:float):
     """Query VizieR Photometry (tool developed by Morgan Fouesneau)
     The VizieR photometry tool extracts photometry points around a given position
     or object name from photometry-enabled catalogs in VizieR.

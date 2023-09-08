@@ -9,7 +9,7 @@ import desk.console_commands
 from desk.fitting import fitting_tools
 
 
-def fit_single_source(source_number, fit_params):
+def fit_single_source(source_number : int, fit_params):
     """Fits a single source with the data and models included in class fit_params.
 
     Parameters

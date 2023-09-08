@@ -11,17 +11,17 @@ from desk.set_up import get_data, config, get_models
 sns.set_palette("colorblind")
 
 
-def plot_phot(x_data, y_data, ax):
+def plot_phot(x_data:list, y_data:list, ax):
     ax.scatter(x_data, y_data)
     return ax
 
 
-def plot_model(x_model, y_model, ax):
+def plot_model(x_model:list, y_model:list, ax):
     ax.plot(x_model, y_model, c="k", linewidth=0.4, linestyle="--", zorder=2)
     return ax
 
 
-def wm2_to_Jy(wave_in_microns, wm2):
+def wm2_to_Jy(wave_in_microns:list, wm2:list):
     wm2_w_units = (wm2 * u.W / (u.m * u.m)) / (
         (wave_in_microns * u.um).to(u.Hz, equivalencies=u.spectral())
     )
@@ -29,7 +29,7 @@ def wm2_to_Jy(wave_in_microns, wm2):
     return jy
 
 
-def source_name_annotation(name, ax):
+def source_name_annotation(name: str, ax):
     ax.annotate(
         str(name).replace("_", " "),
         (0.95, 0.8),
@@ -39,7 +39,7 @@ def source_name_annotation(name, ax):
     )
 
 
-def counter_annotations(counter, ax):
+def counter_annotations(counter:int, ax):
     ax.annotate(
         str(counter + 1),
         (0.075, 0.85),

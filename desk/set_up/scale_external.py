@@ -3,7 +3,7 @@ from fnmatch import fnmatch
 from astropy.table import Column, Table
 
 
-def scale_by_distance(_grid_name, _outputs, _models, scaling_factor, distance):
+def scale_by_distance(_grid_name:str, _outputs, _models, scaling_factor : float, distance : float):
     """Scale external model fluxes and normalization value.
 
     Parameters
@@ -16,7 +16,7 @@ def scale_by_distance(_grid_name, _outputs, _models, scaling_factor, distance):
         grid models.
     scaling_factor : float
         Scaling factor to scale grids to distance.
-    distance :
+    distance : float
         distance in kpc
 
     Returns
