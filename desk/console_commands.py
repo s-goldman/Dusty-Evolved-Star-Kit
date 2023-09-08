@@ -7,6 +7,7 @@ import astropy.units as u
 from astropy.table import Table
 from multiprocessing import Pool, cpu_count
 from functools import partial
+from typing import Union
 from desk.set_up import (
     get_inputs,
     get_data,
@@ -38,11 +39,11 @@ def version():
 
 
 def sed(
-    source_path=".",
-    source_filename="fitting_results.csv",
-    dest_path=".",
-    save_name="output_sed.png",
-    flux="Wm2",
+    source_path: str = ".",
+    source_filename: str = "fitting_results.csv",
+    dest_path: str = ".",
+    save_name: str = "output_sed.png",
+    flux: str = "Wm2",
 ):
     """Creates single SED figure of all fit SEDs using
     the 'fitting_results.csv' file.
@@ -70,7 +71,10 @@ def sed(
 
 
 def sed_indiv(
-    source_path=".", source_filename="fitting_results.csv", dest_path=".", flux="Wm2"
+    source_path: str = ".",
+    source_filename: str = "fitting_results.csv",
+    dest_path: str = ".",
+    flux: str = "Wm2",
 ):
     """Creates individual SED figures for all fit SEDs using
     the 'fitting_results.csv' file.
@@ -95,7 +99,7 @@ def sed_indiv(
     plotting_seds.single_figures(source_path, source_filename, dest_path, flux=flux)
 
 
-def vizier_sed(target_name, r=5, source_path="."):
+def vizier_sed(target_name: Union[str, tuple], r: float = 5, source_path: str = "."):
     from astropy.coordinates import get_icrs_coordinates
     from desk.set_up.vizier_sed import query_sed
     from astropy.table import Table
@@ -168,12 +172,12 @@ def vizier_sed(target_name, r=5, source_path="."):
 
 
 def save_model(
-    grid_name,
-    requested_grid_number,
-    requested_grid_index,
-    luminosity,
-    distance_in_kpc,
-    custom_output_name="",
+    grid_name: str,
+    requested_grid_number: int,
+    requested_grid_index: int,
+    luminosity: int,
+    distance_in_kpc: float,
+    custom_output_name: str = "",
 ):
     """A function for returning a dusty grid model wavelength and flux with the
     grid_index, and grid_number, the luminosity, and the distance. File is output
@@ -235,15 +239,15 @@ def save_model(
 
 
 def fit(
-    source=desk_path + "put_target_data_here",
-    distance=config.target["distance_in_kpc"],
-    grid=config.fitting["default_grid"],
-    n=config.fitting["default_number_of_times_to_scale_models"],
-    min_wavelength=config.fitting["default_wavelength_min"],
-    max_wavelength=config.fitting["default_wavelength_max"],
-    multiprocessing=cpu_count() - 1,
-    save_model_spectrum=True,
-    testing=False,
+    source: str = desk_path + "put_target_data_here",
+    distance: float = config.target["distance_in_kpc"],
+    grid: str = config.fitting["default_grid"],
+    n: int = config.fitting["default_number_of_times_to_scale_models"],
+    min_wavelength: float = config.fitting["default_wavelength_min"],
+    max_wavelength: float = config.fitting["default_wavelength_max"],
+    multiprocessing: int = cpu_count() - 1,
+    save_model_spectrum: bool = True,
+    testing: bool = False,
 ):
     """
     Fits the seds of sources with specified grid.
@@ -253,7 +257,7 @@ def fit(
     ----------
     source : str
         Name of target in array of strings (or one string).
-    distance : str, float
+    distance : float
         Distance to source(s) in kiloparsecs.
     grid : str
         Name of model grid.
