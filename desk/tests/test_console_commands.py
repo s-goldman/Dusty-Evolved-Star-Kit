@@ -1,7 +1,7 @@
 import os
 import pytest
 import numpy as np
-import desk import console_commands
+from desk import console_commands
 from desk.set_up import config
 from PIL import Image
 from pathlib import Path

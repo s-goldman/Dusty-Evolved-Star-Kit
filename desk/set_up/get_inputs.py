@@ -1,21 +1,23 @@
 # Steve Goldman, Space Telescope Science Institute, sgoldman@stsci.edu
+import numpy as np
+
 class fitting_parameters(object):
     """Initializes fitting paramters."""
 
     def __init__(
         self,
-        file_names,
-        source,
-        distance,
-        grid,
-        n,
-        model_wavelength_grid,
+        file_names: list,
+        source: str,
+        distance: float,
+        grid: str,
+        n: int,
+        model_wavelength_grid: np.ndarray,
         full_model_grid,
         full_outputs,
-        min_wavelength,
-        max_wavelength,
-        save_model_spectrum,
-        testing,
+        min_wavelength: float,
+        max_wavelength: float,
+        save_model_spectrum: bool,
+        testing: bool,
     ):
         """Initializes fitting paramters.
 
