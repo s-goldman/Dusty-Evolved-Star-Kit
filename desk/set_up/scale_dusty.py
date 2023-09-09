@@ -3,7 +3,9 @@ from astropy.table import Column, vstack
 from desk.set_up import config
 
 
-def scale_vexp(expansion_velocities, luminosities):
+def scale_vexp(
+    expansion_velocities: np.ndarray, luminosities: np.ndarray
+) -> np.ndarray:
     """Scales expansion velocity by the luminosity and gas-to-dust ratio see:
     Elitzur & Ivezić 2001, MNRAS, 327, 403
     (https://ui.adsabs.harvard.edu/abs/2001MNRAS.327..403E/abstract)
@@ -30,7 +32,7 @@ def scale_vexp(expansion_velocities, luminosities):
     return scaled_expansion_velocities
 
 
-def scale_mdot(mass_loss_rates, luminosities):
+def scale_mdot(mass_loss_rates: np.ndarray, luminosities: np.ndarray) -> np.ndarray:
     """Scales mass loss rates by the luminosity and gas-to-dust ratio see:
     Elitzur & Ivezić 2001, MNRAS, 327, 403
     (https://ui.adsabs.harvard.edu/abs/2001MNRAS.327..403E/abstract)
@@ -56,7 +58,7 @@ def scale_mdot(mass_loss_rates, luminosities):
     return scaled_mdot
 
 
-def scale(_outputs, _models, luminosities, scaling_factor):
+def scale(_outputs, _models, luminosities: np.ndarray, scaling_factor: float):
     """Scale DUSTY models and outputs.
 
     Parameters

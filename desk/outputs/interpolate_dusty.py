@@ -13,7 +13,13 @@ from desk.set_up import get_models, scale_dusty, config
 
 
 def check_input_range(
-    grid_name, unique_teff, unique_tinner, unique_tau, teff_new, tinner_new, tau_new
+    grid_name: str,
+    unique_teff: np.ndarray,
+    unique_tinner: np.ndarray,
+    unique_tau: np.ndarray,
+    teff_new: float,
+    tinner_new: float,
+    tau_new: float,
 ):
     """Checks if the user-inputted model values are within the range of the model
     grid. This is critical for the interpolation.
@@ -24,15 +30,15 @@ def check_input_range(
         Name of model grid.
     unique_teff : array
         Unique effective temperatures within the model grid.
-    unique_tinner : type
+    unique_tinner : array
         Unique inner dust temperatures within the model grid.
-    unique_tau : type
+    unique_tau : array
         Unique effective temperatures within the modelgrid.
-    teff_new : type
+    teff_new : float
         User-defined effective temperature.
-    tinner_new : type
+    tinner_new : float
         User-defined inner dust temperature.
-    tau_new : type
+    tau_new : float
         User-defined optical depth at 10 microns.
 
     Returns
@@ -72,14 +78,14 @@ def check_input_range(
 
 
 def interpolate(
-    grid_name,
-    luminosity,
-    teff_new,
-    tinner_new,
-    tau_new,
-    distance_in_kpc,
-    custom_output_name,
-    print_outputs,
+    grid_name: str,
+    luminosity: float,
+    teff_new: float,
+    tinner_new: float,
+    tau_new: float,
+    distance_in_kpc: float,
+    custom_output_name: str,
+    print_outputs: bool,
 ):
     """A script for returning a model within any grid or returning an interpolated
     model that fits within the given parameter space. The interpolation interpolates
@@ -89,11 +95,11 @@ def interpolate(
     ----------
     grid_name : str
         Name of grid used.
-    luminosity :
+    luminosity : float
         luminosity of model (in solar luminosities)
-    teff_new : int
+    teff_new : float
         Effective temperature of desired grid.
-    tinner_new : int
+    tinner_new : float
         Inner dust temperature of desired grid.
     tau_new : float
         optical depth specified at 10 microns.

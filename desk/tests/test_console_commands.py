@@ -1,7 +1,7 @@
 import os
 import pytest
 import numpy as np
-import desk
+from desk import console_commands
 from desk.set_up import config
 from PIL import Image
 from pathlib import Path
@@ -135,15 +135,15 @@ def create_fitting_results(directory):
 def test_single_fit(tmpdir, testing_grid, dataset, multiprocessing):
     # tests single fit for each sample dataset and each grid
     example_filename = create_sample_data(tmpdir, dataset)
-    desk.console_commands.fit(
+    console_commands.fit(
         source=str(example_filename),
         grid=testing_grid,
         n=2,
         multiprocessing=multiprocessing,
         testing=True,
     )
-    desk.console_commands.sed_indiv()
-    desk.console_commands.sed()
+    console_commands.sed_indiv()
+    console_commands.sed()
 
 
 def test_single_fit_options(tmpdir):

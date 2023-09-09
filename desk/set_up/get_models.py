@@ -3,13 +3,14 @@ import os
 import ipdb
 import numpy as np
 import h5py
+from typing import Union
 from shutil import copyfile
 from astropy.table import Table, Column
 from astropy.utils.data import download_file
 from desk.set_up import config
 
 
-def read_hdf5(filename, testing):
+def read_hdf5(filename: str, testing: Union[bool, str]):
     """Reads HDF5 file.
 
     Parameters
@@ -36,7 +37,7 @@ def read_hdf5(filename, testing):
     return out
 
 
-def get_remote_models(model_grid_name):
+def get_remote_models(model_grid_name: str):
     """Downloads models and model results files (HDF5) from BOX.
 
     Parameters
@@ -72,8 +73,7 @@ def get_remote_models(model_grid_name):
     # \n Padova options: J400, J1000, H11, R12, R13'
 
 
-def check_models(model_grid, respond, size_filename="desk_model_grid_sizes.csv"):
-
+def check_models(model_grid: str, respond: bool):
     """
     Checks if model grids are available and returns the full path to the model.
     If the model is not downloaded, it is downloaded via Box.
@@ -110,7 +110,7 @@ def check_models(model_grid, respond, size_filename="desk_model_grid_sizes.csv")
     return (outputs_file, models_file)
 
 
-def get_model_grid(grid, testing=False, respond=True):
+def get_model_grid(grid: str, testing: bool = False, respond: bool = True):
     """
     Gets the real model grid name if the defaults were chosen,and runs check_models.
 
@@ -133,7 +133,7 @@ def get_model_grid(grid, testing=False, respond=True):
         The model grid parameters corresponding to the grid_dusty model grids
     """
 
-    def return_model_grid(_model_grid_name, testing, respond):
+    def return_model_grid(_model_grid_name : str, testing : bool, respond : bool):
         """Checks models and returns model grid and outputs.
 
         Parameters
@@ -198,7 +198,7 @@ def get_model_grid(grid, testing=False, respond=True):
 
 
 def get_model_index_using_number(
-    grid_name, grid_outputs, requested_grid_number, requested_grid_index=0
+    grid_name : str, grid_outputs, requested_grid_number : int, requested_grid_index : int =0
 ):
     """Returns the model_outputs index of a grid or external grid given.
 

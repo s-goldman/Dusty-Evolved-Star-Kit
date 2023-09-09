@@ -9,7 +9,12 @@ from fnmatch import fnmatch
 from desk.set_up import error_messages
 
 
-def get_values(filename, min_wavelength=0, max_wavelength=1000, fitting=False):
+def get_values(
+    filename: str,
+    min_wavelength: float = 0,
+    max_wavelength: float = 1000,
+    fitting: bool = False,
+):
     """
     Reads csv file, convets Jy to Wm2, sorts both by wavelength.
     Returns both as 1D arrays.
@@ -61,8 +66,7 @@ def get_values(filename, min_wavelength=0, max_wavelength=1000, fitting=False):
     return x, np.array(y)
 
 
-def compile_data(source):
-
+def compile_data(source : str):
     """
     Returns array with csv filename or csv filenames in specified directory.
 

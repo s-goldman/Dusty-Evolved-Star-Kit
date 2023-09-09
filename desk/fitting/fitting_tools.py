@@ -3,7 +3,7 @@ import numpy as np
 from astropy.table import Table
 
 
-def trim_grid(data, fit_params):
+def trim_grid(data: np.ndarray, fit_params):
     """Trims model grid wavelengths and fluxes. USED BEFORE FITTING.
 
     Parameters
@@ -48,18 +48,17 @@ class fit:
     Fitting tools for least square fit.
     """
 
-    def find_closest(data_wave, model_wave, model_flux):
-
+    def find_closest(data_wave: list, model_wave: list, model_flux: list):
         """
         Find model fluxes closest in wavelength to data.
 
         Parameters
         ----------
-        data_wave : 1-D array
+        data_wave : list
             wavelengths of data in microns.
-        model_wave : 1-D array
+        model_wave : list
             wavelengths of model in microns.
-        model_flux : 1-D array
+        model_flux : list
             scaled flux of model in W M-2
 
         Returns
@@ -76,7 +75,7 @@ class fit:
         closest_model_flux = model_flux[idx]
         return closest_model_flux
 
-    def least2_liklihood(_data, _model):
+    def least2_liklihood(_data: np.ndarray, _model: np.ndarray) -> float:
         """Finds the least-squares fit of the data and model.
 
         Parameters
@@ -97,8 +96,7 @@ class fit:
         prob = np.exp(-0.5 * np.float128(_stat))
         return prob
 
-    def fit_data(data, model):
-
+    def fit_data(data: np.ndarray, model: np.ndarray) -> float:
         """
         Trims the data, finds the closest match, and returns chi square value.
 
