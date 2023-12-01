@@ -153,14 +153,14 @@ def vizier_sed(target_name: Union[str, tuple], r: float = 5, source_path: str = 
             + "\n\t desk.vizier_sed((295.4879586347,16.7446716483))"
             + "\n\t desk.vizier_sed((295.4879586347,16.7446716483), 4)"
         )
-
     output_table = Table(
         (
             results["sed_freq"].to(u.um, equivalencies=u.spectral()).value,
             results["sed_flux"],
+            results["sed_eflux"],
             results["sed_filter"],
         ),
-        names=("wave_um", "flux_jy", "filter"),
+        names=("wave_um", "flux_jy", "eflux_jy", "filter"),
     )
     output_table.sort("wave_um")
 
