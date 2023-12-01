@@ -16,8 +16,8 @@ setup(
     author="Steven R. Goldman",
     author_email="sgoldman@stsci.edu",
     classifiers=[
-        "Development Status :: 6 - Production/Stable",
-        "Intended Audience :: Developers/Astronomers",
+        "Development Status :: 2 - Pre-Alpha",
+        "Intended Audience :: Developers",
         "License :: OSI Approved :: BSD License",
         "Natural Language :: English",
         "Programming Language :: Python :: 3.8",
