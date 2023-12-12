@@ -189,7 +189,7 @@ def get_model_grid(grid: str, testing: bool = False, respond: bool = True):
     else:
         if (grid in config.grids) | (grid in config.external_grids):
             grid_dusty, grid_outputs = return_model_grid(grid, testing, respond)
-        elif (grid in [x.split('_')[0] for x in os.listdir(os.path.abspath('desk/models/'))]):
+        elif (grid in [x.split('_')[0] for x in os.listdir(f"{config.path}models/")]):
             grid_dusty, grid_outputs = return_model_grid(grid, testing, respond)
         else:
             raise ValueError(
