@@ -5,7 +5,7 @@ name: Build
 
 on:
   schedule:
-    - cron: '00 3 * * *'
+    - cron: '0 0 * * *' # at the end of every day. 
 
 jobs:
   # check:
