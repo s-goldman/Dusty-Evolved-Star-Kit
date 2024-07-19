@@ -8,13 +8,11 @@ on:
     - cron: '00 3 * * *'
 
 jobs:
-  check:
-    uses: OpenAstronomy/github-actions-workflows/.github/workflows/tox.yml@v1
-    with:
-      envs: |
-        - linux: check-style
-  crds_contexts:
-    uses: spacetelescope/crds/.github/workflows/contexts.yml@master
+  # check:
+  #   uses: OpenAstronomy/github-actions-workflows/.github/workflows/tox.yml@v1
+  #   with:
+  #     envs: |
+  #       - linux: check-style
   test:
     uses: OpenAstronomy/github-actions-workflows/.github/workflows/tox.yml@v1
     with:
@@ -22,8 +20,9 @@ jobs:
         brew:
           - hdf5
       envs: |
-        - linux: py310-xdist
-        - linux: py311-xdist
-        - macos: py311-xdist
-        - linux: py3-cov-xdist
-          coverage: codecov
+        - linux: py310
+        - macos: py310
+        - linux: py311
+        - macos: py311
+        - linux: py312
+        - macos: py312
