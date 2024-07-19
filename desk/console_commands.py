@@ -1,7 +1,6 @@
 # Steve Goldman, Space Telescope Science Institute, sgoldman@stsci.edu
 import ipdb
 import time
-import pkg_resources
 import numpy as np
 import astropy.units as u
 from astropy.table import Table
@@ -31,11 +30,6 @@ def grids():
     for item in config.external_grids + ["grams"]:
         print("\t" + str(item))
     print("\n")
-
-
-def version():
-    """Returns DESK version."""
-    print("\n\tDESK version: " + pkg_resources.get_distribution("desk").version + "\n")
 
 
 def sed(
