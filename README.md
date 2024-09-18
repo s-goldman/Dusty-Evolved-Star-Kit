@@ -1,4 +1,5 @@
 Dusty-Evolved-Star-Kit<img align="left" width="100" height="100" src="docs/the_desk.png">
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/692376f4fb04464da1d8574542ab406a)](https://app.codacy.com/gh/s-goldman/Dusty-Evolved-Star-Kit?utm_source=github.com&utm_medium=referral&utm_content=s-goldman/Dusty-Evolved-Star-Kit&utm_campaign=Badge_Grade)
 [![Build](https://github.com/s-goldman/Dusty-Evolved-Star-Kit/actions/workflows/cron.yml/badge.svg?branch=main)](https://github.com/s-goldman/Dusty-Evolved-Star-Kit/actions/workflows/cron.yml)
 [![Documentation Status](https://readthedocs.org/projects/dusty-evolved-star-kit/badge/?version=latest)](https://dusty-evolved-star-kit.readthedocs.io/en/latest/?badge=latest)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/b6bd41e6d7db48e7b811a106015f2d82)](https://www.codacy.com/gh/s-goldman/Dusty-Evolved-Star-Kit/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=s-goldman/Dusty-Evolved-Star-Kit&amp;utm_campaign=Badge_Grade)
