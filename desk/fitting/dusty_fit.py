@@ -67,7 +67,7 @@ def fit_single_source(source_number : int, fit_params):
         )
     best_fit = full_outputs[np.argmax(liklihood)]
     out = Table(best_fit)
-
+    
     target_name = source_file_name.split("/")[-1][:-4].replace("IRAS-", "IRAS ")
 
     # creates results file
@@ -81,6 +81,11 @@ def fit_single_source(source_number : int, fit_params):
         )
         f.close()
 
+    # make clear that grams is dust mass loss rates
+    mass_loss_str = "Gas"
+    if "grams" in fit_params.grid:
+        mass_loss_str = "Dust"
+        
     # printed output
     print(
         "\n\n             Target: "
@@ -98,10 +103,13 @@ def fit_single_source(source_number : int, fit_params):
         + " km/s"
     )
     print(
-        ("Gas mass loss (scaled)\t\t|\t" + str("%.2E" % float(best_fit["scaled_mdot"])))
+        (f"{mass_loss_str} mass loss (scaled)\t\t|\t" + str("%.2E" % float(best_fit["scaled_mdot"])))
         + " Msun/yr"
     )
     print("-" * 56)
+    
+    if "grams" in fit_params.grid:
+        print("\n**Note: GRAMS uses DUST mass loss rates, not gas mass loss rates.**\n")
 
     if fit_params.save_model_spectrum == True:
         if (fit_params.grid in config.external_grids) | (fit_params.grid == "grams"):
