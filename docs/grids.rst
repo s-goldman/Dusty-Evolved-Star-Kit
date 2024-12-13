@@ -145,7 +145,7 @@ grams: Both GRAMS datasets combined
    - Warning: results uncertain outside of a distance 20-150 kpc.
 
 .. _DESK: https://github.com/s-goldman/Dusty-Evolved-Star-Kit
-.. _Zenodo: https://zenodo.org/record/5574616
+.. _Zenodo: https://doi.org/10.5281/zenodo.14448621
 .. _DUSTY: https://github.com/ivezic/dusty
 .. _Elitzur & Ivezić 2001: https://ui.adsabs.harvard.edu/abs/2001MNRAS.327..403E/abstract
 .. _Sargent et al. (2011): https://ui.adsabs.harvard.edu/abs/2011ApJ...728...93S/abstract
