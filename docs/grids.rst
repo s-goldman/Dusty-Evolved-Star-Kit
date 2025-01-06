@@ -34,7 +34,7 @@ are downloaded during installation. Additional grids are downloaded when selecte
 The number of unique models and the file size of each grid are specified next to
 the grid names below.
 
-The models assume a standard `MRN`_ grain size distribution from
+Except where stated otherwise, the models assume a standard `MRN`_ grain size distribution from
 0.005 - 0.25 microns. The DUSTY code uses an analytical approximation of the wind density
 distribution. This calculation extends to a distance of 10,000 times the inner
 radius (density type = 4, within the DUSTY code).
@@ -86,7 +86,21 @@ oxygen-deficient grains from `Ossenkopf et al. (1992)`_ and crystalline silicate
 56, 64, 80% for the oxygen-rich and oxygen-deficient silicates with the remainder filled with
 the crystalline silicates and 4% iron grains.
 
-Explore this model grid using the new `interactive notebook`_
+Explore this model grid using the `interactive notebook`_
+
+
+galactic-bulge-OH-IR (*N*\ =7,500; 124 MB): The oxygen-rich grid used in for 
+`Goldman et al. (2025)`_ The grid is based on atmospheric COMARCS models with effective 
+temperature (2600-3400 K: 200 K interval) inner dust temperature (600-1200K: 100 K interval) 
+and optical depth (0.1 - 30: 100 spaced linearally) and optical depth (0.1 - 50: 50 spaced linearally). 
+The models use a grain composition of 4% metalic iron (`Ordal et al. 1988`_) and fractions of armorphous 
+and crystalline silicates. The crystalline fraction is set to 1, 3, 6, 10, or 15%, with the remaining
+fraction filled with amorphous silicates. These models are the full hydrodynamical solution for the 
+density structure of the wind. 
+
+
+galactic-bulge-OH-IR-mmrn (*N*\ =7,500; 124 MB): Same as galactic-bulge-OH-IR but with a MRN grain size 
+distribution with a larger maximum allowable grain size of 0.5 micron. 
 
 
 Carbon-rich DUSTY model grids
@@ -167,3 +181,5 @@ grams: Both GRAMS datasets combined
 .. _Gustafsson et al. (2008): https://ui.adsabs.harvard.edu/abs/2008A%26A...486..951G/abstract
 .. _Draine & Lee (1984): https://ui.adsabs.harvard.edu/abs/1984ApJ...285...89D/abstract
 .. _interactive notebook: https://mybinder.org/v2/gh/s-goldman/Dusty-Evolved-Star-Kit_notebooks/main?labpath=silicate-mix_interactive.ipynb
+.. _Goldman et al. (2025): https://s-goldman.github.io/
+.. _Ordal et al. 1988: https://ui.adsabs.harvard.edu/abs/1988ApOpt..27.1203O/abstract
