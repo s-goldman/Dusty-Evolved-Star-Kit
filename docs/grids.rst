@@ -181,5 +181,5 @@ grams: Both GRAMS datasets combined
 .. _Gustafsson et al. (2008): https://ui.adsabs.harvard.edu/abs/2008A%26A...486..951G/abstract
 .. _Draine & Lee (1984): https://ui.adsabs.harvard.edu/abs/1984ApJ...285...89D/abstract
 .. _interactive notebook: https://mybinder.org/v2/gh/s-goldman/Dusty-Evolved-Star-Kit_notebooks/main?labpath=silicate-mix_interactive.ipynb
-.. _Goldman et al. (2025): https://s-goldman.github.io/
+.. _Goldman et al. (2025): https://arxiv.org/abs/2501.02722
 .. _Ordal et al. 1988: https://ui.adsabs.harvard.edu/abs/1988ApOpt..27.1203O/abstract
