@@ -22,6 +22,8 @@ grids = [
     "iron-mix",
     "o-def-silicates",
     "silicate-mix",
+    "galactic-bulge-OH-IR",
+    "galactic-bulge-OH-IR-mmrn"
 ]
 external_grids = [
     "H11-LMC",

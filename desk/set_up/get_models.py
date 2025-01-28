@@ -47,7 +47,7 @@ def get_remote_models(model_grid_name: str):
 
     """
     # update if zeonodo repository updated
-    repository = 5912191
+    repository = 14448621
 
     fname_dld_outputs = download_file(
         "https://zenodo.org/record/"

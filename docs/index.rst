@@ -17,7 +17,7 @@ The Dusty-Evolved-Star-Kit
    grids
    modules
    contributing
-   history
+   changelog
 
 Indices and tables
 ==================
