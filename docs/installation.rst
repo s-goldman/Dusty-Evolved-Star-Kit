@@ -67,5 +67,3 @@ sphinx
 sphinx_automodapi
 
 pytest-cov
-
-seaborn

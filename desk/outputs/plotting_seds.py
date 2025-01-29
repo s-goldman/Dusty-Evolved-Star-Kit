@@ -1,14 +1,11 @@
 import sys
 import math
-import seaborn as sns
 import astropy.units as u
 import matplotlib.pyplot as plt
 import numpy as np
 from fnmatch import fnmatch
 from astropy.table import Table
 from desk.set_up import get_data, config, get_models
-
-sns.set_palette("colorblind")
 
 
 def plot_phot(x_data:list, y_data:list, ax):
