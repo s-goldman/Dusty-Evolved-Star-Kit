@@ -10,5 +10,4 @@ sphinx
 sphinx_automodapi
 sphinx_rtd_theme
 pytest-cov
-seaborn
 recommonmark

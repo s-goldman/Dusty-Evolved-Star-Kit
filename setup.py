@@ -39,7 +39,6 @@ setup(
         "sphinx",
         "sphinx_automodapi",
         "pytest-cov",
-        "seaborn",
     ],
     license="BSD license",
     long_description=readme + "\n\n" + history,
