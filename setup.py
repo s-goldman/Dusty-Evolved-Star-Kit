@@ -38,7 +38,7 @@ setup(
         "pytest-cov",
     ],
     license="BSD license",
-    long_description=readme
+    long_description=readme,
     include_package_data=True,
     keywords="Dusty-Evolved-Star-Kit",
     name="desk",
