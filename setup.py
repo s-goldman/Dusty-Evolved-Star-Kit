@@ -9,9 +9,6 @@ from setuptools import setup, find_packages
 with open("README.rst") as readme_file:
     readme = readme_file.read()
 
-with open("CHANGELOG.rst") as history_file:
-    history = history_file.read()
-
 setup(
     author="Steven R. Goldman",
     author_email="sgoldman@stsci.edu",
@@ -41,7 +38,7 @@ setup(
         "pytest-cov",
     ],
     license="BSD license",
-    long_description=readme + "\n\n" + history,
+    long_description=readme
     include_package_data=True,
     keywords="Dusty-Evolved-Star-Kit",
     name="desk",
