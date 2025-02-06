@@ -2,7 +2,12 @@ name: PR pytest
 
 on:
   pull_request:
-    
+    branches:
+      - main
+  push:
+    branches:
+      - main
+
 jobs:
   # check:
   #   uses: OpenAstronomy/github-actions-workflows/.github/workflows/tox.yml@v1
