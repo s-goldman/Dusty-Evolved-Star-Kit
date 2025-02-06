@@ -20,8 +20,6 @@ jobs:
         brew:
           - hdf5
       envs: |
-        - linux: py310
-        - macos: py310
         - linux: py311
         - macos: py311
         - linux: py312
