@@ -24,3 +24,5 @@ jobs:
         - macos: py311
         - linux: py312
         - macos: py312
+        - linux: py313
+        - macos: py313
