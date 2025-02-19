@@ -159,7 +159,7 @@ def test_single_fit_options(tmpdir):
         testing=True,
     )
 
-
+@pytest.mark.skip(reason="Simultaneous calls fail to connect to the Vizier server when run with github actions.")
 @pytest.mark.parametrize(
     "target_name", ["MSX LMC 807", (295.4879586347, 16.7446716483)]
 )
