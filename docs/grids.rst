@@ -13,8 +13,8 @@ scaling relations to generate models. The model shape can be scaled
 to any luminosity, expansion velocity, or mass-loss rate so long as the
 combination of these three parameters remains the same. The DESK model grids
 contain 2,000--32,000 unique model shapes. Theses grids are scaled
-to the desired number of luminosities between 1,000 and 150,000 using the
-command option `--n`.
+to the desired number of luminosities between 1,000 and 150,000 solar luminosities
+using the command option `--n`.
 
 .. code-block:: console
 
@@ -89,18 +89,18 @@ the crystalline silicates and 4% iron grains.
 Explore this model grid using the `interactive notebook`_
 
 
-galactic-bulge-OH-IR (*N*\ =7,500; 124 MB): The oxygen-rich grid used in for 
-`Goldman et al. (2025)`_ The grid is based on atmospheric COMARCS models with effective 
-temperature (2600-3400 K: 200 K interval) inner dust temperature (600-1200K: 100 K interval) 
-and optical depth (0.1 - 30: 100 spaced linearally) and optical depth (0.1 - 50: 50 spaced linearally). 
-The models use a grain composition of 4% metalic iron (`Ordal et al. 1988`_) and fractions of armorphous 
+galactic-bulge-OH-IR (*N*\ =7,500; 124 MB): The oxygen-rich grid used in for
+`Goldman et al. (2025)`_ The grid is based on atmospheric COMARCS models with effective
+temperature (2600-3400 K: 200 K interval) inner dust temperature (600-1200K: 100 K interval)
+and optical depth (0.1 - 30: 100 spaced linearally) and optical depth (0.1 - 50: 50 spaced linearally).
+The models use a grain composition of 4% metalic iron (`Ordal et al. 1988`_) and fractions of armorphous
 and crystalline silicates. The crystalline fraction is set to 1, 3, 6, 10, or 15%, with the remaining
-fraction filled with amorphous silicates. These models are the full hydrodynamical solution for the 
-density structure of the wind. 
+fraction filled with amorphous silicates. These models are the full hydrodynamical solution for the
+density structure of the wind.
 
 
-galactic-bulge-OH-IR-mmrn (*N*\ =7,500; 124 MB): Same as galactic-bulge-OH-IR but with a MRN grain size 
-distribution with a larger maximum allowable grain size of 0.5 micron. 
+galactic-bulge-OH-IR-mmrn (*N*\ =7,500; 124 MB): Same as galactic-bulge-OH-IR but with a MRN grain size
+distribution with a larger maximum allowable grain size of 0.5 micron.
 
 
 Carbon-rich DUSTY model grids
