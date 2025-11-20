@@ -43,6 +43,10 @@ radius (density type = 4, within the DUSTY code).
 Oxygen-rich DUSTY model grids
 =============================
 
+comarcs-oxygen-atmosphere (*N*\ =5; 0.1 MB): The grid is based on oxygen-rich 
+atmospheric COMARCS models with effective temperature (2600-3400 K: 100 K interval). 
+This model grid assumes no dust. 
+
 silicates (*N*\ =2,000; 3.4 MB): Uses oxygen-rich warm silicates from
 `Ossenkopf et al. (1992)`_ and a black body. This grid provides ranges in
 effective temperature (2600-3400 K: 200 K interval) inner dust
@@ -105,6 +109,10 @@ distribution with a larger maximum allowable grain size of 0.5 micron.
 
 Carbon-rich DUSTY model grids
 =============================
+
+comarcs-carbon-atmosphere (*N*\ =7; 0.1 MB): The grid is based on carbon-rich 
+atmospheric COMARCS models with effective temperature (2400-3400 K: 100 K interval). 
+This model grid assumes no dust. 
 
 amorphous-carbon (*N*\ =1,340; 145 MB): Same as silicates but with
 amorphous carbon grains from `Zubko et al. (1996)`_.

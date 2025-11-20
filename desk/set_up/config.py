@@ -13,15 +13,17 @@ fitting = dict(
 )
 output = dict(printed_output="True", output_unit="Wm^-2", create_figure="yes")
 grids = [
+    "comarcs-carbon-atmosphere",
     "amorphous-carbon",
-    "silicates",
     "carbon-mix",
+    "comarcs-oxygen-atmosphere",
+    "silicates",
+    "silicate-mix",
     "corundum-mix",
     "crystalline-mix",
     "draine-mix",
     "iron-mix",
     "o-def-silicates",
-    "silicate-mix",
     "galactic-bulge-OH-IR",
     "galactic-bulge-OH-IR-mmrn"
 ]
