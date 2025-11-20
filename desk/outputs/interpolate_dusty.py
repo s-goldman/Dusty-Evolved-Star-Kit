@@ -219,7 +219,7 @@ def interpolate(
         + "_"
         + str(tau_new)
         + "_"
-        + str(int(distance_in_kpc))
+        + str(distance_in_kpc)
         + ".csv",
         overwrite=True,
     )
