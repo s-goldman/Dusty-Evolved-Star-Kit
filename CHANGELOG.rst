@@ -5,7 +5,7 @@ Changelog
 1.9.1 (unreleased)
 
  - Deprecated the 'distance' argument in favor of 'distance_in_kpc' to improve 
-   clarity.
+   clarity. [#249]
  - Bug fixes for int(distance_in_kpc) when source is within 1 kpc, and grid 
    trimming when none is needed. [#246, #247]
 
