@@ -23,13 +23,13 @@ package to your csv file, and specify the distance (in kpc) and grid of choice:
 
 .. code-block:: console
 
-	> desk fit --source='target_name.csv' --distance=50 --grid='H11-LMC'
+	> desk fit --source='target_name.csv' --distance_in_kpc=50 --grid='H11-LMC'
 
 or specify a directory with multiple csv files:
 
 .. code-block:: console
 
-	> desk fit --source='folder_of_csvs' --distance=30 --grid='silicates'
+	> desk fit --source='folder_of_csvs' --distance_in_kpc=30 --grid='silicates'
 
 
 Additional fitting options
@@ -151,7 +151,7 @@ console commands.
 .. code-block:: console
 
 	>>> from desk import *
-	>>> fit(source="target.csv", distance=3, grid="oxygen")
+	>>> fit(source="target.csv", distance_in_kpc=3, grid="oxygen")
 
 One can also use the sed, vizier_sed, and grids in a similar fashion.
 
