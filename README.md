@@ -27,7 +27,7 @@ Install Using Python
 
 1). Install the package from [source](https://dusty-evolved-star-kit.readthedocs.io/en/latest/installation.html) or with [pip](https://pypi.org/project/pip/) using the command `pip install desk`.
 
-![](docs/pip_install2.gif)
+<!-- ![](docs/pip_install2.gif) -->
 
 Using the DESK
 --------------

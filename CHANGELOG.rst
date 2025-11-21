@@ -2,7 +2,7 @@
 Changelog
 =========
 
-1.9.1 (unreleased)
+1.9.1 (2025-11-21)
 
  - Deprecated the 'distance' argument in favor of 'distance_in_kpc' to improve 
    clarity. [#249]
