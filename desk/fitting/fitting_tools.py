@@ -1,4 +1,3 @@
-import ipdb
 import numpy as np
 from astropy.table import Table
 
@@ -21,15 +20,41 @@ def trim_grid(data: np.ndarray, fit_params):
         Trimmed model fluxes in W*M^-2
 
     """
+    model_wavelength_grid = fit_params.model_wavelength_grid
+    if model_wavelength_grid.size == 0:
+        raise ValueError("Model wavelength grid is empty.")
+
     data_wavelength_min = np.amin(data[0])
     data_wavelength_max = np.amax(data[0])
-    lower_trim_model_index = np.where(
-        fit_params.model_wavelength_grid < data_wavelength_min
-    )[0][-1]
-    upper_trim_model_index = (
-        np.where(fit_params.model_wavelength_grid > data_wavelength_max)[0][0] + 1
+
+    if (
+        data_wavelength_max < model_wavelength_grid[0]
+        or data_wavelength_min > model_wavelength_grid[-1]
+    ):
+        raise IndexError(
+            "No overlap between model grid and data wavelengths. Please adjust wavelength range."
+        )
+
+    lower_trim_model_index = np.searchsorted(
+        model_wavelength_grid,
+        data_wavelength_min,
+        side="left",
     )
-    trimmed_model_wavelength = fit_params.model_wavelength_grid[
+    lower_trim_model_index = max(lower_trim_model_index - 1, 0)
+
+    upper_trim_model_index = np.searchsorted(
+        model_wavelength_grid,
+        data_wavelength_max,
+        side="right",
+    )
+    upper_trim_model_index = min(upper_trim_model_index, model_wavelength_grid.size)
+
+    if lower_trim_model_index >= upper_trim_model_index:
+        raise IndexError(
+            "No overlap between model grid and data wavelengths. Please adjust wavelength range."
+        )
+
+    trimmed_model_wavelength = model_wavelength_grid[
         lower_trim_model_index:upper_trim_model_index
     ]
     trimmed_model_fluxes = Table(
