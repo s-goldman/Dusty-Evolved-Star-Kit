@@ -226,7 +226,7 @@ def save_model(
         + "_"
         + str(int(luminosity))
         + "_"
-        + str(int(distance_in_kpc))
+        + str(distance_in_kpc)
         + ".csv",
         overwrite=True,
     )
