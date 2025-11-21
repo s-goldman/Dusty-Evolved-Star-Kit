@@ -46,24 +46,6 @@ Once you have a copy of the source, you can install it with:
 
 Dependecies
 -----------
-astropy
 
-numpy
-
-ipdb
-
-tqdm
-
-matplotlib
-
-h5py
-
-wheel
-
-twine
-
-sphinx
-
-sphinx_automodapi
-
-pytest-cov
+.. include:: ../requirements.txt
+    :literal:
