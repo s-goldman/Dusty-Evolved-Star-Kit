@@ -4,6 +4,7 @@ import time
 import numpy as np
 import astropy.units as u
 from astropy.table import Table
+from astropy.utils.decorators import deprecated_renamed_argument
 from multiprocessing import Pool, cpu_count
 from functools import partial
 from typing import Union
@@ -231,10 +232,10 @@ def save_model(
         overwrite=True,
     )
 
-
+@deprecated_renamed_argument('distance', 'distance_in_kpc', since='2025-11-20')
 def fit(
     source: str = desk_path + "put_target_data_here",
-    distance: float = config.target["distance_in_kpc"],
+    distance_in_kpc: float = config.target["distance_in_kpc"],
     grid: str = config.fitting["default_grid"],
     n: int = config.fitting["default_number_of_times_to_scale_models"],
     min_wavelength: float = config.fitting["default_wavelength_min"],
@@ -251,7 +252,7 @@ def fit(
     ----------
     source : str
         Name of target in array of strings (or one string).
-    distance : float
+    distance_in_kpc : float
         Distance to source(s) in kiloparsecs.
     grid : str
         Name of model grid.
@@ -285,7 +286,7 @@ def fit(
 
     # create class for scaling to full grids
     full_grid_params = full_grid.instantiate(
-        grid, grid_dusty, grid_outputs, float(distance), int(n)
+        grid, grid_dusty, grid_outputs, float(distance_in_kpc), int(n)
     )
 
     # scale to full grids and get distance scaling factors
@@ -298,7 +299,7 @@ def fit(
     fit_params = get_inputs.fitting_parameters(
         file_names,
         source,
-        distance,
+        distance_in_kpc,
         grid,
         n,
         model_wavelength_grid,
@@ -357,7 +358,7 @@ def fit(
     # Fitting
     print("\nFit parameters\n--------------")
     print("Grid:\t\t" + grid)
-    print("Distance:\t" + str(distance) + " kpc")
+    print("Distance:\t" + str(distance_in_kpc) + " kpc")
     if fit_params.grid in config.external_grids:
         print("Grid density:\t" + str(n) + " (ignored as it is an external grids)")
     else:

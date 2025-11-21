@@ -36,21 +36,14 @@ Using the DESK
 
 3). Use the following command in any terminal (or use the [instructions for python](https://dusty-evolved-star-kit.readthedocs.io/en/latest/usage.html#use-in-python-environment))
 
-  `desk fit --source='target_name.csv'`
+  `desk fit --source='target_name.csv' --distance_in_kpc=50 --grid='Oss-Orich-bb'`
 
 or if you have a folder of csv files
 
-  `desk fit --source='folder_of_csvs'`
+  `desk fit --source='folder_of_csvs' --distance_in_kpc=50 --grid='Oss-Orich-bb'`
 
-To fit the example sources use the command
 
-  `desk fit`
-
-additional options are:
-
-`desk fit --source='target_name.csv' --distance=50 --grid='Oss-Orich-bb'`
-
-The other important options are the distance (in kpc) and the grid of models you would like to use (options listed below). For other options see the [Usage](https://dusty-evolved-star-kit.readthedocs.io/en/latest/usage.html) page. For the model grids, you can select 'oxygen' or 'carbon' to use the default models. To see other available grids use:
+The other important options are the distance_in_kpc and the grid of models you would like to use (options listed below). For other options see the [Usage](https://dusty-evolved-star-kit.readthedocs.io/en/latest/usage.html) page. For the model grids, you can select 'oxygen' or 'carbon' to use the default models. To see other available grids use:
 
 `desk grids`
 

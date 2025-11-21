@@ -151,7 +151,7 @@ def test_single_fit_options(tmpdir):
     example_filename = create_sample_data(tmpdir, 2)
     console_commands.fit(
         source=str(example_filename),
-        distance=0.1,
+        distance_in_kpc=0.1,
         grid="oxygen",
         n=2,
         min_wavelength=1,

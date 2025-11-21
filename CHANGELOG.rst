@@ -2,6 +2,13 @@
 Changelog
 =========
 
+1.9.1 (unreleased)
+
+ - Deprecated the 'distance' argument in favor of 'distance_in_kpc' to improve 
+   clarity.
+ - Bug fixes for int(distance_in_kpc) when source is within 1 kpc, and grid 
+   trimming when none is needed. [#246, #247]
+
 1.9.0 (2025-01-28)
 
  - Changes to ensure compatibility with Numpy 2.0 and Python 3.12.
